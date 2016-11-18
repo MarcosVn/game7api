@@ -77,10 +77,10 @@ DATABASES = {
     'default': {
         # # MINHA CASA
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'game7api   ',
+        'NAME': 'game7api',
         'USER':'lovieira',
         'PASSWORD':'123456',
-        'HOST':'127.0.0.1',
+        'HOST':'localhost',
         'PORT':'5432'
 
         # INPE
