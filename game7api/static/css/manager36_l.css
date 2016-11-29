@@ -1,0 +1,19 @@
+* {
+    margin:0px;
+    padding:0px;
+    list-style: none;
+}
+
+body{
+    background: url("../img/fd.jpg");
+}
+
+.login{
+    background: #fff;
+    margin-top:30px;
+}
+
+.login img{
+    margin:0 auto;
+    display: block;
+}
