@@ -85,6 +85,16 @@ class adminCategoriaVerView(View):
         return render_to_response('adm/categoria/ver.html', context, RequestContext(request))
 
 
+class adminSubCategoriasView(View):
+    def get(self, request, *args, **kwargs):
+        context = {}
+
+        oCategoria = Categoria.objects.filter(id=request.GET.get("c_id")).first()
+        context['categoriaselecionado'] = oCategoria
+
+        return render_to_response('adm/subcategoria/subcategorias.html', context, RequestContext(request))
+
+
 def dbadmincategoriaexcluir(request):
 
     oCategoria = Categoria.objects.filter(id=request.GET.get("c_id")).first()

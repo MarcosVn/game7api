@@ -29,7 +29,7 @@
             {%for categoria in listacategorias%}
               <tr>
                   <td class="col-md-10">{{categoria.nome}}</td>
-                  <td><a href="subcategorias?c_id={{categoria.id}}" class="btn btn-default btn-xs">subcategorias</a> </td>
+                  <td><a href="/adm/subcategorias?c_id={{categoria.id}}" class="btn btn-default btn-xs">subcategorias</a> </td>
                   <td><a href="/adm/categoria-edicao?c_id={{categoria.id}}" class="btn btn-primary btn-xs">editar</a> </td>
                   <td><a href="/adm/categoria-ver?c_id={{categoria.id}}" class="btn btn-primary btn-xs">ver</a> </td>
                   <td><a href="/adm/categoria-excluir?c_id={{categoria.id}}" class="btn btn-danger btn-xs">excluir</a> </td>
