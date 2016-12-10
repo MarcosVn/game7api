@@ -113,7 +113,7 @@ class adminSubCategoriaNovaView(View):
 
         oCategoriaSub.save()
 
-        return redirect('/adm/categorias?c_id='+str(oCategoria.id))
+        return redirect('/adm/subcategorias?c_id='+str(oCategoria.id))
 
 
 class adminSubCategoriaExcluirView(View):
@@ -124,6 +124,16 @@ class adminSubCategoriaExcluirView(View):
         context["subcategoriaselecionado"]=oSubCategoria
 
         return render_to_response('adm/subcategoria/excluir.html', context, RequestContext(request))
+
+
+class adminCategoriaVerView(View):
+    def get(self, request, *args, **kwargs):
+        context = {}
+
+        oSubCategoria = SubCategoria.objects.filter(id=request.GET.get("subc_id")).first()
+        context["subcategoriaselecionado"]=oSubCategoria
+
+        return render_to_response('adm/subcategoria/ver.html', context, RequestContext(request))
 
 
 def dbadmincategoriaexcluir(request):
@@ -141,6 +151,8 @@ def dbadminsubcategoriaexcluir(request):
 
     oSubCategoria = SubCategoria.objects.filter(id=request.GET.get("subc_id")).first()
 
+    c_id = oSubCategoria.categoria.id
+
     oSubCategoria.delete()
 
-    return redirect('/adm/categorias')
+    return redirect('/adm/subcategorias?c_id='+str(c_id))
