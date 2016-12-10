@@ -18,11 +18,21 @@ class adminHomeView(View):
         return render_to_response('adm/home.html', context, RequestContext(request))
 
 
+
 class adminCategoriasView(View):
     def get(self, request, *args, **kwargs):
         context = {}
 
-        context['listacategorias'] = Categoria.objects.all()
+        context['listacategorias'] = Categoria.objects.all().order_by("nome")
+
+        return render_to_response('adm/categoria/categorias.html', context, RequestContext(request))
+
+    def post(self, request, *args, **kwargs):
+        context = {}
+
+        c_name = request.POST.get("ipFiltroCategoria")
+
+        context['listacategorias'] = Categoria.objects.filter(nome__icontains=c_name).order_by("nome")
 
         return render_to_response('adm/categoria/categorias.html', context, RequestContext(request))
 
@@ -91,9 +101,20 @@ class adminSubCategoriasView(View):
 
         oCategoria = Categoria.objects.filter(id=request.GET.get("c_id")).first()
         context['categoriaselecionado'] = oCategoria
+        context['subcategorias'] = oCategoria.subcategorias.order_by("nome")
 
         return render_to_response('adm/subcategoria/subcategorias.html', context, RequestContext(request))
 
+    def post(self, request, *args, **kwargs):
+        context = {}
+
+        oCategoria = Categoria.objects.filter(id=request.GET.get("c_id")).first()
+
+        sub_name = request.POST.get("ipFiltroSubCategoria")
+
+        context['subcategorias'] = oCategoria.subcategorias.filter(nome__icontains=sub_name).order_by("nome")
+
+        return render_to_response('adm/subcategoria/subcategorias.html', context, RequestContext(request))
 
 class adminSubCategoriaNovaView(View):
     def get(self,request, *args, **kwargs):
@@ -116,6 +137,25 @@ class adminSubCategoriaNovaView(View):
         return redirect('/adm/subcategorias?c_id='+str(oCategoria.id))
 
 
+class adminSubCategoriaEdicaoView(View):
+    def get(self,request, *args, **kwargs):
+        context = {}
+
+        oSubCategoria = SubCategoria.objects.filter(id=request.GET.get("subc_id")).first()
+        context["subcategoriaselecionado"] = oSubCategoria
+
+        return render(request, 'adm/subcategoria/editar.html', context)
+
+    def post(self,request, *args, **kwargs):
+
+        oSubCategoria = SubCategoria.objects.filter(id=request.GET.get("subc_id")).first()
+        oSubCategoria.nome = request.POST.get("nome")
+
+        oSubCategoria.save()
+
+        return redirect('/adm/subcategorias?c_id='+str(oSubCategoria.categoria.id))
+
+
 class adminSubCategoriaExcluirView(View):
     def get(self, request, *args, **kwargs):
         context = {}
@@ -126,7 +166,7 @@ class adminSubCategoriaExcluirView(View):
         return render_to_response('adm/subcategoria/excluir.html', context, RequestContext(request))
 
 
-class adminCategoriaVerView(View):
+class adminSubCategoriaVerView(View):
     def get(self, request, *args, **kwargs):
         context = {}
 

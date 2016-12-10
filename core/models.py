@@ -171,3 +171,19 @@ class Item(models.Model):
 
     def __unicode__(self):
         return self.produto.nome + "_" + str(self.id)
+
+
+class Funcionario(models.Model):
+    id = models.AutoField(primary_key=True)
+    nome = models.CharField(max_length=512)
+    email = models.CharField(max_length=512)
+    senha = models.CharField(max_length=128)
+    telefone = models.CharField(max_length=128)
+    endereco = models.CharField(max_length=512)
+
+    class Meta:
+        verbose_name = "Funcionario"
+        verbose_name_plural = "Funcionarios"
+
+    def __unicode__(self):
+        return str(self.nome)

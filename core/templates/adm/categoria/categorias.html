@@ -9,7 +9,8 @@
         <p>Este módulo apresenta por padrão as categorias.</p>
     </div>
     <div class="col-md-12">
-        <form class="form-inline well">
+        <form method="post" class="form-inline well">
+            {%csrf_token%}
             <div class="form-group">
                 <label for="ipFiltroCategoria">Categoria</label>
                 <input type="text" class="form-control" id="ipFiltroCategoria" name="ipFiltroCategoria" >

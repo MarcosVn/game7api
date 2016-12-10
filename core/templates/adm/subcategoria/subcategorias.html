@@ -9,7 +9,8 @@
         <p>Este módulo apresenta por padrão as subcategorias.</p>
     </div>
     <div class="col-md-12">
-        <form class="form-inline well">
+        <form method="post" class="form-inline well">
+            {%csrf_token%}
             <div class="form-group">
                 <label for="ipFiltroSubCategoria">SubCategoria</label>
                 <input type="text" class="form-control" id="ipFiltroSubCategoria" name="ipFiltroSubCategoria" >
@@ -26,7 +27,7 @@
                 <th></th>
                 <th></th>
             </tr>
-            {%for subcategoria in categoriaselecionado.subcategorias.all%}
+            {%for subcategoria in subcategorias%}
               <tr>
                   <td class="col-md-10">{{subcategoria.nome}}</td>
                   <td><a href="/adm/subcategoria-edicao?subc_id={{subcategoria.id}}" class="btn btn-primary btn-xs">editar</a> </td>
