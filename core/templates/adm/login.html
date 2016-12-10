@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title></title>
+        {% load staticfiles %}
+        <link href="{% static 'css/bootstrap.css'%}" rel="stylesheet" />
+        <link href="{% static 'css/manager36.css'%}" rel="stylesheet" />
+        <script src="{% static 'js/jQuery.js'%}"></script>
+        <script src="{% static 'js/bootstrap.min.js'%}"></script>
+        <script src="{% static 'angular/angular.min.js'%}"></script>
+        <script src="{% static 'angular/manager36_app.js'%}"></script>
+        <script src="{% static 'angular/controllers.js'%}"></script>
+    </head>
+<body>
+    <div class="container-fluid" style="margin-top:20px;">
+        <div class="row">
+            <div class="container-fluid">
+                <div class="col-md-4 well col-md-offset-4" >
+                    <div class="col-md-6">
+                        <b>ADMINISTRADOR</b>
+                        <p>Acesso a parte administrativa do sistema</p>
+                        Email
+                        <input type="email" name="admin-email" class="form-control" />
+                        Senha
+                        <input type="password" name="admin-senha" class="form-control" />
+                        <br>
+                        <a class="btn btn-primary" type="button">Acessar</a>
+                    </div>
+                    <div class="col-md-6">
+                        <b>EMPRESA</b>
+                        <p>Acesso de empresas filiadas</p>
+                        Email
+                        <input type="email" name="empresa-email" class="form-control" />
+                        Senha
+                        <input type="password" name="empresa-senha" class="form-control" />
+                        <br>
+                        <a class="btn btn-primary" type="button">Acessar</a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+{% block content %}{%endblock %}
+</body>
+</html>

@@ -1,9 +1,7 @@
-var manager36App = angular.module("manager36App", []);
-manager36App.config(function($interpolateProvider){
+var game7App = angular.module("game7App", []);
+game7App.config(function($interpolateProvider){
     $interpolateProvider.startSymbol('{[').endSymbol(']}');
-});
-
-manager36App.service("Ajax", function($http){
+})game7App.service("Ajax", function($http){
     return {
         request:function (method, url, data, callback_success, callback_error) {
             $http({

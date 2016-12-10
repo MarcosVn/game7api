@@ -19,5 +19,15 @@ from core.views import *
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^$', home),
+    url(r'^adm/login/', adminLoginView.as_view(), name = "Login"),
+    url(r'^adm/home/', adminHomeView.as_view(), name = "Home-adm"),
+    url(r'^adm/categorias/', adminCategoriasView.as_view(), name = "Categorias-adm"),
+    url(r'^adm/categorias-nova', adminCategoriaNovaView.as_view(), name = "NovaCategoria-adm"),
+    url(r'^adm/categoria-excluir$', adminCategoriaExcluirView.as_view(), name = "ExcluirCategoria-adm"),
+    url(r'^adm/categoria-ver', adminCategoriaVerView.as_view(), name="VerCategoria-adm"),
+    url(r'^adm/categoria-edicao', adminCategoriaEdicaoView.as_view(), name="EdicaoCategoria-adm"),
+
+    url(r'^adm/bd-categoria-excluir$', dbadmincategoriaexcluir, name = "BDExcluirCategoria-adm"),
+
+    url(r'^$', adminHomeView.as_view(), name = "Home"),
 ]
