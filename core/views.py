@@ -95,10 +95,52 @@ class adminSubCategoriasView(View):
         return render_to_response('adm/subcategoria/subcategorias.html', context, RequestContext(request))
 
 
+class adminSubCategoriaNovaView(View):
+    def get(self,request, *args, **kwargs):
+        context = {}
+        oCategoria = Categoria.objects.filter(id=request.GET.get("c_id")).first()
+
+        context["categoriaselecionada"] = oCategoria
+
+        return render(request, 'adm/subcategoria/novo.html', context)
+
+    def post(self,request, *args, **kwargs):
+        oCategoria = Categoria.objects.filter(id=request.GET.get("c_id")).first()
+
+        oCategoriaSub = SubCategoria()
+        oCategoriaSub.nome = request.POST.get("nome")
+        oCategoriaSub.categoria = oCategoria
+
+        oCategoriaSub.save()
+
+        return redirect('/adm/categorias?c_id='+str(oCategoria.id))
+
+
+class adminSubCategoriaExcluirView(View):
+    def get(self, request, *args, **kwargs):
+        context = {}
+
+        oSubCategoria = SubCategoria.objects.filter(id=request.GET.get("subc_id")).first()
+        context["subcategoriaselecionado"]=oSubCategoria
+
+        return render_to_response('adm/subcategoria/excluir.html', context, RequestContext(request))
+
+
 def dbadmincategoriaexcluir(request):
 
     oCategoria = Categoria.objects.filter(id=request.GET.get("c_id")).first()
 
+    id_c = oCategoria.id
+
     oCategoria.delete()
 
-    return redirect('/adm/categorias/')
+    return redirect('/adm/categorias?c_id='+str(id_c))
+
+
+def dbadminsubcategoriaexcluir(request):
+
+    oSubCategoria = SubCategoria.objects.filter(id=request.GET.get("subc_id")).first()
+
+    oSubCategoria.delete()
+
+    return redirect('/adm/categorias')

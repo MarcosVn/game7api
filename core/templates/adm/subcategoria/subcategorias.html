@@ -29,15 +29,15 @@
             {%for subcategoria in categoriaselecionado.subcategorias.all%}
               <tr>
                   <td class="col-md-10">{{subcategoria.nome}}</td>
-                  <td><a href="/adm/subcategoria-edicao?c_id={{subcategoria.id}}" class="btn btn-primary btn-xs">editar</a> </td>
-                  <td><a href="/adm/subcategoria-ver?c_id={{subcategoria.id}}" class="btn btn-primary btn-xs">ver</a> </td>
-                  <td><a href="/adm/subcategoria-excluir?c_id={{subcategoria.id}}" class="btn btn-danger btn-xs">excluir</a> </td>
+                  <td><a href="/adm/subcategoria-edicao?subc_id={{subcategoria.id}}" class="btn btn-primary btn-xs">editar</a> </td>
+                  <td><a href="/adm/subcategoria-ver?subc_id={{subcategoria.id}}" class="btn btn-primary btn-xs">ver</a> </td>
+                  <td><a href="/adm/subcategoria-excluir?subc_id={{subcategoria.id}}" class="btn btn-danger btn-xs">excluir</a> </td>
               </tr>
             {%endfor%}
         </table>
     </div>
     <div class="col-md-2">
-        <a href="/adm/categorias-nova" class="btn btn-primary btn-lg">Nova SubCategoria</a>
+        <a href="/adm/subcategorias-nova?c_id={{categoriaselecionado.id}}" class="btn btn-primary btn-lg">Nova SubCategoria</a>
     </div>
 </div>
 

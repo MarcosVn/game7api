@@ -1,20 +1,5 @@
-game7App.controller('IntegrantesCtrl', function($scope, Ajax) {
+game7App.controller('SubCategoriaCtrl', function($scope, Ajax) {
   $scope.estado=null;
-  $scope.cidade=null;
-  $scope.hierarquias=null;
-  $scope.situacoes=null;
-  $scope.set_cidades = function(){
-    var that = $scope;
-    var callback_success = function (response) {
-        that.cidades=response.data
-    }
-    var callback_error = function (response) {
-        console.log("Erro");
-    }
-    var url = "/getcidadebyestado?estado=" + $scope.estado;
-
-    Ajax.request("GET", url, that, callback_success, callback_error);
-  }
   $scope.getintegrantes = function(){
     console.log($scope.ipFiltroNome);
     console.log($scope.ipFiltroApelido);

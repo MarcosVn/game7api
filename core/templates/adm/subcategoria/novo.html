@@ -1,5 +1,5 @@
 {% extends "adm/base.html" %}
-{% block title %}Nova Categoria{% endblock %}
+{% block title %}Nova SubCategoria{% endblock %}
 {% load staticfiles %}
 {% block content %}
 
@@ -7,8 +7,8 @@
   <form method="post">
     {%csrf_token%}
     <div class="col-md-12">
-        <h3>Nova Categoria</h3>
-        <p>A categoria estará disponível assim que estiver salva.</p>
+        <h3>Nova SubCategoria da Categoria <b>{{categoriaselecionada.nome}}</b></h3>
+        <p>A subcategoria estará disponível assim que estiver salva.</p>
     </div>
     <div class="col-md-8">
         <label class="control-label">Título</label><br/>
