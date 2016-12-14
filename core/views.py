@@ -18,6 +18,23 @@ class adminHomeView(View):
         return render_to_response('adm/home.html', context, RequestContext(request))
 
 
+class adminCategoriasView(View):
+    def get(self, request, *args, **kwargs):
+        context = {}
+
+        context['listacategorias'] = Categoria.objects.all().order_by("nome")
+
+        return render_to_response('adm/categoria/categorias.html', context, RequestContext(request))
+
+    def post(self, request, *args, **kwargs):
+        context = {}
+
+        c_name = request.POST.get("ipFiltroCategoria")
+
+        context['listacategorias'] = Categoria.objects.filter(nome__icontains=c_name).order_by("nome")
+
+        return render_to_response('adm/categoria/categorias.html', context, RequestContext(request))
+
 
 class adminCategoriasView(View):
     def get(self, request, *args, **kwargs):
@@ -35,6 +52,24 @@ class adminCategoriasView(View):
         context['listacategorias'] = Categoria.objects.filter(nome__icontains=c_name).order_by("nome")
 
         return render_to_response('adm/categoria/categorias.html', context, RequestContext(request))
+
+
+class adminClientesView(View):
+    def get(self, request, *args, **kwargs):
+        context = {}
+
+        context['listaclientes'] = Cliente.objects.all().order_by("nome")
+
+        return render_to_response('adm/cliente/clientes.html', context, RequestContext(request))
+
+    def post(self, request, *args, **kwargs):
+        context = {}
+
+        c_name = request.POST.get("ipFiltroEmail")
+
+        context['listaclientes'] = Cliente.objects.filter(nome__icontains=c_name).order_by("nome")
+
+        return render_to_response('adm/cliente/clientes.html', context, RequestContext(request))
 
 
 class adminCategoriaNovaView(View):
@@ -115,6 +150,7 @@ class adminSubCategoriasView(View):
         context['subcategorias'] = oCategoria.subcategorias.filter(nome__icontains=sub_name).order_by("nome")
 
         return render_to_response('adm/subcategoria/subcategorias.html', context, RequestContext(request))
+
 
 class adminSubCategoriaNovaView(View):
     def get(self,request, *args, **kwargs):

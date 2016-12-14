@@ -21,6 +21,7 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^adm/login/', adminLoginView.as_view(), name = "Login"),
     url(r'^adm/home/', adminHomeView.as_view(), name = "Home-adm"),
+
     url(r'^adm/categorias/', adminCategoriasView.as_view(), name = "Categorias-adm"),
     url(r'^adm/categorias-nova', adminCategoriaNovaView.as_view(), name = "NovaCategoria-adm"),
     url(r'^adm/categoria-excluir$', adminCategoriaExcluirView.as_view(), name = "ExcluirCategoria-adm"),
@@ -35,5 +36,6 @@ urlpatterns = [
     url(r'^adm/subcategoria-edicao', adminSubCategoriaEdicaoView.as_view(), name="EdicaoSubCategoria-adm"),
     url(r'^adm/bd-subcategoria-excluir$', dbadminsubcategoriaexcluir, name = "BDExcluirSubCategoria-adm"),
 
+    url(r'^adm/clientes/', adminClientesView.as_view(), name="Clientes-adm"),
     url(r'^$', adminHomeView.as_view(), name = "Home"),
 ]
