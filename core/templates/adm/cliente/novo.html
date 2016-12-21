@@ -7,12 +7,26 @@
   <form method="post">
     {%csrf_token%}
     <div class="col-md-12">
-        <h3>Nova Categoria</h3>
-        <p>A categoria estará disponível assim que estiver salva.</p>
+        <h3>Novo Cliente</h3>
+        <p>O Cliente estará disponível assim que estiver salvo.</p>
     </div>
     <div class="col-md-8">
-        <label class="control-label">Título</label><br/>
+        <label class="control-label">Nome</label><br/>
         <input type="text" name="nome" required="True" class="form-control"/>
+        <br/>
+
+        <label class="control-label">Senha</label><br/>
+        <input type="password" name="senha" required="True" class="form-control"/>
+        <br/>
+
+        <label class="control-label">Telefone</label><br/>
+        <input type="password" name="telefone" required="True" class="form-control"/>
+        <br/>
+
+        <label class="control-label">Endereço</label><br/>
+        <textarea name="endereco" rows="5" required="true" class="form-control"></textarea>
+        <br/>
+
     </div>
 
     <div class="col-md-4">

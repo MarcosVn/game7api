@@ -1,0 +1,656 @@
+from django.shortcuts import render, redirect, render_to_response
+from django.views.generic.base import View
+from core.models import *
+from django.template.context import RequestContext
+from django.core.serializers import serialize
+from django.http.response import HttpResponse
+from django.views.decorators.csrf import csrf_exempt
+
+
+class adminLoginView(View):
+    def get(self, request, *args, **kwargs):
+        return render_to_response('adm/login.html', {}, RequestContext(request))
+
+
+class adminHomeView(View):
+    def get(self, request, *args, **kwargs):
+        return render_to_response('adm/home.html', {}, RequestContext(request))
+
+
+class adminCategoriasView(View):
+    def get(self, request, *args, **kwargs):
+        return render_to_response('adm/categoria/categorias.html', {}, RequestContext(request))
+
+
+class adminClientesView(View):
+    def get(self, request, *args, **kwargs):
+        return render_to_response('adm/cliente/clientes.html', {}, RequestContext(request))
+
+
+class adminCategoriaNovaView(View):
+    def get(self,request, *args, **kwargs):
+        return render(request, 'adm/categoria/novo.html', {}, RequestContext(request))
+
+
+class adminClientesNovaView(View):
+    def get(self,request, *args, **kwargs):
+        return render(request, 'adm/cliente/novo.html', {}, RequestContext(request))
+
+
+class adminCategoriaEdicaoView(View):
+    def get(self,request, *args, **kwargs):
+        return render(request, 'adm/categoria/editar.html', {}, RequestContext(request))
+
+
+class adminCategoriaExcluirView(View):
+    def get(self, request, *args, **kwargs):
+        return render_to_response('adm/categoria/excluir.html', {}, RequestContext(request))
+
+
+class adminCategoriaVerView(View):
+    def get(self, request, *args, **kwargs):
+        return render_to_response('adm/categoria/ver.html', {}, RequestContext(request))
+
+
+class adminSubCategoriasView(View):
+    def get(self, request, *args, **kwargs):
+        return render_to_response('adm/subcategoria/subcategorias.html', {}, RequestContext(request))
+
+
+class adminSubCategoriaNovaView(View):
+    def get(self,request, *args, **kwargs):
+        return render(request, 'adm/subcategoria/novo.html', {}, RequestContext(request))
+
+
+class adminSubCategoriaEdicaoView(View):
+    def get(self,request, *args, **kwargs):
+        return render(request, 'adm/subcategoria/editar.html', {}, RequestContext(request))
+
+
+class adminSubCategoriaExcluirView(View):
+    def get(self, request, *args, **kwargs):
+        return render_to_response('adm/subcategoria/excluir.html', {}, RequestContext(request))
+
+
+class adminSubCategoriaVerView(View):
+    def get(self, request, *args, **kwargs):
+        return render_to_response('adm/subcategoria/ver.html', {}, RequestContext(request))
+
+
+class ServiceJson(View):
+    @staticmethod
+    def categorias(request):
+        #Query Base
+        query = Categoria.objects.all().order_by("nome")
+
+        #Filtros
+        nome = request.GET.get("nome")
+        id = request.GET.get("id")
+
+        if(id == 'undefined'):
+            id = 0
+
+        if(nome):
+            query = query.filter(nome__icontains = nome)
+        if(id > 0):
+            query = query.filter(id = id)
+
+        lista = serialize('json', query, fields=["id", "nome"])
+        return HttpResponse(lista, content_type='application/json')
+
+
+    @staticmethod
+    @csrf_exempt
+    def savecategoria(request):
+        #Filtros
+        id = request.POST.get("id")
+        nome = request.POST.get("nome")
+
+        #Objeto de Andar
+        oCategoria = Categoria()
+
+        if(id):
+            if(int(id) > 0):
+                oCategoria = Categoria.objects.get(id=id)
+
+        oCategoria.nome = nome
+
+        oCategoria.save()
+
+        lista = "true"
+        return HttpResponse(lista, content_type='application/json')
+
+
+    @staticmethod
+    def excluircategoria(request):
+        id = request.GET.get("id")
+
+        #Query Base
+        oCategoria = Categoria.objects.filter(id=id).first()
+
+        oCategoria.delete()
+
+        lista = "true"
+
+        return HttpResponse(lista, content_type='application/json')
+
+
+    @staticmethod
+    def clientes(request):
+        #Query Base
+        query = Cliente.objects.all().order_by("nome")
+
+        #Filtros
+        nome = request.GET.get("nome")
+        id = request.GET.get("id")
+
+        if(id == 'undefined'):
+            id = 0
+
+        if(nome):
+            query = query.filter(nome__icontains = nome)
+        if(id > 0):
+            query = query.filter(id = id)
+
+        lista = serialize('json', query, fields=["id", "nome", "email"])
+        return HttpResponse(lista, content_type='application/json')
+
+
+    @staticmethod
+    @csrf_exempt
+    def savecliente(request):
+        #Filtros
+        id = request.POST.get("id")
+        nome = request.POST.get("nome")
+        email = request.POST.get("email")
+        senha = request.POST.get("senha")
+        telefone = request.POST.get("telefone")
+        endereco = request.POST.get("endereco")
+        bairro_id = request.POST.get("bairro")
+        cidade_id = request.POST.get("cidade")
+
+        #Objeto de Clientes
+        oCliente = Cliente()
+
+        if(id):
+            if(int(id) > 0):
+                oCliente = Cliente.objects.get(id=id)
+
+        oCliente.nome = nome
+        oCliente.email = email
+        oCliente.senha = senha
+        oCliente.telefone = telefone
+        oCliente.endereco = endereco
+        oCliente.bairro = Bairro.objects.filter(id=bairro_id).first()
+        oCliente.cidade = Cidade.objects.filter(id=cidade_id).first()
+
+        oCliente.save()
+
+        lista = "true"
+        return HttpResponse(lista, content_type='application/json')
+
+
+    @staticmethod
+    def excluircliente(request):
+        id = request.GET.get("id")
+
+        #Query Base
+        oCliente = Cliente.objects.filter(id=id).first()
+
+        oCliente.delete()
+
+        lista = "true"
+
+        return HttpResponse(lista, content_type='application/json')
+
+
+    @staticmethod
+    def subcategorias(request):
+        #Query Base
+        query = SubCategoria.objects.all().order_by("nome")
+
+        #Filtros
+        nome = request.GET.get("nome")
+        id = request.GET.get("id")
+        categoria_id = request.GET.get("categoria")
+
+        if(id == 'undefined'):
+            id = 0
+
+        if(categoria_id):
+            query = query.filter(categoria__id=categoria_id)
+        if(nome):
+            query = query.filter(nome__icontains=nome)
+        if(id > 0):
+            query = query.filter(id=id)
+
+        lista = serialize('json', query, fields=["id", "nome"])
+        return HttpResponse(lista, content_type='application/json')
+
+
+    @staticmethod
+    @csrf_exempt
+    def savesubcategoria(request):
+        #Filtros
+        id = request.POST.get("id")
+        nome = request.POST.get("nome")
+        categoria_id = request.POST.get("categoria_id")
+
+        #Objeto de Clientes
+        oSubcategoria = SubCategoria()
+
+        if(id):
+            if(int(id) > 0):
+                oSubcategoria = SubCategoria.objects.get(id=id)
+
+        oSubcategoria.nome = nome
+        oSubcategoria.categoria = Categoria.objects.filter(id=categoria_id).first()
+
+        oSubcategoria.save()
+
+        lista = "true"
+        return HttpResponse(lista, content_type='application/json')
+
+
+    @staticmethod
+    def excluirsubcategoria(request):
+        id = request.GET.get("id")
+
+        #Query Base
+        oSubcategoria = SubCategoria.objects.filter(id=id).first()
+
+        oSubcategoria.delete()
+
+        lista = "true"
+
+        return HttpResponse(lista, content_type='application/json')
+
+
+    @staticmethod
+    def estados(request):
+        #Query Base
+        query = Estado.objects.all().order_by("nome")
+
+        #Filtros
+        nome = request.GET.get("nome")
+        id = request.GET.get("id")
+
+        if(id == 'undefined'):
+            id = 0
+
+        if(nome):
+            query = query.filter(nome__icontains=nome)
+        if(id > 0):
+            query = query.filter(id=id)
+
+        lista = serialize('json', query, fields=["id", "nome"])
+        return HttpResponse(lista, content_type='application/json')
+
+
+    @staticmethod
+    @csrf_exempt
+    def saveestado(request):
+        #Filtros
+        id = request.POST.get("id")
+        nome = request.POST.get("nome")
+
+        #Objeto de Estados
+        oEstado = Estado()
+
+        if(id):
+            if(int(id) > 0):
+                oEstado=Estado.objects.get(id=id)
+
+        oEstado.nome = nome
+
+        oEstado.save()
+
+        lista = "true"
+        return HttpResponse(lista, content_type='application/json')
+
+
+    @staticmethod
+    def Cidades(request):
+        #Query Base
+        query = Cidade.objects.all().order_by("nome")
+
+        #Filtros
+        estado_id = request.GET.get("estado_id")
+        nome = request.GET.get("nome")
+        id = request.GET.get("id")
+
+        if(estado_id):
+            query = query.filter(estado__id=estado_id)
+        if(id == 'undefined'):
+            id = 0
+        if(nome):
+            query = query.filter(nome__icontains=nome)
+        if(id > 0):
+            query = query.filter(id=id)
+
+        lista = serialize('json', query, fields=["id", "nome"])
+        return HttpResponse(lista, content_type='application/json')
+
+
+    @staticmethod
+    @csrf_exempt
+    def savecidade(request):
+        #Filtros
+        id = request.POST.get("id")
+        nome = request.POST.get("nome")
+        estado_id = request.POST.get("estado_id")
+
+        #Objeto de Cidades
+        oCidade = Cidade()
+
+        if(id):
+            if(int(id) > 0):
+                oCidade=Cidade.objects.get(id=id)
+
+        oCidade.nome = nome
+        oCidade.estado = Estado.objects.filter(id=estado_id).first()
+
+        oCidade.save()
+
+        lista = "true"
+        return HttpResponse(lista, content_type='application/json')
+
+
+    @staticmethod
+    def Bairros(request):
+        #Query Base
+        query = Bairro.objects.all().order_by("nome")
+
+        #Filtros
+        cidade_id = request.GET.get("cidade_id")
+        nome = request.GET.get("nome")
+        id = request.GET.get("id")
+
+        if(cidade_id):
+            query = query.filter(cidade__id=cidade_id)
+        if(id == 'undefined'):
+            id = 0
+        if(nome):
+            query = query.filter(nome__icontains=nome)
+        if(id > 0):
+            query = query.filter(id=id)
+
+        lista = serialize('json', query, fields=["id", "nome"])
+        return HttpResponse(lista, content_type='application/json')
+
+
+    @staticmethod
+    @csrf_exempt
+    def savebairro(request):
+        #Filtros
+        id = request.POST.get("id")
+        nome = request.POST.get("nome")
+        cidade_id = request.POST.get("estado_id")
+
+        #Objeto de Bairros
+        oBairro = Bairro()
+
+        if(id):
+            if(int(id) > 0):
+                oBairro=Bairro.objects.get(id=id)
+
+        oBairro.nome = nome
+        oBairro.cidade = Estado.objects.filter(id=cidade_id).first()
+
+        oBairro.save()
+
+        lista = "true"
+        return HttpResponse(lista, content_type='application/json')
+
+
+    @staticmethod
+    def empresas(request):
+        #Query Base
+        query = Empresa.objects.all().order_by("nome")
+
+        #Filtros
+        nome = request.GET.get("nome")
+        id = request.GET.get("id")
+        email = request.GET.get("email")
+        lista_bairros = request.GET.get("bairros")
+
+        if(id == 'undefined'):
+            id = 0
+
+        if(nome):
+            query = query.filter(nome__icontains = nome)
+        if(id > 0):
+            query = query.filter(id = id)
+        if(email):
+            query = query.filter(email__icontains = email)
+        if(lista_bairros):
+            bairros = lista_bairros.split(",")
+            query = query.filter(bairros__id__in=bairros)
+
+        lista = serialize('json', query, fields=["id", "nome", "descricao", "email", "bairros"])
+        return HttpResponse(lista, content_type='application/json')
+
+
+    @staticmethod
+    @csrf_exempt
+    def saveempresa(request):
+        #Filtros
+        id = request.POST.get("id")
+        nome = request.POST.get("nome")
+        descricao = request.POST.get("descricao")
+        email = request.POST.get("email")
+        senha = request.POST.get("senha")
+
+        #Objeto de Empresas
+        oEmpresa = Empresa()
+
+        if(id):
+            if(int(id) > 0):
+                oEmpresa=Empresa.objects.get(id=id)
+
+        oEmpresa.nome = nome
+        oEmpresa.descricao = descricao
+        oEmpresa.email = email
+        oEmpresa.senha = senha
+
+        oEmpresa.save()
+
+        lista = "true"
+        return HttpResponse(lista, content_type='application/json')
+
+
+    @staticmethod
+    def excluirempresa(request):
+        id = request.GET.get("id")
+
+        #Query Base
+        oEmpresa = Empresa.objects.filter(id=id).first()
+        oEmpresa.delete()
+
+        lista = "true"
+
+        return HttpResponse(lista, content_type='application/json')
+
+
+    @staticmethod
+    @csrf_exempt
+    def saveempresa_bairro(request):
+        #Filtros
+        id = request.POST.get("id")
+        bairro_id = request.POST.get("bairro_id")
+
+        #Objeto de Empresa
+        oEmpresa = Empresa.objects.get(id=id)
+        oBairro = Bairro.objects.filter(id=bairro_id).first()
+
+        oEmpresa.bairros.add(oBairro)
+        oEmpresa.save()
+
+        lista = "true"
+        return HttpResponse(lista, content_type='application/json')
+
+
+    @staticmethod
+    def excluirempresa_bairro(request):
+        empresa_id = request.GET.get("empresa_id")
+        bairro_id = request.GET.get("bairro_id")
+
+        #Query Base
+        oEmpresa = Empresa.objects.filter(id=empresa_id).first()
+        oBairro = Bairro.objects.filter(id=bairro_id).first()
+
+        oEmpresa.bairros.remove(oBairro)
+        oEmpresa.save()
+
+        lista = "true"
+        return HttpResponse(lista, content_type='application/json')
+
+
+    @staticmethod
+    def funcionarios(request):
+        #Query Base
+        query = Funcionario.objects.all().order_by("nome")
+
+        #Filtros
+        nome = request.GET.get("nome")
+        id = request.GET.get("id")
+        email = request.GET.get("email")
+
+        if(id == 'undefined'):
+            id = 0
+
+        if(nome):
+            query = query.filter(nome__icontains = nome)
+        if(id > 0):
+            query = query.filter(id = id)
+        if(email):
+            query = query.filter(email__icontains = email)
+
+        lista = serialize('json', query, fields=["id", "nome", "descricao", "email", "bairros"])
+        return HttpResponse(lista, content_type='application/json')
+
+
+    @staticmethod
+    @csrf_exempt
+    def savefuncionario(request):
+        #Filtros
+        id = request.POST.get("id")
+        nome = request.POST.get("nome")
+        email = request.POST.get("email")
+        senha = request.POST.get("senha")
+        telefone = request.POST.get("telefone")
+        endereco = request.POST.get("endereco")
+
+        #Objeto de Empresas
+        oFuncionario = Funcionario()
+
+        if(id):
+            if(int(id) > 0):
+                oEmpresa=Empresa.objects.get(id=id)
+
+        oFuncionario.nome = nome
+        oFuncionario.email = email
+        oFuncionario.senha = senha
+        oFuncionario.telefone = telefone
+        oFuncionario.endereco = endereco
+
+        oFuncionario.save()
+
+        lista = "true"
+        return HttpResponse(lista, content_type='application/json')
+
+
+    @staticmethod
+    def excluirfuncionario(request):
+        id = request.GET.get("id")
+
+        #Query Base
+        oFuncionario = Funcionario.objects.filter(id=id).first()
+        oFuncionario.delete()
+
+        lista = "true"
+
+        return HttpResponse(lista, content_type='application/json')
+
+
+    @staticmethod
+    def Repasses(request):
+        #Query Base
+        query = Repasse.objects.all().order_by("nome")
+
+        #Filtros
+        referencia = request.GET.get("referencia")
+        id = request.GET.get("id")
+        data_inicio = request.GET.get("data_inicio")
+        data_fim = request.GET.get("data_fim")
+        pago = request.GET.get("pago")
+        empresa_id = request.GET.get("empresa_id")
+
+
+        if(id == 'undefined'):
+            id = 0
+
+        if(referencia):
+            query = query.filter(referencia__icontains = referencia)
+        if(id > 0):
+            query = query.filter(id = id)
+
+        if(data_inicio):
+            if(data_fim):
+                query = query.filter(data_inicio__gte=data_inicio, data_fim_lte=data_fim)
+            else:
+                query = query.filter(data_inicio__gte=data_inicio)
+        else:
+            raise Exception("É necessário passar a data inicio do repasse")
+
+        if(pago):
+            query = query.filter(pago=pago)
+
+        if(empresa_id):
+            query = query.filter(empresa__id=empresa_id)
+
+        lista = serialize('json', query, fields=["id", "nome", "descricao", "email", "bairros"])
+        return HttpResponse(lista, content_type='application/json')
+
+
+    @staticmethod
+    @csrf_exempt
+    def savefuncionario(request):
+        #Filtros
+        id = request.POST.get("id")
+        nome = request.POST.get("nome")
+        email = request.POST.get("email")
+        senha = request.POST.get("senha")
+        telefone = request.POST.get("telefone")
+        endereco = request.POST.get("endereco")
+
+        #Objeto de Empresas
+        oFuncionario = Funcionario()
+
+        if(id):
+            if(int(id) > 0):
+                oEmpresa=Empresa.objects.get(id=id)
+
+        oFuncionario.nome = nome
+        oFuncionario.email = email
+        oFuncionario.senha = senha
+        oFuncionario.telefone = telefone
+        oFuncionario.endereco = endereco
+
+        oFuncionario.save()
+
+        lista = "true"
+        return HttpResponse(lista, content_type='application/json')
+
+
+    @staticmethod
+    def excluirfuncionario(request):
+        id = request.GET.get("id")
+
+        #Query Base
+        oFuncionario = Funcionario.objects.filter(id=id).first()
+        oFuncionario.delete()
+
+        lista = "true"
+
+        return HttpResponse(lista, content_type='application/json')

@@ -37,5 +37,6 @@ urlpatterns = [
     url(r'^adm/bd-subcategoria-excluir$', dbadminsubcategoriaexcluir, name = "BDExcluirSubCategoria-adm"),
 
     url(r'^adm/clientes/', adminClientesView.as_view(), name="Clientes-adm"),
+    url(r'^adm/clientes-nova/', adminClientesNovaView.as_view(), name="NovoCliente-adm"),
     url(r'^$', adminHomeView.as_view(), name = "Home"),
 ]

@@ -2,16 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b8bb5229-ab7c-4dcc-87fd-ce7740ee3598" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/core/management/__init__.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/core/management/commands/__init__.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/core/management/commands/popbairros.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/core/templates/adm/cliente/clientes.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/core/templates/adm/cliente/editar.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/core/templates/adm/cliente/excluir.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/core/templates/adm/cliente/novo.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/core/templates/adm/cliente/ver.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/core/views2.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/game7api.iml" afterPath="$PROJECT_DIR$/.idea/game7api.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/templates/adm/base.html" afterPath="$PROJECT_DIR$/core/templates/adm/base.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/templates/adm/cliente/clientes.html" afterPath="$PROJECT_DIR$/core/templates/adm/cliente/clientes.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/templates/adm/cliente/novo.html" afterPath="$PROJECT_DIR$/core/templates/adm/cliente/novo.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/views.py" afterPath="$PROJECT_DIR$/core/views.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/game7api/urls.py" afterPath="$PROJECT_DIR$/game7api/urls.py" />
     </list>
@@ -28,16 +24,37 @@
     <option name="PATCH_PATH" value="" />
   </component>
   <component name="DockManager">
-    <window id="2">
+    <window id="1">
       <content type="file-editors">
         <state>
           <leaf>
-            <file leaf-file-name="clientes.html" pinned="false" current-in-tab="true">
-              <entry file="file://$PROJECT_DIR$/core/templates/adm/cliente/clientes.html">
+            <file leaf-file-name="views2.py" pinned="false" current-in-tab="true">
+              <entry file="file://$PROJECT_DIR$/core/views2.py">
                 <provider selected="true" editor-type-id="text-editor">
-                  <state relative-caret-position="520">
-                    <caret line="40" column="68" lean-forward="false" selection-start-line="40" selection-start-column="68" selection-end-line="40" selection-end-column="68" />
-                    <folding />
+                  <state relative-caret-position="668">
+                    <caret line="609" column="55" lean-forward="false" selection-start-line="609" selection-start-column="55" selection-end-line="609" selection-end-column="55" />
+                    <folding>
+                      <element signature="e#2828#3310#0" expanded="false" />
+                      <element signature="e#3388#3786#0" expanded="false" />
+                      <element signature="e#3850#4080#0" expanded="false" />
+                      <element signature="e#4136#4625#0" expanded="false" />
+                      <element signature="e#4701#5640#0" expanded="false" />
+                      <element signature="e#5702#5926#0" expanded="false" />
+                      <element signature="e#5987#6607#0" expanded="false" />
+                      <element signature="e#6688#7247#0" expanded="false" />
+                      <element signature="e#7314#7553#0" expanded="false" />
+                      <element signature="e#7608#8083#0" expanded="false" />
+                      <element signature="e#8158#8538#0" expanded="false" />
+                      <element signature="e#8593#9194#0" expanded="false" />
+                      <element signature="e#9269#9768#0" expanded="false" />
+                      <element signature="e#9823#10424#0" expanded="false" />
+                      <element signature="e#10499#10998#0" expanded="false" />
+                      <element signature="e#11054#11869#0" expanded="false" />
+                      <element signature="e#11945#12567#0" expanded="false" />
+                      <element signature="e#12629#12852#0" expanded="false" />
+                      <element signature="e#12935#13320#0" expanded="false" />
+                      <element signature="e#13389#13786#0" expanded="false" />
+                    </folding>
                   </state>
                 </provider>
               </entry>
@@ -53,29 +70,67 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="views.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="views.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/core/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="234">
-              <caret line="56" column="23" lean-forward="false" selection-start-line="56" selection-start-column="6" selection-end-line="56" selection-end-column="23" />
+            <state relative-caret-position="415">
+              <caret line="227" column="0" lean-forward="true" selection-start-line="227" selection-start-column="0" selection-end-line="227" selection-end-column="0" />
               <folding>
                 <element signature="e#0#65#0" expanded="true" />
                 <element signature="e#220#368#0" expanded="false" />
-                <element signature="e#402#549#0" expanded="false" />
-                <element signature="e#589#1161#0" expanded="false" />
-                <element signature="e#1201#1773#0" expanded="false" />
-                <element signature="e#2406#2737#0" expanded="false" />
-                <element signature="e#2782#3327#0" expanded="false" />
-                <element signature="e#3373#3667#0" expanded="false" />
-                <element signature="e#3709#3999#0" expanded="false" />
-                <element signature="e#4042#4855#0" expanded="false" />
-                <element signature="e#4901#5537#0" expanded="false" />
-                <element signature="e#5585#6176#0" expanded="false" />
-                <element signature="e#6225#6537#0" expanded="false" />
-                <element signature="e#6582#6890#0" expanded="false" />
-                <element signature="e#6936#7116#0" expanded="false" />
-                <element signature="e#7165#7373#0" expanded="false" />
+                <element signature="e#402#548#0" expanded="false" />
+                <element signature="e#2920#3465#0" expanded="false" />
+                <element signature="e#3847#4137#0" expanded="false" />
+                <element signature="e#4180#4993#0" expanded="false" />
+                <element signature="e#5723#6314#0" expanded="false" />
+                <element signature="e#6363#6675#0" expanded="false" />
+                <element signature="e#6720#7028#0" expanded="false" />
+                <element signature="e#7074#7254#0" expanded="false" />
+                <element signature="e#7303#7511#0" expanded="false" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="models.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/core/models.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="38">
+              <caret line="14" column="29" lean-forward="true" selection-start-line="14" selection-start-column="29" selection-end-line="14" selection-end-column="29" />
+              <folding>
+                <element signature="e#128#358#0" expanded="false" />
+                <element signature="e#393#688#0" expanded="false" />
+                <element signature="e#723#1018#0" expanded="false" />
+                <element signature="e#1054#1498#0" expanded="false" />
+                <element signature="e#2055#2555#0" expanded="false" />
+                <element signature="e#2593#2829#0" expanded="false" />
+                <element signature="e#2870#3189#0" expanded="false" />
+                <element signature="e#3225#3589#0" expanded="false" />
+                <element signature="e#3622#3941#0" expanded="false" />
+                <element signature="e#3976#4328#0" expanded="false" />
+                <element signature="e#4361#4715#0" expanded="false" />
+                <element signature="e#4755#5181#0" expanded="false" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="clientes.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/core/templates/adm/cliente/clientes.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="364">
+              <caret line="28" column="25" lean-forward="false" selection-start-line="28" selection-start-column="25" selection-end-line="28" selection-end-column="25" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="categorias.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/core/templates/adm/categoria/categorias.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="143">
+              <caret line="11" column="0" lean-forward="false" selection-start-line="11" selection-start-column="0" selection-end-line="12" selection-end-column="26" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -86,29 +141,6 @@
             <state relative-caret-position="0">
               <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
               <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="models.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/core/models.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="187">
-              <caret line="80" column="44" lean-forward="true" selection-start-line="80" selection-start-column="44" selection-end-line="80" selection-end-column="44" />
-              <folding>
-                <element signature="e#128#358#0" expanded="false" />
-                <element signature="e#393#688#0" expanded="false" />
-                <element signature="e#723#1018#0" expanded="false" />
-                <element signature="e#1054#1498#0" expanded="false" />
-                <element signature="e#1534#2019#0" expanded="false" />
-                <element signature="e#2593#2829#0" expanded="false" />
-                <element signature="e#2870#3189#0" expanded="false" />
-                <element signature="e#3225#3589#0" expanded="false" />
-                <element signature="e#3622#3941#0" expanded="false" />
-                <element signature="e#3976#4328#0" expanded="false" />
-                <element signature="e#4361#4715#0" expanded="false" />
-                <element signature="e#4755#5181#0" expanded="false" />
-              </folding>
             </state>
           </provider>
         </entry>
@@ -126,8 +158,8 @@
       <file leaf-file-name="urls.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/game7api/urls.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="143">
-              <caret line="11" column="25" lean-forward="false" selection-start-line="11" selection-start-column="25" selection-end-line="11" selection-end-column="25" />
+            <state relative-caret-position="481">
+              <caret line="39" column="53" lean-forward="false" selection-start-line="39" selection-start-column="32" selection-end-line="39" selection-end-column="53" />
               <folding />
             </state>
           </provider>
@@ -184,21 +216,23 @@
         <option value="$PROJECT_DIR$/core/templates/adm/subcategoria/ver.html" />
         <option value="$PROJECT_DIR$/core/templates/adm/subcategoria/novo.html" />
         <option value="$PROJECT_DIR$/core/templates/adm/subcategoria/editar.html" />
-        <option value="$PROJECT_DIR$/core/models.py" />
         <option value="$PROJECT_DIR$/core/templates/adm/categoria/categorias.html" />
         <option value="$PROJECT_DIR$/core/templates/adm/subcategoria/subcategorias.html" />
-        <option value="$PROJECT_DIR$/core/views.py" />
-        <option value="$PROJECT_DIR$/game7api/urls.py" />
         <option value="$PROJECT_DIR$/core/templates/adm/base.html" />
         <option value="$PROJECT_DIR$/core/management/__init__.py" />
         <option value="$PROJECT_DIR$/core/management/commands/__init__.py" />
         <option value="$PROJECT_DIR$/core/management/commands/popbairros.py" />
         <option value="$PROJECT_DIR$/core/templates/adm/cliente/clientes.html" />
+        <option value="$PROJECT_DIR$/game7api/urls.py" />
+        <option value="$PROJECT_DIR$/core/models.py" />
+        <option value="$PROJECT_DIR$/core/templates/adm/cliente/novo.html" />
+        <option value="$PROJECT_DIR$/core/views.py" />
+        <option value="$PROJECT_DIR$/core/views2.py" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="2343" />
+    <option name="x" value="1400" />
     <option name="y" value="39" />
     <option name="width" value="943" />
     <option name="height" value="1041" />
@@ -222,7 +256,6 @@
     </navigator>
     <panes>
       <pane id="Scratches" />
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -245,7 +278,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="plan" />
+              <option name="myItemId" value="game7api" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -343,55 +376,34 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="management" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="game7api" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="game7api" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="core" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="management" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="commands" />
+              <option name="myItemId" value="migrations" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="DefaultHtmlFileTemplate" value="HTML File" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/manage.py" />
-    <property name="settings.editor.selected.configurable" value="reference.settingsdialog.IDE.editor.colors.Font" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../game7env/bin/python" />
+    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/core" />
+      <recent name="$PROJECT_DIR$/core/management/commands" />
+      <recent name="$PROJECT_DIR$/core/templates/adm/cliente" />
+      <recent name="$PROJECT_DIR$/core/templates/adm" />
+      <recent name="$PROJECT_DIR$/core/templates/adm/subcategoria" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/core/templates/adm/categoria" />
       <recent name="$PROJECT_DIR$/core/templates/admin" />
       <recent name="$PROJECT_DIR$/game7api" />
       <recent name="$PROJECT_DIR$" />
       <recent name="$PROJECT_DIR$/core" />
-    </key>
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/core/management/commands" />
-      <recent name="$PROJECT_DIR$/core/templates/adm/cliente" />
-      <recent name="$PROJECT_DIR$/core/templates/adm" />
-      <recent name="$PROJECT_DIR$/core/templates/adm/subcategoria" />
-      <recent name="$PROJECT_DIR$/core/templates/adm/categoria" />
     </key>
   </component>
   <component name="RunManager" selected="Python.Unnamed">
@@ -576,26 +588,26 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="2343" y="39" width="943" height="1041" extended-state="4" />
+    <frame x="1400" y="39" width="943" height="1041" extended-state="4" />
     <editor active="true" />
     <layout>
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25813448" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2516269" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.34700316" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.41114616" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.19032598" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.34700316" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3371134" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
     </layout>
     <layout-to-restore>
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -629,43 +641,12 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="XDebuggerManager">
-    <breakpoint-manager />
+    <breakpoint-manager>
+      <option name="time" value="3" />
+    </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/game7api/urls.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="225">
-          <caret line="17" column="24" lean-forward="false" selection-start-line="17" selection-start-column="24" selection-end-line="17" selection-end-column="24" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/core/views.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="75">
-          <caret line="5" column="28" lean-forward="false" selection-start-line="5" selection-start-column="28" selection-end-line="5" selection-end-column="28" />
-          <folding>
-            <element signature="e#0#65#0" expanded="true" />
-            <element signature="e#220#368#0" expanded="false" />
-            <element signature="e#402#549#0" expanded="false" />
-            <element signature="e#589#1161#0" expanded="false" />
-            <element signature="e#1201#1773#0" expanded="false" />
-            <element signature="e#2406#2737#0" expanded="false" />
-            <element signature="e#2782#3327#0" expanded="false" />
-            <element signature="e#3373#3667#0" expanded="false" />
-            <element signature="e#3709#3999#0" expanded="false" />
-            <element signature="e#4042#4855#0" expanded="false" />
-            <element signature="e#4901#5537#0" expanded="false" />
-            <element signature="e#5585#6176#0" expanded="false" />
-            <element signature="e#6225#6537#0" expanded="false" />
-            <element signature="e#6582#6890#0" expanded="false" />
-            <element signature="e#6936#7116#0" expanded="false" />
-            <element signature="e#7165#7373#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/core/models.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -891,13 +872,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/core/templates/adm/subcategoria/novo.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="195">
-          <caret line="17" column="26" lean-forward="false" selection-start-line="17" selection-start-column="26" selection-end-line="17" selection-end-column="26" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/core/templates/adm/subcategoria/ver.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="221">
@@ -919,13 +893,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/core/templates/adm/categoria/categorias.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="143">
-          <caret line="11" column="0" lean-forward="false" selection-start-line="11" selection-start-column="0" selection-end-line="12" selection-end-column="26" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/core/templates/adm/subcategoria/subcategorias.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="65">
@@ -937,14 +904,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/game7api/urls.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="143">
-          <caret line="11" column="25" lean-forward="false" selection-start-line="11" selection-start-column="25" selection-end-line="11" selection-end-column="25" />
           <folding />
         </state>
       </provider>
@@ -961,7 +920,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="247">
           <caret line="83" column="21" lean-forward="true" selection-start-line="83" selection-start-column="21" selection-end-line="83" selection-end-column="21" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -969,28 +927,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/core/models.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="187">
-          <caret line="80" column="44" lean-forward="true" selection-start-line="80" selection-start-column="44" selection-end-line="80" selection-end-column="44" />
-          <folding>
-            <element signature="e#128#358#0" expanded="false" />
-            <element signature="e#393#688#0" expanded="false" />
-            <element signature="e#723#1018#0" expanded="false" />
-            <element signature="e#1054#1498#0" expanded="false" />
-            <element signature="e#1534#2019#0" expanded="false" />
-            <element signature="e#2593#2829#0" expanded="false" />
-            <element signature="e#2870#3189#0" expanded="false" />
-            <element signature="e#3225#3589#0" expanded="false" />
-            <element signature="e#3622#3941#0" expanded="false" />
-            <element signature="e#3976#4328#0" expanded="false" />
-            <element signature="e#4361#4715#0" expanded="false" />
-            <element signature="e#4755#5181#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -998,9 +934,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="299">
           <caret line="23" column="50" lean-forward="false" selection-start-line="23" selection-start-column="50" selection-end-line="23" selection-end-column="50" />
-          <folding>
-            <element signature="e#25#67#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1012,36 +945,111 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/core/views.py">
+    <entry file="file://$PROJECT_DIR$/core/templates/adm/subcategoria/novo.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="234">
-          <caret line="56" column="23" lean-forward="false" selection-start-line="56" selection-start-column="6" selection-end-line="56" selection-end-column="23" />
-          <folding>
-            <element signature="e#0#65#0" expanded="true" />
-            <element signature="e#220#368#0" expanded="false" />
-            <element signature="e#402#549#0" expanded="false" />
-            <element signature="e#589#1161#0" expanded="false" />
-            <element signature="e#1201#1773#0" expanded="false" />
-            <element signature="e#2406#2737#0" expanded="false" />
-            <element signature="e#2782#3327#0" expanded="false" />
-            <element signature="e#3373#3667#0" expanded="false" />
-            <element signature="e#3709#3999#0" expanded="false" />
-            <element signature="e#4042#4855#0" expanded="false" />
-            <element signature="e#4901#5537#0" expanded="false" />
-            <element signature="e#5585#6176#0" expanded="false" />
-            <element signature="e#6225#6537#0" expanded="false" />
-            <element signature="e#6582#6890#0" expanded="false" />
-            <element signature="e#6936#7116#0" expanded="false" />
-            <element signature="e#7165#7373#0" expanded="false" />
-          </folding>
+        <state relative-caret-position="221">
+          <caret line="17" column="26" lean-forward="false" selection-start-line="17" selection-start-column="26" selection-end-line="17" selection-end-column="26" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/templates/adm/categoria/categorias.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="143">
+          <caret line="11" column="0" lean-forward="false" selection-start-line="11" selection-start-column="0" selection-end-line="12" selection-end-column="26" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/core/templates/adm/cliente/clientes.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="520">
-          <caret line="40" column="68" lean-forward="false" selection-start-line="40" selection-start-column="68" selection-end-line="40" selection-end-column="68" />
+        <state relative-caret-position="364">
+          <caret line="28" column="25" lean-forward="false" selection-start-line="28" selection-start-column="25" selection-end-line="28" selection-end-column="25" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/game7api/urls.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="481">
+          <caret line="39" column="53" lean-forward="false" selection-start-line="39" selection-start-column="32" selection-end-line="39" selection-end-column="53" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/templates/adm/cliente/novo.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="130">
+          <caret line="10" column="12" lean-forward="false" selection-start-line="10" selection-start-column="12" selection-end-line="10" selection-end-column="12" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/views.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="415">
+          <caret line="227" column="0" lean-forward="true" selection-start-line="227" selection-start-column="0" selection-end-line="227" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#65#0" expanded="true" />
+            <element signature="e#220#368#0" expanded="false" />
+            <element signature="e#402#548#0" expanded="false" />
+            <element signature="e#2920#3465#0" expanded="false" />
+            <element signature="e#3847#4137#0" expanded="false" />
+            <element signature="e#4180#4993#0" expanded="false" />
+            <element signature="e#5723#6314#0" expanded="false" />
+            <element signature="e#6363#6675#0" expanded="false" />
+            <element signature="e#6720#7028#0" expanded="false" />
+            <element signature="e#7074#7254#0" expanded="false" />
+            <element signature="e#7303#7511#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/models.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="38">
+          <caret line="14" column="29" lean-forward="true" selection-start-line="14" selection-start-column="29" selection-end-line="14" selection-end-column="29" />
+          <folding>
+            <element signature="e#128#358#0" expanded="false" />
+            <element signature="e#393#688#0" expanded="false" />
+            <element signature="e#723#1018#0" expanded="false" />
+            <element signature="e#1054#1498#0" expanded="false" />
+            <element signature="e#2055#2555#0" expanded="false" />
+            <element signature="e#2593#2829#0" expanded="false" />
+            <element signature="e#2870#3189#0" expanded="false" />
+            <element signature="e#3225#3589#0" expanded="false" />
+            <element signature="e#3622#3941#0" expanded="false" />
+            <element signature="e#3976#4328#0" expanded="false" />
+            <element signature="e#4361#4715#0" expanded="false" />
+            <element signature="e#4755#5181#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/views2.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="668">
+          <caret line="609" column="55" lean-forward="false" selection-start-line="609" selection-start-column="55" selection-end-line="609" selection-end-column="55" />
+          <folding>
+            <element signature="e#2828#3310#0" expanded="false" />
+            <element signature="e#3388#3786#0" expanded="false" />
+            <element signature="e#3850#4080#0" expanded="false" />
+            <element signature="e#4136#4625#0" expanded="false" />
+            <element signature="e#4701#5640#0" expanded="false" />
+            <element signature="e#5702#5926#0" expanded="false" />
+            <element signature="e#5987#6607#0" expanded="false" />
+            <element signature="e#6688#7247#0" expanded="false" />
+            <element signature="e#7314#7553#0" expanded="false" />
+            <element signature="e#7608#8083#0" expanded="false" />
+            <element signature="e#8158#8538#0" expanded="false" />
+            <element signature="e#8593#9194#0" expanded="false" />
+            <element signature="e#9269#9768#0" expanded="false" />
+            <element signature="e#9823#10424#0" expanded="false" />
+            <element signature="e#10499#10998#0" expanded="false" />
+            <element signature="e#11054#11869#0" expanded="false" />
+            <element signature="e#11945#12567#0" expanded="false" />
+            <element signature="e#12629#12852#0" expanded="false" />
+            <element signature="e#12935#13320#0" expanded="false" />
+            <element signature="e#13389#13786#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>

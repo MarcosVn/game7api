@@ -32,19 +32,19 @@
             </tr>
             {%for cliente in listaclientes%}
               <tr>
-                  <td class="col-md-10">{{cliente.nome}}</td>
-                  <td class="col-md-10">{{cliente.email}}</td>
-                  <td class="col-md-10">{{cliente.telefone}}</td>
-                  <td class="col-md-10">{{cliente.cidade.nome}}</td>
-                  <td><a href="/adm/categoria-edicao?c_id={{cliente.id}}" class="btn btn-primary btn-xs">editar</a> </td>
-                  <td><a href="/adm/categoria-ver?c_id={{cliente.id}}" class="btn btn-primary btn-xs">ver</a> </td>
-                  <td><a href="/adm/categoria-excluir?c_id={{cliente.id}}" class="btn btn-danger btn-xs">excluir</a> </td>
+                  <td class="col-md-4">{{cliente.nome}}</td>
+                  <td class="col-md-4">{{cliente.email}}</td>
+                  <td class="col-md-2">{{cliente.telefone}}</td>
+                  <td class="col-md-2">{{cliente.cidade.nome}}</td>
+                  <td><a href="/adm/cliente-edicao?c_id={{cliente.id}}" class="btn btn-primary btn-xs">editar</a> </td>
+                  <td><a href="/adm/cliente-ver?c_id={{cliente.id}}" class="btn btn-primary btn-xs">ver</a> </td>
+                  <td><a href="/adm/cliente-excluir?c_id={{cliente.id}}" class="btn btn-danger btn-xs">excluir</a> </td>
               </tr>
             {%endfor%}
         </table>
     </div>
     <div class="col-md-2">
-        <a href="/adm/empresa-nova" class="btn btn-primary btn-lg">Nova Cliente</a>
+        <a href="/adm/clientes-nova" class="btn btn-primary btn-lg">Nova Cliente</a>
     </div>
 </div>
 

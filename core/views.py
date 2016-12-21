@@ -14,26 +14,7 @@ class adminLoginView(View):
 class adminHomeView(View):
     def get(self, request, *args, **kwargs):
         context = {}
-
         return render_to_response('adm/home.html', context, RequestContext(request))
-
-
-class adminCategoriasView(View):
-    def get(self, request, *args, **kwargs):
-        context = {}
-
-        context['listacategorias'] = Categoria.objects.all().order_by("nome")
-
-        return render_to_response('adm/categoria/categorias.html', context, RequestContext(request))
-
-    def post(self, request, *args, **kwargs):
-        context = {}
-
-        c_name = request.POST.get("ipFiltroCategoria")
-
-        context['listacategorias'] = Categoria.objects.filter(nome__icontains=c_name).order_by("nome")
-
-        return render_to_response('adm/categoria/categorias.html', context, RequestContext(request))
 
 
 class adminCategoriasView(View):
@@ -86,6 +67,28 @@ class adminCategoriaNovaView(View):
         oCategoria.save()
 
         return redirect('/adm/categorias/')
+
+
+class adminClientesNovaView(View):
+    def get(self,request, *args, **kwargs):
+        context = {}
+
+        return render(request, 'adm/cliente/novo.html', context)
+
+    def post(self,request, *args, **kwargs):
+
+        oCliente = Cliente()
+        oCliente.nome = request.POST.get("nome")
+        oCliente.email = request.POST.get("email")
+        oCliente.senha = request.POST.get("senha")
+        oCliente.telefone = request.POST.get("telefone")
+        oCliente.endereco = request.POST.get("endereco")
+        oCliente.cidade = Cidade.objects.filter(id=request.POST.get("cidade")).First()
+        oCliente.bairro = Cidade.objects.filter(id=request.POST.get("bairro")).First()
+
+        oCliente.save()
+
+        return redirect('/adm/clientes/')
 
 
 class adminCategoriaEdicaoView(View):
