@@ -123,6 +123,7 @@ class Produto(models.Model):
     foto = models.CharField(max_length=1024)
     descricao = models.CharField(max_length=1024)
     preco = models.FloatField(null=True)
+    empresa = models.ForeignKey("Empresa", related_name="produtos")
 
     class Meta:
         verbose_name="Produto"
@@ -150,6 +151,7 @@ class Pedido(models.Model):
     data = models.DateField(auto_now=True)
     total = models.FloatField()
     cliente = models.ForeignKey("Cliente", related_name="Pedidos")
+    empresa = models.ForeignKey("Empresa", related_name="Pedidos")
 
     class Meta:
         verbose_name = "Pedido"
