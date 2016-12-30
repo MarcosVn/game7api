@@ -3,23 +3,26 @@
 {% load staticfiles %}
 {% block content %}
 
-<div class="col-md-12">
-  <form method="post">
-    {%csrf_token%}
-    <div class="col-md-12">
-        <h3>Editar SubCategoria da Categoria <b>{{subcategoriaselecionado.categoria.nome}}</b></h3>
-        <p>A alteração da subcategoria estará disponível assim que estiver salva.</p>
-    </div>
-    <div class="col-md-8">
-        <label class="control-label">Título</label><br/>
-        <input type="text" name="nome" value="{{subcategoriaselecionado.nome}}" required="True" class="form-control"/>
-    </div>
+<div class="col-md-12" ng-app="game7App" ng-controller="subcategoriaCtrl">
+    <form enctype="multipart/form-data" method="post">
+        <div class="col-md-12">
+            <h3>Editar SubCategoria da Categoria <b>{[ct.categoriaselecionado[0].fields.nome]}</b></h3>
+            <p>A alteração da subcategoria estará disponível assim que estiver salva.</p>
+        </div>
+        <div class="col-md-12" style="text-align:center;" ng-if="sc.retorno">
+            <p class="alert alert-success" style="text-align:center;">Salvo com sucesso!</p>
+        </div>
 
-    <div class="col-md-4">
-        <button type="submit" style="display: block;width: 100%;" class="btn btn-success btn-lg">Salvar</button>
-        <a style="display: block;width: 100%;" class="btn btn-default btn-lg" href="/adm/subcategorias?c_id={{subcategoriaselecionado.categoria.id}}">Cancelar</a>
-    </div>
-  </form>
+        <div class="col-md-8">
+            <label class="control-label">Título</label><br/>
+            <input type="text" id="nome" value="{[sc.subcategoriaselecionado[0].fields.nome]}" required="True" class="form-control"/>
+        </div>
+
+        <div class="col-md-4">
+            <a ng-click="atualizar()"  style="display: block;width: 100%;" class="btn btn-success btn-lg">Salvar</a>
+            <a style="display: block;width: 100%;" class="btn btn-default btn-lg" href="/adm/subcategorias?c_id={[ct.categoriaselecionado[0].pk]}">Cancelar</a>
+        </div>
+    </form>
 </div>
 
 {% endblock %}

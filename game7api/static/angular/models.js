@@ -31,7 +31,7 @@ game7App.factory("Categoria", function (Ajax,$http) {
     var obj = {
         lista_categorias: [],
         lista_subcategorias:[],
-        selecionado: [],
+        categoriaselecionado: [],
         retorno : false,
     };
     obj.get_categorias = function (nome_categoria) {
@@ -67,7 +67,7 @@ game7App.factory("Categoria", function (Ajax,$http) {
                 'Content-Type': 'application/json'
             }
         }).then(function successCallback(response) {
-            obj.selecionado = response.data;
+            obj.categoriaselecionado = response.data;
         }, function errorCallback(response) {
             console.log("Erro");
         });
@@ -96,6 +96,108 @@ game7App.factory("Categoria", function (Ajax,$http) {
         var f = new FormData();
         f.append('id', TOKENS['c_id']);
         f.append('nome', categoria_nome);
+        $http.post(url, f, {headers: {'Content-Type': undefined}}).success(
+          function(response){
+            obj.retorno = response;
+          }
+        )
+
+    };
+    obj.get_predio = function () {
+        var url = URL_BASE + "predios";
+        var params = {
+          id:TOKENS['predio_id']
+        }
+        $http({
+            method: "GET",
+            params: params,
+            url: url,
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }).then(function successCallback(response) {
+            obj.predio = response.data;
+        }, function errorCallback(response) {
+            console.log("Erro");
+        });
+    };
+    obj.excluir_categoria = function () {
+        var url = URL_BASE + "excluircategoria";
+        var params = {
+          id:TOKENS['c_id']
+        }
+        $http({
+            method: "GET",
+            params: params,
+            url: url,
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }).then(function successCallback(response) {
+            obj.retorno = response.data;
+        }, function errorCallback(response) {
+            console.log("Erro");
+        });
+    };
+    return obj;
+});
+
+
+
+
+game7App.factory("SubCategoria", function (Ajax,$http) {
+    var obj = {
+        lista_subcategorias: [],
+        subcategoriaselecionado: [],
+        retorno : false,
+    };
+    obj.get_subcategorias = function (nome_subcategoria) {
+        var url = URL_BASE + "subcategorias";
+        var params = {
+            categoria:TOKENS["c_id"],
+            nome:nome_subcategoria,
+            id:TOKENS["subc_id"]
+        }
+        $http({
+            method: "GET",
+            params: params,
+            url: url,
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }).then(function successCallback(response) {
+            obj.lista_subcategorias = response.data;
+        }, function errorCallback(response) {
+            console.log("Erro");
+        });
+    };
+
+    obj.get_subcategoria = function () {
+        //Get relação de subcategorias
+        var url = URL_BASE + "subcategorias";
+        var params = {
+          id:TOKENS['subc_id']
+        }
+        $http({
+            method: "GET",
+            params: params,
+            url: url,
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }).then(function successCallback(response) {
+            obj.subcategoriaselecionado = response.data;
+        }, function errorCallback(response) {
+            console.log("Erro");
+        });
+    };
+    obj.save_subcategoria = function (subcategoria_nome) {
+        var url = URL_BASE + "savesubcategoria";
+
+        var f = new FormData();
+        f.append('id', TOKENS['subc_id']);
+        f.append('categoria', TOKENS['c_id']);
+        f.append('nome', subcategoria_nome);
         $http.post(url, f, {headers: {'Content-Type': undefined}}).success(
           function(response){
             obj.retorno = response;

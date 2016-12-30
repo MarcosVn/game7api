@@ -227,17 +227,22 @@ class ServiceJson(View):
         # Filtros
         id = request.POST.get("id")
         nome = request.POST.get("nome")
-        categoria_id = request.POST.get("categoria_id")
+        categoria_id = request.POST.get("categoria")
 
         # Objeto de SubCategoria
         oSubcategoria = SubCategoria()
+
+        if (id == 'undefined'):
+            id = 0
 
         if (id):
             if (int(id) > 0):
                 oSubcategoria = SubCategoria.objects.get(id=id)
 
         oSubcategoria.nome = nome
-        oSubcategoria.categoria = Categoria.objects.filter(id=categoria_id).first()
+
+        if(categoria_id):
+            oSubcategoria.categoria = Categoria.objects.filter(id=categoria_id).first()
 
         oSubcategoria.save()
 
