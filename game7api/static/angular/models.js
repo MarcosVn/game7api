@@ -103,24 +103,6 @@ game7App.factory("Categoria", function (Ajax,$http) {
         )
 
     };
-    obj.get_predio = function () {
-        var url = URL_BASE + "predios";
-        var params = {
-          id:TOKENS['predio_id']
-        }
-        $http({
-            method: "GET",
-            params: params,
-            url: url,
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        }).then(function successCallback(response) {
-            obj.predio = response.data;
-        }, function errorCallback(response) {
-            console.log("Erro");
-        });
-    };
     obj.excluir_categoria = function () {
         var url = URL_BASE + "excluircategoria";
         var params = {
@@ -141,9 +123,6 @@ game7App.factory("Categoria", function (Ajax,$http) {
     };
     return obj;
 });
-
-
-
 
 game7App.factory("SubCategoria", function (Ajax,$http) {
     var obj = {
@@ -205,10 +184,10 @@ game7App.factory("SubCategoria", function (Ajax,$http) {
         )
 
     };
-    obj.get_predio = function () {
-        var url = URL_BASE + "predios";
+    obj.excluir_subcategoria = function () {
+        var url = URL_BASE + "excluirsubcategoria";
         var params = {
-          id:TOKENS['predio_id']
+          id:TOKENS['subc_id']
         }
         $http({
             method: "GET",
@@ -218,15 +197,78 @@ game7App.factory("SubCategoria", function (Ajax,$http) {
                 'Content-Type': 'application/json'
             }
         }).then(function successCallback(response) {
-            obj.predio = response.data;
+            obj.retorno = response.data;
         }, function errorCallback(response) {
             console.log("Erro");
         });
     };
-    obj.excluir_categoria = function () {
-        var url = URL_BASE + "excluircategoria";
+    return obj;
+});
+
+game7App.factory("Cliente", function (Ajax,$http) {
+    var obj = {
+        lista_clientes: [],
+        clienteselecionado: [],
+        retorno : false,
+    };
+    obj.get_clientes = function (nome_cliente, email_cliente) {
+        var url = URL_BASE + "clientes";
+        var params = {
+            nome:nome_cliente,
+            email:email_cliente,
+            id:TOKENS["c_id"]
+        }
+        $http({
+            method: "GET",
+            params: params,
+            url: url,
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }).then(function successCallback(response) {
+            obj.lista_subcategorias = response.data;
+        }, function errorCallback(response) {
+            console.log("Erro");
+        });
+    };
+
+    obj.get_cliente = function () {
+        //Get relação de clientes
+        var url = URL_BASE + "clientes";
         var params = {
           id:TOKENS['c_id']
+        }
+        $http({
+            method: "GET",
+            params: params,
+            url: url,
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }).then(function successCallback(response) {
+            obj.clienteselecionado = response.data;
+        }, function errorCallback(response) {
+            console.log("Erro");
+        });
+    };
+    obj.save_subcategoria = function (subcategoria_nome) {
+        var url = URL_BASE + "savesubcategoria";
+
+        var f = new FormData();
+        f.append('id', TOKENS['subc_id']);
+        f.append('categoria', TOKENS['c_id']);
+        f.append('nome', subcategoria_nome);
+        $http.post(url, f, {headers: {'Content-Type': undefined}}).success(
+          function(response){
+            obj.retorno = response;
+          }
+        )
+
+    };
+    obj.excluir_subcategoria = function () {
+        var url = URL_BASE + "excluirsubcategoria";
+        var params = {
+          id:TOKENS['subc_id']
         }
         $http({
             method: "GET",

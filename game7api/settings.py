@@ -25,7 +25,7 @@ SECRET_KEY = '2!7#8u3*@k!a$)9z=g&y)*suxyb65pm_1a_31=ce6cn3)ljz@&'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['0.0.0.0']
 
 
 # Application definition
@@ -78,20 +78,20 @@ WSGI_APPLICATION = 'game7api.wsgi.application'
 DATABASES = {
     'default': {
         # # MINHA CASA
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'game7api',
-        'USER':'lovieira',
-        'PASSWORD':'123456',
-        'HOST':'localhost',
-        'PORT':'5432'
+        # 'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        # 'NAME': 'game7api',
+        # 'USER':'lovieira',
+        # 'PASSWORD':'123456',
+        # 'HOST':'localhost',
+        # 'PORT':'5432'
 
         # INPE
-		#'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        #'NAME': 'Manager_36',
-        #'USER':'lovieira',
-        #'PASSWORD':'28310189',
-        #'HOST':'localhost',
-        #'PORT':'5432'
+		'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'game7api',
+        'USER':'lovieira',
+        'PASSWORD':'28310189',
+        'HOST':'localhost',
+        'PORT':'5432'
 
         # NOTEBOOK RUIVA
 		#  'ENGINE': 'django.db.backends.postgresql_psycopg2',

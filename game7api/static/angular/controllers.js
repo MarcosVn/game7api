@@ -26,6 +26,21 @@ game7App.controller('subcategoriaCtrl', function($scope, SubCategoria, Categoria
         $scope.sc.save_subcategoria(document.getElementById("nome").value);
     }
     $scope.excluir = function(){
-      $scope.sc.excluir_csubategoria();
+      $scope.sc.excluir_subcategoria();
+    }
+});
+
+game7App.controller('clienteCtrl', function($scope, Cliente) {
+    $scope.cl = Cliente;
+    $scope.cl.get_cliente();
+    $scope.cl.get_clientes();
+    $scope.filtrar = function(){
+        $scope.cl.get_clientes(document.getElementById("ipFiltroNome").value,document.getElementById("ipFiltroEmail").value);
+    }
+    $scope.atualizar = function(){
+        $scope.cl.save_cliente(document.getElementById("nome").value);
+    }
+    $scope.excluir = function(){
+      $scope.cl.excluir_cliente();
     }
 });

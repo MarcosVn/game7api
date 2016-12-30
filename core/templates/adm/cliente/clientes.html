@@ -3,17 +3,21 @@
 {% load staticfiles %}
 {% block content %}
 
-<div class="col-md-12">
+<div class="col-md-12" ng-app="game7App" ng-controller="clienteCtrl">
     <div class="col-md-12">
         <h3>Clientes</h3>
         <p>Este módulo apresenta por padrão os clientes.</p>
     </div>
     <div class="col-md-12">
         <form method="post" class="form-inline well">
-            {%csrf_token%}
             <div class="form-group">
                 <label for="ipFiltroEmail">Email</label>
                 <input type="text" class="form-control" id="ipFiltroEmail" name="ipFiltroEmail" >
+            </div>
+
+            <div class="form-group">
+                <label for="ipFiltroNome">Nome</label>
+                <input type="text" class="form-control" id="ipFiltroNome" name="ipFiltroNome" >
             </div>
 
             <button type="submit" class="btn btn-default">Filtrar</button>
@@ -25,20 +29,18 @@
                 <th>Nome</th>
                 <th>Email</th>
                 <th>Telefone</th>
-                <th>Cidade</th>
                 <th></th>
                 <th></th>
                 <th></th>
             </tr>
 
-              <tr>
-                  <td class="col-md-4">{{cliente.nome}}</td>
-                  <td class="col-md-4">{{cliente.email}}</td>
-                  <td class="col-md-2">{{cliente.telefone}}</td>
-                  <td class="col-md-2">{{cliente.cidade.nome}}</td>
-                  <td><a href="/adm/cliente-edicao?c_id={{cliente.id}}" class="btn btn-primary btn-xs">editar</a> </td>
-                  <td><a href="/adm/cliente-ver?c_id={{cliente.id}}" class="btn btn-primary btn-xs">ver</a> </td>
-                  <td><a href="/adm/cliente-excluir?c_id={{cliente.id}}" class="btn btn-danger btn-xs">excluir</a> </td>
+              <tr ng-repeat="cliente in cl.lista_clientes">
+                  <td class="col-md-4">{[cliente.fields.nome]}</td>
+                  <td class="col-md-4">{{cliente.fields.email}}</td>
+                  <td class="col-md-2">{{cliente.fields.telefone}}</td>
+                  <td><a href="/adm/cliente-edicao?c_id={[cliente.pk}}" class="btn btn-primary btn-xs">editar</a> </td>
+                  <td><a href="/adm/cliente-ver?c_id={[cliente.pk]}" class="btn btn-primary btn-xs">ver</a> </td>
+                  <td><a href="/adm/cliente-excluir?c_id={[cliente.pk]}" class="btn btn-danger btn-xs">excluir</a> </td>
               </tr>
 
         </table>

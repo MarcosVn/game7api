@@ -140,6 +140,7 @@ class ServiceJson(View):
         # Filtros
         nome = request.GET.get("nome")
         id = request.GET.get("id")
+        email = request.GET.get("email")
 
         if (id == 'undefined'):
             id = 0
@@ -148,6 +149,8 @@ class ServiceJson(View):
             query = query.filter(nome__icontains=nome)
         if (id > 0):
             query = query.filter(id=id)
+        if (email):
+            query = query.filter(email__icontains=email)
 
         lista = serialize('json', query, fields=["id", "nome", "email", "telefone", "endereco", "cidade__id", "cidade__nome", "bairro__id", "bairro_nome"])
         return HttpResponse(lista, content_type='application/json')
