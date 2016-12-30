@@ -316,14 +316,21 @@ class ServiceJson(View):
         nome = request.GET.get("nome")
         id = request.GET.get("id")
 
+        print id
+
+
         if (estado_id):
             query = query.filter(estado__id=estado_id)
-        if (id == 'undefined'):
+        if (id == None):
             id = 0
+
+        id = int(id)
+
         if (nome):
             query = query.filter(nome__icontains=nome)
         if (id > 0):
             query = query.filter(id=id)
+
 
         lista = serialize('json', query, fields=["id", "nome", "estado__id", "estado__nome"])
         return HttpResponse(lista, content_type='application/json')

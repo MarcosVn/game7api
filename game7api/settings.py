@@ -77,21 +77,21 @@ WSGI_APPLICATION = 'game7api.wsgi.application'
 # https://docs.djangoproject.com/en/1.10/ref/settings/#databases
 DATABASES = {
     'default': {
-        # # MINHA CASA
+        # MINHA CASA
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'game7api',
+        'USER':'lovieira',
+        'PASSWORD':'123456',
+        'HOST':'localhost',
+        'PORT':'5432'
+
+        # # INPE
         # 'ENGINE': 'django.db.backends.postgresql_psycopg2',
         # 'NAME': 'game7api',
         # 'USER':'lovieira',
-        # 'PASSWORD':'123456',
+        # 'PASSWORD':'28310189',
         # 'HOST':'localhost',
         # 'PORT':'5432'
-
-        # INPE
-		'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'game7api',
-        'USER':'lovieira',
-        'PASSWORD':'28310189',
-        'HOST':'localhost',
-        'PORT':'5432'
 
         # NOTEBOOK RUIVA
 		#  'ENGINE': 'django.db.backends.postgresql_psycopg2',

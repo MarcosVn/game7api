@@ -52,6 +52,60 @@ game7App.factory("Estado", function (Ajax,$http) {
     return obj;
 });
 
+game7App.factory("Cidade", function (Ajax,$http) {
+    var obj = {
+        lista_cidades: [],
+        retorno : false,
+    };
+    obj.get_cidades= function (estado_id) {
+        var url = URL_BASE + "cidades";
+        var params = {
+            estado_id:estado_id,
+            id:TOKENS["cid_id"]
+        }
+        $http({
+            method: "GET",
+            params: params,
+            url: url,
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }).then(function successCallback(response) {
+            obj.lista_cidades= response.data;
+        }, function errorCallback(response) {
+            console.log("Erro");
+        });
+    };
+    return obj;
+});
+
+game7App.factory("Bairro", function (Ajax,$http) {
+    var obj = {
+        lista_bairros: [],
+        retorno : false,
+    };
+    obj.get_bairros= function (cidade_id) {
+        var url = URL_BASE + "bairros";
+        var params = {
+            cidade_id:cidade_id,
+            id:TOKENS["bai_id"]
+        }
+        $http({
+            method: "GET",
+            params: params,
+            url: url,
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }).then(function successCallback(response) {
+            obj.lista_bairros= response.data;
+        }, function errorCallback(response) {
+            console.log("Erro");
+        });
+    };
+    return obj;
+});
+
 game7App.factory("Categoria", function (Ajax,$http) {
     var obj = {
         lista_categorias: [],
@@ -276,13 +330,19 @@ game7App.factory("Cliente", function (Ajax,$http) {
             console.log("Erro");
         });
     };
-    obj.save_subcategoria = function (subcategoria_nome) {
-        var url = URL_BASE + "savesubcategoria";
+    obj.save_cliente = function (cliente_nome, cliente_email, cliente_senha, cliente_telefone, cliente_estado, cliente_cidade, cliente_bairro, cliente_endereco) {
+        var url = URL_BASE + "savecliente";
 
         var f = new FormData();
-        f.append('id', TOKENS['subc_id']);
-        f.append('categoria', TOKENS['c_id']);
-        f.append('nome', subcategoria_nome);
+        f.append('id', TOKENS['c_id']);
+        f.append('nome', cliente_nome);
+        f.append('email', cliente_email);
+        f.append('senha', cliente_senha);
+        f.append('telefone', cliente_telefone);
+        f.append('estado', cliente_estado);
+        f.append('cidade', cliente_cidade);
+        f.append('bairro', cliente_bairro);
+        f.append('endereco', cliente_endereco);
         $http.post(url, f, {headers: {'Content-Type': undefined}}).success(
           function(response){
             obj.retorno = response;

@@ -30,9 +30,14 @@ game7App.controller('subcategoriaCtrl', function($scope, SubCategoria, Categoria
     }
 });
 
-game7App.controller('clienteCtrl', function($scope, Cliente, Estado) {
+game7App.controller('clienteCtrl', function($scope, Cliente, Estado, Cidade, Bairro) {
     $scope.et = Estado;
     $scope.et.get_estados();
+
+    $scope.cd = Cidade;
+
+    $scope.br = Bairro;
+
     $scope.cl = Cliente;
     $scope.cl.get_cliente();
     $scope.cl.get_clientes();
@@ -40,9 +45,15 @@ game7App.controller('clienteCtrl', function($scope, Cliente, Estado) {
         $scope.cl.get_clientes(document.getElementById("ipFiltroNome").value,document.getElementById("ipFiltroEmail").value);
     }
     $scope.atualizar = function(){
-        $scope.cl.save_cliente(document.getElementById("nome").value);
+        $scope.cl.save_cliente(document.getElementById("nome").value, document.getElementById("email").value,document.getElementById("senha").value, document.getElementById("telefone").value, document.getElementById("estado").value, document.getElementById("cidade").value,document.getElementById("bairro").value,document.getElementById("endereco").value);
     }
     $scope.excluir = function(){
       $scope.cl.excluir_cliente();
+    }
+    $scope.getcidades = function(){
+        $scope.cd.get_cidades(document.getElementById("estado").value);
+    }
+    $scope.getbairros = function(){
+        $scope.br.get_bairros(document.getElementById("cidade").value);
     }
 });

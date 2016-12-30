@@ -9,9 +9,16 @@
         <h3>Novo Cliente</h3>
         <p>O Cliente estará disponível assim que estiver salvo.</p>
     </div>
+    <div ng-if="cl.retorno">
+        <p class="alert alert-success" style="text-align:center;">Salvo com sucesso!</p>
+    </div>
     <div class="col-md-8">
         <label class="control-label">Nome</label><br/>
         <input type="text" id="nome" name="nome" required="True" class="form-control"/>
+        <br/>
+
+        <label class="control-label">Email</label><br/>
+        <input type="text" id="email" type="email" name="email" required="True" class="form-control"/>
         <br/>
 
         <label class="control-label">Senha</label><br/>
@@ -19,19 +26,19 @@
         <br/>
 
         <label class="control-label">Telefone</label><br/>
-        <input type="password" id="telefone" name="telefone" required="True" class="form-control"/>
+        <input type="number" id="telefone" name="telefone" required="True" class="form-control"/>
         <br/>
 
         <label class="control-label">Estado</label><br/>
-        <select class="form-control" ng-options="estado as estado.fields.nome for estado in et.lista_estados track by estado.pk" ng-model="sel_estado"></select>
+        <select class="form-control" name="estado" id="estado" ng-change="getcidades()" ng-options="estado as estado.fields.nome for estado in et.lista_estados track by estado.pk" ng-model="sel_estado"></select>
         <br/>
 
         <label class="control-label">Cidade</label><br/>
-        <select class="form-control" ng-options="cidade as cidade.fields.nome for cidade in cd.lista_cidades track by cidade.pk" ng-model="sel_cidade"></select>
+        <select class="form-control" name="cidade" id="cidade" ng-change="getbairros()" ng-options="cidade as cidade.fields.nome for cidade in cd.lista_cidades track by cidade.pk" ng-model="sel_cidade"></select>
         <br/>
 
         <label class="control-label">Bairro</label><br/>
-        <select class="form-control" ng-options="bairro as bairro.fields.nome for bairro in br.lista_bairros track by bairro.pk" ng-model="sel_bairro"></select>
+        <select class="form-control" name="bairro" id="bairro" ng-options="bairro as bairro.fields.nome for bairro in br.lista_bairros track by bairro.pk" ng-model="sel_bairro"></select>
         <br/>
 
         <label class="control-label">Endereço</label><br/>
@@ -41,7 +48,7 @@
     </div>
 
     <div class="col-md-4">
-        <button type="submit" style="display: block;width: 100%;" class="btn btn-success btn-lg">Salvar</button>
+        <a ng-click="atualizar()" style="display: block;width: 100%;" class="btn btn-success btn-lg">Salvar</a>
         <a style="display: block;width: 100%;" class="btn btn-default btn-lg" href="/adm/categorias/">Cancelar</a>
     </div>
   </form>
