@@ -17,7 +17,7 @@ class Command(BaseCommand):
             for row in spamreader:
                 print row
 
-                oCidade=Cidade.objects.get(id=5340)
+                oCidade=Cidade.objects.get(id=1)
 
                 oBairro=Bairro()
                 oBairro.cidade=oCidade

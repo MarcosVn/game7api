@@ -36,9 +36,9 @@
 
               <tr ng-repeat="cliente in cl.lista_clientes">
                   <td class="col-md-4">{[cliente.fields.nome]}</td>
-                  <td class="col-md-4">{{cliente.fields.email}}</td>
-                  <td class="col-md-2">{{cliente.fields.telefone}}</td>
-                  <td><a href="/adm/cliente-edicao?c_id={[cliente.pk}}" class="btn btn-primary btn-xs">editar</a> </td>
+                  <td class="col-md-4">{[cliente.fields.email]}</td>
+                  <td class="col-md-2">{[cliente.fields.telefone]}</td>
+                  <td><a href="/adm/cliente-edicao?c_id={[cliente.pk]}" class="btn btn-primary btn-xs">editar</a> </td>
                   <td><a href="/adm/cliente-ver?c_id={[cliente.pk]}" class="btn btn-primary btn-xs">ver</a> </td>
                   <td><a href="/adm/cliente-excluir?c_id={[cliente.pk]}" class="btn btn-danger btn-xs">excluir</a> </td>
               </tr>

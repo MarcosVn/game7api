@@ -26,6 +26,31 @@ function getTokens(){
 
 TOKENS = getTokens();
 
+game7App.factory("Estado", function (Ajax,$http) {
+    var obj = {
+        lista_estados: [],
+        retorno : false,
+    };
+    obj.get_estados= function () {
+        var url = URL_BASE + "estados";
+        var params = {
+            id:TOKENS["e_id"]
+        }
+        $http({
+            method: "GET",
+            params: params,
+            url: url,
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }).then(function successCallback(response) {
+            obj.lista_estados= response.data;
+        }, function errorCallback(response) {
+            console.log("Erro");
+        });
+    };
+    return obj;
+});
 
 game7App.factory("Categoria", function (Ajax,$http) {
     var obj = {
@@ -226,7 +251,7 @@ game7App.factory("Cliente", function (Ajax,$http) {
                 'Content-Type': 'application/json'
             }
         }).then(function successCallback(response) {
-            obj.lista_subcategorias = response.data;
+            obj.lista_clientes= response.data;
         }, function errorCallback(response) {
             console.log("Erro");
         });

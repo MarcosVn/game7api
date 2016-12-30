@@ -30,7 +30,9 @@ game7App.controller('subcategoriaCtrl', function($scope, SubCategoria, Categoria
     }
 });
 
-game7App.controller('clienteCtrl', function($scope, Cliente) {
+game7App.controller('clienteCtrl', function($scope, Cliente, Estado) {
+    $scope.et = Estado;
+    $scope.et.get_estados();
     $scope.cl = Cliente;
     $scope.cl.get_cliente();
     $scope.cl.get_clientes();
