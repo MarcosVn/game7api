@@ -57,3 +57,40 @@ game7App.controller('clienteCtrl', function($scope, Cliente, Estado, Cidade, Bai
         $scope.br.get_bairros(document.getElementById("cidade").value);
     }
 });
+
+game7App.controller('empresaCtrl', function($scope, Empresa, Estado, Cidade, Bairro) {
+    $scope.et = Estado;
+    $scope.et.get_estados();
+
+    $scope.cd = Cidade;
+
+    $scope.br = Bairro;
+
+    $scope.em = Empresa;
+    $scope.em.get_empresa();
+    $scope.em.get_empresas();
+    $scope.filtrar = function(){
+        $scope.em.get_empresas(document.getElementById("ipFiltroNome").value,document.getElementById("ipFiltroEmail").value);
+    }
+    $scope.atualizar = function(){
+        $scope.em.save_empresa(
+            document.getElementById("nome").value,
+            document.getElementById("email").value,
+            document.getElementById("senha").value,
+            document.getElementById("telefone").value,
+            document.getElementById("estado").value,
+            document.getElementById("cidade").value,
+            document.getElementById("bairro").value,
+            document.getElementById("endereco").value,
+            document.getElementById("descricao").value);
+    }
+    $scope.excluir = function(){
+      $scope.em.excluir_empresa();
+    }
+    $scope.getcidades = function(){
+        $scope.cd.get_cidades(document.getElementById("estado").value);
+    }
+    $scope.getbairros = function(){
+        $scope.br.get_bairros(document.getElementById("cidade").value);
+    }
+});

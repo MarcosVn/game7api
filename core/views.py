@@ -62,6 +62,22 @@ class adminSubCategoriaVerView(View):
     def get(self, request, *args, **kwargs):
         return render_to_response('adm/subcategoria/ver.html', {}, RequestContext(request))
 
+class adminEmpresasView(View):
+    def get(self, request, *args, **kwargs):
+        return render_to_response('adm/empresa/empresas.html', {}, RequestContext(request))
+class adminEmpresaNovaView(View):
+    def get(self, request, *args, **kwargs):
+        return render(request, 'adm/empresa/novo.html', {}, RequestContext(request))
+class adminEmpresaEdicaoView(View):
+    def get(self, request, *args, **kwargs):
+        return render(request, 'adm/empresa/editar.html', {}, RequestContext(request))
+class adminEmpresaExcluirView(View):
+    def get(self, request, *args, **kwargs):
+        return render_to_response('adm/empresa/excluir.html', {}, RequestContext(request))
+class adminEmpresaVerView(View):
+    def get(self, request, *args, **kwargs):
+        return render_to_response('adm/empresa/ver.html', {}, RequestContext(request))
+
 
 class ServiceJson(View):
     @staticmethod
@@ -157,7 +173,6 @@ class ServiceJson(View):
 
             rows.append(r)
 
-        # lista = serialize('json', list(rows))
         lista = json.dumps(list(rows))
         return HttpResponse(lista, content_type='application/json')
 
@@ -280,8 +295,10 @@ class ServiceJson(View):
         nome = request.GET.get("nome")
         id = request.GET.get("id")
 
-        if (id == 'undefined'):
+        if (id == None):
             id = 0
+
+        id = int(id)
 
         if (nome):
             query = query.filter(nome__icontains=nome)
@@ -420,8 +437,10 @@ class ServiceJson(View):
         email = request.GET.get("email")
         lista_bairros = request.GET.get("bairros")
 
-        if (id == 'undefined'):
+        if (id == None):
             id = 0
+
+        id = int(id)
 
         if (nome):
             query = query.filter(nome__icontains=nome)
@@ -433,8 +452,38 @@ class ServiceJson(View):
             bairros = lista_bairros.split(",")
             query = query.filter(bairros__id__in=bairros)
 
-        lista = serialize('json', query, fields=["id", "nome", "descricao", "email", "bairros"])
+        rows = []
+
+        for empresa in query:
+
+            bairros = []
+
+            for bairro in empresa.bairros_atendimento.all():
+                r_bairro = {
+                    "bairro":bairro.nome,
+                    "bairro_id":bairro.id
+                }
+
+                bairros.append(r_bairro)
+
+            r = {
+                "id": empresa.id,
+                "nome": empresa.nome,
+                "email": empresa.email,
+                "telefone": empresa.telefone,
+                "endereco": empresa.endereco,
+                "cidade": empresa.cidade.nome,
+                "cidade_id": empresa.cidade.id,
+                "estado": empresa.cidade.estado.nome,
+                "estado_id": empresa.cidade.estado.id,
+                "bairros":bairros
+            }
+
+            rows.append(r)
+
+        lista = json.dumps(list(rows))
         return HttpResponse(lista, content_type='application/json')
+
 
     @staticmethod
     @csrf_exempt
@@ -445,6 +494,12 @@ class ServiceJson(View):
         descricao = request.POST.get("descricao")
         email = request.POST.get("email")
         senha = request.POST.get("senha")
+        telefone = request.POST.get("telefone")
+        cidade_id = request.POST.get("cidade")
+        estado_id = request.POST.get("estado")
+        bairro_id = request.POST.get("bairro")
+        endereco = request.POST.get("endereco")
+
 
         # Objeto de Empresas
         oEmpresa = Empresa()
@@ -457,6 +512,11 @@ class ServiceJson(View):
         oEmpresa.descricao = descricao
         oEmpresa.email = email
         oEmpresa.senha = senha
+        oEmpresa.telefone = telefone
+        oEmpresa.cidade = Cidade.objects.filter(id=cidade_id).first()
+        oEmpresa.estado = Estado.objects.filter(id=estado_id).first()
+        oEmpresa.bairro = Bairro.objects.filter(id=bairro_id).first()
+        oEmpresa.endereco= endereco
 
         oEmpresa.save()
 

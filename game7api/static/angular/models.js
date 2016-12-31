@@ -370,3 +370,90 @@ game7App.factory("Cliente", function (Ajax,$http) {
     };
     return obj;
 });
+
+game7App.factory("Empresa", function (Ajax,$http) {
+    var obj = {
+        lista_empresas: [],
+        empresaselecionado: [],
+        retorno : false,
+    };
+    obj.get_empresas = function (nome_empresa, email_empresa) {
+        var url = URL_BASE + "empresas";
+        var params = {
+            nome:nome_empresa,
+            email:email_empresa,
+            id:TOKENS["e_id"]
+        }
+        $http({
+            method: "GET",
+            params: params,
+            url: url,
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }).then(function successCallback(response) {
+            obj.lista_empresas= response.data;
+        }, function errorCallback(response) {
+            console.log("Erro");
+        });
+    };
+
+    obj.get_empresa = function () {
+        //Get relação de clientes
+        var url = URL_BASE + "empresas";
+        var params = {
+          id:TOKENS['e_id']
+        }
+        $http({
+            method: "GET",
+            params: params,
+            url: url,
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }).then(function successCallback(response) {
+            obj.empresaselecionado = response.data;
+        }, function errorCallback(response) {
+            console.log("Erro");
+        });
+    };
+    obj.save_empresa = function (empresa_nome, empresa_email, empresa_senha, empresa_telefone, empresa_estado, empresa_cidade, empresa_bairro, empresa_endereco, empresa_descricao) {
+        var url = URL_BASE + "saveempresa";
+
+        var f = new FormData();
+        f.append('id', TOKENS['e_id']);
+        f.append('nome', empresa_nome);
+        f.append('email', empresa_email);
+        f.append('senha', empresa_senha);
+        f.append('telefone', empresa_telefone);
+        f.append('estado', empresa_estado);
+        f.append('cidade', empresa_cidade);
+        f.append('bairro', empresa_bairro);
+        f.append('endereco', empresa_endereco);
+        f.append('descricao', empresa_descricao);
+        $http.post(url, f, {headers: {'Content-Type': undefined}}).success(
+          function(response){
+            obj.retorno = response;
+          }
+        )
+    };
+    obj.excluir_empresa= function () {
+        var url = URL_BASE + "excluirempresa";
+        var params = {
+          id:TOKENS['e_id']
+        }
+        $http({
+            method: "GET",
+            params: params,
+            url: url,
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }).then(function successCallback(response) {
+            obj.retorno = response.data;
+        }, function errorCallback(response) {
+            console.log("Erro");
+        });
+    };
+    return obj;
+});

@@ -47,7 +47,12 @@ class Empresa(models.Model):
     descricao = models.CharField(max_length=1024)
     email = models.CharField(max_length=512)
     senha = models.CharField(max_length=128)
-    bairros = models.ManyToManyField("Bairro", related_name="empresas")
+    cidade = models.ForeignKey("Cidade")
+    endereco = models.CharField(max_length=512)
+    bairro = models.ForeignKey("Bairro")
+    bairros_atendimento = models.ManyToManyField("Bairro", related_name="empresas")
+    telefone = models.CharField(max_length=128)
+    descricao = models.CharField(max_length=1024)
 
     class Meta:
         verbose_name = "Empresa"

@@ -1,0 +1,45 @@
+{% extends "adm/base.html" %}
+{% block title %}Ver Categoria{% endblock %}
+{% load staticfiles %}
+{% block content %}
+
+<div ng-app="game7App" ng-controller="clienteCtrl" class="col-md-12" xmlns="http://www.w3.org/1999/html">
+    <div class="col-md-12">
+        <h3>Ver Cliente</h3>
+    </div>
+    <div class="col-md-10">
+        <b>Nome</b><br/>
+        {[cl.clienteselecionado[0].nome]}
+        <br/><br/>
+
+        <b>Email</b><br/>
+        {[cl.clienteselecionado[0].email]}
+        <br/><br/>
+
+        <b>Telefone</b><br/>
+        {[cl.clienteselecionado[0].telefone]}
+        <br/><br/>
+
+        <b>Estado</b><br/>
+        {[cl.clienteselecionado[0].estado]}
+        <br/><br/>
+
+        <b>Cidade</b><br/>
+        {[cl.clienteselecionado[0].cidade]}
+        <br/><br/>
+
+        <b>Bairro</b><br/>
+        {[cl.clienteselecionado[0].bairro]}
+        <br/><br/>
+
+        <b>Endereço</b><br/>
+        {[cl.clienteselecionado[0].endereco]}
+        <br/><br/>
+    </div>
+
+    <div class="col-md-2">
+        <a style="display: block;width: 100%;" class="btn btn-default btn-lg" href="/adm/clientes">Voltar</a>
+    </div>
+</div>
+
+{% endblock %}

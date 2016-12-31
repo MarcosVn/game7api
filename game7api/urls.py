@@ -39,6 +39,12 @@ urlpatterns = [
     url(r'^adm/cliente-ver/', adminClienteVerView.as_view(), name="VerCliente-adm"),
     url(r'^adm/cliente-edicao/', adminClienteEdicaoView.as_view(), name="EdicaoCliente-adm"),
 
+    url(r'^adm/filiados/', adminEmpresasView.as_view(), name="Empresas-adm"),
+    url(r'^adm/filiado-nova/', adminEmpresaNovaView.as_view(), name="NovoEmpresa-adm"),
+    url(r'^adm/filiado-excluir/', adminEmpresaExcluirView.as_view(), name="ExcluirEmpresa-adm"),
+    url(r'^adm/filiado-ver/', adminEmpresaVerView.as_view(), name="VerEmpresa-adm"),
+    url(r'^adm/filiado-edicao/', adminEmpresaEdicaoView.as_view(), name="EdicaoEmpresa-adm"),
+
     url(r'^js/categorias', ServiceJson.categorias, name='categorias'),
     url(r'^js/clientes', ServiceJson.clientes, name='clientes'),
     url(r'^js/subcategorias', ServiceJson.subcategorias, name='subcategorias'),
