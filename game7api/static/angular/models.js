@@ -350,10 +350,10 @@ game7App.factory("Cliente", function (Ajax,$http) {
         )
 
     };
-    obj.excluir_subcategoria = function () {
-        var url = URL_BASE + "excluirsubcategoria";
+    obj.excluir_cliente= function () {
+        var url = URL_BASE + "excluircliente";
         var params = {
-          id:TOKENS['subc_id']
+          id:TOKENS['c_id']
         }
         $http({
             method: "GET",

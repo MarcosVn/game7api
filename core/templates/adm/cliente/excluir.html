@@ -3,18 +3,20 @@
 {% load staticfiles %}
 {% block content %}
 
-  <div class="content">
-
+  <div class="content" ng-app="game7App" ng-controller="clienteCtrl">
     <div class="col-md-12">
-        <h2>Categoria - <small>Exclusão</small></h2>
+        <h2>Cliente - <small>Exclusão</small></h2>
+    </div>
+    <div ng-if="cl.retorno">
+        <p class="alert alert-success" style="text-align:center;">Excluido com sucesso!</p>
     </div>
     <div class="col-md-10">
-        <p>A exclusão terá efeito imediato, ressaltando que juntamente com a Categoria todas suas subcategorias serão excluídas</p>
-        <p>Tem certeza que deseja excluir a categoria <b>{{categoriaselecionado.nome}}</b> ? </p>
+        <p>A exclusão terá efeito imediato</p>
+        <p>Tem certeza que deseja excluir o Cliente <b>{[cl.clienteselecionado[0].nome]}</b> ? </p>
     </div>
     <div class="col-md-2">
-        <a href="/adm/bd-categoria-excluir?c_id={{categoriaselecionado.id}}" style="display: block;width: 100%;" class="btn btn-success btn-lg">Sim</a>
-        <a href="/adm/categorias" style="display: block;width: 100%;" class="btn btn-default">Cancelar</a>
+        <a ng-click="excluir()" style="display: block;width: 100%;" class="btn btn-success btn-lg">Sim</a>
+        <a href="/adm/clientes" style="display: block;width: 100%;" class="btn btn-default">Cancelar</a>
     </div>
 
   </div>

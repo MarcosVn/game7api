@@ -5,73 +5,59 @@ from django.template.context import RequestContext
 from django.core.serializers import serialize
 from django.http.response import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
-
+import json
 
 class adminLoginView(View):
     def get(self, request, *args, **kwargs):
         return render_to_response('adm/login.html', {}, RequestContext(request))
-
-
 class adminHomeView(View):
     def get(self, request, *args, **kwargs):
         return render_to_response('adm/home.html', {}, RequestContext(request))
 
-
 class adminCategoriasView(View):
     def get(self, request, *args, **kwargs):
         return render_to_response('adm/categoria/categorias.html', {}, RequestContext(request))
-
-
-class adminClientesView(View):
-    def get(self, request, *args, **kwargs):
-        return render_to_response('adm/cliente/clientes.html', {}, RequestContext(request))
-
-
 class adminCategoriaNovaView(View):
     def get(self, request, *args, **kwargs):
         return render(request, 'adm/categoria/novo.html', {}, RequestContext(request))
-
-
-class adminClientesNovaView(View):
-    def get(self, request, *args, **kwargs):
-        return render(request, 'adm/cliente/novo.html', {}, RequestContext(request))
-
-
 class adminCategoriaEdicaoView(View):
     def get(self, request, *args, **kwargs):
         return render(request, 'adm/categoria/editar.html', {}, RequestContext(request))
-
-
 class adminCategoriaExcluirView(View):
     def get(self, request, *args, **kwargs):
         return render_to_response('adm/categoria/excluir.html', {}, RequestContext(request))
-
-
 class adminCategoriaVerView(View):
     def get(self, request, *args, **kwargs):
         return render_to_response('adm/categoria/ver.html', {}, RequestContext(request))
 
+class adminClientesView(View):
+    def get(self, request, *args, **kwargs):
+        return render_to_response('adm/cliente/clientes.html', {}, RequestContext(request))
+class adminClienteNovaView(View):
+    def get(self, request, *args, **kwargs):
+        return render(request, 'adm/cliente/novo.html', {}, RequestContext(request))
+class adminClienteEdicaoView(View):
+    def get(self, request, *args, **kwargs):
+        return render(request, 'adm/cliente/editar.html', {}, RequestContext(request))
+class adminClienteExcluirView(View):
+    def get(self, request, *args, **kwargs):
+        return render_to_response('adm/cliente/excluir.html', {}, RequestContext(request))
+class adminClienteVerView(View):
+    def get(self, request, *args, **kwargs):
+        return render_to_response('adm/cliente/ver.html', {}, RequestContext(request))
 
 class adminSubCategoriasView(View):
     def get(self, request, *args, **kwargs):
         return render_to_response('adm/subcategoria/subcategorias.html', {}, RequestContext(request))
-
-
 class adminSubCategoriaNovaView(View):
     def get(self, request, *args, **kwargs):
         return render(request, 'adm/subcategoria/novo.html', {}, RequestContext(request))
-
-
 class adminSubCategoriaEdicaoView(View):
     def get(self, request, *args, **kwargs):
         return render(request, 'adm/subcategoria/editar.html', {}, RequestContext(request))
-
-
 class adminSubCategoriaExcluirView(View):
     def get(self, request, *args, **kwargs):
         return render_to_response('adm/subcategoria/excluir.html', {}, RequestContext(request))
-
-
 class adminSubCategoriaVerView(View):
     def get(self, request, *args, **kwargs):
         return render_to_response('adm/subcategoria/ver.html', {}, RequestContext(request))
@@ -152,7 +138,27 @@ class ServiceJson(View):
         if (email):
             query = query.filter(email__icontains=email)
 
-        lista = serialize('json', query, fields=["id", "nome", "email", "telefone", "endereco", "cidade__id", "cidade__nome", "bairro__id", "bairro_nome"])
+        rows = []
+
+        for cliente in query:
+            r = {
+                "id":cliente.id,
+                "nome":cliente.nome,
+                "email":cliente.email,
+                "telefone":cliente.telefone,
+                "endereco":cliente.endereco,
+                "cidade":cliente.cidade.nome,
+                "cidade_id":cliente.cidade.id,
+                "bairro":cliente.bairro.nome,
+                "bairro_id":cliente.bairro.id,
+                "estado":cliente.cidade.estado.nome,
+                "estado_id":cliente.cidade.estado.id
+            }
+
+            rows.append(r)
+
+        # lista = serialize('json', list(rows))
+        lista = json.dumps(list(rows))
         return HttpResponse(lista, content_type='application/json')
 
     @staticmethod

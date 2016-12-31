@@ -34,7 +34,10 @@ urlpatterns = [
     url(r'^adm/subcategoria-ver', adminSubCategoriaVerView.as_view(), name="VerSubCategoria-adm"),
     url(r'^adm/subcategoria-edicao', adminSubCategoriaEdicaoView.as_view(), name="EdicaoSubCategoria-adm"),
     url(r'^adm/clientes/', adminClientesView.as_view(), name="Clientes-adm"),
-    url(r'^adm/clientes-nova/', adminClientesNovaView.as_view(), name="NovoCliente-adm"),
+    url(r'^adm/clientes-nova/', adminClienteNovaView.as_view(), name="NovoCliente-adm"),
+    url(r'^adm/cliente-excluir/', adminClienteExcluirView.as_view(), name="ExcluirCliente-adm"),
+    url(r'^adm/cliente-ver/', adminClienteVerView.as_view(), name="VerCliente-adm"),
+    url(r'^adm/cliente-edicao/', adminClienteEdicaoView.as_view(), name="EdicaoCliente-adm"),
 
     url(r'^js/categorias', ServiceJson.categorias, name='categorias'),
     url(r'^js/clientes', ServiceJson.clientes, name='clientes'),
