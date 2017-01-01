@@ -3,42 +3,52 @@
 {% load staticfiles %}
 {% block content %}
 
-<div ng-app="game7App" ng-controller="clienteCtrl" class="col-md-12" xmlns="http://www.w3.org/1999/html">
+<div ng-app="game7App" ng-controller="empresaCtrl" class="col-md-12" xmlns="http://www.w3.org/1999/html">
     <div class="col-md-12">
-        <h3>Ver Cliente</h3>
+        <h3>Ver Filiado</h3>
     </div>
     <div class="col-md-10">
-        <b>Nome</b><br/>
-        {[cl.clienteselecionado[0].nome]}
-        <br/><br/>
+        <div class="col-md-6">
+            <b>Nome</b><br/>
+            {[em.empresaselecionado[0].nome]}
+            <br/><br/>
 
-        <b>Email</b><br/>
-        {[cl.clienteselecionado[0].email]}
-        <br/><br/>
+            <b>Email</b><br/>
+            {[em.empresaselecionado[0].email]}
+            <br/><br/>
 
-        <b>Telefone</b><br/>
-        {[cl.clienteselecionado[0].telefone]}
-        <br/><br/>
+            <b>Telefone</b><br/>
+            {[em.empresaselecionado[0].telefone]}
+            <br/><br/>
 
-        <b>Estado</b><br/>
-        {[cl.clienteselecionado[0].estado]}
-        <br/><br/>
+            <b>Estado</b><br/>
+            {[em.empresaselecionado[0].estado]}
+            <br/><br/>
 
-        <b>Cidade</b><br/>
-        {[cl.clienteselecionado[0].cidade]}
-        <br/><br/>
+            <b>Cidade</b><br/>
+            {[em.empresaselecionado[0].cidade]}
+            <br/><br/>
 
-        <b>Bairro</b><br/>
-        {[cl.clienteselecionado[0].bairro]}
-        <br/><br/>
+            <b>Bairro</b><br/>
+            {[em.empresaselecionado[0].bairro]}
+            <br/><br/>
 
-        <b>Endereço</b><br/>
-        {[cl.clienteselecionado[0].endereco]}
-        <br/><br/>
+            <b>Endereço</b><br/>
+            {[em.empresaselecionado[0].endereco]}
+            <br/><br/>
+        </div>
+        <div class="col-md-6">
+            <b>Bairros</b><br/>
+            <ul>
+                <li ng-repeat="bairro in em.empresasselecionado[0].bairros">
+                    fwefeew
+                </li>
+            </ul>
+        </div>
     </div>
 
     <div class="col-md-2">
-        <a style="display: block;width: 100%;" class="btn btn-default btn-lg" href="/adm/clientes">Voltar</a>
+        <a style="display: block;width: 100%;" class="btn btn-default btn-lg" href="/adm/filiados">Voltar</a>
     </div>
 </div>
 

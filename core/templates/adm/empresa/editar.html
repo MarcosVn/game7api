@@ -3,22 +3,22 @@
 {% load staticfiles %}
 {% block content %}
 
-<div class="col-md-12" ng-app="game7App" ng-controller="clienteCtrl">
+<div class="col-md-12" ng-app="game7App" ng-controller="empresaCtrl">
   <form method="post">
     <div class="col-md-12">
-        <h3>Editar Cliente</h3>
-        <p>A alteração da cliente estará disponível assim que estiver salva.</p>
+        <h3>Editar Empresa</h3>
+        <p>A alteração da empresa estará disponível assim que estiver salva.</p>
     </div>
-    <div ng-if="cl.retorno">
+    <div ng-if="em.retorno">
         <p class="alert alert-success" style="text-align:center;">Salvo com sucesso!</p>
     </div>
     <div class="col-md-8">
         <label class="control-label">Nome</label><br/>
-        <input type="text" id="nome" name="nome" value="{[cl.clienteselecionado[0].nome]}" required="True" class="form-control"/>
+        <input type="text" id="nome" name="nome" value="{[em.empresaselecionado[0].nome]}" required="True" class="form-control"/>
         <br/>
 
         <label class="control-label">Email</label><br/>
-        <input type="text" id="email" type="email" name="email" value="{[cl.clienteselecionado[0].email]}" required="True" class="form-control"/>
+        <input type="text" id="email" type="email" name="email" value="{[em.empresaselecionado[0].email]}" required="True" class="form-control"/>
         <br/>
 
         <label class="control-label">Senha</label><br/>
@@ -26,7 +26,7 @@
         <br/>
 
         <label class="control-label">Telefone</label><br/>
-        <input type="number" id="telefone" name="telefone" value="{[cl.clienteselecionado[0].telefone]}" required="True" class="form-control"/>
+        <input type="number" id="telefone" name="telefone" value="{[em.empresaselecionado[0].telefone]}" required="True" class="form-control"/>
         <br/>
 
         <label class="control-label">Estado</label><br/>
@@ -42,14 +42,17 @@
         <br/>
 
         <label class="control-label">Endereço</label><br/>
-        <textarea id="endereco" name="endereco" rows="5" required="true" class="form-control">{[cl.clienteselecionado[0].endereco]}</textarea>
+        <textarea id="endereco" name="endereco" rows="5" required="true" class="form-control">{[em.empresaselecionado[0].endereco]}</textarea>
         <br/>
 
+        <label class="control-label">Descrição</label><br/>
+        <textarea id="descricao" name="descricao" rows="5" required="true" class="form-control">{[em.empresaselecionado[0].descricao]}</textarea>
+        <br/>
     </div>
 
     <div class="col-md-4">
         <a ng-click="atualizar()" style="display: block;width: 100%;" class="btn btn-success btn-lg">Salvar</a>
-        <a style="display: block;width: 100%;" class="btn btn-default btn-lg" href="/adm/clientes/">Cancelar</a>
+        <a style="display: block;width: 100%;" class="btn btn-default btn-lg" href="/adm/filiados/">Cancelar</a>
     </div>
   </form>
 </div>

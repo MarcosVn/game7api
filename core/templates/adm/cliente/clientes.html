@@ -9,7 +9,7 @@
         <p>Este módulo apresenta por padrão os clientes.</p>
     </div>
     <div class="col-md-12">
-        <form method="post" class="form-inline well">
+        <div class="form-inline well">
             <div class="form-group">
                 <label for="ipFiltroEmail">Email</label>
                 <input type="text" class="form-control" id="ipFiltroEmail" name="ipFiltroEmail" >
@@ -20,8 +20,8 @@
                 <input type="text" class="form-control" id="ipFiltroNome" name="ipFiltroNome" >
             </div>
 
-            <button type="submit" class="btn btn-default">Filtrar</button>
-        </form>
+            <a ng-click="filtrar()" class="btn btn-default">Filtrar</a>
+        </div>
       </div>
       <div class="col-md-10">
         <table class="table">

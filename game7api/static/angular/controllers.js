@@ -58,17 +58,17 @@ game7App.controller('clienteCtrl', function($scope, Cliente, Estado, Cidade, Bai
     }
 });
 
-game7App.controller('empresaCtrl', function($scope, Empresa, Estado, Cidade, Bairro) {
+game7App.controller('empresaCtrl', function($scope, Empresa, Estado, Cidade, Bairro, Atendimento) {
     $scope.et = Estado;
-    $scope.et.get_estados();
-
     $scope.cd = Cidade;
-
     $scope.br = Bairro;
-
     $scope.em = Empresa;
-    $scope.em.get_empresa();
+    $scope.at = Atendimento;
+
+    $scope.et.get_estados();
     $scope.em.get_empresas();
+    $scope.em.get_empresa();
+
     $scope.filtrar = function(){
         $scope.em.get_empresas(document.getElementById("ipFiltroNome").value,document.getElementById("ipFiltroEmail").value);
     }
@@ -92,5 +92,12 @@ game7App.controller('empresaCtrl', function($scope, Empresa, Estado, Cidade, Bai
     }
     $scope.getbairros = function(){
         $scope.br.get_bairros(document.getElementById("cidade").value);
+    }
+    $scope.atualizar_atendimento = function(){
+        $scope.at.save_atendimento(
+            document.getElementById("bairro").value);
+    }
+    $scope.excluir_atendimento = function(){
+        $scope.at.excluir_atendimento();
     }
 });

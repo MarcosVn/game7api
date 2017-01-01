@@ -34,7 +34,6 @@ game7App.factory("Estado", function (Ajax,$http) {
     obj.get_estados= function () {
         var url = URL_BASE + "estados";
         var params = {
-            id:TOKENS["e_id"]
         }
         $http({
             method: "GET",
@@ -441,6 +440,44 @@ game7App.factory("Empresa", function (Ajax,$http) {
         var url = URL_BASE + "excluirempresa";
         var params = {
           id:TOKENS['e_id']
+        }
+        $http({
+            method: "GET",
+            params: params,
+            url: url,
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }).then(function successCallback(response) {
+            obj.retorno = response.data;
+        }, function errorCallback(response) {
+            console.log("Erro");
+        });
+    };
+    return obj;
+});
+
+game7App.factory("Atendimento", function (Ajax,$http) {
+    var obj = {
+        retorno : false,
+    };
+    obj.save_atendimento = function (empresa_bairro) {
+        var url = URL_BASE + "saveempresabairro";
+
+        var f = new FormData();
+        f.append('id', TOKENS['e_id']);
+        f.append('bairro', empresa_bairro);
+        $http.post(url, f, {headers: {'Content-Type': undefined}}).success(
+          function(response){
+            obj.retorno = response;
+          }
+        )
+    };
+    obj.excluir_atendimento= function () {
+        var url = URL_BASE + "excluirempresa_bairro";
+        var params = {
+          empresa_id:TOKENS['e_id'],
+          bairro_id:TOKENS['b_id']
         }
         $http({
             method: "GET",

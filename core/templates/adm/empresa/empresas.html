@@ -9,7 +9,7 @@
         <p>Este módulo apresenta por padrão os empresas.</p>
     </div>
     <div class="col-md-12">
-        <form method="post" class="form-inline well">
+        <div class="form-inline well">
             <div class="form-group">
                 <label for="ipFiltroNome">Nome</label>
                 <input type="text" class="form-control" id="ipFiltroNome" name="ipFiltroNome" >
@@ -18,8 +18,8 @@
                 <label for="ipFiltroEmail">Email</label>
                 <input type="text" class="form-control" id="ipFiltroEmail" name="ipFiltroEmail" >
             </div>
-            <button type="submit" class="btn btn-default">Filtrar</button>
-        </form>
+            <a ng-click="filtrar()" class="btn btn-default">Filtrar</a>
+        </div>
       </div>
       <div class="col-md-10">
         <table class="table">
@@ -35,6 +35,7 @@
               <td class="col-md-4">{[empresa.nome]}</td>
               <td class="col-md-4">{[empresa.email]}</td>
               <td class="col-md-2">{[empresa.telefone]}</td>
+              <td><a href="/adm/filiado/atendimentos?e_id={[empresa.id]}" class="btn btn-default btn-xs">atendimento</a></td>
               <td><a href="/adm/filiado-edicao?e_id={[empresa.id]}" class="btn btn-primary btn-xs">editar</a></td>
               <td><a href="/adm/filiado-ver?e_id={[empresa.id]}" class="btn btn-primary btn-xs">ver</a> </td>
               <td><a href="/adm/filiado-excluir?e_id={[empresa.id]}" class="btn btn-danger btn-xs">excluir</a></td>

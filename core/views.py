@@ -78,6 +78,16 @@ class adminEmpresaVerView(View):
     def get(self, request, *args, **kwargs):
         return render_to_response('adm/empresa/ver.html', {}, RequestContext(request))
 
+class adminAtendimentosView(View):
+    def get(self, request, *args, **kwargs):
+        return render_to_response('adm/atendimento/atendimentos.html', {}, RequestContext(request))
+class adminAtendimentoNovaView(View):
+    def get(self, request, *args, **kwargs):
+        return render(request, 'adm/atendimento/novo.html', {}, RequestContext(request))
+class adminAtendimentoExcluirView(View):
+    def get(self, request, *args, **kwargs):
+        return render_to_response('adm/atendimento/excluir.html', {}, RequestContext(request))
+
 
 class ServiceJson(View):
     @staticmethod
@@ -476,7 +486,10 @@ class ServiceJson(View):
                 "cidade_id": empresa.cidade.id,
                 "estado": empresa.cidade.estado.nome,
                 "estado_id": empresa.cidade.estado.id,
-                "bairros":bairros
+                "bairro":empresa.bairro.nome,
+                "bairro_id":empresa.bairro.id,
+                "bairros":bairros,
+                "descricao":empresa.descricao
             }
 
             rows.append(r)
@@ -537,16 +550,16 @@ class ServiceJson(View):
 
     @staticmethod
     @csrf_exempt
-    def saveempresa_bairro(request):
+    def saveempresabairro(request):
         # Filtros
         id = request.POST.get("id")
-        bairro_id = request.POST.get("bairro_id")
+        bairro_id = request.POST.get("bairro")
 
         # Objeto de Empresa
-        oEmpresa = Empresa.objects.get(id=id)
+        oEmpresa = Empresa.objects.filter(id=id).first()
         oBairro = Bairro.objects.filter(id=bairro_id).first()
 
-        oEmpresa.bairros.add(oBairro)
+        oEmpresa.bairros_atendimento.add(oBairro)
         oEmpresa.save()
 
         lista = "true"
@@ -557,11 +570,14 @@ class ServiceJson(View):
         empresa_id = request.GET.get("empresa_id")
         bairro_id = request.GET.get("bairro_id")
 
+        print empresa_id
+        print bairro_id
+
         # Query Base
         oEmpresa = Empresa.objects.filter(id=empresa_id).first()
         oBairro = Bairro.objects.filter(id=bairro_id).first()
 
-        oEmpresa.bairros.remove(oBairro)
+        oEmpresa.bairros_atendimento.remove(oBairro)
         oEmpresa.save()
 
         lista = "true"
