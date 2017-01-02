@@ -78,6 +78,22 @@ class adminEmpresaVerView(View):
     def get(self, request, *args, **kwargs):
         return render_to_response('adm/empresa/ver.html', {}, RequestContext(request))
 
+class adminFuncionariosView(View):
+    def get(self, request, *args, **kwargs):
+        return render_to_response('adm/funcionario/funcionarios.html', {}, RequestContext(request))
+class adminFuncionarioNovaView(View):
+    def get(self, request, *args, **kwargs):
+        return render(request, 'adm/funcionario/novo.html', {}, RequestContext(request))
+class adminFuncionarioEdicaoView(View):
+    def get(self, request, *args, **kwargs):
+        return render(request, 'adm/funcionario/editar.html', {}, RequestContext(request))
+class adminFuncionarioExcluirView(View):
+    def get(self, request, *args, **kwargs):
+        return render_to_response('adm/funcionario/excluir.html', {}, RequestContext(request))
+class adminFuncionarioVerView(View):
+    def get(self, request, *args, **kwargs):
+        return render_to_response('adm/funcionario/ver.html', {}, RequestContext(request))
+
 class adminAtendimentosView(View):
     def get(self, request, *args, **kwargs):
         return render_to_response('adm/atendimento/atendimentos.html', {}, RequestContext(request))
@@ -622,7 +638,7 @@ class ServiceJson(View):
 
         if (id):
             if (int(id) > 0):
-                oEmpresa = Empresa.objects.get(id=id)
+                oFuncionario = Funcionario.objects.get(id=id)
 
         oFuncionario.nome = nome
         oFuncionario.email = email

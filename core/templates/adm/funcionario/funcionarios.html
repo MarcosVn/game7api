@@ -1,0 +1,53 @@
+{% extends "adm/base.html" %}
+{% block title %}Categorias{% endblock %}
+{% load staticfiles %}
+{% block content %}
+
+<div class="col-md-12" ng-app="game7App" ng-controller="funcionarioCtrl">
+    <div class="col-md-12">
+        <h3>Funcionarios</h3>
+        <p>Este módulo apresenta por padrão os funcionários.</p>
+    </div>
+    <div class="col-md-12">
+        <div class="form-inline well">
+            <div class="form-group">
+                <label for="ipFiltroEmail">Email</label>
+                <input type="text" class="form-control" id="ipFiltroEmail" name="ipFiltroEmail" >
+            </div>
+
+            <div class="form-group">
+                <label for="ipFiltroNome">Nome</label>
+                <input type="text" class="form-control" id="ipFiltroNome" name="ipFiltroNome" >
+            </div>
+
+            <a ng-click="filtrar()" class="btn btn-default">Filtrar</a>
+        </div>
+      </div>
+      <div class="col-md-10">
+        <table class="table">
+            <tr>
+                <th>Nome</th>
+                <th>Email</th>
+                <th>Telefone</th>
+                <th></th>
+                <th></th>
+                <th></th>
+            </tr>
+
+              <tr ng-repeat="funcionario in fn.lista_funcionarios">
+                  <td class="col-md-4">{[funcionario.fields.nome]}</td>
+                  <td class="col-md-4">{[funcionario.fields.email]}</td>
+                  <td class="col-md-2">{[funcionario.fields.telefone]}</td>
+                  <td><a href="/adm/funcionario-edicao?f_id={[funcionario.pk]}" class="btn btn-primary btn-xs">editar</a> </td>
+                  <td><a href="/adm/funcionario-ver?f_id={[funcionario.pk]}" class="btn btn-primary btn-xs">ver</a> </td>
+                  <td><a href="/adm/funcionario-excluir?f_id={[funcionario.pk]}" class="btn btn-danger btn-xs">excluir</a> </td>
+              </tr>
+
+        </table>
+    </div>
+    <div class="col-md-2">
+        <a href="/adm/funcionario-nova?f_id=0" class="btn btn-primary btn-lg">Novo Funcionário</a>
+    </div>
+</div>
+
+{% endblock %}

@@ -101,3 +101,24 @@ game7App.controller('empresaCtrl', function($scope, Empresa, Estado, Cidade, Bai
         $scope.at.excluir_atendimento();
     }
 });
+
+game7App.controller('funcionarioCtrl', function($scope, Funcionario) {
+    $scope.fn = Funcionario;
+    $scope.fn.get_funcionarios();
+    $scope.fn.get_funcionario();
+
+    $scope.filtrar = function(){
+        $scope.fn.get_funcionarios(document.getElementById("ipFiltroNome").value,document.getElementById("ipFiltroEmail").value);
+    }
+    $scope.atualizar = function(){
+        $scope.fn.save_funcionario(
+            document.getElementById("nome").value,
+            document.getElementById("email").value,
+            document.getElementById("senha").value,
+            document.getElementById("telefone").value,
+            document.getElementById("endereco").value);
+    }
+    $scope.excluir = function(){
+      $scope.fn.excluir_funcionario();
+    }
+});

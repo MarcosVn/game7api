@@ -23,16 +23,19 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^adm/login/', adminLoginView.as_view(), name = "Login"),
     url(r'^adm/home/', adminHomeView.as_view(), name = "Home-adm"),
+
     url(r'^adm/categorias/', adminCategoriasView.as_view(), name = "Categorias-adm"),
     url(r'^adm/categorias-nova', adminCategoriaNovaView.as_view(), name = "NovaCategoria-adm"),
     url(r'^adm/categoria-excluir$', adminCategoriaExcluirView.as_view(), name = "ExcluirCategoria-adm"),
     url(r'^adm/categoria-ver', adminCategoriaVerView.as_view(), name="VerCategoria-adm"),
     url(r'^adm/categoria-edicao', adminCategoriaEdicaoView.as_view(), name="EdicaoCategoria-adm"),
+
     url(r'^adm/subcategorias/', adminSubCategoriasView.as_view(), name="SubCategorias-adm"),
     url(r'^adm/subcategorias-nova', adminSubCategoriaNovaView.as_view(), name="NovaSubCategoria-adm"),
     url(r'^adm/subcategoria-excluir$', adminSubCategoriaExcluirView.as_view(), name="ExcluirSubCategoria-adm"),
     url(r'^adm/subcategoria-ver', adminSubCategoriaVerView.as_view(), name="VerSubCategoria-adm"),
     url(r'^adm/subcategoria-edicao', adminSubCategoriaEdicaoView.as_view(), name="EdicaoSubCategoria-adm"),
+
     url(r'^adm/clientes/', adminClientesView.as_view(), name="Clientes-adm"),
     url(r'^adm/clientes-nova/', adminClienteNovaView.as_view(), name="NovoCliente-adm"),
     url(r'^adm/cliente-excluir/', adminClienteExcluirView.as_view(), name="ExcluirCliente-adm"),
@@ -48,6 +51,12 @@ urlpatterns = [
     url(r'^adm/filiado/atendimentos/', adminAtendimentosView.as_view(), name="AtendimentosEmpresa-adm"),
     url(r'^adm/filiado/atendimento-novo', adminAtendimentoNovaView.as_view(), name="NovoAtendimentosEmpresa-adm"),
     url(r'^adm/filiado/atendimento-excluir', adminAtendimentoExcluirView.as_view(), name="ExcluirAtendimentosEmpresa-adm"),
+
+    url(r'^adm/funcionarios/', adminFuncionariosView.as_view(), name="Categorias-adm"),
+    url(r'^adm/funcionario-nova', adminFuncionarioNovaView.as_view(), name="NovaCategoria-adm"),
+    url(r'^adm/funcionario-excluir$', adminFuncionarioExcluirView.as_view(), name="ExcluirCategoria-adm"),
+    url(r'^adm/funcionario-ver', adminFuncionarioVerView.as_view(), name="VerCategoria-adm"),
+    url(r'^adm/funcionario-edicao', adminFuncionarioEdicaoView.as_view(), name="EdicaoCategoria-adm"),
 
     url(r'^js/categorias', ServiceJson.categorias, name='categorias'),
     url(r'^js/clientes', ServiceJson.clientes, name='clientes'),

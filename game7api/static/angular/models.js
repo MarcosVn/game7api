@@ -494,3 +494,86 @@ game7App.factory("Atendimento", function (Ajax,$http) {
     };
     return obj;
 });
+
+game7App.factory("Funcionario", function (Ajax,$http) {
+    var obj = {
+        lista_funcionarios: [],
+        funcionarioselecionado: [],
+        retorno : false,
+    };
+    obj.get_funcionarios = function (nome_funcionario, email_funcionario) {
+        var url = URL_BASE + "funcionarios";
+        var params = {
+            nome:nome_funcionario,
+            email:email_funcionario
+        }
+        $http({
+            method: "GET",
+            params: params,
+            url: url,
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }).then(function successCallback(response) {
+            obj.lista_funcionarios= response.data;
+        }, function errorCallback(response) {
+            console.log("Erro");
+        });
+    };
+
+    obj.get_funcionario = function () {
+        //Get relação de funcionarios
+        var url = URL_BASE + "funcionarios";
+        var params = {
+          funcionario_id:TOKENS['f_id']
+        }
+        $http({
+            method: "GET",
+            params: params,
+            url: url,
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }).then(function successCallback(response) {
+            obj.funcionarioselecionado = response.data;
+        }, function errorCallback(response) {
+            console.log("Erro");
+        });
+    };
+    obj.save_funcionario = function (funcionario_nome, funcionario_email, funcionario_senha, funcionario_telefone, funcionario_endereco) {
+        var url = URL_BASE + "savefuncionario";
+
+        var f = new FormData();
+        f.append('id', TOKENS['f_id']);
+        f.append('nome', funcionario_nome);
+        f.append('email', funcionario_email);
+        f.append('senha', funcionario_senha);
+        f.append('telefone', funcionario_telefone);
+        f.append('endereco', funcionario_endereco);
+        $http.post(url, f, {headers: {'Content-Type': undefined}}).success(
+          function(response){
+            obj.retorno = response;
+          }
+        )
+
+    };
+    obj.excluir_funcionario= function () {
+        var url = URL_BASE + "excluirfuncionario";
+        var params = {
+          id:TOKENS['f_id']
+        }
+        $http({
+            method: "GET",
+            params: params,
+            url: url,
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }).then(function successCallback(response) {
+            obj.retorno = response.data;
+        }, function errorCallback(response) {
+            console.log("Erro");
+        });
+    };
+    return obj;
+});
