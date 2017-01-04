@@ -5,7 +5,11 @@ from django.template.context import RequestContext
 from django.core.serializers import serialize
 from django.http.response import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
+from django.conf import settings
 import json
+import base64
+import random
+import re
 
 class adminLoginView(View):
     def get(self, request, *args, **kwargs):
@@ -104,6 +108,21 @@ class adminAtendimentoExcluirView(View):
     def get(self, request, *args, **kwargs):
         return render_to_response('adm/atendimento/excluir.html', {}, RequestContext(request))
 
+class adminProdutosView(View):
+    def get(self, request, *args, **kwargs):
+        return render_to_response('adm/produto/produtos.html', {}, RequestContext(request))
+class adminProdutoNovaView(View):
+    def get(self, request, *args, **kwargs):
+        return render(request, 'adm/produto/novo.html', {}, RequestContext(request))
+class adminProdutoEdicaoView(View):
+    def get(self, request, *args, **kwargs):
+        return render(request, 'adm/produto/editar.html', {}, RequestContext(request))
+class adminProdutoExcluirView(View):
+    def get(self, request, *args, **kwargs):
+        return render_to_response('adm/produto/excluir.html', {}, RequestContext(request))
+class adminProdutoVerView(View):
+    def get(self, request, *args, **kwargs):
+        return render_to_response('adm/produto/ver.html', {}, RequestContext(request))
 
 class ServiceJson(View):
     @staticmethod
@@ -768,12 +787,44 @@ class ServiceJson(View):
         if (empresa_id):
             query = query.filter(empresa__id=empresa_id)
 
-        lista = serialize('json', query, fields=["id", "nome", "foto", "descricao", "preco", "empresa__nome", "empresa__id"])
+
+        rows = []
+
+        for produto in query:
+
+            subs = []
+
+            for subcategoria in produto.subcategorias.all():
+                r_sub = {
+                    "subcategoria":subcategoria.nome,
+                    "subcategoria_id":subcategoria.id,
+                    "categoria":subcategoria.categoria.nome,
+                    "categoria_id":subcategoria.categoria.id
+                }
+
+                subs.append(r_sub)
+
+            r = {
+                "id": produto.id,
+                "nome": produto.nome,
+                "descricao": produto.descricao,
+                "preco": produto.preco,
+                "foto": produto.foto,
+                "empresa_id":produto.empresa.id,
+                "empresa":produto.empresa.nome,
+                "subcategorias":subs
+            }
+
+            rows.append(r)
+
+
+        lista = json.dumps(list(rows))
         return HttpResponse(lista, content_type='application/json')
+
 
     @staticmethod
     @csrf_exempt
-    def saverproduto(request):
+    def saveproduto(request):
         # Filtros
         id = request.POST.get("id")
         nome = request.POST.get("nome")
@@ -781,6 +832,8 @@ class ServiceJson(View):
         descricao = request.POST.get("descricao")
         preco = request.POST.get("preco")
         empresa_id = request.POST.get("empresa_id")
+        random_n = random.randint(1,500000000)
+
 
         # Objeto de Produtos
         oProduto = Produto()
@@ -790,11 +843,20 @@ class ServiceJson(View):
                 oProduto = Produto.objects.get(id=id)
 
         oProduto.nome=nome
-        oProduto.foto=foto
         oProduto.descricao=descricao
         oProduto.preco=preco
-        oProduto.empresa = Empresa.objects.filter(id=empresa_id)
+        oProduto.empresa = Empresa.objects.filter(id=empresa_id).first()
 
+        oProduto.save()
+
+        # imgdata = base64.b64decode(foto)
+        filename = str(oProduto.id) + '_' + str(random_n) + '.jpg'
+
+        image_data = open(settings.BASE_DIR + '/game7api/static/media/produto/' + filename, "wb")
+        image_data.write(re.sub('^data:image/.+;base64,', '', foto).decode('base64'))
+        image_data.close()
+
+        oProduto.foto = filename
         oProduto.save()
 
         lista = "true"

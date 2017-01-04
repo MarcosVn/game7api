@@ -1,0 +1,46 @@
+{% extends "adm/base.html" %}
+{% block title %}Categorias{% endblock %}
+{% load staticfiles %}
+{% block content %}
+
+<div class="col-md-12" ng-app="game7App" ng-controller="produtoCtrl">
+    <div class="col-md-12">
+        <h3>Produtos</h3>
+        <p>Este módulo apresenta por padrão os produtos.</p>
+    </div>
+    <div class="col-md-12">
+        <div class="form-inline well">
+            <div class="form-group">
+                <label for="ipFiltroNome">Nome</label>
+                <input type="text" class="form-control" id="ipFiltroNome" name="ipFiltroNome" >
+            </div>
+
+            <a ng-click="filtrar()" class="btn btn-default">Filtrar</a>
+        </div>
+      </div>
+      <div class="col-md-10">
+        <table class="table">
+            <tr>
+                <th>Nome</th>
+                <th>Preço</th>
+                <th></th>
+                <th></th>
+                <th></th>
+            </tr>
+
+              <tr ng-repeat="produto in pt.lista_produtos">
+                  <td class="col-md-4">{[produto.nome]}</td>
+                  <td class="col-md-4">{[produto.preco]}</td>
+                  <td><a href="/adm/produto-edicao?p_id={[produto.id]}" class="btn btn-primary btn-xs">editar</a> </td>
+                  <td><a href="/adm/produto-ver?p_id={[produto.id]}" class="btn btn-primary btn-xs">ver</a> </td>
+                  <td><a href="/adm/produto-excluir?p_id={[produto.id]}" class="btn btn-danger btn-xs">excluir</a> </td>
+              </tr>
+
+        </table>
+    </div>
+    <div class="col-md-2">
+        <a href="/adm/produto-nova?p_id=0" class="btn btn-primary btn-lg">Novo Produto</a>
+    </div>
+</div>
+
+{% endblock %}

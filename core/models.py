@@ -129,7 +129,7 @@ class Produto(models.Model):
     descricao = models.CharField(max_length=1024)
     preco = models.FloatField(null=True)
     empresa = models.ForeignKey("Empresa", related_name="produtos")
-
+    subcategorias = models.ManyToManyField("SubCategoria", related_name="subcategorias")
     class Meta:
         verbose_name="Produto"
         verbose_name_plural="Produtos"

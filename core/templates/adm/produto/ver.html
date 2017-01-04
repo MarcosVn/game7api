@@ -1,0 +1,46 @@
+{% extends "adm/base.html" %}
+{% block title %}Ver Categoria{% endblock %}
+{% load staticfiles %}
+{% block content %}
+
+<div ng-app="game7App" ng-controller="produtoCtrl" class="col-md-12" xmlns="http://www.w3.org/1999/html">
+    <div class="col-md-12">
+        <h3>Ver Produto</h3>
+    </div>
+    <div class="col-md-10">
+        <div class="col-md-8">
+            <b>Nome</b><br/>
+            {[pt.produtoselecionado[0].nome]}
+            <br/><br/>
+
+            <b>Preço</b><br/>
+            {[pt.produtoselecionado[0].preco]}
+            <br/><br/>
+
+            <b>Empresa</b><br/>
+            {[pt.produtoselecionado[0].empresa]}
+            <br/><br/>
+
+            <b>Subcategorias</b><br/>
+            <ul>
+                <li ng-repeat="sub in pt.produtosselecionado[0].subcategorias">
+                    sub.subcategoria
+                </li>
+            </ul>
+            <br/><br/>
+
+            <b>Descrição</b><br/>
+            {[pt.produtoselecionado[0].descricao]}
+            <br/><br/>
+        </div>
+        <div class="col-md-4">
+            <img src="/static/media/produto/{[pt.produtoselecionado[0].foto]}" class="img-thumbnail">
+        </div>
+    </div>
+
+    <div class="col-md-2">
+        <a style="display: block;width: 100%;" class="btn btn-default btn-lg" href="/adm/produtos">Voltar</a>
+    </div>
+</div>
+
+{% endblock %}

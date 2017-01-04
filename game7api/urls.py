@@ -36,6 +36,12 @@ urlpatterns = [
     url(r'^adm/subcategoria-ver', adminSubCategoriaVerView.as_view(), name="VerSubCategoria-adm"),
     url(r'^adm/subcategoria-edicao', adminSubCategoriaEdicaoView.as_view(), name="EdicaoSubCategoria-adm"),
 
+    url(r'^adm/produtos/', adminProdutosView.as_view(), name="Produtos-adm"),
+    url(r'^adm/produto-nova', adminProdutoNovaView.as_view(), name="NovaProduto-adm"),
+    url(r'^adm/produto-excluir$', adminProdutoExcluirView.as_view(), name="ExcluirProduto-adm"),
+    url(r'^adm/produto-ver', adminProdutoVerView.as_view(), name="VerProduto-adm"),
+    url(r'^adm/produto-edicao', adminProdutoEdicaoView.as_view(), name="EdicaoProduto-adm"),
+
     url(r'^adm/clientes/', adminClientesView.as_view(), name="Clientes-adm"),
     url(r'^adm/clientes-nova/', adminClienteNovaView.as_view(), name="NovoCliente-adm"),
     url(r'^adm/cliente-excluir/', adminClienteExcluirView.as_view(), name="ExcluirCliente-adm"),
@@ -82,7 +88,7 @@ urlpatterns = [
     url(r'^js/saveempresabairro$', ServiceJson.saveempresabairro, name='saveempresabairro'),
     url(r'^js/savefuncionario', ServiceJson.savefuncionario, name='savefuncionario'),
     url(r'^js/saverepasse', ServiceJson.saverepasse, name='saverepasse'),
-    url(r'^js/saverproduto', ServiceJson.saverproduto, name='saverproduto'),
+    url(r'^js/saveproduto', ServiceJson.saveproduto, name='saverproduto'),
     url(r'^js/savefoto', ServiceJson.savefoto, name='savefoto'),
     url(r'^js/savepedido', ServiceJson.savepedido, name='savepedido'),
     url(r'^js/saveitem', ServiceJson.saveitem, name='saveitem'),

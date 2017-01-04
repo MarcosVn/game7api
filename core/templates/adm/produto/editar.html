@@ -1,0 +1,57 @@
+{% extends "adm/base.html" %}
+{% block title %}Nova Categoria{% endblock %}
+{% load staticfiles %}
+{% block content %}
+
+<div class="col-md-12" ng-app="game7App" ng-controller="clienteCtrl">
+  <form method="post">
+    <div class="col-md-12">
+        <h3>Editar Cliente</h3>
+        <p>A alteração da cliente estará disponível assim que estiver salva.</p>
+    </div>
+    <div ng-if="cl.retorno">
+        <p class="alert alert-success" style="text-align:center;">Salvo com sucesso!</p>
+    </div>
+    <div class="col-md-8">
+        <label class="control-label">Nome</label><br/>
+        <input type="text" id="nome" name="nome" value="{[cl.clienteselecionado[0].nome]}" required="True" class="form-control"/>
+        <br/>
+
+        <label class="control-label">Email</label><br/>
+        <input type="text" id="email" type="email" name="email" value="{[cl.clienteselecionado[0].email]}" required="True" class="form-control"/>
+        <br/>
+
+        <label class="control-label">Senha</label><br/>
+        <input type="password" id="senha" name="senha" required="True" class="form-control"/>
+        <br/>
+
+        <label class="control-label">Telefone</label><br/>
+        <input type="number" id="telefone" name="telefone" value="{[cl.clienteselecionado[0].telefone]}" required="True" class="form-control"/>
+        <br/>
+
+        <label class="control-label">Estado</label><br/>
+        <select class="form-control" name="estado" id="estado" ng-change="getcidades()" ng-options="estado as estado.fields.nome for estado in et.lista_estados track by estado.pk" ng-model="sel_estado"></select>
+        <br/>
+
+        <label class="control-label">Cidade</label><br/>
+        <select class="form-control" name="cidade" id="cidade" ng-change="getbairros()" ng-options="cidade as cidade.fields.nome for cidade in cd.lista_cidades track by cidade.pk" ng-model="sel_cidade"></select>
+        <br/>
+
+        <label class="control-label">Bairro</label><br/>
+        <select class="form-control" name="bairro" id="bairro" ng-options="bairro as bairro.fields.nome for bairro in br.lista_bairros track by bairro.pk" ng-model="sel_bairro"></select>
+        <br/>
+
+        <label class="control-label">Endereço</label><br/>
+        <textarea id="endereco" name="endereco" rows="5" required="true" class="form-control">{[cl.clienteselecionado[0].endereco]}</textarea>
+        <br/>
+
+    </div>
+
+    <div class="col-md-4">
+        <a ng-click="atualizar()" style="display: block;width: 100%;" class="btn btn-success btn-lg">Salvar</a>
+        <a style="display: block;width: 100%;" class="btn btn-default btn-lg" href="/adm/clientes/">Cancelar</a>
+    </div>
+  </form>
+</div>
+
+{% endblock %}

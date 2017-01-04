@@ -577,3 +577,87 @@ game7App.factory("Funcionario", function (Ajax,$http) {
     };
     return obj;
 });
+
+game7App.factory("Produto", function (Ajax,$http) {
+    var obj = {
+        lista_produtos: [],
+        produtoselecionado: [],
+        retorno : false,
+        foto_principal:123
+    };
+    obj.get_produtos= function (nome_produto) {
+        var url = URL_BASE + "produtos";
+        var params = {
+            empresa_id:TOKENS["e_id"],
+            nome:nome_produto
+        }
+        $http({
+            method: "GET",
+            params: params,
+            url: url,
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }).then(function successCallback(response) {
+            obj.lista_produtos= response.data;
+        }, function errorCallback(response) {
+            console.log("Erro");
+        });
+    };
+
+    obj.get_produto = function () {
+        //Get relação de produtos
+        var url = URL_BASE + "produtos";
+        var params = {
+          id:TOKENS['p_id']
+        }
+        $http({
+            method: "GET",
+            params: params,
+            url: url,
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }).then(function successCallback(response) {
+            obj.produtoselecionado = response.data;
+        }, function errorCallback(response) {
+            console.log("Erro");
+        });
+    };
+    obj.save_produto = function (produto_nome, produto_preco, produto_descricao, empresa) {
+        var url = URL_BASE + "saveproduto";
+
+        var f = new FormData();
+        f.append('id', TOKENS['p_id']);
+        f.append('nome', produto_nome);
+        f.append('preco', produto_preco);
+        f.append('descricao', produto_descricao);
+        f.append('foto', obj.foto_principal);
+        f.append('empresa_id', empresa);
+        $http.post(url, f, {headers: {'Content-Type': undefined}}).success(
+          function(response){
+            obj.retorno = response;
+          }
+        )
+
+    };
+    obj.excluir_produto= function () {
+        var url = URL_BASE + "excluirproduto";
+        var params = {
+          id:TOKENS['p_id']
+        }
+        $http({
+            method: "GET",
+            params: params,
+            url: url,
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }).then(function successCallback(response) {
+            obj.retorno = response.data;
+        }, function errorCallback(response) {
+            console.log("Erro");
+        });
+    };
+    return obj;
+});

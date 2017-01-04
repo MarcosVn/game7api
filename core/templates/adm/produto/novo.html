@@ -1,0 +1,45 @@
+{% extends "adm/base.html" %}
+{% block title %}Nova Categoria{% endblock %}
+{% load staticfiles %}
+{% block content %}
+
+<div class="col-md-12" ng-app="game7App" ng-controller="produtoCtrl">
+  <form enctype="multipart/form-data" method="post">
+    <div class="col-md-12">
+        <h3>Novo Produto</h3>
+        <p>O Produto estará disponível assim que estiver salvo.</p>
+    </div>
+    <div ng-if="pt.retorno">
+        <p class="alert alert-success" style="text-align:center;">Salvo com sucesso!</p>
+    </div>
+    <div class="col-md-8">
+        <label class="control-label">Empresa</label><br/>
+        <select class="form-control" name="empresa" id="empresa" ng-options="empresa as empresa.nome for empresa in em.lista_empresas track by empresa.id" ng-model="sel_empresa"></select>
+        <br/>
+
+        <label class="control-label">Nome</label><br/>
+        <input type="text" id="nome" name="nome" required="True" class="form-control"/>
+        <br/>
+
+        <label class="control-label">Preco</label><br/>
+        <input type="number" id="preco" name="preco" required="True" class="form-control"/>
+        <br/>
+
+        <label class="control-label">Descrição</label><br/>
+        <textarea id="descricao" name="descricao" rows="5" required="true" class="form-control"></textarea>
+        <br/>
+
+        <label class="control-label">Foto destaque</label><br/>
+        <small>Apenas Imagens .jpg</small>
+        <input type="hidden" name="id" value="30" />
+        <input type="file" ng-model="pt.foto_principal" fileread="pt.foto_principal" />
+        <img class="col-md-4 thumbnail" ng-src="{[pt.foto_principal]}" />
+    </div>
+    <div class="col-md-4">
+        <a ng-click="atualizar()" style="display: block;width: 100%;" class="btn btn-success btn-lg">Salvar</a>
+        <a style="display: block;width: 100%;" class="btn btn-default btn-lg" href="/adm/produtos/">Cancelar</a>
+    </div>
+  </form>
+</div>
+
+{% endblock %}

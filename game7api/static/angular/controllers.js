@@ -122,3 +122,25 @@ game7App.controller('funcionarioCtrl', function($scope, Funcionario) {
       $scope.fn.excluir_funcionario();
     }
 });
+
+game7App.controller('produtoCtrl', function($scope, Produto, Empresa) {
+    $scope.em = Empresa;
+    $scope.em.get_empresas();
+    $scope.pt = Produto;
+    $scope.pt.get_produtos();
+    $scope.pt.get_produto();
+
+    $scope.filtrar = function(){
+        $scope.pt.get_produtos(document.getElementById("ipFiltroNome").value);
+    }
+    $scope.atualizar = function(){
+        $scope.pt.save_produto(
+            document.getElementById("nome").value,
+            document.getElementById("preco").value,
+            document.getElementById("descricao").value,
+            document.getElementById("empresa").value);
+    }
+    $scope.excluir = function(){
+      $scope.fn.excluir_funcionario();
+    }
+});
