@@ -1,0 +1,30 @@
+{% extends "adm/base.html" %}
+{% block title %}Categorias{% endblock %}
+{% load staticfiles %}
+{% block content %}
+
+<div class="col-md-12" ng-app="game7App" ng-controller="produtoCtrl" >
+    <div class="col-md-12">
+        <h3>Categorias e Subcategorias do Produto <b>{[pt.produtoselecionado[0].nome]}</b></h3>
+        <p>Este módulo apresenta por padrão as subcategorias.</p>
+    </div>
+      <div class="col-md-9">
+        <table class="table">
+            <tr>
+                <th>Categoria</th>
+                <th>SubCategoria</th>
+                <th></th>
+            </tr>
+            <tr ng-repeat="sub in pt.produtoselecionado[0].subcategorias">
+              <td class="col-md-11">{[sub.categoria]}</td>
+              <td class="col-md-11">{[sub.subcategoria]}</td>
+              <td><a href="/adm/produto-categorias-excluir?subc_id={[sub.subcategoria_id]}&p_id={[pt.produtoselecionado[0].id]}" class="btn btn-danger btn-xs">excluir</a> </td>
+            </tr>
+        </table>
+    </div>
+    <div class="col-md-1">
+        <a href="/adm/produto-categorias-novo?p_id={[pt.produtoselecionado[0].id]}" class="btn btn-primary btn-lg">Adicionar SubCategoria</a>
+    </div>
+</div>
+
+{% endblock %}

@@ -123,6 +123,19 @@ class adminProdutoExcluirView(View):
 class adminProdutoVerView(View):
     def get(self, request, *args, **kwargs):
         return render_to_response('adm/produto/ver.html', {}, RequestContext(request))
+class adminProdutoGaleriaView(View):
+    def get(self, request, *args, **kwargs):
+        return render_to_response('adm/galeria/fotos.html', {}, RequestContext(request))
+
+class adminProdutoCategoriasView(View):
+    def get(self, request, *args, **kwargs):
+        return render_to_response('adm/produtocategorias/subcategorias.html', {}, RequestContext(request))
+class adminProdutoCategoriasExcluirView(View):
+    def get(self, request, *args, **kwargs):
+        return render_to_response('adm/produtocategorias/excluir.html', {}, RequestContext(request))
+class adminProdutoCategoriasNovoView(View):
+    def get(self, request, *args, **kwargs):
+        return render_to_response('adm/produtocategorias/novo.html', {}, RequestContext(request))
 
 class ServiceJson(View):
     @staticmethod
@@ -821,6 +834,37 @@ class ServiceJson(View):
         lista = json.dumps(list(rows))
         return HttpResponse(lista, content_type='application/json')
 
+
+    @staticmethod
+    @csrf_exempt
+    def saveprodutosubcategoria(request):
+        # Filtros
+        id = request.POST.get("id")
+        subcategoria_id = request.POST.get("subcategoria_id")
+
+        oProduto = Produto.objects.filter(id=id).first()
+        oSubcategoria = SubCategoria.objects.filter(id=subcategoria_id).first()
+
+        oProduto.subcategorias.add(oSubcategoria)
+        oProduto.save()
+
+        lista = "true"
+        return HttpResponse(lista, content_type='application/json')
+
+    @staticmethod
+    def excluirproduto_categoria(request):
+        produto_id = request.GET.get("p_id")
+        subcategoria_id = request.GET.get("subc_id")
+
+        # Query Base
+        oProduto = Produto.objects.filter(id=produto_id).first()
+        oSubCategoria = SubCategoria.objects.filter(id=subcategoria_id).first()
+
+        oProduto.subcategorias.remove(oSubCategoria)
+        oProduto.save()
+
+        lista = "true"
+        return HttpResponse(lista, content_type='application/json')
 
     @staticmethod
     @csrf_exempt

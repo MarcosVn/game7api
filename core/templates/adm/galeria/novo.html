@@ -1,0 +1,36 @@
+{% extends "adm/base.html" %}
+{% block title %}Nova SubCategoria{% endblock %}
+{% load staticfiles %}
+{% block content %}
+
+<div class="col-md-12" ng-app="game7App" ng-controller="empresaCtrl">
+  <form method="post">
+    <div class="col-md-12">
+        <h3>Novo Bairro de Atendimento para a <b>{[em.empresaselecionado[0].nome]}</b></h3>
+        <p>O bairro de abrangencia de empresa entrará em vigor assim que o mesmo for salvo.</p>
+    </div>
+    <div ng-if="at.retorno">
+        <p class="alert alert-success" style="text-align:center;">Salvo com sucesso!</p>
+    </div>
+    <div class="col-md-8">
+        <label class="control-label">Estado</label><br/>
+        <select class="form-control" name="estado" id="estado" ng-change="getcidades()" ng-options="estado as estado.fields.nome for estado in et.lista_estados track by estado.pk" ng-model="sel_estado"></select>
+        <br/>
+
+        <label class="control-label">Cidade</label><br/>
+        <select class="form-control" name="cidade" id="cidade" ng-change="getbairros()" ng-options="cidade as cidade.fields.nome for cidade in cd.lista_cidades track by cidade.pk" ng-model="sel_cidade"></select>
+        <br/>
+
+        <label class="control-label">Bairro</label><br/>
+        <select class="form-control" name="bairro" id="bairro" ng-options="bairro as bairro.fields.nome for bairro in br.lista_bairros track by bairro.pk" ng-model="sel_bairro"></select>
+        <br/>
+    </div>
+
+    <div class="col-md-4">
+        <a ng-click="atualizar_atendimento()" style="display: block;width: 100%;" class="btn btn-success btn-lg">Salvar</a>
+        <a style="display: block;width: 100%;" class="btn btn-default btn-lg" href="/adm/filiado/atendimentos?e_id={[em.empresaselecionado[0].id]}">Cancelar</a>
+    </div>
+  </form>
+</div>
+
+{% endblock %}

@@ -123,12 +123,17 @@ game7App.controller('funcionarioCtrl', function($scope, Funcionario) {
     }
 });
 
-game7App.controller('produtoCtrl', function($scope, Produto, Empresa) {
+game7App.controller('produtoCtrl', function($scope, Produto, Empresa, Categoria, SubCategoria) {
     $scope.em = Empresa;
     $scope.em.get_empresas();
     $scope.pt = Produto;
     $scope.pt.get_produtos();
     $scope.pt.get_produto();
+
+    $scope.ct = Categoria;
+    $scope.ct.get_categorias();
+
+    $scope.sc = SubCategoria;
 
     $scope.filtrar = function(){
         $scope.pt.get_produtos(document.getElementById("ipFiltroNome").value);
@@ -141,6 +146,16 @@ game7App.controller('produtoCtrl', function($scope, Produto, Empresa) {
             document.getElementById("empresa").value);
     }
     $scope.excluir = function(){
-      $scope.fn.excluir_funcionario();
+      $scope.pt.excluir_produto();
     }
+    $scope.getsubs= function(){
+        $scope.sc.get_subcategorias("",$scope.sc.sel_categoria.pk);
+    }
+    $scope.atualizar_produtocategoria = function(){
+        $scope.pt.save_produtocategoria($scope.sc.sel_subcategorias.pk);
+    }
+    $scope.excluir_produtocategoria = function(){
+        $scope.pt.excluir_produtocategoria();
+    }
+
 });

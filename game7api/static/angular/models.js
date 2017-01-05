@@ -207,11 +207,19 @@ game7App.factory("SubCategoria", function (Ajax,$http) {
         lista_subcategorias: [],
         subcategoriaselecionado: [],
         retorno : false,
+        sel_categoria:null,
+        sel_subcategorias:null
     };
-    obj.get_subcategorias = function (nome_subcategoria) {
+    obj.get_subcategorias = function (nome_subcategoria, categoria_id) {
+
+        if ((categoria_id == undefined) || (categoria_id == 0) || (categoria_id == null))
+        {
+            categoria_id=TOKENS["c_id"];
+        }
+
         var url = URL_BASE + "subcategorias";
         var params = {
-            categoria:TOKENS["c_id"],
+            categoria:categoria_id,
             nome:nome_subcategoria,
             id:TOKENS["subc_id"]
         }
@@ -228,7 +236,6 @@ game7App.factory("SubCategoria", function (Ajax,$http) {
             console.log("Erro");
         });
     };
-
     obj.get_subcategoria = function () {
         //Get relação de subcategorias
         var url = URL_BASE + "subcategorias";
@@ -645,6 +652,39 @@ game7App.factory("Produto", function (Ajax,$http) {
         var url = URL_BASE + "excluirproduto";
         var params = {
           id:TOKENS['p_id']
+        }
+        $http({
+            method: "GET",
+            params: params,
+            url: url,
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }).then(function successCallback(response) {
+            obj.retorno = response.data;
+        }, function errorCallback(response) {
+            console.log("Erro");
+        });
+    };
+    obj.save_produtocategoria = function (subcategoria_id) {
+        var url = URL_BASE + "saveprodutosubcategoria";
+
+        var f = new FormData();
+        f.append('id', TOKENS['p_id']);
+        f.append('subcategoria_id', subcategoria_id);
+        $http.post(url, f, {headers: {'Content-Type': undefined}}).success(
+          function(response){
+            obj.retorno = response;
+          }
+        )
+
+    };
+
+    obj.excluir_produtocategoria= function () {
+        var url = URL_BASE + "excluirprodutosubcategoria";
+        var params = {
+          p_id:TOKENS['p_id'],
+          subc_id:TOKENS['subc_id']
         }
         $http({
             method: "GET",

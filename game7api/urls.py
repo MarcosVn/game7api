@@ -41,6 +41,11 @@ urlpatterns = [
     url(r'^adm/produto-excluir$', adminProdutoExcluirView.as_view(), name="ExcluirProduto-adm"),
     url(r'^adm/produto-ver', adminProdutoVerView.as_view(), name="VerProduto-adm"),
     url(r'^adm/produto-edicao', adminProdutoEdicaoView.as_view(), name="EdicaoProduto-adm"),
+    url(r'^adm/produto-galeria', adminProdutoGaleriaView.as_view(), name="GaleriaProduto-adm"),
+
+    url(r'^adm/produto-categorias$', adminProdutoCategoriasView.as_view(), name="CategoriasProduto-adm"),
+    url(r'^adm/produto-categorias-excluir', adminProdutoCategoriasExcluirView.as_view(), name="CategoriasProduto-adm"),
+    url(r'^adm/produto-categorias-novo', adminProdutoCategoriasNovoView.as_view(), name="CategoriasProduto-adm"),
 
     url(r'^adm/clientes/', adminClientesView.as_view(), name="Clientes-adm"),
     url(r'^adm/clientes-nova/', adminClienteNovaView.as_view(), name="NovoCliente-adm"),
@@ -81,6 +86,7 @@ urlpatterns = [
     url(r'^js/savecategoria', ServiceJson.savecategoria, name='savecategoria'),
     url(r'^js/savecliente', ServiceJson.savecliente, name='savecliente'),
     url(r'^js/savesubcategoria', ServiceJson.savesubcategoria, name='savesubcategoria'),
+    url(r'^js/saveprodutosubcategoria$', ServiceJson.saveprodutosubcategoria, name='saveprodutosubcategoria'),
     url(r'^js/saveestado', ServiceJson.saveestado, name='saveestado'),
     url(r'^js/savecidade', ServiceJson.savecidade, name='savecidade'),
     url(r'^js/savebairro', ServiceJson.savebairro, name='savebairro'),
@@ -98,6 +104,7 @@ urlpatterns = [
     url(r'^js/excluirsubcategoria', ServiceJson.excluirsubcategoria, name='excluirsubcategoria'),
     url(r'^js/excluirempresa$', ServiceJson.excluirempresa, name='excluirempresa'),
     url(r'^js/excluirempresa_bairro$', ServiceJson.excluirempresa_bairro, name='excluirempresa_bairro'),
+    url(r'^js/excluirprodutosubcategoria$', ServiceJson.excluirproduto_categoria, name='excluirproduto_categoria'),
     url(r'^js/excluirfuncionario', ServiceJson.excluirfuncionario, name='excluirfuncionario'),
     url(r'^js/excluirrepasse', ServiceJson.excluirrepasse, name='excluirrepasse'),
     url(r'^js/excluirproduto', ServiceJson.excluirproduto, name='excluirproduto'),

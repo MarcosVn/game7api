@@ -3,48 +3,38 @@
 {% load staticfiles %}
 {% block content %}
 
-<div class="col-md-12" ng-app="game7App" ng-controller="clienteCtrl">
+<div class="col-md-12" ng-app="game7App" ng-controller="produtoCtrl">
   <form method="post">
     <div class="col-md-12">
-        <h3>Editar Cliente</h3>
-        <p>A alteração da cliente estará disponível assim que estiver salva.</p>
+        <h3>Editar Produto</h3>
+        <p>A alteração da produto estará disponível assim que estiver salva.</p>
     </div>
-    <div ng-if="cl.retorno">
+    <div ng-if="pt.retorno">
         <p class="alert alert-success" style="text-align:center;">Salvo com sucesso!</p>
     </div>
     <div class="col-md-8">
+        <label class="control-label">Empresa</label><br/>
+        {[pt.produtoselecionado[0].empresa]}
+        <select class="form-control" name="empresa" id="empresa" ng-options="empresa as empresa.nome for empresa in em.lista_empresas track by empresa.id" ng-model="sel_empresa"></select>
+        <br/>
+
         <label class="control-label">Nome</label><br/>
-        <input type="text" id="nome" name="nome" value="{[cl.clienteselecionado[0].nome]}" required="True" class="form-control"/>
+        <input type="text" id="nome" value="{[pt.produtoselecionado[0].nome]}" name="nome" required="True" class="form-control"/>
         <br/>
 
-        <label class="control-label">Email</label><br/>
-        <input type="text" id="email" type="email" name="email" value="{[cl.clienteselecionado[0].email]}" required="True" class="form-control"/>
+        <label class="control-label">Preco</label><br/>
+        <input type="number" id="preco" name="preco" value="{[pt.produtoselecionado[0].preco]}" required="True" class="form-control"/>
         <br/>
 
-        <label class="control-label">Senha</label><br/>
-        <input type="password" id="senha" name="senha" required="True" class="form-control"/>
+        <label class="control-label">Descrição</label><br/>
+        <textarea id="descricao" name="descricao" rows="5" required="true" class="form-control">{[pt.produtoselecionado[0].descricao]}</textarea>
         <br/>
 
-        <label class="control-label">Telefone</label><br/>
-        <input type="number" id="telefone" name="telefone" value="{[cl.clienteselecionado[0].telefone]}" required="True" class="form-control"/>
-        <br/>
-
-        <label class="control-label">Estado</label><br/>
-        <select class="form-control" name="estado" id="estado" ng-change="getcidades()" ng-options="estado as estado.fields.nome for estado in et.lista_estados track by estado.pk" ng-model="sel_estado"></select>
-        <br/>
-
-        <label class="control-label">Cidade</label><br/>
-        <select class="form-control" name="cidade" id="cidade" ng-change="getbairros()" ng-options="cidade as cidade.fields.nome for cidade in cd.lista_cidades track by cidade.pk" ng-model="sel_cidade"></select>
-        <br/>
-
-        <label class="control-label">Bairro</label><br/>
-        <select class="form-control" name="bairro" id="bairro" ng-options="bairro as bairro.fields.nome for bairro in br.lista_bairros track by bairro.pk" ng-model="sel_bairro"></select>
-        <br/>
-
-        <label class="control-label">Endereço</label><br/>
-        <textarea id="endereco" name="endereco" rows="5" required="true" class="form-control">{[cl.clienteselecionado[0].endereco]}</textarea>
-        <br/>
-
+        <label class="control-label">Foto destaque</label><br/>
+        <small>Apenas Imagens .jpg</small>
+        <input type="hidden" name="id" value="30" />
+        <input type="file" ng-model="pt.foto_principal" fileread="pt.foto_principal" />
+        <img class="col-md-4 img-thumbnail" ng-src="/static/media/produto/{[pt.produtoselecionado[0].foto]}" />
     </div>
 
     <div class="col-md-4">
