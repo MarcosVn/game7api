@@ -22,9 +22,9 @@
             <br/><br/>
 
             <b>Subcategorias</b><br/>
-            <ul>
-                <li ng-repeat="sub in pt.produtosselecionado[0].subcategorias">
-                    sub.subcategoria
+            <ul class="list-group">
+                <li class="list-group-item" ng-repeat="sub in pt.produtoselecionado[0].subcategorias">
+                    <b>{[sub.subcategoria]}</b> - categoria {[sub.categoria]}
                 </li>
             </ul>
             <br/><br/>
