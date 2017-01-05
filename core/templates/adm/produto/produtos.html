@@ -23,6 +23,9 @@
             <tr>
                 <th>Nome</th>
                 <th>Preço</th>
+                <th>Foto</th>
+                <th></th>
+                <th></th>
                 <th></th>
                 <th></th>
                 <th></th>
@@ -31,6 +34,7 @@
               <tr ng-repeat="produto in pt.lista_produtos">
                   <td class="col-md-4">{[produto.nome]}</td>
                   <td class="col-md-4">{[produto.preco]}</td>
+                  <td class="col-md-4"><img src="/static/media/produto/{[produto.foto]}" class="img-thumbnail"></td>
                   <td><a href="/adm/produto-galeria?p_id={[produto.id]}" class="btn btn-default btn-xs">fotos</a> </td>
                   <td><a href="/adm/produto-categorias?p_id={[produto.id]}" class="btn btn-default btn-xs">categorias</a> </td>
                   <td><a href="/adm/produto-edicao?p_id={[produto.id]}" class="btn btn-primary btn-xs">editar</a> </td>
