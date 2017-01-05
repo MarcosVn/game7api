@@ -679,12 +679,43 @@ game7App.factory("Produto", function (Ajax,$http) {
         )
 
     };
-
     obj.excluir_produtocategoria= function () {
         var url = URL_BASE + "excluirprodutosubcategoria";
         var params = {
           p_id:TOKENS['p_id'],
           subc_id:TOKENS['subc_id']
+        }
+        $http({
+            method: "GET",
+            params: params,
+            url: url,
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }).then(function successCallback(response) {
+            obj.retorno = response.data;
+        }, function errorCallback(response) {
+            console.log("Erro");
+        });
+    };
+    obj.save_produtofoto = function (subcategoria_id) {
+        var url = URL_BASE + "saveprodutofoto";
+
+        var f = new FormData();
+        f.append('id', TOKENS['p_id']);
+        f.append('foto', obj.foto_principal);
+        $http.post(url, f, {headers: {'Content-Type': undefined}}).success(
+          function(response){
+            obj.retorno = response;
+          }
+        )
+
+    };
+    obj.excluir_produtofoto= function (foto_id) {
+        var url = URL_BASE + "excluirproduto_foto";
+        var params = {
+          id:TOKENS['p_id'],
+          f_id:foto_id
         }
         $http({
             method: "GET",

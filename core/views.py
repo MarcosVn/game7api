@@ -806,6 +806,7 @@ class ServiceJson(View):
         for produto in query:
 
             subs = []
+            fotos = []
 
             for subcategoria in produto.subcategorias.all():
                 r_sub = {
@@ -814,8 +815,14 @@ class ServiceJson(View):
                     "categoria":subcategoria.categoria.nome,
                     "categoria_id":subcategoria.categoria.id
                 }
-
                 subs.append(r_sub)
+
+            for foto in produto.fotos.all():
+                r_foto = {
+                    "foto_id": foto.id,
+                    "foto_caminho":foto.caminho
+                }
+                fotos.append(r_foto)
 
             r = {
                 "id": produto.id,
@@ -825,7 +832,8 @@ class ServiceJson(View):
                 "foto": produto.foto,
                 "empresa_id":produto.empresa.id,
                 "empresa":produto.empresa.nome,
-                "subcategorias":subs
+                "subcategorias":subs,
+                "fotos":fotos
             }
 
             rows.append(r)
@@ -834,6 +842,29 @@ class ServiceJson(View):
         lista = json.dumps(list(rows))
         return HttpResponse(lista, content_type='application/json')
 
+    @staticmethod
+    @csrf_exempt
+    def saveprodutofoto(request):
+        # Filtros
+        id = request.POST.get("id")
+        foto = request.POST.get("foto")
+        random_n = random.randint(1, 500000000)
+
+        oProduto = Produto.objects.filter(id=id).first()
+
+        filename = str(oProduto.id) + '_' + str(random_n) + '.jpg'
+
+        image_data = open(settings.BASE_DIR + '/game7api/static/media/produto/' + filename, "wb")
+        image_data.write(re.sub('^data:image/.+;base64,', '', foto).decode('base64'))
+        image_data.close()
+
+        oFoto = Foto()
+        oFoto.caminho = filename
+        oFoto.produto = oProduto
+        oFoto.save()
+
+        lista = "true"
+        return HttpResponse(lista, content_type='application/json')
 
     @staticmethod
     @csrf_exempt
@@ -862,6 +893,17 @@ class ServiceJson(View):
 
         oProduto.subcategorias.remove(oSubCategoria)
         oProduto.save()
+
+        lista = "true"
+        return HttpResponse(lista, content_type='application/json')
+
+    @staticmethod
+    def excluirproduto_foto(request):
+        foto_id = request.GET.get("f_id")
+
+        # Query Base
+        oFoto = Foto.objects.filter(id=foto_id).first()
+        oFoto.delete()
 
         lista = "true"
         return HttpResponse(lista, content_type='application/json')

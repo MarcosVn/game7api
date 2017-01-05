@@ -157,5 +157,13 @@ game7App.controller('produtoCtrl', function($scope, Produto, Empresa, Categoria,
     $scope.excluir_produtocategoria = function(){
         $scope.pt.excluir_produtocategoria();
     }
-
+    $scope.atualizar_produtofoto = function(){
+        $scope.pt.save_produtofoto();
+        $scope.pt.get_produto();
+        location.reload();
+    }
+    $scope.excluir_produtofoto = function(foto_id){
+        $scope.pt.excluir_produtofoto(foto_id);
+        location.reload();
+    }
 });
