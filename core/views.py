@@ -137,6 +137,19 @@ class adminProdutoCategoriasNovoView(View):
     def get(self, request, *args, **kwargs):
         return render_to_response('adm/produtocategorias/novo.html', {}, RequestContext(request))
 
+class adminPedidosView(View):
+    def get(self, request, *args, **kwargs):
+        return render_to_response('adm/pedido/pedidos.html', {}, RequestContext(request))
+class adminPedidoNovaView(View):
+    def get(self, request, *args, **kwargs):
+        return render(request, 'adm/pedido/novo.html', {}, RequestContext(request))
+class adminPedidoExcluirView(View):
+    def get(self, request, *args, **kwargs):
+        return render_to_response('adm/pedido/excluir.html', {}, RequestContext(request))
+class adminPedidoVerView(View):
+    def get(self, request, *args, **kwargs):
+        return render_to_response('adm/pedido/ver.html', {}, RequestContext(request))
+
 class ServiceJson(View):
     @staticmethod
     def categorias(request):
@@ -1051,15 +1064,40 @@ class ServiceJson(View):
         if(empresa_id):
             query = query.filter(empresa__id=empresa_id)
 
-
         if(valor_minimo):
             query = query.filter(total__gte=valor_minimo)
 
         if(valor_maximo):
             query = query.filter(total__lte=valor_maximo)
 
-        lista = serialize('json', query,
-                          fields=["id", "data", "total", "cliente__id", "cliente__nome", "empresa__id", "empresa__nome"])
+        pedidos_rows = []
+
+        for pedido in query:
+            itens_rows = []
+
+            for item in pedido.Itens.all():
+                r_item = {
+                    "item_id":item.id,
+                    "quantidade":item.quantidade,
+                    "produto_id":item.produto.id,
+                    "produto":item.produto.nome
+                }
+                itens_rows.append(r_item)
+
+            r = {
+                "id":pedido.id,
+                "data":pedido.data.strftime("%Y-%m-%d"),
+                "total":pedido.total,
+                "cliente":pedido.cliente.nome,
+                "cliente_id":pedido.cliente.id,
+                "empresa":pedido.empresa.nome,
+                "empresa_id":pedido.empresa.id,
+                "itens":itens_rows
+            }
+
+            pedidos_rows.append(r)
+
+        lista = json.dumps(list(pedidos_rows))
         return HttpResponse(lista, content_type='application/json')
 
     @staticmethod

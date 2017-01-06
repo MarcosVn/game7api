@@ -167,3 +167,28 @@ game7App.controller('produtoCtrl', function($scope, Produto, Empresa, Categoria,
         location.reload();
     }
 });
+
+game7App.controller('pedidoCtrl', function($scope, Pedido, Empresa) {
+    $scope.em = Empresa;
+    $scope.em.get_empresas();
+
+    $scope.pe = Pedido;
+    $scope.pe.get_pedidos();
+
+    $scope.filtrar = function(){
+        $scope.pe.get_pedidos(document.getElementById("ipFiltrodata").value);
+    }
+    $scope.atualizar = function(){
+        $scope.pe.save_pedido(
+            document.getElementById("nome").value,
+            document.getElementById("preco").value,
+            document.getElementById("descricao").value,
+            document.getElementById("empresa").value);
+    }
+    $scope.excluir = function(){
+      $scope.pt.excluir_produto();
+    }
+    $scope.getsubs= function(){
+        $scope.sc.get_subcategorias("",$scope.sc.sel_categoria.pk);
+    }
+});

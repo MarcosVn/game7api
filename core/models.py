@@ -157,6 +157,7 @@ class Pedido(models.Model):
     total = models.FloatField()
     cliente = models.ForeignKey("Cliente", related_name="Pedidos")
     empresa = models.ForeignKey("Empresa", related_name="Pedidos")
+    status = models.IntegerField(default=0)
 
     class Meta:
         verbose_name = "Pedido"

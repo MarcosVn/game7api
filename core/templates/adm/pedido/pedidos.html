@@ -1,0 +1,44 @@
+{% extends "adm/base.html" %}
+{% block title %}Categorias{% endblock %}
+{% load staticfiles %}
+{% block content %}
+
+<div class="col-md-12" ng-app="game7App" ng-controller="pedidoCtrl">
+    <div class="col-md-12">
+        <h3>Pedidos</h3>
+        <p>Este módulo apresenta por padrão os pedidos.</p>
+    </div>
+    <div class="col-md-12">
+        <div class="form-inline well">
+            <div class="form-group">
+                <label for="ipFiltroData">Data</label>
+                <input type="date" class="form-control" id="ipFiltroData" name="ipFiltroData" >
+            </div>
+            <a ng-click="filtrar()" class="btn btn-default">Filtrar</a>
+        </div>
+      </div>
+      <div class="col-md-10">
+        <table class="table">
+            <tr>
+                <th>Data</th>
+                <th>Cliente</th>
+                <th>Total</th>
+                <th></th>
+                <th></th>
+            </tr>
+            <tr ng-repeat="pedido in pe.lista_pedidos">
+              <td class="col-md-4">{[pedido.data]}</td>
+              <td class="col-md-4">{[pedido.cliente]}</td>
+              <td class="col-md-2">{[pedido.total]}</td>
+              <td><a href="/adm/filiado/atendimentos?e_id={[empresa.id]}" class="btn btn-default btn-xs">atendimento</a></td>
+              <td><a href="/adm/filiado-ver?e_id={[empresa.id]}" class="btn btn-primary btn-xs">ver</a> </td>
+            </tr>
+
+        </table>
+    </div>
+    <div class="col-md-2">
+        <a href="/adm/pedido-nova?p_id=0" class="btn btn-primary btn-lg">Nova Empresa</a>
+    </div>
+</div>
+
+{% endblock %}

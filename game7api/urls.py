@@ -69,6 +69,11 @@ urlpatterns = [
     url(r'^adm/funcionario-ver', adminFuncionarioVerView.as_view(), name="VerCategoria-adm"),
     url(r'^adm/funcionario-edicao', adminFuncionarioEdicaoView.as_view(), name="EdicaoCategoria-adm"),
 
+    url(r'^adm/pedidos/', adminPedidosView.as_view(), name="Pedidos-adm"),
+    url(r'^adm/pedido-nova', adminPedidoNovaView.as_view(), name="NovaPedido-adm"),
+    url(r'^adm/pedido-excluir$', adminPedidoExcluirView.as_view(), name="ExcluirPedido-adm"),
+    url(r'^adm/pedido-ver', adminPedidoVerView.as_view(), name="VerPedido-adm"),
+
     url(r'^js/categorias', ServiceJson.categorias, name='categorias'),
     url(r'^js/clientes', ServiceJson.clientes, name='clientes'),
     url(r'^js/subcategorias', ServiceJson.subcategorias, name='subcategorias'),
