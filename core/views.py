@@ -249,6 +249,41 @@ class ServiceJson(View):
 
     @staticmethod
     @csrf_exempt
+    def clienteLogin(request):
+        # Filtros
+        email = request.POST.get("email")
+        senha = request.POST.get("senha")
+
+        print email
+        print senha
+
+        query = Cliente.objects.filter(email=email, senha=senha).first()
+        print query
+        rows = []
+
+        if query:
+            cliente = query
+            r = {
+                "id":cliente.id,
+                "nome":cliente.nome,
+                "email":cliente.email,
+                "telefone":cliente.telefone,
+                "endereco":cliente.endereco,
+                "cidade":cliente.cidade.nome,
+                "cidade_id":cliente.cidade.id,
+                "bairro":cliente.bairro.nome,
+                "bairro_id":cliente.bairro.id,
+                "estado":cliente.cidade.estado.nome,
+                "estado_id":cliente.cidade.estado.id
+            }
+
+            rows.append(r)
+        print rows
+        lista = json.dumps(list(rows))
+        return HttpResponse(lista, content_type='application/json')
+
+    @staticmethod
+    @csrf_exempt
     def savecliente(request):
         # Filtros
         id = request.POST.get("id")

@@ -76,6 +76,7 @@ urlpatterns = [
 
     url(r'^js/categorias', ServiceJson.categorias, name='categorias'),
     url(r'^js/clientes', ServiceJson.clientes, name='clientes'),
+    url(r'^js/cliente-login', ServiceJson.clienteLogin, name='clientelogin'),
     url(r'^js/subcategorias', ServiceJson.subcategorias, name='subcategorias'),
     url(r'^js/estados', ServiceJson.estados, name='estados'),
     url(r'^js/cidades', ServiceJson.cidades, name='Cidades'),
