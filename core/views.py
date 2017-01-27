@@ -646,6 +646,44 @@ class ServiceJson(View):
 
     @staticmethod
     @csrf_exempt
+    def empresaLogin(request):
+        # Filtros
+        email = request.POST.get("email")
+        senha = request.POST.get("senha")
+
+
+        empresa = Empresa.objects.filter(email=email, senha=senha).first()
+        rows = []
+        r = []
+
+        if empresa:
+            for bairro in empresa.bairros_atendimento.all():
+                r_bairro ={
+                    "bairro":bairro.nome,
+                    "bairro_id":bairro.id
+                }
+
+                rows.append(r_bairro)
+            r = {
+                "id":empresa.id,
+                "nome":empresa.nome,
+                "email":empresa.email,
+                "descricao":empresa.descricao,
+                "endereco":empresa.endereco,
+                "cidade":empresa.cidade.nome,
+                "cidade_id":empresa.cidade.id,
+                "bairro":empresa.bairro.nome,
+                "bairro_id":empresa.bairro.id,
+                "estado":empresa.cidade.estado.nome,
+                "estado_id":empresa.cidade.estado.id,
+                "bairros_atendimento":rows
+            }
+
+        lista = json.dumps(r)
+        return HttpResponse(lista, content_type='application/json')
+
+    @staticmethod
+    @csrf_exempt
     def saveempresabairro(request):
         # Filtros
         id = request.POST.get("id")

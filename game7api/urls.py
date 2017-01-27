@@ -82,6 +82,7 @@ urlpatterns = [
     url(r'^js/cidades', ServiceJson.cidades, name='Cidades'),
     url(r'^js/bairros', ServiceJson.bairros, name='bairros'),
     url(r'^js/empresas', ServiceJson.empresas, name='empresas'),
+    url(r'^js/empresa-login', ServiceJson.empresaLogin, name='empresaLogin'),
     url(r'^js/funcionarios', ServiceJson.funcionarios, name='funcionarios'),
     url(r'^js/Repasses', ServiceJson.Repasses, name='Repasses'),
     url(r'^js/produtos', ServiceJson.produtos, name='produtos'),
