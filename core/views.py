@@ -617,15 +617,32 @@ class ServiceJson(View):
             if (int(id) > 0):
                 oEmpresa = Empresa.objects.get(id=id)
 
-        oEmpresa.nome = nome
-        oEmpresa.descricao = descricao
-        oEmpresa.email = email
-        oEmpresa.senha = senha
-        oEmpresa.telefone = telefone
-        oEmpresa.cidade = Cidade.objects.filter(id=cidade_id).first()
-        oEmpresa.estado = Estado.objects.filter(id=estado_id).first()
-        oEmpresa.bairro = Bairro.objects.filter(id=bairro_id).first()
-        oEmpresa.endereco= endereco
+        if nome:
+            oEmpresa.nome = nome
+
+        if descricao:
+            oEmpresa.descricao = descricao
+
+        if email:
+            oEmpresa.email = email
+
+        if senha:
+            oEmpresa.senha = senha
+
+        if telefone:
+            oEmpresa.telefone = telefone
+
+        if cidade_id:
+            oEmpresa.cidade = Cidade.objects.filter(id=cidade_id).first()
+
+        if estado_id:
+            oEmpresa.estado = Estado.objects.filter(id=estado_id).first()
+
+        if bairro_id:
+            oEmpresa.bairro = Bairro.objects.filter(id=bairro_id).first()
+
+        if endereco:
+            oEmpresa.endereco=endereco
 
         oEmpresa.save()
 
