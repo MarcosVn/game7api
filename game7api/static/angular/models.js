@@ -508,6 +508,23 @@ game7App.factory("Funcionario", function (Ajax,$http) {
         funcionarioselecionado: [],
         retorno : false,
     };
+    obj.logar_funcionario= function (email_funcionario,senha_funcionario) {
+        var url = URL_BASE + "funcionario-login";
+
+        var f = new FormData();
+        f.append('email', email_funcionario);
+        f.append('senha', senha_funcionario);
+        $http.post(url, f, {headers: {'Content-Type': undefined}}).success(
+          function(response){
+            if(response != ''){
+                obj.logado = response[0].id;
+                alert(response[0].id);
+                window.localStorage.setItem("e_logado", response[0].id);
+                window.location = "/";
+            }
+          }
+        )
+    };
     obj.get_funcionarios = function (nome_funcionario, email_funcionario) {
         var url = URL_BASE + "funcionarios";
         var params = {
@@ -582,6 +599,14 @@ game7App.factory("Funcionario", function (Ajax,$http) {
             console.log("Erro");
         });
     };
+    obj.verifica_login = function () {
+       var logado = window.localStorage.getItem("e_logado");
+       var url = window.location.pathname;
+
+       if(logado == undefined){
+         window.location = "/adm/login";
+       }
+   };
     return obj;
 });
 

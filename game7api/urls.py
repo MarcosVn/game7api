@@ -16,13 +16,16 @@ Including another URLconf
 from django.conf.urls import url
 from django.contrib import admin
 from core.views import *
+from django.contrib.staticfiles.urls import staticfiles_urlpatterns
+from django.conf.urls.static import static
 
 urlpatterns = [
     url(r'^$', adminHomeView.as_view(), name="Home"),
 
+
     url(r'^admin/', admin.site.urls),
     url(r'^adm/login/', adminLoginView.as_view(), name = "Login"),
-    url(r'^adm/home/', adminHomeView.as_view(), name = "Home-adm"),
+    url(r'^adm/$', adminHomeView.as_view(), name = "Home-adm"),
 
     url(r'^adm/categorias/', adminCategoriasView.as_view(), name = "Categorias-adm"),
     url(r'^adm/categorias-nova', adminCategoriaNovaView.as_view(), name = "NovaCategoria-adm"),
@@ -84,6 +87,7 @@ urlpatterns = [
     url(r'^js/empresas', ServiceJson.empresas, name='empresas'),
     url(r'^js/empresa-login', ServiceJson.empresaLogin, name='empresaLogin'),
     url(r'^js/funcionarios', ServiceJson.funcionarios, name='funcionarios'),
+    url(r'^js/funcionario-login', ServiceJson.funcionarioLogin, name='funcionariologin'),
     url(r'^js/Repasses', ServiceJson.Repasses, name='Repasses'),
     url(r'^js/produtos', ServiceJson.produtos, name='produtos'),
     url(r'^js/fotos', ServiceJson.fotos, name='fotos'),
@@ -121,4 +125,4 @@ urlpatterns = [
     url(r'^js/excluirpedido', ServiceJson.excluirpedido, name='excluirpedido'),
     url(r'^js/excluiritem', ServiceJson.excluiritem, name='excluiritem'),
 
-]
+]+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

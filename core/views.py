@@ -161,6 +161,11 @@ class ServiceJson(View):
         id = request.GET.get("id")
 
         if (id == 'undefined'):
+            id = int()
+            id = 0
+
+        if not (id):
+            id = int()
             id = 0
 
         if (nome):
@@ -216,6 +221,11 @@ class ServiceJson(View):
         email = request.GET.get("email")
 
         if (id == 'undefined'):
+            id = int()
+            id = 0
+
+        if not (id):
+            id = int()
             id = 0
 
         if (nome):
@@ -247,6 +257,7 @@ class ServiceJson(View):
         lista = json.dumps(list(rows))
         return HttpResponse(lista, content_type='application/json')
 
+
     @staticmethod
     @csrf_exempt
     def clienteLogin(request):
@@ -254,11 +265,7 @@ class ServiceJson(View):
         email = request.POST.get("email")
         senha = request.POST.get("senha")
 
-        print email
-        print senha
-
         query = Cliente.objects.filter(email=email, senha=senha).first()
-        print query
         rows = []
 
         if query:
@@ -278,9 +285,10 @@ class ServiceJson(View):
             }
 
             rows.append(r)
-        print rows
         lista = json.dumps(list(rows))
         return HttpResponse(lista, content_type='application/json')
+
+
 
     @staticmethod
     @csrf_exempt
@@ -339,6 +347,11 @@ class ServiceJson(View):
         categoria_id = request.GET.get("categoria")
 
         if (id == 'undefined'):
+            id = int()
+            id = 0
+
+        if not (id):
+            id = int()
             id = 0
 
         if (categoria_id):
@@ -363,6 +376,11 @@ class ServiceJson(View):
         oSubcategoria = SubCategoria()
 
         if (id == 'undefined'):
+            id = int()
+            id = 0
+
+        if not (id):
+            id = int()
             id = 0
 
         if (id):
@@ -445,8 +463,6 @@ class ServiceJson(View):
         nome = request.GET.get("nome")
         id = request.GET.get("id")
 
-        print id
-
 
         if (estado_id):
             query = query.filter(estado__id=estado_id)
@@ -500,6 +516,11 @@ class ServiceJson(View):
         if (cidade_id):
             query = query.filter(cidade__id=cidade_id)
         if (id == 'undefined'):
+            id = int()
+            id = 0
+
+        if not (id):
+            id = int()
             id = 0
         if (nome):
             query = query.filter(nome__icontains=nome)
@@ -721,9 +742,6 @@ class ServiceJson(View):
         empresa_id = request.GET.get("empresa_id")
         bairro_id = request.GET.get("bairro_id")
 
-        print empresa_id
-        print bairro_id
-
         # Query Base
         oEmpresa = Empresa.objects.filter(id=empresa_id).first()
         oBairro = Bairro.objects.filter(id=bairro_id).first()
@@ -745,6 +763,11 @@ class ServiceJson(View):
         email = request.GET.get("email")
 
         if (id == 'undefined'):
+            id = int()
+            id = 0
+
+        if not (id):
+            id = int()
             id = 0
 
         if (nome):
@@ -786,6 +809,32 @@ class ServiceJson(View):
         lista = "true"
         return HttpResponse(lista, content_type='application/json')
 
+
+    @staticmethod
+    @csrf_exempt
+    def funcionarioLogin(request):
+        # Filtros
+        email = request.POST.get("email")
+        senha = request.POST.get("senha")
+
+        query = Funcionario.objects.filter(email=email, senha=senha).first()
+        rows = []
+
+        if query:
+            funcionario = query
+            r = {
+                "id":funcionario.id,
+                "nome":funcionario.nome,
+                "email":funcionario.email,
+                "endereco":funcionario.endereco,
+                "telefone":funcionario.telefone
+            }
+
+            rows.append(r)
+        lista = json.dumps(list(rows))
+        return HttpResponse(lista, content_type='application/json')
+
+
     @staticmethod
     def excluirfuncionario(request):
         id = request.GET.get("id")
@@ -812,6 +861,11 @@ class ServiceJson(View):
         empresa_id = request.GET.get("empresa_id")
 
         if (id == 'undefined'):
+            id = int()
+            id = 0
+
+        if not (id):
+            id = int()
             id = 0
 
         if (referencia):
@@ -892,6 +946,11 @@ class ServiceJson(View):
         empresa_id = request.GET.get("empresa_id")
 
         if (id == 'undefined'):
+            id = int()
+            id = 0
+
+        if not (id):
+            id = int()
             id = 0
 
         if (nome):
@@ -1028,6 +1087,9 @@ class ServiceJson(View):
         oProduto = Produto()
 
         if (id):
+            if (id == 'undefined'):
+                id = 0
+
             if (int(id) > 0):
                 oProduto = Produto.objects.get(id=id)
 
@@ -1038,11 +1100,16 @@ class ServiceJson(View):
 
         oProduto.save()
 
-        # imgdata = base64.b64decode(foto)
+        imgdata = base64.b64decode(foto)
         filename = str(oProduto.id) + '_' + str(random_n) + '.jpg'
 
         image_data = open(settings.BASE_DIR + '/game7api/static/media/produto/' + filename, "wb")
         image_data.write(re.sub('^data:image/.+;base64,', '', foto).decode('base64'))
+        image_data.close()
+
+
+        # image_data = open(settings.BASE_DIR + '/media/evidencias/' + filename, "wb")
+        # image_data.write(re.sub('^data:image/.+;base64,', '', foto).decode('base64'))
         image_data.close()
 
         oProduto.foto = filename
@@ -1073,6 +1140,11 @@ class ServiceJson(View):
         produto_id = request.GET.get("produto_id")
 
         if (id == 'undefined'):
+            id = int()
+            id = 0
+
+        if not (id):
+            id = int()
             id = 0
 
         if (id > 0):
@@ -1136,6 +1208,11 @@ class ServiceJson(View):
         empresa_id = request.GET.get("empresa_id")
 
         if (id == 'undefined'):
+            id = int()
+            id = 0
+
+        if not (id):
+            id = int()
             id = 0
 
         if (data_inicio):
@@ -1245,6 +1322,11 @@ class ServiceJson(View):
 
 
         if (id == 'undefined'):
+            id = int()
+            id = 0
+
+        if not (id):
+            id = int()
             id = 0
 
         if (id > 0):

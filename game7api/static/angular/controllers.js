@@ -1,4 +1,7 @@
-game7App.controller('categoriaCtrl', function($scope, Categoria) {
+game7App.controller('categoriaCtrl', function($scope, Categoria, Funcionario) {
+    $scope.fn = Funcionario;
+    $scope.fn.verifica_login();
+
     $scope.ct = Categoria;
     $scope.ct.get_categorias();
     $scope.ct.get_categoria();
@@ -13,7 +16,9 @@ game7App.controller('categoriaCtrl', function($scope, Categoria) {
     }
 });
 
-game7App.controller('subcategoriaCtrl', function($scope, SubCategoria, Categoria) {
+game7App.controller('subcategoriaCtrl', function($scope, SubCategoria, Categoria, Funcionario) {
+    $scope.fn = Funcionario;
+    $scope.fn.verifica_login();
     $scope.sc = SubCategoria;
     $scope.ct = Categoria;
     $scope.ct.get_categoria();
@@ -30,7 +35,10 @@ game7App.controller('subcategoriaCtrl', function($scope, SubCategoria, Categoria
     }
 });
 
-game7App.controller('clienteCtrl', function($scope, Cliente, Estado, Cidade, Bairro) {
+game7App.controller('clienteCtrl', function($scope, Cliente, Estado, Cidade, Bairro, Funcionario) {
+    $scope.fn = Funcionario;
+    $scope.fn.verifica_login();
+
     $scope.et = Estado;
     $scope.et.get_estados();
 
@@ -58,7 +66,10 @@ game7App.controller('clienteCtrl', function($scope, Cliente, Estado, Cidade, Bai
     }
 });
 
-game7App.controller('empresaCtrl', function($scope, Empresa, Estado, Cidade, Bairro, Atendimento) {
+game7App.controller('empresaCtrl', function($scope, Empresa, Estado, Cidade, Bairro, Atendimento, Funcionario) {
+    $scope.fn = Funcionario;
+    $scope.fn.verifica_login();
+
     $scope.et = Estado;
     $scope.cd = Cidade;
     $scope.br = Bairro;
@@ -106,6 +117,7 @@ game7App.controller('funcionarioCtrl', function($scope, Funcionario) {
     $scope.fn = Funcionario;
     $scope.fn.get_funcionarios();
     $scope.fn.get_funcionario();
+    $scope.fn.verifica_login();
 
     $scope.filtrar = function(){
         $scope.fn.get_funcionarios(document.getElementById("ipFiltroNome").value,document.getElementById("ipFiltroEmail").value);
@@ -123,7 +135,7 @@ game7App.controller('funcionarioCtrl', function($scope, Funcionario) {
     }
 });
 
-game7App.controller('produtoCtrl', function($scope, Produto, Empresa, Categoria, SubCategoria) {
+game7App.controller('produtoCtrl', function($scope, Produto, Empresa, Categoria, SubCategoria, Funcionario) {
     $scope.em = Empresa;
     $scope.em.get_empresas();
     $scope.pt = Produto;
@@ -132,6 +144,9 @@ game7App.controller('produtoCtrl', function($scope, Produto, Empresa, Categoria,
 
     $scope.ct = Categoria;
     $scope.ct.get_categorias();
+
+    $scope.fn = Funcionario;
+    $scope.fn.verifica_login();
 
     $scope.sc = SubCategoria;
 
@@ -168,9 +183,12 @@ game7App.controller('produtoCtrl', function($scope, Produto, Empresa, Categoria,
     }
 });
 
-game7App.controller('pedidoCtrl', function($scope, Pedido, Empresa) {
+game7App.controller('pedidoCtrl', function($scope, Pedido, Empresa, Funcionario) {
     $scope.em = Empresa;
     $scope.em.get_empresas();
+
+    $scope.fn = Funcionario;
+    $scope.fn.verifica_login();
 
     $scope.pe = Pedido;
     $scope.pe.get_pedidos();
@@ -190,5 +208,13 @@ game7App.controller('pedidoCtrl', function($scope, Pedido, Empresa) {
     }
     $scope.getsubs= function(){
         $scope.sc.get_subcategorias("",$scope.sc.sel_categoria.pk);
+    }
+});
+
+game7App.controller('loginCtrl', function($scope, Funcionario) {
+    $scope.lg = Funcionario;
+//    $scope.lg.verifica_login();
+    $scope.logar = function(){
+        $scope.lg.logar_funcionario(document.getElementById("ipEmail").value,document.getElementById("ipSenha").value);
     }
 });
