@@ -6,10 +6,12 @@ from django.core.serializers import serialize
 from django.http.response import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.conf import settings
+from datetime import *
 import json
 import base64
 import random
 import re
+
 
 class adminLoginView(View):
     def get(self, request, *args, **kwargs):
@@ -751,6 +753,68 @@ class ServiceJson(View):
 
         lista = "true"
         return HttpResponse(lista, content_type='application/json')
+
+    @staticmethod
+    def abrirempresa(request):
+        id = request.GET.get("e_id")
+
+
+        oAbertura = Abertura.objects.filter(empresa__id=id, fechamento__isnull=True).first()
+
+        if not (oAbertura):
+            oEmpresa = Empresa.objects.filter(id=id).first()
+
+            oAbertura = Abertura();
+            oAbertura.abertura = datetime.now()
+            oAbertura.empresa = oEmpresa
+            oAbertura.save()
+
+        rows = []
+
+        r = {
+            "id": oAbertura.id,
+            "abertura": oAbertura.abertura.strftime('%Y-%m-%d %H:%M'),
+            "fechamento": oAbertura.fechamento
+        }
+
+        rows.append(r)
+        lista = json.dumps(list(rows))
+        return HttpResponse(lista, content_type='application/json')
+
+    @staticmethod
+    def fecharempresa(request):
+        id = request.GET.get("id")
+
+        # Query Base
+        oAbertura = Abertura.objects.filter(id=id).first()
+        oAbertura.fechamento = datetime.now()
+        oAbertura.save()
+
+        return HttpResponse(oAbertura, content_type='application/json')
+
+    @staticmethod
+    def getabertura(request):
+        id = request.GET.get("e_id")
+
+
+        oAbertura = Abertura.objects.filter(empresa__id=id, fechamento__isnull=True).first()
+
+        rows = []
+
+        if (oAbertura):
+            r = {
+                "id": oAbertura.id,
+                "abertura": oAbertura.abertura.strftime('%Y-%m-%d %H:%M'),
+                "fechamento": oAbertura.fechamento
+            }
+        else:
+            r = []
+
+
+        rows.append(r)
+        lista = json.dumps(list(rows))
+        return HttpResponse(lista, content_type='application/json')
+
 
     @staticmethod
     def funcionarios(request):

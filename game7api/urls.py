@@ -123,6 +123,9 @@ urlpatterns = [
     url(r'^js/excluirproduto$', ServiceJson.excluirproduto, name='excluirproduto'),
     url(r'^js/excluirfoto', ServiceJson.excluirfoto, name='excluirfoto'),
     url(r'^js/excluirpedido', ServiceJson.excluirpedido, name='excluirpedido'),
-    url(r'^js/excluiritem', ServiceJson.excluiritem, name='excluiritem'),
+
+    url(r'^js/abrirempresa', ServiceJson.abrirempresa, name='abrirempresa'),
+    url(r'^js/fecharempresa', ServiceJson.fecharempresa, name='fecharempresa'),
+    url(r'^js/getabertura', ServiceJson.getabertura, name='getabertura'),
 
 ]+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

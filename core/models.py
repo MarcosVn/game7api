@@ -28,6 +28,17 @@ class Cidade(models.Model):
         return str(self.nome)
 
 
+class Abertura(models.Model):
+    id = models.AutoField(primary_key=True)
+    abertura = models.DateTimeField()
+    fechamento = models.DateTimeField(null=True)
+    empresa = models.ForeignKey("Empresa", related_name="aberturas")
+
+    class Meta:
+        verbose_name = "Abertura"
+        verbose_name_plural = "Aberturas"
+
+
 class Bairro(models.Model):
     id = models.AutoField(primary_key=True)
     nome = models.CharField(max_length=256)
