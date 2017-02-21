@@ -25,7 +25,7 @@ SECRET_KEY = '2!7#8u3*@k!a$)9z=g&y)*suxyb65pm_1a_31=ce6cn3)ljz@&'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['0.0.0.0']
+ALLOWED_HOSTS = ['0.0.0.0', '192.168.1.104']
 
 
 # Application definition
@@ -38,11 +38,13 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'core',
+    'corsheaders',
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -78,12 +80,12 @@ WSGI_APPLICATION = 'game7api.wsgi.application'
 DATABASES = {
     'default': {
         # MINHA CASA
-        # 'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        # 'NAME': 'game7api',
-        # 'USER':'lovieira',
-        # 'PASSWORD':'123456',
-        # 'HOST':'localhost',
-        # 'PORT':'5432'
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'game7api',
+        'USER':'lovieira',
+        'PASSWORD':'123456',
+        'HOST':'localhost',
+        'PORT':'5432'
 
         # # INPE
         # 'ENGINE': 'django.db.backends.postgresql_psycopg2',
@@ -110,11 +112,11 @@ DATABASES = {
         # 'PORT':'5432'
 
         # HOME HOST
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'luk14236_game7',
-        'USER':'luk14236',
-        'PASSWORD':'28310189',
-        'HOST':'177.85.98.245'
+        # 'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        # 'NAME': 'luk14236_game7',
+        # 'USER':'luk14236',
+        # 'PASSWORD':'28310189',
+        # 'HOST':'177.85.98.245'
     }
 }
 

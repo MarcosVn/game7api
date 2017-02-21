@@ -1,4 +1,4 @@
-URL_BASE = "http://0.0.0.0:8007/js/";
+URL_BASE = "http://0.0.0.0:8010/js/";
 
 function getTokens(){
     var tokens = [];            // new array to hold result

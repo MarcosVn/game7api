@@ -1035,6 +1035,9 @@ class ServiceJson(View):
         id = request.POST.get("id")
         subcategoria_id = request.POST.get("subcategoria_id")
 
+        print id
+        print subcategoria_id
+
         oProduto = Produto.objects.filter(id=id).first()
         oSubcategoria = SubCategoria.objects.filter(id=subcategoria_id).first()
 
@@ -1082,7 +1085,6 @@ class ServiceJson(View):
         empresa_id = request.POST.get("empresa_id")
         random_n = random.randint(1,500000000)
 
-
         # Objeto de Produtos
         oProduto = Produto()
 
@@ -1097,19 +1099,11 @@ class ServiceJson(View):
         oProduto.descricao=descricao
         oProduto.preco=preco
         oProduto.empresa = Empresa.objects.filter(id=empresa_id).first()
-
         oProduto.save()
 
-        imgdata = base64.b64decode(foto)
         filename = str(oProduto.id) + '_' + str(random_n) + '.jpg'
-
         image_data = open(settings.BASE_DIR + '/game7api/static/media/produto/' + filename, "wb")
         image_data.write(re.sub('^data:image/.+;base64,', '', foto).decode('base64'))
-        image_data.close()
-
-
-        # image_data = open(settings.BASE_DIR + '/media/evidencias/' + filename, "wb")
-        # image_data.write(re.sub('^data:image/.+;base64,', '', foto).decode('base64'))
         image_data.close()
 
         oProduto.foto = filename
