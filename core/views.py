@@ -305,6 +305,17 @@ class ServiceJson(View):
         bairro_id = request.POST.get("bairro")
         cidade_id = request.POST.get("cidade")
 
+
+        print "id_"+id
+        print "nome_"+nome
+        print "email_"+email
+        print "senha_"+senha
+        print "telefone_"+telefone
+        print "endereco_"+endereco
+        print "bairro_id_"+bairro_id
+        print "cidade_id_"+cidade_id
+
+
         # Objeto de Clientes
         oCliente = Cliente()
 
@@ -312,13 +323,22 @@ class ServiceJson(View):
             if (int(id) > 0):
                 oCliente = Cliente.objects.get(id=id)
 
-        oCliente.nome = nome
-        oCliente.email = email
-        oCliente.senha = senha
-        oCliente.telefone = telefone
-        oCliente.endereco = endereco
-        oCliente.bairro = Bairro.objects.filter(id=bairro_id).first()
-        oCliente.cidade = Cidade.objects.filter(id=cidade_id).first()
+        if(nome):
+            oCliente.nome = nome
+        if(email):
+            oCliente.email = email
+        if(senha):
+            oCliente.senha = senha
+        if(telefone):
+            oCliente.telefone = telefone
+        if(endereco):
+            oCliente.endereco = endereco
+        if(bairro_id):
+            if not (bairro_id == '?'):
+                oCliente.bairro = Bairro.objects.filter(id=bairro_id).first()
+        if(cidade_id):
+            if not (cidade_id == '?'):
+                oCliente.cidade = Cidade.objects.filter(id=cidade_id).first()
 
         oCliente.save()
 
@@ -790,12 +810,24 @@ class ServiceJson(View):
         oAbertura.fechamento = datetime.now()
         oAbertura.save()
 
-        return HttpResponse(oAbertura, content_type='application/json')
+        rows = []
+
+        oAbertura = Abertura.objects.filter(empresa__id=id, fechamento__isnull=True).first()
+
+        if (oAbertura):
+            r = {
+                "id": oAbertura.id,
+                "abertura": oAbertura.abertura.strftime('%Y-%m-%d %H:%M'),
+                "fechamento": oAbertura.fechamento.strftime('%Y-%m-%d %H:%M'),
+            }
+            rows.append(r)
+
+        lista = json.dumps(rows)
+        return HttpResponse(lista, content_type='application/json')
 
     @staticmethod
     def getabertura(request):
         id = request.GET.get("e_id")
-
 
         oAbertura = Abertura.objects.filter(empresa__id=id, fechamento__isnull=True).first()
 
@@ -807,12 +839,9 @@ class ServiceJson(View):
                 "abertura": oAbertura.abertura.strftime('%Y-%m-%d %H:%M'),
                 "fechamento": oAbertura.fechamento
             }
-        else:
-            r = []
+            rows.append(r)
 
-
-        rows.append(r)
-        lista = json.dumps(list(rows))
+        lista = json.dumps(rows)
         return HttpResponse(lista, content_type='application/json')
 
 
