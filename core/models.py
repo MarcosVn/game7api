@@ -2,6 +2,7 @@
 from __future__ import unicode_literals
 
 from django.db import models
+from django.contrib.gis.db import models
 
 class Estado(models.Model):
     id = models.AutoField(primary_key=True)
@@ -61,6 +62,7 @@ class Empresa(models.Model):
     cidade = models.ForeignKey("Cidade")
     endereco = models.CharField(max_length=512)
     bairro = models.ForeignKey("Bairro")
+    geometria = models.PointField(blank=True, null=True, srid=4326)
     bairros_atendimento = models.ManyToManyField("Bairro", related_name="empresas")
     telefone = models.CharField(max_length=128)
     descricao = models.CharField(max_length=1024)
@@ -99,6 +101,7 @@ class Cliente(models.Model):
     endereco = models.CharField(max_length=512)
     cidade = models.ForeignKey("Cidade")
     bairro = models.ForeignKey("Bairro")
+    geometria = models.PointField(blank=True, null=True, srid=4326)
 
     class Meta:
         verbose_name = "Cliente"

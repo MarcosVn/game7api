@@ -37,8 +37,14 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'core',
+    'django.contrib.gis',
+
+    # Third party
     'corsheaders',
+    'rest_framework',
+
+    # local app
+    'core',
 ]
 
 MIDDLEWARE = [
@@ -58,7 +64,7 @@ CORS_ORIGIN_ALLOW_ALL = True
 
 TEMPLATES = [
     {
-        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'BACKEND': 'django.contrib.gis.db.backends.postgis',
         'DIRS': [],
         'APP_DIRS': True,
         'OPTIONS': {
@@ -80,7 +86,7 @@ WSGI_APPLICATION = 'game7api.wsgi.application'
 DATABASES = {
     'default': {
         # MINHA CASA
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'ENGINE': 'django.contrib.gis.db.backends.postgis',
         'NAME': 'game7api',
         'USER':'lovieira',
         'PASSWORD':'123456',
@@ -112,7 +118,7 @@ DATABASES = {
         # 'PORT':'5432'
 
         # HOME HOST
-        # 'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        # 'ENGINE': 'django.contrib.gis.db.backends.postgis',
         # 'NAME': 'luk14236_game7',
         # 'USER':'luk14236',
         # 'PASSWORD':'28310189',

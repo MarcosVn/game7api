@@ -5,6 +5,7 @@ from django.template.context import RequestContext
 from django.core.serializers import serialize
 from django.http.response import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
+from django.template import Context
 from django.conf import settings
 from datetime import *
 import json
@@ -1470,4 +1471,21 @@ class ServiceJson(View):
         oItem.delete()
 
         lista = "true"
+        return HttpResponse(lista, content_type='application/json')
+
+
+    @staticmethod
+    def getRestaurantes(request):
+        id = request.GET.get("id")
+        texto = request.GET.get("texto")
+
+        # Query Base
+        oCliente = Cliente.objects.filter(id=id).first()
+        oRestaurantes = Empresa.objects.filter(bairros_atendimento__id=oCliente.bairro.id)
+
+        if(texto):
+            oRestaurantes = oRestaurantes.filter(descricao__icontains=texto)
+
+        lista = serialize('json',oRestaurantes)
+        # lista = "true"
         return HttpResponse(lista, content_type='application/json')

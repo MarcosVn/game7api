@@ -128,4 +128,6 @@ urlpatterns = [
     url(r'^js/fecharempresa', ServiceJson.fecharempresa, name='fecharempresa'),
     url(r'^js/getabertura', ServiceJson.getabertura, name='getabertura'),
 
+    url(r'^js/getrestaurantes', ServiceJson.getRestaurantes, name='getRestaurantes'),
+
 ]+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
