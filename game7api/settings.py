@@ -25,7 +25,7 @@ SECRET_KEY = '2!7#8u3*@k!a$)9z=g&y)*suxyb65pm_1a_31=ce6cn3)ljz@&'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['0.0.0.0', '192.168.1.104', '192.168.122.1', '192.168.1.106']
+ALLOWED_HOSTS = ['0.0.0.0', '192.168.1.104', '192.168.122.1', '192.168.1.106', '127.0.0.1']
 
 
 # Application definition
@@ -39,11 +39,10 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django.contrib.gis',
 
-    # Third party
     'corsheaders',
     'rest_framework',
 
-    # local app
+
     'core',
 ]
 
@@ -64,7 +63,7 @@ CORS_ORIGIN_ALLOW_ALL = True
 
 TEMPLATES = [
     {
-        'BACKEND': 'django.contrib.gis.db.backends.postgis',
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [],
         'APP_DIRS': True,
         'OPTIONS': {

@@ -66,7 +66,7 @@ game7App.controller('clienteCtrl', function($scope, Cliente, Estado, Cidade, Bai
     }
 });
 
-game7App.controller('empresaCtrl', function($scope, Empresa, Estado, Cidade, Bairro, Atendimento, Funcionario) {
+game7App.controller('empresaCtrl', function($scope, Empresa, Estado, Cidade, Bairro, Atendimento, Funcionario, TipoCozinha) {
     $scope.fn = Funcionario;
     $scope.fn.verifica_login();
 
@@ -75,8 +75,10 @@ game7App.controller('empresaCtrl', function($scope, Empresa, Estado, Cidade, Bai
     $scope.br = Bairro;
     $scope.em = Empresa;
     $scope.at = Atendimento;
+    $scope.tc = TipoCozinha;
 
     $scope.et.get_estados();
+    $scope.tc.get_tiposcozinha();
     $scope.em.get_empresas();
     $scope.em.get_empresa();
 
@@ -216,5 +218,21 @@ game7App.controller('loginCtrl', function($scope, Funcionario) {
 //    $scope.lg.verifica_login();
     $scope.logar = function(){
         $scope.lg.logar_funcionario(document.getElementById("ipEmail").value,document.getElementById("ipSenha").value);
+    }
+});
+
+game7App.controller('tiposcozinhasCtrl', function($scope, TipoCozinha) {
+    $scope.tc = TipoCozinha;
+    $scope.tc.get_tiposcozinha();
+    $scope.tc.get_tipocozinha();
+
+    $scope.filtrar = function(){
+        $scope.tc.get_tiposcozinha(document.getElementById("ipFiltroTipoCozinha").value);
+    }
+    $scope.atualizar = function(){
+        $scope.tc.save_tipocozinha(document.getElementById("nome").value);
+    }
+    $scope.excluir = function(){
+      $scope.tc.excluir_tipocozinha();
     }
 });

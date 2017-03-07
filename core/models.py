@@ -53,6 +53,18 @@ class Bairro(models.Model):
         return str(self.nome)
 
 
+class TipoCozinha(models.Model):
+    id = models.AutoField(primary_key=True)
+    nome = models.CharField(max_length=256)
+
+    class Meta:
+        verbose_name = "Tipo de Cozinha"
+        verbose_name_plural = "Tipos de Cozinha"
+
+    def __unicode__(self):
+        return str(self.nome)
+
+
 class Empresa(models.Model):
     id = models.AutoField(primary_key=True)
     nome = models.CharField(max_length=256)
@@ -66,6 +78,7 @@ class Empresa(models.Model):
     bairros_atendimento = models.ManyToManyField("Bairro", related_name="empresas")
     telefone = models.CharField(max_length=128)
     descricao = models.CharField(max_length=1024)
+    tipocozinha = models.ForeignKey("TipoCozinha", null=True)
 
     class Meta:
         verbose_name = "Empresa"

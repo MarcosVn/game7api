@@ -5,7 +5,6 @@ from django.template.context import RequestContext
 from django.core.serializers import serialize
 from django.http.response import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
-from django.template import Context
 from django.conf import settings
 from datetime import *
 import json
@@ -153,6 +152,22 @@ class adminPedidoVerView(View):
     def get(self, request, *args, **kwargs):
         return render_to_response('adm/pedido/ver.html', {}, RequestContext(request))
 
+class adminTiposCozinhaView(View):
+    def get(self, request, *args, **kwargs):
+        return render_to_response('adm/tiposcozinha/tiposcozinha.html', {}, RequestContext(request))
+class adminTipoCozinhaNovaView(View):
+    def get(self, request, *args, **kwargs):
+        return render(request, 'adm/tiposcozinha/novo.html', {}, RequestContext(request))
+class adminTipoCozinhaEdicaoView(View):
+    def get(self, request, *args, **kwargs):
+        return render(request, 'adm/tiposcozinha/editar.html', {}, RequestContext(request))
+class adminTipoCozinhaExcluirView(View):
+    def get(self, request, *args, **kwargs):
+        return render_to_response('adm/tiposcozinha/excluir.html', {}, RequestContext(request))
+class adminTipoCozinhaVerView(View):
+    def get(self, request, *args, **kwargs):
+        return render_to_response('adm/tiposcozinha/ver.html', {}, RequestContext(request))
+
 class ServiceJson(View):
     @staticmethod
     def categorias(request):
@@ -213,6 +228,71 @@ class ServiceJson(View):
 
         return HttpResponse(lista, content_type='application/json')
 
+
+    @staticmethod
+    def tiposcozinhas(request):
+        # Query Base
+        query = TipoCozinha.objects.all().order_by("nome")
+
+        # Filtros
+        nome = request.GET.get("nome")
+        id = request.GET.get("id")
+
+        if (id == 'undefined'):
+            id = int()
+            id = 0
+
+        if not (id):
+            id = int()
+            id = 0
+
+        if (nome):
+            query = query.filter(nome__icontains=nome)
+        if (id > 0):
+            query = query.filter(id=id)
+
+        lista = serialize('json', query, fields=["id", "nome"])
+        return HttpResponse(lista, content_type='application/json')
+
+    @staticmethod
+    @csrf_exempt
+    def savetipocozinha(request):
+        # Filtros
+        id = request.POST.get("id")
+        nome = request.POST.get("nome")
+
+        # Objeto de Tipo Cozinha
+        oTipoCozinha = TipoCozinha()
+
+        if (id):
+
+            if(id == 'undefined'):
+                id=0
+
+            if (int(id) > 0):
+                oTipoCozinha = TipoCozinha.objects.get(id=id)
+
+        oTipoCozinha.nome = nome
+        oTipoCozinha.save()
+
+        lista = "true"
+        return HttpResponse(lista, content_type='application/json')
+
+    @staticmethod
+    def excluirtipocozinha(request):
+        id = request.GET.get("id")
+
+        # Query Base
+        oTipoCozinha = TipoCozinha.objects.filter(id=id).first()
+
+        oTipoCozinha.delete()
+
+        lista = "true"
+
+        return HttpResponse(lista, content_type='application/json')
+
+
+
     @staticmethod
     def clientes(request):
         # Query Base
@@ -260,7 +340,6 @@ class ServiceJson(View):
         lista = json.dumps(list(rows))
         return HttpResponse(lista, content_type='application/json')
 
-
     @staticmethod
     @csrf_exempt
     def clienteLogin(request):
@@ -290,8 +369,6 @@ class ServiceJson(View):
             rows.append(r)
         lista = json.dumps(list(rows))
         return HttpResponse(lista, content_type='application/json')
-
-
 
     @staticmethod
     @csrf_exempt
@@ -629,7 +706,10 @@ class ServiceJson(View):
                 "bairro":empresa.bairro.nome,
                 "bairro_id":empresa.bairro.id,
                 "bairros":bairros,
-                "descricao":empresa.descricao
+                "descricao":empresa.descricao,
+                "tipo_cozinha":empresa.tipocozinha.nome,
+                "tipo_cozinha_id":empresa.tipocozinha.id
+
             }
 
             rows.append(r)

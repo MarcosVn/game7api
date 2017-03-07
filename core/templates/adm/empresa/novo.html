@@ -29,6 +29,10 @@
         <input type="number" id="telefone" name="telefone" required="True" class="form-control"/>
         <br/>
 
+        <label class="control-label">Tipo de Cozinha</label><br/>
+        <select class="form-control" name="tipocozinha" id="tipocozinha" ng-options="tipocozinha as tipocozinha.fields.nome for tipocozinha in tc.lista_tiposcozinha track by tipocozinha.pk" ng-model="sel_tipo"></select>
+        <br/>
+
         <label class="control-label">Estado</label><br/>
         <select class="form-control" name="estado" id="estado" ng-change="getcidades()" ng-options="estado as estado.fields.nome for estado in et.lista_estados track by estado.pk" ng-model="sel_estado"></select>
         <br/>

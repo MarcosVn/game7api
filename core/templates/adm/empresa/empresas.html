@@ -26,6 +26,7 @@
             <tr>
                 <th>Nome</th>
                 <th>Email</th>
+                <th>Tipo de Cozinha</th>
                 <th>Telefone</th>
                 <th></th>
                 <th></th>
@@ -34,6 +35,7 @@
             <tr ng-repeat="empresa in em.lista_empresas">
               <td class="col-md-4">{[empresa.nome]}</td>
               <td class="col-md-4">{[empresa.email]}</td>
+              <td class="col-md-4">{[empresa.tipo_cozinha]}</td>
               <td class="col-md-2">{[empresa.telefone]}</td>
               <td><a href="/adm/filiado/atendimentos?e_id={[empresa.id]}" class="btn btn-default btn-xs">atendimento</a></td>
               <td><a href="/adm/filiado-edicao?e_id={[empresa.id]}" class="btn btn-primary btn-xs">editar</a></td>

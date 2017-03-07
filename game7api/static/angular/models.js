@@ -1,4 +1,5 @@
-URL_BASE = "http://0.0.0.0:8010/js/";
+//URL_BASE = "http://0.0.0.0:8010/js/";
+URL_BASE = "http://127.0.0.1:8010/js/";
 
 function getTokens(){
     var tokens = [];            // new array to hold result
@@ -824,6 +825,84 @@ game7App.factory("Pedido", function (Ajax,$http) {
         var url = URL_BASE + "excluirproduto";
         var params = {
           id:TOKENS['p_id']
+        }
+        $http({
+            method: "GET",
+            params: params,
+            url: url,
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }).then(function successCallback(response) {
+            obj.retorno = response.data;
+        }, function errorCallback(response) {
+            console.log("Erro");
+        });
+    };
+    return obj;
+});
+
+
+game7App.factory("TipoCozinha", function (Ajax,$http) {
+    var obj = {
+        lista_tiposcozinha: [],
+        tipocozinhaselecionado: [],
+        retorno : false,
+    };
+    obj.get_tiposcozinha = function (nome_tipocozinha) {
+        var url = URL_BASE + "tiposcozinhas";
+        var params = {
+            nome:nome_tipocozinha
+        }
+        $http({
+            method: "GET",
+            params: params,
+            url: url,
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }).then(function successCallback(response) {
+            obj.lista_tiposcozinha = response.data;
+        }, function errorCallback(response) {
+            console.log("Erro");
+        });
+    };
+
+    obj.get_tipocozinha = function () {
+        var url = URL_BASE + "tiposcozinhas";
+        var params = {
+          id:TOKENS['t_id']
+        }
+        $http({
+            method: "GET",
+            params: params,
+            url: url,
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }).then(function successCallback(response) {
+            obj.tipocozinhaselecionado = response.data;
+        }, function errorCallback(response) {
+            console.log("Erro");
+        });
+    };
+    obj.save_tipocozinha = function (tipocozinha_nome) {
+        var url = URL_BASE + "savetipocozinha";
+
+        var f = new FormData();
+        f.append('id', TOKENS['t_id']);
+        f.append('nome', tipocozinha_nome);
+        $http.post(url, f, {headers: {'Content-Type': undefined}}).success(
+          function(response){
+            obj.retorno = response;
+          }
+        )
+
+    };
+    obj.excluir_tipocozinha = function () {
+        var url = URL_BASE + "excluirtipocozinha";
+        var params = {
+          id:TOKENS['t_id']
         }
         $http({
             method: "GET",
