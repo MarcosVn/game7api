@@ -138,7 +138,7 @@ class Cliente(models.Model):
     endereco = models.CharField(max_length=512)
     cidade = models.ForeignKey("Cidade")
     bairro = models.ForeignKey("Bairro")
-    geometria = models.PointField(blank=True, null=True, srid=4326)
+    # geometria = models.PointField(blank=True, null=True, srid=4326)
 
     class Meta:
         verbose_name = "Cliente"
