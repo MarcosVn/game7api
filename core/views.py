@@ -1566,6 +1566,33 @@ class ServiceJson(View):
         if(texto):
             oRestaurantes = oRestaurantes.filter(descricao__icontains=texto)
 
-        lista = serialize('json',oRestaurantes)
+        rows = []
+
+        # .data.strftime("%Y-%m-%d"),
+
+        for r in oRestaurantes:
+
+            row = {
+                "id":r.id,
+                "nome":r.nome,
+                "descricao":r.descricao,
+                "email":r.email,
+                "cidade_id":r.cidade.id,
+                "cidade":r.cidade.nome,
+                "endereco":r.endereco,
+                "bairro_id":r.bairro.id,
+                "bairro":r.bairro.nome,
+                "telefone":r.telefone,
+                "tipocozinha_id":r.tipocozinha.id,
+                "tipocozinha":r.tipocozinha.nome,
+                "nota":str(r.nota),
+                "custo":r.custo
+            }
+
+            rows.append(row)
+
+        # lista = serialize('json',rows)
+        lista = json.dumps(list(rows))
+
         # lista = "true"
         return HttpResponse(lista, content_type='application/json')

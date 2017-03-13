@@ -65,20 +65,44 @@ class TipoCozinha(models.Model):
         return str(self.nome)
 
 
+class TipoPreco(models.Model):
+    id = models.AutoField(primary_key=True)
+    nome = models.CharField(max_length=256)
+
+    class Meta:
+        verbose_name = "Tipo Preço"
+        verbose_name_plural = "Tipos de Preço"
+
+    def __unicode__(self):
+        return str(self.nome)
+
+class TipoTempo(models.Model):
+    id = models.AutoField(primary_key=True)
+    nome = models.CharField(max_length=256)
+
+    class Meta:
+        verbose_name = "Tipo de Tempo Médio"
+        verbose_name_plural = "Tipos de Tempo Médio"
+
+    def __unicode__(self):
+        return str(self.nome)
+
+
 class Empresa(models.Model):
     id = models.AutoField(primary_key=True)
     nome = models.CharField(max_length=256)
-    descricao = models.CharField(max_length=1024)
     email = models.CharField(max_length=512)
     senha = models.CharField(max_length=128)
     cidade = models.ForeignKey("Cidade")
     endereco = models.CharField(max_length=512)
     bairro = models.ForeignKey("Bairro")
-    geometria = models.PointField(blank=True, null=True, srid=4326)
     bairros_atendimento = models.ManyToManyField("Bairro", related_name="empresas")
     telefone = models.CharField(max_length=128)
     descricao = models.CharField(max_length=1024)
     tipocozinha = models.ForeignKey("TipoCozinha", null=True)
+    nota = models.DecimalField(default=0, decimal_places=2, max_digits=10)
+    custo = models.ForeignKey("TipoPreco", null=True)
+    tempo = models.ForeignKey("TipoTempo", null=True)
 
     class Meta:
         verbose_name = "Empresa"
@@ -192,6 +216,20 @@ class Pedido(models.Model):
 
     def __unicode__(self):
         return self.cliente.nome + "_" + str(self.id)
+
+
+class Avaliacao(models.Model):
+    id = models.AutoField(primary_key=True)
+    pedido = models.ForeignKey("Pedido", null=True, related_name="Avaliado")
+    nota = models.IntegerField(default=0)
+    data = models.DateField(auto_now=True)
+
+    class Meta:
+        verbose_name = "Avaliação"
+        verbose_name_plural = "Avaliações"
+
+    def __unicode__(self):
+        return str(self.nota)
 
 
 class Item(models.Model):
