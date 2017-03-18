@@ -86,6 +86,9 @@ game7App.controller('empresaCtrl', function($scope, Empresa, Estado, Cidade, Bai
         $scope.em.get_empresas(document.getElementById("ipFiltroNome").value,document.getElementById("ipFiltroEmail").value);
     }
     $scope.atualizar = function(){
+
+        alert(document.getElementById("tipocozinha").value);
+
         $scope.em.save_empresa(
             document.getElementById("nome").value,
             document.getElementById("email").value,
@@ -95,7 +98,8 @@ game7App.controller('empresaCtrl', function($scope, Empresa, Estado, Cidade, Bai
             document.getElementById("cidade").value,
             document.getElementById("bairro").value,
             document.getElementById("endereco").value,
-            document.getElementById("descricao").value);
+            document.getElementById("descricao").value,
+            document.getElementById("tipocozinha").value);
     }
     $scope.excluir = function(){
       $scope.em.excluir_empresa();

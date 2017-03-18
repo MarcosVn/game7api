@@ -732,6 +732,8 @@ class ServiceJson(View):
         estado_id = request.POST.get("estado")
         bairro_id = request.POST.get("bairro")
         endereco = request.POST.get("endereco")
+        tipocozinha_id = request.POST.get("tipo_cozinha_id")
+
 
 
         # Objeto de Empresas
@@ -764,6 +766,9 @@ class ServiceJson(View):
 
         if bairro_id:
             oEmpresa.bairro = Bairro.objects.filter(id=bairro_id).first()
+
+        if tipocozinha_id:
+            oEmpresa.tipocozinha = TipoCozinha.objects.filter(id=tipocozinha_id).first()
 
         if endereco:
             oEmpresa.endereco=endereco
