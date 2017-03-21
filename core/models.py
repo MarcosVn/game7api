@@ -237,6 +237,7 @@ class Item(models.Model):
     pedido=models.ForeignKey("Pedido", related_name="Itens")
     quantidade=models.IntegerField(default=1)
     produto = models.ForeignKey("Produto")
+    observacao = models.CharField(max_length=1024, null=True)
 
     class Meta:
         verbose_name = "Item"
