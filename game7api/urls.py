@@ -89,6 +89,8 @@ urlpatterns = [
     url(r'^js/pedidos', ServiceJson.pedidos, name='pedidos'),
     url(r'^js/tiposcozinhas', ServiceJson.tiposcozinhas, name='tiposcozinhas'),
     url(r'^js/itens', ServiceJson.itens, name='itens'),
+    url(r'^js/carrinho', ServiceJson.carrinho, name='carrinho'),
+
     url(r'^js/savecategoria', ServiceJson.savecategoria, name='savecategoria'),
     url(r'^js/savecliente', ServiceJson.savecliente, name='savecliente'),
     url(r'^js/savesubcategoria', ServiceJson.savesubcategoria, name='savesubcategoria'),
@@ -106,6 +108,8 @@ urlpatterns = [
     url(r'^js/savepedido', ServiceJson.savepedido, name='savepedido'),
     url(r'^js/saveitem', ServiceJson.saveitem, name='saveitem'),
     url(r'^js/savetipocozinha', ServiceJson.savetipocozinha, name='savetipocozinha'),
+    url(r'^js/savecarrinho', ServiceJson.savecarrinho, name='savecarrinho'),
+
     url(r'^js/excluircategoria', ServiceJson.excluircategoria, name='excluircategoria'),
     url(r'^js/excluircliente', ServiceJson.excluircliente, name='excluircliente'),
     url(r'^js/excluirsubcategoria', ServiceJson.excluirsubcategoria, name='excluirsubcategoria'),
@@ -119,6 +123,8 @@ urlpatterns = [
     url(r'^js/excluirfoto', ServiceJson.excluirfoto, name='excluirfoto'),
     url(r'^js/excluirpedido', ServiceJson.excluirpedido, name='excluirpedido'),
     url(r'^js/excluirtipocozinha', ServiceJson.excluirtipocozinha, name='excluirtipocozinha'),
+    url(r'^js/excluircarrinho', ServiceJson.excluircarrinho, name='excluircarrinho'),
+
     url(r'^js/abrirempresa', ServiceJson.abrirempresa, name='abrirempresa'),
     url(r'^js/fecharempresa', ServiceJson.fecharempresa, name='fecharempresa'),
     url(r'^js/getabertura', ServiceJson.getabertura, name='getabertura'),

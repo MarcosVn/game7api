@@ -1558,6 +1558,49 @@ class ServiceJson(View):
         lista = "true"
         return HttpResponse(lista, content_type='application/json')
 
+    @staticmethod
+    def carrinho(request):
+        # Query Base
+        query = Carrinho.objects.all()
+
+        lista = serialize('json', query)
+        return HttpResponse(lista, content_type='application/json')
+
+    @staticmethod
+    @csrf_exempt
+    def savecarrinho(request):
+        # Filtros
+        id = request.POST.get("id")
+        produto_id= request.POST.get("produto_id")
+        quantidade = request.POST.get("quantidade")
+        observacao = request.POST.get("observacao")
+        cliente_id = request.POST.get("cliente_id")
+
+        # Objeto de Itens
+        oCarrinho = Carrinho()
+
+        oCarrinho.quantidade = quantidade
+        oCarrinho.observacao = observacao
+        oCarrinho.cliente = Cliente.objects.filter(id=cliente_id).first()
+        oCarrinho.produto = Produto.objects.filter(id=produto_id).first()
+
+        oCarrinho.save()
+
+        lista = "true"
+
+        return HttpResponse(lista, content_type='application/json')
+
+    @staticmethod
+    def excluircarrinho(request):
+        id = request.GET.get("id")
+
+        # Query Base
+        oCarrinho = Carrinho.objects.filter(id=id).first()
+        oCarrinho.delete()
+
+        lista = "true"
+        return HttpResponse(lista, content_type='application/json')
+
 
     @staticmethod
     def getRestaurantes(request):

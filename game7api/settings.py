@@ -92,7 +92,7 @@ DATABASES = {
         # 'HOST':'localhost',
         # 'PORT':'5432'
 
-        # # INPE
+        # INPE
         # 'ENGINE': 'django.db.backends.postgresql_psycopg2',
         # 'NAME': 'game7api',
         # 'USER':'lovieira',
@@ -172,11 +172,4 @@ STATIC_ROOT = 'static'
 STATICFILES_DIRS = (
     os.path.join(PROJECT_ROOT, 'static'),
     os.path.join(PROJECT_ROOT, 'media'),
-    # os.path.join(PROJECT_ROOT, '../diretoria/static'),
-    # os.path.join(PROJECT_ROOT, '../diretoria/static/angular'),
-    # os.path.join(PROJECT_ROOT, '../diretoria/static/css'),
-    # os.path.join(PROJECT_ROOT, '../diretoria/static/fonts'),
-    # os.path.join(PROJECT_ROOT, '../diretoria/static/img'),
-    # os.path.join(PROJECT_ROOT, '../diretoria/static/js'),
-    # '/var/www/static/',
 )
