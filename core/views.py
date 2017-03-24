@@ -1561,7 +1561,10 @@ class ServiceJson(View):
     @staticmethod
     def carrinho(request):
         # Query Base
-        ocarrinho = Carrinho.objects.all()
+
+        cliente_id = request.GET.get("cliente_id")
+
+        ocarrinho = Carrinho.objects.first(cliente__id=cliente_id)
 
         rows = []
 
