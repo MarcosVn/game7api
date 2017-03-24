@@ -1575,6 +1575,7 @@ class ServiceJson(View):
                 "observacao":item.observacao,
                 "produto_id":item.produto.id,
                 "produto":item.produto.nome,
+                "produto_preco":item.produto.preco,
             }
 
             rows.append(r)
