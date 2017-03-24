@@ -1564,7 +1564,7 @@ class ServiceJson(View):
 
         cliente_id = request.GET.get("cliente_id")
 
-        ocarrinho = Carrinho.objects.first(cliente__id=cliente_id)
+        ocarrinho = Carrinho.objects.filter(cliente__id=cliente_id)
 
         rows = []
 

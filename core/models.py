@@ -163,7 +163,7 @@ class Categoria(models.Model):
 
 class SubCategoria(models.Model):
     id = models.AutoField(primary_key=True)
-    nome = models.CharField(max_length=256)
+    nome = models.CharFeield(max_length=256)
     categoria = models.ForeignKey("Categoria", related_name="subcategorias")
 
     class Meta:
