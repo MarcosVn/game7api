@@ -1568,6 +1568,12 @@ class ServiceJson(View):
 
         rows = []
 
+        sum_compra = 0.0
+
+        for item in ocarrinho:
+            sum_compra = sum_compra + item.quantidade * item.produto.preco
+
+
         for item in ocarrinho:
             r = {
                 "id":item.id,
@@ -1576,6 +1582,7 @@ class ServiceJson(View):
                 "produto_id":item.produto.id,
                 "produto":item.produto.nome,
                 "produto_preco":item.produto.preco,
+                "total_compra":sum_compra
             }
 
             rows.append(r)
