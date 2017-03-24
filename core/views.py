@@ -1561,16 +1561,30 @@ class ServiceJson(View):
     @staticmethod
     def carrinho(request):
         # Query Base
-        query = Carrinho.objects.all()
+        ocarrinho = Carrinho.objects.all()
 
-        lista = serialize('json', query)
+        rows = []
+
+        for item in ocarrinho:
+            r = {
+                "id":item.id,
+                "quantidade":item.quantidade,
+                "observacao":item.observacao,
+                "produto_id":item.produto.id,
+                "produto":item.produto.nome,
+            }
+
+            rows.append(r)
+
+        lista = json.dumps(list(rows))
+
+        # lista = serialize('json', query)
         return HttpResponse(lista, content_type='application/json')
 
     @staticmethod
     @csrf_exempt
     def savecarrinho(request):
         # Filtros
-        id = request.POST.get("id")
         produto_id= request.POST.get("produto_id")
         quantidade = request.POST.get("quantidade")
         observacao = request.POST.get("observacao")
