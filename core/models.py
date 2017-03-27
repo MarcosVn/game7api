@@ -226,6 +226,11 @@ class Pedido(models.Model):
     empresa = models.ForeignKey("Empresa", related_name="Pedidos")
     status = models.IntegerField(default=0)
 
+    endereco_entrega = models.CharField(max_length=512)
+    cidade_entrega = models.ForeignKey("Cidade")
+    bairro_entrega = models.ForeignKey("Bairro")
+    complemento_entrega = models.CharField(max_length=512)
+
     class Meta:
         verbose_name = "Pedido"
         verbose_name_plural = "Pedidos"

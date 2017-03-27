@@ -292,7 +292,6 @@ class ServiceJson(View):
         return HttpResponse(lista, content_type='application/json')
 
 
-
     @staticmethod
     def clientes(request):
         # Query Base
@@ -436,6 +435,7 @@ class ServiceJson(View):
 
         return HttpResponse(lista, content_type='application/json')
 
+
     @staticmethod
     def subcategorias(request):
         # Query Base
@@ -510,6 +510,7 @@ class ServiceJson(View):
 
         return HttpResponse(lista, content_type='application/json')
 
+
     @staticmethod
     def estados(request):
         # Query Base
@@ -552,6 +553,7 @@ class ServiceJson(View):
 
         lista = "true"
         return HttpResponse(lista, content_type='application/json')
+
 
     @staticmethod
     def cidades(request):
@@ -603,6 +605,7 @@ class ServiceJson(View):
         lista = "true"
         return HttpResponse(lista, content_type='application/json')
 
+
     @staticmethod
     def bairros(request):
         # Query Base
@@ -652,6 +655,7 @@ class ServiceJson(View):
 
         lista = "true"
         return HttpResponse(lista, content_type='application/json')
+
 
     @staticmethod
     def empresas(request):
@@ -716,7 +720,6 @@ class ServiceJson(View):
 
         lista = json.dumps(list(rows))
         return HttpResponse(lista, content_type='application/json')
-
 
     @staticmethod
     @csrf_exempt
@@ -828,6 +831,7 @@ class ServiceJson(View):
         lista = json.dumps(r)
         return HttpResponse(lista, content_type='application/json')
 
+
     @staticmethod
     @csrf_exempt
     def saveempresabairro(request):
@@ -859,6 +863,7 @@ class ServiceJson(View):
 
         lista = "true"
         return HttpResponse(lista, content_type='application/json')
+
 
     @staticmethod
     def abrirempresa(request):
@@ -988,7 +993,6 @@ class ServiceJson(View):
         lista = "true"
         return HttpResponse(lista, content_type='application/json')
 
-
     @staticmethod
     @csrf_exempt
     def funcionarioLogin(request):
@@ -1013,7 +1017,6 @@ class ServiceJson(View):
         lista = json.dumps(list(rows))
         return HttpResponse(lista, content_type='application/json')
 
-
     @staticmethod
     def excluirfuncionario(request):
         id = request.GET.get("id")
@@ -1025,6 +1028,7 @@ class ServiceJson(View):
         lista = "true"
 
         return HttpResponse(lista, content_type='application/json')
+
 
     @staticmethod
     def Repasses(request):
@@ -1112,6 +1116,128 @@ class ServiceJson(View):
 
         return HttpResponse(lista, content_type='application/json')
 
+
+    @staticmethod
+    @csrf_exempt
+    def saveprodutofoto(request):
+        # Filtros
+        id = request.POST.get("id")
+        foto = request.POST.get("foto")
+        random_n = random.randint(1, 500000000)
+
+        oProduto = Produto.objects.filter(id=id).first()
+
+        filename = str(oProduto.id) + '_' + str(random_n) + '.jpg'
+
+        image_data = open(settings.BASE_DIR + '/game7api/static/media/produto/' + filename, "wb")
+        image_data.write(re.sub('^data:image/.+;base64,', '', foto).decode('base64'))
+        image_data.close()
+
+        oFoto = Foto()
+        oFoto.caminho = filename
+        oFoto.produto = oProduto
+        oFoto.save()
+
+        lista = "true"
+        return HttpResponse(lista, content_type='application/json')
+
+    @staticmethod
+    @csrf_exempt
+    def saveprodutosubcategoria(request):
+        # Filtros
+        id = request.POST.get("id")
+        subcategoria_id = request.POST.get("subcategoria_id")
+
+        print id
+        print subcategoria_id
+
+        oProduto = Produto.objects.filter(id=id).first()
+        oSubcategoria = SubCategoria.objects.filter(id=subcategoria_id).first()
+
+        oProduto.subcategorias.add(oSubcategoria)
+        oProduto.save()
+
+        lista = "true"
+        return HttpResponse(lista, content_type='application/json')
+
+    @staticmethod
+    def excluirproduto_categoria(request):
+        produto_id = request.GET.get("p_id")
+        subcategoria_id = request.GET.get("subc_id")
+
+        # Query Base
+        oProduto = Produto.objects.filter(id=produto_id).first()
+        oSubCategoria = SubCategoria.objects.filter(id=subcategoria_id).first()
+
+        oProduto.subcategorias.remove(oSubCategoria)
+        oProduto.save()
+
+        lista = "true"
+        return HttpResponse(lista, content_type='application/json')
+
+    @staticmethod
+    def excluirproduto_foto(request):
+        foto_id = request.GET.get("f_id")
+
+        # Query Base
+        oFoto = Foto.objects.filter(id=foto_id).first()
+        oFoto.delete()
+
+        lista = "true"
+        return HttpResponse(lista, content_type='application/json')
+
+
+    @staticmethod
+    @csrf_exempt
+    def saveproduto(request):
+        # Filtros
+        id = request.POST.get("id")
+        nome = request.POST.get("nome")
+        foto = request.POST.get("foto")
+        descricao = request.POST.get("descricao")
+        preco = request.POST.get("preco")
+        empresa_id = request.POST.get("empresa_id")
+        random_n = random.randint(1,500000000)
+
+        # Objeto de Produtos
+        oProduto = Produto()
+
+        if (id):
+            if (id == 'undefined'):
+                id = 0
+
+            if (int(id) > 0):
+                oProduto = Produto.objects.get(id=id)
+
+        oProduto.nome=nome
+        oProduto.descricao=descricao
+        oProduto.preco=preco
+        oProduto.empresa = Empresa.objects.filter(id=empresa_id).first()
+        oProduto.save()
+
+        filename = str(oProduto.id) + '_' + str(random_n) + '.jpg'
+        image_data = open(settings.BASE_DIR + '/game7api/static/media/produto/' + filename, "wb")
+        image_data.write(re.sub('^data:image/.+;base64,', '', foto).decode('base64'))
+        image_data.close()
+
+        oProduto.foto = filename
+        oProduto.save()
+
+        lista = "true"
+
+        return HttpResponse(lista, content_type='application/json')
+
+    @staticmethod
+    def excluirproduto(request):
+        id = request.GET.get("id")
+
+        # Query Base
+        oProduto = Produto.objects.filter(id=id).first()
+        oProduto.delete()
+
+        lista = "true"
+        return HttpResponse(lista, content_type='application/json')
+
     @staticmethod
     def produtos(request):
         # Query Base
@@ -1183,125 +1309,6 @@ class ServiceJson(View):
         lista = json.dumps(list(rows))
         return HttpResponse(lista, content_type='application/json')
 
-    @staticmethod
-    @csrf_exempt
-    def saveprodutofoto(request):
-        # Filtros
-        id = request.POST.get("id")
-        foto = request.POST.get("foto")
-        random_n = random.randint(1, 500000000)
-
-        oProduto = Produto.objects.filter(id=id).first()
-
-        filename = str(oProduto.id) + '_' + str(random_n) + '.jpg'
-
-        image_data = open(settings.BASE_DIR + '/game7api/static/media/produto/' + filename, "wb")
-        image_data.write(re.sub('^data:image/.+;base64,', '', foto).decode('base64'))
-        image_data.close()
-
-        oFoto = Foto()
-        oFoto.caminho = filename
-        oFoto.produto = oProduto
-        oFoto.save()
-
-        lista = "true"
-        return HttpResponse(lista, content_type='application/json')
-
-    @staticmethod
-    @csrf_exempt
-    def saveprodutosubcategoria(request):
-        # Filtros
-        id = request.POST.get("id")
-        subcategoria_id = request.POST.get("subcategoria_id")
-
-        print id
-        print subcategoria_id
-
-        oProduto = Produto.objects.filter(id=id).first()
-        oSubcategoria = SubCategoria.objects.filter(id=subcategoria_id).first()
-
-        oProduto.subcategorias.add(oSubcategoria)
-        oProduto.save()
-
-        lista = "true"
-        return HttpResponse(lista, content_type='application/json')
-
-    @staticmethod
-    def excluirproduto_categoria(request):
-        produto_id = request.GET.get("p_id")
-        subcategoria_id = request.GET.get("subc_id")
-
-        # Query Base
-        oProduto = Produto.objects.filter(id=produto_id).first()
-        oSubCategoria = SubCategoria.objects.filter(id=subcategoria_id).first()
-
-        oProduto.subcategorias.remove(oSubCategoria)
-        oProduto.save()
-
-        lista = "true"
-        return HttpResponse(lista, content_type='application/json')
-
-    @staticmethod
-    def excluirproduto_foto(request):
-        foto_id = request.GET.get("f_id")
-
-        # Query Base
-        oFoto = Foto.objects.filter(id=foto_id).first()
-        oFoto.delete()
-
-        lista = "true"
-        return HttpResponse(lista, content_type='application/json')
-
-    @staticmethod
-    @csrf_exempt
-    def saveproduto(request):
-        # Filtros
-        id = request.POST.get("id")
-        nome = request.POST.get("nome")
-        foto = request.POST.get("foto")
-        descricao = request.POST.get("descricao")
-        preco = request.POST.get("preco")
-        empresa_id = request.POST.get("empresa_id")
-        random_n = random.randint(1,500000000)
-
-        # Objeto de Produtos
-        oProduto = Produto()
-
-        if (id):
-            if (id == 'undefined'):
-                id = 0
-
-            if (int(id) > 0):
-                oProduto = Produto.objects.get(id=id)
-
-        oProduto.nome=nome
-        oProduto.descricao=descricao
-        oProduto.preco=preco
-        oProduto.empresa = Empresa.objects.filter(id=empresa_id).first()
-        oProduto.save()
-
-        filename = str(oProduto.id) + '_' + str(random_n) + '.jpg'
-        image_data = open(settings.BASE_DIR + '/game7api/static/media/produto/' + filename, "wb")
-        image_data.write(re.sub('^data:image/.+;base64,', '', foto).decode('base64'))
-        image_data.close()
-
-        oProduto.foto = filename
-        oProduto.save()
-
-        lista = "true"
-
-        return HttpResponse(lista, content_type='application/json')
-
-    @staticmethod
-    def excluirproduto(request):
-        id = request.GET.get("id")
-
-        # Query Base
-        oProduto = Produto.objects.filter(id=id).first()
-        oProduto.delete()
-
-        lista = "true"
-        return HttpResponse(lista, content_type='application/json')
 
     @staticmethod
     def fotos(request):
@@ -1363,6 +1370,7 @@ class ServiceJson(View):
 
         lista = "true"
         return HttpResponse(lista, content_type='application/json')
+
 
     @staticmethod
     def pedidos(request):
@@ -1432,6 +1440,14 @@ class ServiceJson(View):
                 "cliente_id":pedido.cliente.id,
                 "empresa":pedido.empresa.nome,
                 "empresa_id":pedido.empresa.id,
+
+                "endereco":pedido.endereco_entrega,
+                "bairro":pedido.bairro_entrega.nome,
+                "bairro_id":pedido.bairro_entrega.id,
+                "cidade":pedido.cidade_entrega.nome,
+                "cidade_id":pedido.cidade_entrega.id,
+                "componente":pedido.componente_entrega,
+
                 "itens":itens_rows
             }
 
@@ -1449,6 +1465,10 @@ class ServiceJson(View):
         total = request.POST.get("total")
         cliente_id = request.POST.get("cliente_id")
         empresa_id = request.POST.get("empresa_id")
+        endereco = request.POST.get('endereco')
+        cidade_id = request.POST.get('cidade_id')
+        bairro_id = request.POST.get('bairro_id')
+        complemento = request.POST.get('complemento')
 
         # Objeto de Pedidos
         oPedido = Pedido()
@@ -1457,11 +1477,32 @@ class ServiceJson(View):
             if (int(id) > 0):
                 oPedido = Pedido.objects.get(id=id)
 
-
-        oPedido.data = data
-        oPedido.total = total
         oPedido.cliente = Cliente.objects.filter(id=cliente_id).first()
-        oPedido.empresa = Empresa.objects.filter(id=empresa_id).first()
+
+        if data:
+            oPedido.data = data
+        if empresa_id:
+            oPedido.empresa = Empresa.objects.filter(id=empresa_id).first()
+        if total:
+            oPedido.total = total
+
+        if endereco:
+            oPedido.endereco_entrega = endereco
+        else:
+            oPedido.endereco_entrega = oPedido.cliente.endereco
+
+        if cidade_id:
+            oPedido.cidade_entrega = Cidade.objects.filter(id=cidade_id).first()
+        else:
+            oPedido.cidade_entrega = oPedido.cliente.cidade
+
+        if bairro_id:
+            oPedido.bairro_entrega = Bairro.objects.filter(id=bairro_id).first()
+        else:
+            oPedido.bairro_entrega = oPedido.cliente.bairro
+
+        if complemento:
+            oPedido.complemento_entrega = complemento
 
         oPedido.save()
 
@@ -1479,6 +1520,7 @@ class ServiceJson(View):
 
         lista = "true"
         return HttpResponse(lista, content_type='application/json')
+
 
     @staticmethod
     def itens(request):
@@ -1557,6 +1599,7 @@ class ServiceJson(View):
 
         lista = "true"
         return HttpResponse(lista, content_type='application/json')
+
 
     @staticmethod
     def carrinho(request):
