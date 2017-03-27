@@ -1470,8 +1470,15 @@ class ServiceJson(View):
         bairro_id = request.POST.get('bairro_id')
         complemento = request.POST.get('complemento')
 
+        listacompras = Carrinho.objects.filter(cliente__id=cliente_id)
+
         # Objeto de Pedidos
         oPedido = Pedido()
+
+        if (id == 'undefined'):
+            id = int()
+            id = 0
+
 
         if (id):
             if (int(id) > 0):
@@ -1481,30 +1488,44 @@ class ServiceJson(View):
 
         if data:
             oPedido.data = data
-        if empresa_id:
-            oPedido.empresa = Empresa.objects.filter(id=empresa_id).first()
+
+        oPedido.empresa = listacompras[0].produto.empresa
+
         if total:
             oPedido.total = total
-
-        if endereco:
-            oPedido.endereco_entrega = endereco
         else:
-            oPedido.endereco_entrega = oPedido.cliente.endereco
+            oPedido.total = 0
 
-        if cidade_id:
-            oPedido.cidade_entrega = Cidade.objects.filter(id=cidade_id).first()
-        else:
-            oPedido.cidade_entrega = oPedido.cliente.cidade
+        oPedido.endereco_entrega = oPedido.cliente.endereco
+        if not endereco == '?':
+            if endereco:
+                oPedido.endereco_entrega = endereco
 
-        if bairro_id:
-            oPedido.bairro_entrega = Bairro.objects.filter(id=bairro_id).first()
-        else:
-            oPedido.bairro_entrega = oPedido.cliente.bairro
+        oPedido.cidade_entrega = oPedido.cliente.cidade
+        if not cidade_id == '?':
+            if cidade_id:
+                oPedido.cidade_entrega = Cidade.objects.filter(id=cidade_id).first()
+
+        oPedido.bairro_entrega = oPedido.cliente.bairro
+        if not bairro_id == '?':
+            if bairro_id:
+                oPedido.bairro_entrega = Bairro.objects.filter(id=bairro_id).first()
 
         if complemento:
             oPedido.complemento_entrega = complemento
 
         oPedido.save()
+
+        for i in listacompras:
+            oItem = Item()
+            oItem.observacao=i.observacao
+            oItem.pedido = oPedido
+            oItem.produto = i.produto
+            oItem.quantidade = i.quantidade
+            oItem.save()
+
+
+        listacompras.delete()
 
         lista = "true"
 
