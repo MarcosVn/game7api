@@ -218,14 +218,24 @@ class Carrinho(models.Model):
         return str(self.produto.nome)
 
 
+class TipoPagamento(models.Model):
+    id = models.AutoField(primary_key=True)
+    titulo = models.CharField(max_length=512, null=True)
+    class Meta:
+        verbose_name = "Tipo de Pagamento"
+        verbose_name_plural = "Tipos de Pagamentos"
+
+    def __unicode__(self):
+        return str(self.titulo)
+
+
 class Pedido(models.Model):
     id = models.AutoField(primary_key=True)
     data = models.DateField(auto_now=True)
     total = models.FloatField()
     cliente = models.ForeignKey("Cliente", related_name="Pedidos")
     empresa = models.ForeignKey("Empresa", related_name="Pedidos")
-    status = models.IntegerField(default=0)
-
+    status = models.CharField(default="Aguardando Endereco", null=True, max_length=512)
     endereco_entrega = models.CharField(max_length=512)
     cidade_entrega = models.ForeignKey("Cidade")
     bairro_entrega = models.ForeignKey("Bairro")
@@ -237,6 +247,20 @@ class Pedido(models.Model):
 
     def __unicode__(self):
         return self.cliente.nome + "_" + str(self.id)
+
+class Pagamento(models.Model):
+    id = models.AutoField(primary_key=True)
+    status = models.CharField(max_length=512, default="Aguardando Pagamento")
+    total = models.FloatField()
+    tipopagamento = models.ForeignKey("TipoPagamento")
+    pedido = models.ForeignKey("Pedido", related_name="Pagamento")
+
+    class Meta:
+        verbose_name = "Pagamento"
+        verbose_name_plural = "Pagamentos"
+
+    def __unicode__(self):
+        return self.status
 
 
 class Avaliacao(models.Model):
