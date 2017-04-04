@@ -90,6 +90,7 @@ urlpatterns = [
     url(r'^js/tiposcozinhas', ServiceJson.tiposcozinhas, name='tiposcozinhas'),
     url(r'^js/itens', ServiceJson.itens, name='itens'),
     url(r'^js/carrinho', ServiceJson.carrinho, name='carrinho'),
+    # url(r'^js/tipospagamentos', ServiceJson.tipospagamentos, name='tipospagamentos'),
 
     url(r'^js/savecategoria', ServiceJson.savecategoria, name='savecategoria'),
     url(r'^js/savecliente', ServiceJson.savecliente, name='savecliente'),
@@ -109,6 +110,7 @@ urlpatterns = [
     url(r'^js/saveitem', ServiceJson.saveitem, name='saveitem'),
     url(r'^js/savetipocozinha', ServiceJson.savetipocozinha, name='savetipocozinha'),
     url(r'^js/savecarrinho', ServiceJson.savecarrinho, name='savecarrinho'),
+    url(r'^js/savetipopagamentopedido', ServiceJson.savetipopagamentopedido, name='savetipopagamentopedido'),
 
     url(r'^js/excluircategoria', ServiceJson.excluircategoria, name='excluircategoria'),
     url(r'^js/excluircliente', ServiceJson.excluircliente, name='excluircliente'),

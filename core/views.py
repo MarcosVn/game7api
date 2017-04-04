@@ -1446,7 +1446,7 @@ class ServiceJson(View):
                 "bairro_id":pedido.bairro_entrega.id,
                 "cidade":pedido.cidade_entrega.nome,
                 "cidade_id":pedido.cidade_entrega.id,
-                "componente":pedido.componente_entrega,
+                "componente":pedido.complemento_entrega,
 
                 "itens":itens_rows
             }
@@ -1470,6 +1470,7 @@ class ServiceJson(View):
         bairro_id = request.POST.get('bairro_id')
         complemento = request.POST.get('complemento')
 
+        print cliente_id
         listacompras = Carrinho.objects.filter(cliente__id=cliente_id)
 
         # Objeto de Pedidos
@@ -1489,6 +1490,8 @@ class ServiceJson(View):
         if data:
             oPedido.data = data
 
+
+        print listacompras
         oPedido.empresa = listacompras[0].produto.empresa
 
         if total:
@@ -1514,22 +1517,48 @@ class ServiceJson(View):
         if complemento:
             oPedido.complemento_entrega = complemento
 
+        oPedido.status = 'Aguardando o Tipo de Pagamento'
+
         oPedido.save()
 
-        for i in listacompras:
-            oItem = Item()
-            oItem.observacao=i.observacao
-            oItem.pedido = oPedido
-            oItem.produto = i.produto
-            oItem.quantidade = i.quantidade
-            oItem.save()
 
+        print oPedido
+
+        itens_rows = []
+
+        for item in oPedido.Itens.all():
+            r_item = {
+                "item_id": item.id,
+                "quantidade": item.quantidade,
+                "produto_id": item.produto.id,
+                "produto": item.produto.nome
+            }
+            itens_rows.append(r_item)
+
+        r = {
+            "id": oPedido.id,
+            "data": oPedido.data.strftime("%Y-%m-%d"),
+            "total": oPedido.total,
+            "cliente": oPedido.cliente.nome,
+            "cliente_id": oPedido.cliente.id,
+            "empresa": oPedido.empresa.nome,
+            "empresa_id": oPedido.empresa.id,
+
+            "endereco": oPedido.endereco_entrega,
+            "bairro": oPedido.bairro_entrega.nome,
+            "bairro_id": oPedido.bairro_entrega.id,
+            "cidade": oPedido.cidade_entrega.nome,
+            "cidade_id": oPedido.cidade_entrega.id,
+            "componente": oPedido.complemento_entrega,
+
+            "itens": itens_rows
+        }
 
         listacompras.delete()
 
-        lista = "true"
-
+        lista = json.dumps(list(r))
         return HttpResponse(lista, content_type='application/json')
+
 
     @staticmethod
     def excluirpedido(request):
@@ -1679,6 +1708,34 @@ class ServiceJson(View):
 
         return HttpResponse(lista, content_type='application/json')
 
+
+    @staticmethod
+    @csrf_exempt
+    def savetipopagamentopedido(request):
+        # Filtros
+        pedido_id= request.POST.get("id")
+        print pedido_id
+        tipopagamento = request.POST.get("tipopagamento")
+        print tipopagamento
+        oPedido = Pedido.objects.get(id=pedido_id)
+
+        # Objeto de Itens
+        oPagamento = Pagamento()
+        oPagamento.pedido = oPedido
+        oPagamento.tipopagamento = tipopagamento
+        oPagamento.total = oPedido.total
+
+        if(tipopagamento == 'na_entrega'):
+            oPagamento.status = 'Aguardando Aprovacao'
+        else:
+            oPagamento.status = 'Aguardando Pagamento'
+
+        oPagamento.save()
+
+        lista = "true"
+
+        return HttpResponse(lista, content_type='application/json')
+
     @staticmethod
     def excluircarrinho(request):
         id = request.GET.get("id")
@@ -1695,9 +1752,12 @@ class ServiceJson(View):
     def getRestaurantes(request):
         id = request.GET.get("id")
         texto = request.GET.get("texto")
+        print id
 
         # Query Base
         oCliente = Cliente.objects.filter(id=id).first()
+        print oCliente
+
         oRestaurantes = Empresa.objects.filter(bairros_atendimento__id=oCliente.bairro.id)
 
         if(texto):
@@ -1733,3 +1793,26 @@ class ServiceJson(View):
 
         # lista = "true"
         return HttpResponse(lista, content_type='application/json')
+
+
+
+    # @staticmethod
+    # def tipospagamentos(request):
+    #     # Query Base
+    #
+    #     tipo_id = request.GET.get("tipopagamento_id")
+    #     titulo = request.GET.get("titulo")
+    #
+    #     listas_tipospagamentos = TipoPagamento.objects.all()
+    #
+    #     if tipo_id:
+    #         listas_tipospagamentos = listas_tipospagamentos.filter(id=tipo_id)
+    #
+    #     if titulo:
+    #         listas_tipospagamentos = listas_tipospagamentos.filter(titulo__icontains=titulo)
+    #
+    #
+    #     # lista = json.dumps(list(listas_tipospagamentos))
+    #
+    #     lista = serialize('json', listas_tipospagamentos)
+    #     return HttpResponse(lista, content_type='application/json')
