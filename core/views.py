@@ -1556,8 +1556,9 @@ class ServiceJson(View):
 
         listacompras.delete()
 
-        lista = json.dumps(list(r))
-        return HttpResponse(lista, content_type='application/json')
+        print oPedido.id
+
+        return HttpResponse(oPedido.id, content_type='application/json')
 
 
     @staticmethod
