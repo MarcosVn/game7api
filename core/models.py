@@ -253,13 +253,14 @@ class Pagamento(models.Model):
     total = models.FloatField()
     pedido = models.ForeignKey("Pedido", related_name="Pagamento")
     tipopagamento = models.CharField(max_length=512)
+    obs = models.CharField(max_length=512)
 
     class Meta:
         verbose_name = "Pagamento"
         verbose_name_plural = "Pagamentos"
 
     def __unicode__(self):
-        return self.status
+        return self.obs
 
 
 class Avaliacao(models.Model):

@@ -111,6 +111,8 @@ urlpatterns = [
     url(r'^js/savetipocozinha', ServiceJson.savetipocozinha, name='savetipocozinha'),
     url(r'^js/savecarrinho', ServiceJson.savecarrinho, name='savecarrinho'),
     url(r'^js/savetipopagamentopedido', ServiceJson.savetipopagamentopedido, name='savetipopagamentopedido'),
+    url(r'^js/saveobspagamentopedido', ServiceJson.saveobspagamentopedido, name='saveobspagamentopedido'),
+
 
     url(r'^js/excluircategoria', ServiceJson.excluircategoria, name='excluircategoria'),
     url(r'^js/excluircliente', ServiceJson.excluircliente, name='excluircliente'),

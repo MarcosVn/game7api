@@ -382,17 +382,6 @@ class ServiceJson(View):
         bairro_id = request.POST.get("bairro")
         cidade_id = request.POST.get("cidade")
 
-
-        print "id_"+id
-        print "nome_"+nome
-        print "email_"+email
-        print "senha_"+senha
-        print "telefone_"+telefone
-        print "endereco_"+endereco
-        print "bairro_id_"+bairro_id
-        print "cidade_id_"+cidade_id
-
-
         # Objeto de Clientes
         oCliente = Cliente()
 
@@ -1148,9 +1137,6 @@ class ServiceJson(View):
         id = request.POST.get("id")
         subcategoria_id = request.POST.get("subcategoria_id")
 
-        print id
-        print subcategoria_id
-
         oProduto = Produto.objects.filter(id=id).first()
         oSubcategoria = SubCategoria.objects.filter(id=subcategoria_id).first()
 
@@ -1470,7 +1456,6 @@ class ServiceJson(View):
         bairro_id = request.POST.get('bairro_id')
         complemento = request.POST.get('complemento')
 
-        print cliente_id
         listacompras = Carrinho.objects.filter(cliente__id=cliente_id)
 
         # Objeto de Pedidos
@@ -1491,7 +1476,6 @@ class ServiceJson(View):
             oPedido.data = data
 
 
-        print listacompras
         oPedido.empresa = listacompras[0].produto.empresa
 
         if total:
@@ -1520,9 +1504,6 @@ class ServiceJson(View):
         oPedido.status = 'Aguardando o Tipo de Pagamento'
 
         oPedido.save()
-
-
-        print oPedido
 
         itens_rows = []
 
@@ -1555,8 +1536,6 @@ class ServiceJson(View):
         }
 
         listacompras.delete()
-
-        print oPedido.id
 
         return HttpResponse(oPedido.id, content_type='application/json')
 
@@ -1715,9 +1694,7 @@ class ServiceJson(View):
     def savetipopagamentopedido(request):
         # Filtros
         pedido_id= request.POST.get("id")
-        print pedido_id
         tipopagamento = request.POST.get("tipopagamento")
-        print tipopagamento
         oPedido = Pedido.objects.get(id=pedido_id)
 
         # Objeto de Itens
@@ -1737,6 +1714,36 @@ class ServiceJson(View):
 
         return HttpResponse(lista, content_type='application/json')
 
+
+    @staticmethod
+    @csrf_exempt
+    def saveobspagamentopedido(request):
+        # Filtros
+        pedido_id= request.POST.get("id")
+        obs = request.POST.get("obs")
+
+        print pedido_id
+        print obs
+
+        oPedido = Pedido.objects.get(id=pedido_id)
+
+        print oPedido
+
+        # Objeto de Itens
+        oPagamento = oPedido.Pagamento.get()
+
+
+        print oPagamento
+
+        oPagamento.obs = obs
+
+        oPagamento.save()
+
+        lista = "true"
+
+        return HttpResponse(lista, content_type='application/json')
+
+
     @staticmethod
     def excluircarrinho(request):
         id = request.GET.get("id")
@@ -1753,11 +1760,9 @@ class ServiceJson(View):
     def getRestaurantes(request):
         id = request.GET.get("id")
         texto = request.GET.get("texto")
-        print id
 
         # Query Base
         oCliente = Cliente.objects.filter(id=id).first()
-        print oCliente
 
         oRestaurantes = Empresa.objects.filter(bairros_atendimento__id=oCliente.bairro.id)
 
