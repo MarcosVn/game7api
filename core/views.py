@@ -1448,13 +1448,13 @@ class ServiceJson(View):
         # Filtros
         id = request.POST.get("id")
         data = request.POST.get("data")
-        total = request.POST.get("total")
         cliente_id = request.POST.get("cliente_id")
-        empresa_id = request.POST.get("empresa_id")
         endereco = request.POST.get('endereco')
         cidade_id = request.POST.get('cidade_id')
         bairro_id = request.POST.get('bairro_id')
         complemento = request.POST.get('complemento')
+
+        total = 0.0
 
         listacompras = Carrinho.objects.filter(cliente__id=cliente_id)
 
@@ -1476,12 +1476,11 @@ class ServiceJson(View):
             oPedido.data = data
 
 
-        oPedido.empresa = listacompras[0].produto.empresa
+        if(listacompras[0]):
+            oPedido.empresa = listacompras[0].produto.empresa
 
-        if total:
-            oPedido.total = total
-        else:
-            oPedido.total = 0
+
+        oPedido.total = 0
 
         oPedido.endereco_entrega = oPedido.cliente.endereco
         if not endereco == '?':
@@ -1503,6 +1502,22 @@ class ServiceJson(View):
 
         oPedido.status = 'Aguardando o Tipo de Pagamento'
 
+        oPedido.save()
+
+        print oPedido
+
+        # Arrumando a lista de itens
+        for item_carrinho in listacompras:
+            oitem = Item()
+            oitem.pedido = oPedido
+            oitem.quantidade = item_carrinho.quantidade
+            oitem.produto = item_carrinho.produto
+            oitem.observacao = item_carrinho.observacao
+            total = total + (oitem.quantidade * oitem.produto.preco)
+
+            oitem.save()
+
+        oPedido.total = total
         oPedido.save()
 
         itens_rows = []
