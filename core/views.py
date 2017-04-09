@@ -125,9 +125,9 @@ class adminProdutoExcluirView(View):
 class adminProdutoVerView(View):
     def get(self, request, *args, **kwargs):
         return render_to_response('adm/produto/ver.html', {}, RequestContext(request))
-class adminProdutoGaleriaView(View):
-    def get(self, request, *args, **kwargs):
-        return render_to_response('adm/galeria/fotos.html', {}, RequestContext(request))
+# class adminProdutoGaleriaView(View):
+#     def get(self, request, *args, **kwargs):
+#         return render_to_response('adm/galeria/fotos.html', {}, RequestContext(request))
 
 class adminProdutoCategoriasView(View):
     def get(self, request, *args, **kwargs):
@@ -1106,29 +1106,29 @@ class ServiceJson(View):
         return HttpResponse(lista, content_type='application/json')
 
 
-    @staticmethod
-    @csrf_exempt
-    def saveprodutofoto(request):
-        # Filtros
-        id = request.POST.get("id")
-        foto = request.POST.get("foto")
-        random_n = random.randint(1, 500000000)
-
-        oProduto = Produto.objects.filter(id=id).first()
-
-        filename = str(oProduto.id) + '_' + str(random_n) + '.jpg'
-
-        image_data = open(settings.BASE_DIR + '/game7api/static/media/produto/' + filename, "wb")
-        image_data.write(re.sub('^data:image/.+;base64,', '', foto).decode('base64'))
-        image_data.close()
-
-        oFoto = Foto()
-        oFoto.caminho = filename
-        oFoto.produto = oProduto
-        oFoto.save()
-
-        lista = "true"
-        return HttpResponse(lista, content_type='application/json')
+    # @staticmethod
+    # @csrf_exempt
+    # def saveprodutofoto(request):
+    #     # Filtros
+    #     id = request.POST.get("id")
+    #     foto = request.POST.get("foto")
+    #     random_n = random.randint(1, 500000000)
+    #
+    #     oProduto = Produto.objects.filter(id=id).first()
+    #
+    #     filename = str(oProduto.id) + '_' + str(random_n) + '.jpg'
+    #
+    #     image_data = open(settings.BASE_DIR + '/game7api/static/media/produto/' + filename, "wb")
+    #     image_data.write(re.sub('^data:image/.+;base64,', '', foto).decode('base64'))
+    #     image_data.close()
+    #
+    #     oFoto = Foto()
+    #     oFoto.caminho = filename
+    #     oFoto.produto = oProduto
+    #     oFoto.save()
+    #
+    #     lista = "true"
+    #     return HttpResponse(lista, content_type='application/json')
 
     @staticmethod
     @csrf_exempt
@@ -1161,16 +1161,16 @@ class ServiceJson(View):
         lista = "true"
         return HttpResponse(lista, content_type='application/json')
 
-    @staticmethod
-    def excluirproduto_foto(request):
-        foto_id = request.GET.get("f_id")
-
-        # Query Base
-        oFoto = Foto.objects.filter(id=foto_id).first()
-        oFoto.delete()
-
-        lista = "true"
-        return HttpResponse(lista, content_type='application/json')
+    # @staticmethod
+    # def excluirproduto_foto(request):
+    #     foto_id = request.GET.get("f_id")
+    #
+    #     # Query Base
+    #     oFoto = Foto.objects.filter(id=foto_id).first()
+    #     oFoto.delete()
+    #
+    #     lista = "true"
+    #     return HttpResponse(lista, content_type='application/json')
 
 
     @staticmethod
@@ -1259,7 +1259,7 @@ class ServiceJson(View):
         for produto in query:
 
             subs = []
-            fotos = []
+            # fotos = []
 
             for subcategoria in produto.subcategorias.all():
                 r_sub = {
@@ -1270,12 +1270,12 @@ class ServiceJson(View):
                 }
                 subs.append(r_sub)
 
-            for foto in produto.fotos.all():
-                r_foto = {
-                    "foto_id": foto.id,
-                    "foto_caminho":foto.caminho
-                }
-                fotos.append(r_foto)
+            # for foto in produto.fotos.all():
+            #     r_foto = {
+            #         "foto_id": foto.id,
+            #         "foto_caminho":foto.caminho
+            #     }
+            #     fotos.append(r_foto)
 
             r = {
                 "id": produto.id,
@@ -1296,72 +1296,72 @@ class ServiceJson(View):
         return HttpResponse(lista, content_type='application/json')
 
 
-    @staticmethod
-    def fotos(request):
-        # Query Base
-        query = Foto.objects.all()
+    # @staticmethod
+    # def fotos(request):
+    #     # Query Base
+    #     query = Foto.objects.all()
+    #
+    #     # Filtros
+    #     id = request.GET.get("id")
+    #     produto_id = request.GET.get("produto_id")
+    #
+    #     if (id == 'undefined'):
+    #         id = int()
+    #         id = 0
+    #
+    #     if not (id):
+    #         id = int()
+    #         id = 0
+    #
+    #     if (id > 0):
+    #         query = query.filter(id=id)
+    #     if (produto_id):
+    #         query = query.filter(produto__id=produto_id)
+    #
+    #     lista = serialize('json', query,
+    #                       fields=["id", "caminho", "produto__id", "produto__nome"])
+    #     return HttpResponse(lista, content_type='application/json')
 
-        # Filtros
-        id = request.GET.get("id")
-        produto_id = request.GET.get("produto_id")
+    # @staticmethod
+    # @csrf_exempt
+    # def savefoto(request):
+    #     # Filtros
+    #     id = request.POST.get("id")
+    #     caminho = request.POST.get("caminho")
+    #     produto_id = request.POST.get("produto_id")
+    #
+    #     # Objeto de Foto
+    #     oFoto = Foto()
+    #
+    #     if (id):
+    #         if (int(id) > 0):
+    #             oFoto = Foto.objects.get(id=id)
+    #
+    #     oFoto.caminho = caminho
+    #     oFoto.produto = Produto.objects.filter(id=produto_id)
+    #
+    #     oFoto.save()
+    #
+    #     lista = "true"
+    #
+    #     return HttpResponse(lista, content_type='application/json')
 
-        if (id == 'undefined'):
-            id = int()
-            id = 0
-
-        if not (id):
-            id = int()
-            id = 0
-
-        if (id > 0):
-            query = query.filter(id=id)
-        if (produto_id):
-            query = query.filter(produto__id=produto_id)
-
-        lista = serialize('json', query,
-                          fields=["id", "caminho", "produto__id", "produto__nome"])
-        return HttpResponse(lista, content_type='application/json')
-
-    @staticmethod
-    @csrf_exempt
-    def savefoto(request):
-        # Filtros
-        id = request.POST.get("id")
-        caminho = request.POST.get("caminho")
-        produto_id = request.POST.get("produto_id")
-
-        # Objeto de Foto
-        oFoto = Foto()
-
-        if (id):
-            if (int(id) > 0):
-                oFoto = Foto.objects.get(id=id)
-
-        oFoto.caminho = caminho
-        oFoto.produto = Produto.objects.filter(id=produto_id)
-
-        oFoto.save()
-
-        lista = "true"
-
-        return HttpResponse(lista, content_type='application/json')
-
-    @staticmethod
-    def excluirfoto(request):
-        id = request.GET.get("id")
-
-        # Query Base
-        oFoto = Foto.objects.filter(id=id).first()
-        oFoto.delete()
-
-        lista = "true"
-        return HttpResponse(lista, content_type='application/json')
+    # @staticmethod
+    # def excluirfoto(request):
+    #     id = request.GET.get("id")
+    #
+    #     # Query Base
+    #     oFoto = Foto.objects.filter(id=id).first()
+    #     oFoto.delete()
+    #
+    #     lista = "true"
+    #     return HttpResponse(lista, content_type='application/json')
 
 
     @staticmethod
     def pedidos(request):
         # Query Base
-        query = Pedido.objects.all().order_by("data")
+        query = Pedido.objects.all().order_by("-id")
 
         # Filtros
         id = request.GET.get("id")
@@ -1414,7 +1414,8 @@ class ServiceJson(View):
                     "item_id":item.id,
                     "quantidade":item.quantidade,
                     "produto_id":item.produto.id,
-                    "produto":item.produto.nome
+                    "produto":item.produto.nome,
+                    "preco_parcial":(item.quantidade*item.produto.preco),
                 }
                 itens_rows.append(r_item)
 
@@ -1426,13 +1427,16 @@ class ServiceJson(View):
                 "cliente_id":pedido.cliente.id,
                 "empresa":pedido.empresa.nome,
                 "empresa_id":pedido.empresa.id,
-
+                "status":pedido.status,
                 "endereco":pedido.endereco_entrega,
                 "bairro":pedido.bairro_entrega.nome,
                 "bairro_id":pedido.bairro_entrega.id,
                 "cidade":pedido.cidade_entrega.nome,
                 "cidade_id":pedido.cidade_entrega.id,
                 "componente":pedido.complemento_entrega,
+                "pagamento_obs":(pedido.Pagamento.get()).obs,
+                "pagamento_tipo":(pedido.Pagamento.get()).tipopagamento,
+
 
                 "itens":itens_rows
             }
@@ -1522,35 +1526,38 @@ class ServiceJson(View):
 
         itens_rows = []
 
-        for item in oPedido.Itens.all():
-            r_item = {
-                "item_id": item.id,
-                "quantidade": item.quantidade,
-                "produto_id": item.produto.id,
-                "produto": item.produto.nome
-            }
-            itens_rows.append(r_item)
+        # for item in oPedido.Itens.all():
+        #     r_item = {
+        #         "item_id": item.id,
+        #         "quantidade": item.quantidade,
+        #         "produto_id": item.produto.id,
+        #         "produto": item.produto.nome
+        #     }
+        #     itens_rows.append(r_item)
+        #
+        # r = {
+        #     "id": oPedido.id,
+        #     "data": oPedido.data.strftime("%Y-%m-%d"),
+        #     "total": oPedido.total,
+        #     "cliente": oPedido.cliente.nome,
+        #     "cliente_id": oPedido.cliente.id,
+        #     "empresa": oPedido.empresa.nome,
+        #     "empresa_id": oPedido.empresa.id,
+        #
+        #     "endereco": oPedido.endereco_entrega,
+        #     "bairro": oPedido.bairro_entrega.nome,
+        #     "bairro_id": oPedido.bairro_entrega.id,
+        #     "cidade": oPedido.cidade_entrega.nome,
+        #     "cidade_id": oPedido.cidade_entrega.id,
+        #     "componente": oPedido.complemento_entrega,
+        #
+        #     "itens": itens_rows
+        # }
+        #
+        # listacompras.delete()
 
-        r = {
-            "id": oPedido.id,
-            "data": oPedido.data.strftime("%Y-%m-%d"),
-            "total": oPedido.total,
-            "cliente": oPedido.cliente.nome,
-            "cliente_id": oPedido.cliente.id,
-            "empresa": oPedido.empresa.nome,
-            "empresa_id": oPedido.empresa.id,
-
-            "endereco": oPedido.endereco_entrega,
-            "bairro": oPedido.bairro_entrega.nome,
-            "bairro_id": oPedido.bairro_entrega.id,
-            "cidade": oPedido.cidade_entrega.nome,
-            "cidade_id": oPedido.cidade_entrega.id,
-            "componente": oPedido.complemento_entrega,
-
-            "itens": itens_rows
-        }
-
-        listacompras.delete()
+        # lista = json.dumps(list(r))
+        # return HttpResponse(lista, content_type='application/json')
 
         return HttpResponse(oPedido.id, content_type='application/json')
 
@@ -1717,13 +1724,14 @@ class ServiceJson(View):
         oPagamento.pedido = oPedido
         oPagamento.tipopagamento = tipopagamento
         oPagamento.total = oPedido.total
+        oPagamento.save()
 
         if(tipopagamento == 'na_entrega'):
-            oPagamento.status = 'Aguardando Aprovacao'
+            oPedido.status = 'Aguardando Aprovacao'
         else:
-            oPagamento.status = 'Aguardando Pagamento'
+            oPedido.status = 'Aguardando Pagamento'
 
-        oPagamento.save()
+        oPedido.save()
 
         lista = "true"
 
@@ -1737,19 +1745,10 @@ class ServiceJson(View):
         pedido_id= request.POST.get("id")
         obs = request.POST.get("obs")
 
-        print pedido_id
-        print obs
-
         oPedido = Pedido.objects.get(id=pedido_id)
-
-        print oPedido
 
         # Objeto de Itens
         oPagamento = oPedido.Pagamento.get()
-
-
-        print oPagamento
-
         oPagamento.obs = obs
 
         oPagamento.save()

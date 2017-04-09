@@ -190,19 +190,6 @@ class Produto(models.Model):
         return str(self.nome)
 
 
-class Foto(models.Model):
-    id = models.AutoField(primary_key=True)
-    caminho = models.CharField(max_length=1024)
-    produto = models.ForeignKey("Produto", related_name="fotos")
-
-    class Meta:
-        verbose_name = "Foto"
-        verbose_name_plural = "Fotos"
-
-    def __unicode__(self):
-        return self.produto.nome + "_" + str(self.id)
-
-
 class Carrinho(models.Model):
     id = models.AutoField(primary_key=True)
     quantidade=models.IntegerField(default=1)
@@ -216,17 +203,6 @@ class Carrinho(models.Model):
 
     def __unicode__(self):
         return str(self.produto.nome)
-
-#
-# class TipoPagamento(models.Model):
-#     id = models.AutoField(primary_key=True)
-#     titulo = models.CharField(max_length=512, null=True)
-#     class Meta:
-#         verbose_name = "Tipo de Pagamento"
-#         verbose_name_plural = "Tipos de Pagamentos"
-#
-#     def __unicode__(self):
-#         return str(self.titulo)
 
 
 class Pedido(models.Model):
