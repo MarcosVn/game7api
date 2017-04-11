@@ -106,12 +106,13 @@ urlpatterns = [
     url(r'^js/saverepasse', ServiceJson.saverepasse, name='saverepasse'),
     url(r'^js/saveproduto', ServiceJson.saveproduto, name='saverproduto'),
     # url(r'^js/savefoto', ServiceJson.savefoto, name='savefoto'),
-    url(r'^js/savepedido', ServiceJson.savepedido, name='savepedido'),
+    url(r'^js/savepedido$', ServiceJson.savepedido, name='savepedido'),
     url(r'^js/saveitem', ServiceJson.saveitem, name='saveitem'),
     url(r'^js/savetipocozinha', ServiceJson.savetipocozinha, name='savetipocozinha'),
     url(r'^js/savecarrinho', ServiceJson.savecarrinho, name='savecarrinho'),
     url(r'^js/savetipopagamentopedido', ServiceJson.savetipopagamentopedido, name='savetipopagamentopedido'),
     url(r'^js/saveobspagamentopedido', ServiceJson.saveobspagamentopedido, name='saveobspagamentopedido'),
+    url(r'^js/savepedidostatus$', ServiceJson.savepedido_status, name='savepedidostatus'),
 
 
     url(r'^js/excluircategoria', ServiceJson.excluircategoria, name='excluircategoria'),
@@ -131,7 +132,8 @@ urlpatterns = [
 
     url(r'^js/abrirempresa', ServiceJson.abrirempresa, name='abrirempresa'),
     url(r'^js/fecharempresa', ServiceJson.fecharempresa, name='fecharempresa'),
-    url(r'^js/getabertura', ServiceJson.getabertura, name='getabertura'),
+    url(r'^js/getabertura$', ServiceJson.getabertura, name='getabertura'),
     url(r'^js/getrestaurantes', ServiceJson.getRestaurantes, name='getRestaurantes'),
+    url(r'^js/getaberturas$', ServiceJson.getaberturas, name='getaberturas'),
 
 ]+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

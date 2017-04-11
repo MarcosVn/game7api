@@ -924,6 +924,36 @@ class ServiceJson(View):
         lista = json.dumps(rows)
         return HttpResponse(lista, content_type='application/json')
 
+    @staticmethod
+    def getaberturas(request):
+        id = request.GET.get("e_id")
+
+        Aberturas = Abertura.objects.filter(empresa__id=id).order_by("-fechamento")
+
+        rows = []
+
+        for oAbertura in Aberturas:
+
+            if oAbertura.abertura:
+                s_date_abertura = oAbertura.abertura.strftime('%Y-%m-%d %H:%M')
+            else:
+                s_date_abertura = ''
+
+            if oAbertura.fechamento:
+                s_date_fechamento = oAbertura.fechamento.strftime('%Y-%m-%d %H:%M')
+            else:
+                s_date_fechamento = ''
+
+            r = {
+                "id": oAbertura.id,
+                "abertura": s_date_abertura,
+                "fechamento": s_date_fechamento
+            }
+            rows.append(r)
+
+        lista = json.dumps(rows)
+        return HttpResponse(lista, content_type='application/json')
+
 
     @staticmethod
     def funcionarios(request):
@@ -1285,8 +1315,7 @@ class ServiceJson(View):
                 "foto": produto.foto,
                 "empresa_id":produto.empresa.id,
                 "empresa":produto.empresa.nome,
-                "subcategorias":subs,
-                "fotos":fotos
+                "subcategorias":subs
             }
 
             rows.append(r)
@@ -1369,6 +1398,7 @@ class ServiceJson(View):
         data_fim = request.GET.get("data_fim")
         valor_minimo = request.GET.get("valor_min")
         valor_maximo = request.GET.get("valor_max")
+        status = request.GET.get("status")
 
 
         cliente_id = request.GET.get("cliente_id")
@@ -1403,6 +1433,9 @@ class ServiceJson(View):
 
         if(valor_maximo):
             query = query.filter(total__lte=valor_maximo)
+
+        if(status):
+            query = query.filter(status=status)
 
         pedidos_rows = []
 
@@ -1480,7 +1513,7 @@ class ServiceJson(View):
             oPedido.data = data
 
 
-        if(listacompras[0]):
+        if(listacompras):
             oPedido.empresa = listacompras[0].produto.empresa
 
 
@@ -1507,8 +1540,6 @@ class ServiceJson(View):
         oPedido.status = 'Aguardando o Tipo de Pagamento'
 
         oPedido.save()
-
-        print oPedido
 
         # Arrumando a lista de itens
         for item_carrinho in listacompras:
@@ -1558,6 +1589,22 @@ class ServiceJson(View):
 
         # lista = json.dumps(list(r))
         # return HttpResponse(lista, content_type='application/json')
+
+        return HttpResponse(oPedido.id, content_type='application/json')
+
+
+    @staticmethod
+    @csrf_exempt
+    def savepedido_status(request):
+        # Filtros
+        id = request.GET.get("id")
+        status = request.GET.get("status")
+
+        oPedido = Pedido.objects.filter(id=id).first()
+
+
+        oPedido.status = status
+        oPedido.save()
 
         return HttpResponse(oPedido.id, content_type='application/json')
 
