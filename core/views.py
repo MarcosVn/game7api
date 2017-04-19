@@ -1821,6 +1821,7 @@ class ServiceJson(View):
     def getRestaurantes(request):
         id = request.GET.get("id")
         texto = request.GET.get("texto")
+        tipocozinha_id = request.GET.get("tipocozinha_id")
 
         # Query Base
         oCliente = Cliente.objects.filter(id=id).first()
@@ -1830,11 +1831,23 @@ class ServiceJson(View):
         if(texto):
             oRestaurantes = oRestaurantes.filter(descricao__icontains=texto)
 
+        print oRestaurantes
+
+        if(tipocozinha_id):
+            tipocozinha_id = int(tipocozinha_id)
+            if(tipocozinha_id>0):
+                print "ta "
+                oRestaurantes = oRestaurantes.filter(tipocozinha__id=tipocozinha_id)
+
         rows = []
 
-        # .data.strftime("%Y-%m-%d"),
+        restaurantes_filtrados = []
 
-        for r in oRestaurantes:
+        for rest in oRestaurantes:
+            if rest.aberturas.filter(fechamento__isnull=True).exists():
+                restaurantes_filtrados.append(rest)
+
+        for r in restaurantes_filtrados:
 
             row = {
                 "id":r.id,
