@@ -1215,8 +1215,12 @@ class ServiceJson(View):
         empresa_id = request.POST.get("empresa_id")
         random_n = random.randint(1,500000000)
 
+        print empresa_id
+
         # Objeto de Produtos
         oProduto = Produto()
+
+        # print id
 
         if (id):
             if (id == 'undefined'):
@@ -1228,8 +1232,15 @@ class ServiceJson(View):
         oProduto.nome=nome
         oProduto.descricao=descricao
         oProduto.preco=preco
-        oProduto.empresa = Empresa.objects.filter(id=empresa_id).first()
+        if empresa_id:
+            if (empresa_id == '?'):
+                empresa_id = 0
+
+            if(int(empresa_id)>0):
+                oProduto.empresa = Empresa.objects.filter(id=empresa_id).first()
         oProduto.save()
+
+        print foto
 
         filename = str(oProduto.id) + '_' + str(random_n) + '.jpg'
         image_data = open(settings.BASE_DIR + '/game7api/static/media/produto/' + filename, "wb")
