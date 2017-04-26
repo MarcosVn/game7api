@@ -112,6 +112,7 @@ urlpatterns = [
     url(r'^js/savecarrinho', ServiceJson.savecarrinho, name='savecarrinho'),
     url(r'^js/savetipopagamentopedido', ServiceJson.savetipopagamentopedido, name='savetipopagamentopedido'),
     url(r'^js/saveobspagamentopedido', ServiceJson.saveobspagamentopedido, name='saveobspagamentopedido'),
+    url(r'^js/efetuar-pagamento', ServiceJson.efetuarpagamento, name='efetuarpagamento'),
     url(r'^js/savepedidostatus$', ServiceJson.savepedido_status, name='savepedidostatus'),
 
 
