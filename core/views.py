@@ -1823,7 +1823,7 @@ class ServiceJson(View):
         print (oMPagoResultado["response"])["status"]
 
         if((oMPagoResultado["response"])["status"] == "approved"):
-            oPedido.status = "Aguardando Entrega"
+            oPedido.status = "Aguardando Preparo"
         else:
             oPedido.status = "Pagamento Rejeitado"
 
