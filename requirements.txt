@@ -1,4 +1,5 @@
 click==6.6
+demjson==2.2.4
 Django==1.10.3
 django-cors-headers==2.0.2
 djangorestframework==3.5.4
@@ -9,6 +10,7 @@ itsdangerous==0.24
 Jinja2==2.8.1
 MarkupSafe==0.23
 mercadopago==0.3.4
+pkg-resources==0.0.0
 psycopg2==2.6.2
 requests==2.13.0
 six==1.10.0
