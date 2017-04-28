@@ -205,6 +205,18 @@ class Carrinho(models.Model):
         return str(self.produto.nome)
 
 
+class Bandeira(models.Model):
+    id = models.AutoField(primary_key=True)
+    titulo = models.CharField(max_length=512)
+    tipo = models.CharField(max_length=128)
+
+    class Meta:
+        verbose_name = "Bandeira"
+        verbose_name_plural = "Bandeiras"
+    def __unicode__(self):
+        return self.titulo
+
+
 class Pedido(models.Model):
     id = models.AutoField(primary_key=True)
     data = models.DateField(auto_now=True)
@@ -230,6 +242,7 @@ class Pagamento(models.Model):
     pedido = models.ForeignKey("Pedido", related_name="Pagamento")
     tipopagamento = models.CharField(max_length=512)
     obs = models.CharField(max_length=512)
+    trocopara = models.FloatField()
 
     class Meta:
         verbose_name = "Pagamento"

@@ -1924,3 +1924,26 @@ class ServiceJson(View):
     #
     #     lista = serialize('json', listas_tipospagamentos)
     #     return HttpResponse(lista, content_type='application/json')
+
+
+    @staticmethod
+    def bandeiras(request):
+        id = request.GET.get("id")
+        titulo = request.GET.get("titulo")
+        tipo = request.GET.get("tipo")
+
+        # Query Base
+        obandeiras = Bandeira.objects.all()
+
+        if(id):
+            obandeiras = obandeiras.filter(id=id)
+
+        if(titulo):
+            obandeiras = obandeiras.filter(titulo__icontains=titulo)
+
+        if(tipo):
+            obandeiras = obandeiras.filter(tipo__icontains=tipo)
+
+        lista = json.dumps(serialize('json', obandeiras))
+
+        return HttpResponse(lista, content_type='application/json')
