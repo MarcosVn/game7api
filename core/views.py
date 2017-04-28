@@ -1567,40 +1567,7 @@ class ServiceJson(View):
         oPedido.total = total
         oPedido.save()
 
-        itens_rows = []
-
-        # for item in oPedido.Itens.all():
-        #     r_item = {
-        #         "item_id": item.id,
-        #         "quantidade": item.quantidade,
-        #         "produto_id": item.produto.id,
-        #         "produto": item.produto.nome
-        #     }
-        #     itens_rows.append(r_item)
-        #
-        # r = {
-        #     "id": oPedido.id,
-        #     "data": oPedido.data.strftime("%Y-%m-%d"),
-        #     "total": oPedido.total,
-        #     "cliente": oPedido.cliente.nome,
-        #     "cliente_id": oPedido.cliente.id,
-        #     "empresa": oPedido.empresa.nome,
-        #     "empresa_id": oPedido.empresa.id,
-        #
-        #     "endereco": oPedido.endereco_entrega,
-        #     "bairro": oPedido.bairro_entrega.nome,
-        #     "bairro_id": oPedido.bairro_entrega.id,
-        #     "cidade": oPedido.cidade_entrega.nome,
-        #     "cidade_id": oPedido.cidade_entrega.id,
-        #     "componente": oPedido.complemento_entrega,
-        #
-        #     "itens": itens_rows
-        # }
-        #
-        # listacompras.delete()
-
-        # lista = json.dumps(list(r))
-        # return HttpResponse(lista, content_type='application/json')
+        listacompras.delete()
 
         return HttpResponse(oPedido.id, content_type='application/json')
 
