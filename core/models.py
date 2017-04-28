@@ -242,7 +242,7 @@ class Pagamento(models.Model):
     pedido = models.ForeignKey("Pedido", related_name="Pagamento")
     tipopagamento = models.CharField(max_length=512)
     obs = models.CharField(max_length=512)
-    trocopara = models.FloatField()
+    trocopara = models.FloatField(default=0)
 
     class Meta:
         verbose_name = "Pagamento"
