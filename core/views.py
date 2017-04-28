@@ -12,6 +12,7 @@ import base64
 import random
 import re
 import mercadopago
+import demjson
 
 class adminLoginView(View):
     def get(self, request, *args, **kwargs):
@@ -1820,37 +1821,49 @@ class ServiceJson(View):
     @csrf_exempt
     def efetuarpagamento(request):
 
+        # Pegando o modulo do mercado pago
         mp = mercadopago.MP("TEST-4537199727650400-032722-3d32e32302ec1efe2c4dfe2d135bf5de__LD_LC__-249921863")
 
-        print request.POST
+        # Corrigindo as variaveis de POST
+        token = request.POST.get("token")
+        payment_method_id = request.POST.get("paymentMethodId")
+        pedido_id = request.POST.get("pedido_id")
 
+        oPedido = Pedido.objects.filter(id=pedido_id).first()
+        oCliente = oPedido.cliente
+
+        # Pegando o resultado do MP
+        oMp = demjson.decode(request.POST.get("resultado"))
+
+        # Preparando o envio do pagamento
         payment = mp.post("/v1/payments", {
-            "transaction_amount": 100,
-            "description": "Title of what you are paying for",
-            "installments": int(request.POST.get("installments")),
-            "payment_method_id":request.POST.get("paymentMethodId"),
-            "token":request.POST.get("token"),
+            "transaction_amount": oPedido.total,
+            "description": "PG - #" + str(oPedido.id) + " - " + payment_method_id,
+            "installments": 1,
+            "payment_method_id":payment_method_id,
+            "token":token,
             "payer": {
-                "email": "test_user_19653727@testuser.com"
+                "email":oCliente.email
             }
         });
 
-        print(json.dumps(payment, indent=4))
-        # Filtros
-        # pedido_id= request.POST.get("id")
-        # obs = request.POST.get("obs")
-        #
-        # oPedido = Pedido.objects.get(id=pedido_id)
-        #
-        # # Objeto de Itens
-        # oPagamento = oPedido.Pagamento.get()
-        # oPagamento.obs = obs
-        #
-        # oPagamento.save()
+        oMPagoResultado = demjson.decode(json.dumps(payment, indent=4))
+        oPagamento = oPedido.Pagamento.all().first()
 
-        lista = "true"
+        oPagamento.obs = oMp["id"]
+        oPagamento.total = oPedido.total
 
-        return HttpResponse(payment, content_type='application/json')
+        print (oMPagoResultado["response"])["status"]
+
+        if((oMPagoResultado["response"])["status"] == "approved"):
+            oPedido.status = "Aguardando Entrega"
+        else:
+            oPedido.status = "Pagamento Rejeitado"
+
+        oPagamento.save()
+        oPedido.save()
+
+        return HttpResponse(oPedido.status, content_type='application/json')
 
 
     @staticmethod
