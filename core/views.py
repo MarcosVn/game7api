@@ -1769,13 +1769,24 @@ class ServiceJson(View):
     def saveobspagamentopedido(request):
         # Filtros
         pedido_id= request.POST.get("id")
-        obs = request.POST.get("obs")
+        troco = request.POST.get("troco")
+        outro = request.POST.get("outro")
+        cpfnanota = request.POST.get("cpfnanota")
+        bandeira = request.POST.get("bandeira")
+        tipo = request.POST.get("tipo")
 
         oPedido = Pedido.objects.get(id=pedido_id)
 
         # Objeto de Itens
         oPagamento = oPedido.Pagamento.get()
-        oPagamento.obs = obs
+
+        if cpfnanota == "1":
+            oPagamento.cpfnanota = True
+
+        if tipo=="cartao":
+            oPagamento.obs = "Cartao - " + bandeira + " - " + outro
+        elif tipo=="dinheiro":
+            oPagamento.trocopara = troco
 
         oPagamento.save()
 
@@ -1795,6 +1806,7 @@ class ServiceJson(View):
         token = request.POST.get("token")
         payment_method_id = request.POST.get("paymentMethodId")
         pedido_id = request.POST.get("pedido_id")
+        cpfnanota = request.POST.get("cpfnanota")
 
         oPedido = Pedido.objects.filter(id=pedido_id).first()
         oCliente = oPedido.cliente
@@ -1826,6 +1838,11 @@ class ServiceJson(View):
             oPedido.status = "Aguardando Preparo"
         else:
             oPedido.status = "Pagamento Rejeitado"
+
+
+        if cpfnanota == "1":
+            oPagamento.cpfnanota = True
+
 
         oPagamento.save()
         oPedido.save()
