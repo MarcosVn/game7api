@@ -220,22 +220,21 @@ class ServiceJson(View):
     @csrf_exempt
     def saveavaliacao(request):
         # Filtros
-        id = request.POST.get("id")
         pedido_id = request.POST.get("pedido_id")
         nota = request.POST.get("nota")
 
         # Objeto de Avaliacao
         oAvaliacao = Avaliacao()
 
-        if (id):
-            if (int(id) > 0):
-                oAvaliacao= Avaliacao.objects.get(id=id)
-
         oPedido = Pedido.objects.filter(id=pedido_id).first()
-        oPedido.nota_geral = oPedido.nota_geral + nota
-        oPedido.ttl_avaliacoes = oPedido.ttl_avaliacoes + 1
+        oPedido.status = "Avaliado"
 
+        oEmpresa = oPedido.empresa
         oPedido.save()
+
+        oEmpresa.nota = oEmpresa.nota + int(nota)
+        oEmpresa.ttl_avaliacoes = oEmpresa.ttl_avaliacoes + 1
+        oEmpresa.save()
 
         oAvaliacao.nota = nota
         oAvaliacao.pedido = oPedido
@@ -1508,8 +1507,8 @@ class ServiceJson(View):
                 "cidade":pedido.cidade_entrega.nome,
                 "cidade_id":pedido.cidade_entrega.id,
                 "componente":pedido.complemento_entrega,
-                "pagamento_obs":(pedido.Pagamento.get()).obs,
-                "pagamento_tipo":(pedido.Pagamento.get()).tipopagamento,
+                "pagamento_obs":(pedido.Pagamento.first()).obs,
+                "pagamento_tipo":(pedido.Pagamento.first()).tipopagamento,
 
 
                 "itens":itens_rows
@@ -1805,6 +1804,7 @@ class ServiceJson(View):
         tipo = request.POST.get("tipo")
 
         oPedido = Pedido.objects.get(id=pedido_id)
+        oPedido.status = "Aguardando Aprovacao"
 
         # Objeto de Itens
         oPagamento = oPedido.Pagamento.get()
@@ -1818,6 +1818,7 @@ class ServiceJson(View):
             oPagamento.trocopara = troco
 
         oPagamento.save()
+        oPedido.save()
 
         lista = "true"
 

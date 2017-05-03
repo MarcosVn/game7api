@@ -101,7 +101,8 @@ class Empresa(models.Model):
     telefone = models.CharField(max_length=128)
     descricao = models.CharField(max_length=1024)
     tipocozinha = models.ForeignKey("TipoCozinha", null=True)
-    nota = models.DecimalField(default=0, decimal_places=2, max_digits=10)
+    nota = models.FloatField(default=0)
+    ttl_avaliacoes = models.IntegerField(default=0)
     custo = models.ForeignKey("TipoPreco", null=True)
     tempo = models.ForeignKey("TipoTempo", null=True)
 
@@ -228,8 +229,6 @@ class Pedido(models.Model):
     cidade_entrega = models.ForeignKey("Cidade")
     bairro_entrega = models.ForeignKey("Bairro")
     complemento_entrega = models.CharField(max_length=512)
-    nota_geral = models.FloatField(default=0)
-    ttl_avaliacoes = models.IntegerField(default=0)
 
     class Meta:
         verbose_name = "Pedido"
