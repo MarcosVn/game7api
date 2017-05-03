@@ -228,6 +228,8 @@ class Pedido(models.Model):
     cidade_entrega = models.ForeignKey("Cidade")
     bairro_entrega = models.ForeignKey("Bairro")
     complemento_entrega = models.CharField(max_length=512)
+    nota_geral = models.FloatField(default=0)
+    ttl_avaliacoes = models.IntegerField(default=0)
 
     class Meta:
         verbose_name = "Pedido"

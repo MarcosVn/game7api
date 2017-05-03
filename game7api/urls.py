@@ -92,6 +92,8 @@ urlpatterns = [
     url(r'^js/bandeiras', ServiceJson.bandeiras, name='bandeiras'),
     # url(r'^js/tipospagamentos', ServiceJson.tipospagamentos, name='tipospagamentos'),
 
+
+    url(r'^js/saveavaliacao', ServiceJson.saveavaliacao, name='saveavaliacao'),
     url(r'^js/savecategoria', ServiceJson.savecategoria, name='savecategoria'),
     url(r'^js/savecliente', ServiceJson.savecliente, name='savecliente'),
     url(r'^js/savesubcategoria', ServiceJson.savesubcategoria, name='savesubcategoria'),

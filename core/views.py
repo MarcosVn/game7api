@@ -217,6 +217,35 @@ class ServiceJson(View):
         return HttpResponse(lista, content_type='application/json')
 
     @staticmethod
+    @csrf_exempt
+    def saveavaliacao(request):
+        # Filtros
+        id = request.POST.get("id")
+        pedido_id = request.POST.get("pedido_id")
+        nota = request.POST.get("nota")
+
+        # Objeto de Avaliacao
+        oAvaliacao = Avaliacao()
+
+        if (id):
+            if (int(id) > 0):
+                oAvaliacao= Avaliacao.objects.get(id=id)
+
+        oPedido = Pedido.objects.filter(id=pedido_id).first()
+        oPedido.nota_geral = oPedido.nota_geral + nota
+        oPedido.ttl_avaliacoes = oPedido.ttl_avaliacoes + 1
+
+        oPedido.save()
+
+        oAvaliacao.nota = nota
+        oAvaliacao.pedido = oPedido
+
+        oAvaliacao.save()
+
+        lista = "true"
+        return HttpResponse(lista, content_type='application/json')
+
+    @staticmethod
     def excluircategoria(request):
         id = request.GET.get("id")
 
