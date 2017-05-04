@@ -222,6 +222,7 @@ class ServiceJson(View):
         # Filtros
         pedido_id = request.POST.get("pedido_id")
         nota = request.POST.get("nota")
+        mensagem = request.POST.get("mensagem")
 
         # Objeto de Avaliacao
         oAvaliacao = Avaliacao()
@@ -234,10 +235,12 @@ class ServiceJson(View):
 
         oEmpresa.nota = oEmpresa.nota + int(nota)
         oEmpresa.ttl_avaliacoes = oEmpresa.ttl_avaliacoes + 1
+        oEmpresa.nota_atual = oEmpresa.nota/oEmpresa.ttl_avaliacoes
         oEmpresa.save()
 
         oAvaliacao.nota = nota
         oAvaliacao.pedido = oPedido
+        oAvaliacao.mensagem = mensagem
 
         oAvaliacao.save()
 
@@ -706,6 +709,20 @@ class ServiceJson(View):
         for empresa in query:
 
             bairros = []
+            avaliacoes = []
+
+            lista_avaliacoes = Avaliacao.objects.filter(pedido__empresa__id=empresa.id).order_by("-data")
+
+            for avaliacao in lista_avaliacoes:
+                r_avaliacao = {
+                    "avaliacao_id":avaliacao.id,
+                    "avaliacao_nota":avaliacao.nota,
+                    "avaliacao_mensagem":avaliacao.mensagem,
+                    "avaliacao_data":avaliacao.data.strftime('%d-%m-%Y'),
+                    "avaliador":avaliacao.pedido.cliente.nome
+                }
+
+                avaliacoes.append(r_avaliacao)
 
             for bairro in empresa.bairros_atendimento.all():
                 r_bairro = {
@@ -730,7 +747,8 @@ class ServiceJson(View):
                 "bairros":bairros,
                 "descricao":empresa.descricao,
                 "tipo_cozinha":empresa.tipocozinha.nome,
-                "tipo_cozinha_id":empresa.tipocozinha.id
+                "tipo_cozinha_id":empresa.tipocozinha.id,
+                "avaliacoes":avaliacoes
 
             }
 
@@ -1938,7 +1956,8 @@ class ServiceJson(View):
                 "tipocozinha_id":r.tipocozinha.id,
                 "tipocozinha":r.tipocozinha.nome,
                 "nota":str(r.nota),
-                "custo":r.custo
+                "custo":r.custo,
+                "nota_atual":r.nota_atual
             }
 
             rows.append(row)

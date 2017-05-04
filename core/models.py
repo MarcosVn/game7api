@@ -105,6 +105,7 @@ class Empresa(models.Model):
     ttl_avaliacoes = models.IntegerField(default=0)
     custo = models.ForeignKey("TipoPreco", null=True)
     tempo = models.ForeignKey("TipoTempo", null=True)
+    nota_atual = models.FloatField(default=0)
 
     class Meta:
         verbose_name = "Empresa"
@@ -256,9 +257,10 @@ class Pagamento(models.Model):
 
 class Avaliacao(models.Model):
     id = models.AutoField(primary_key=True)
-    pedido = models.ForeignKey("Pedido", null=True, related_name="Avaliado")
+    pedido = models.ForeignKey("Pedido", null=True, related_name="Avaliacoes")
     nota = models.IntegerField(default=0)
     data = models.DateField(auto_now=True)
+    mensagem = models.CharField(max_length=1024, null=True, blank=True)
 
     class Meta:
         verbose_name = "Avaliação"
