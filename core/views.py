@@ -724,10 +724,11 @@ class ServiceJson(View):
 
                 avaliacoes.append(r_avaliacao)
 
-            for bairro in empresa.bairros_atendimento.all():
+            for bairro_at in empresa.BairrosAtendimento.all():
                 r_bairro = {
-                    "bairro":bairro.nome,
-                    "bairro_id":bairro.id
+                    "bairro":bairro_at.bairro.nome,
+                    "bairro_id":bairro_at.bairro.id,
+                    "frete":bairro_at.frete
                 }
 
                 bairros.append(r_bairro)
@@ -748,7 +749,9 @@ class ServiceJson(View):
                 "descricao":empresa.descricao,
                 "tipo_cozinha":empresa.tipocozinha.nome,
                 "tipo_cozinha_id":empresa.tipocozinha.id,
-                "avaliacoes":avaliacoes
+                "avaliacoes":avaliacoes,
+                "aceita_cartao":empresa.aceita_cartao,
+                "aceita_valerefeicao":empresa.aceita_valerefeicao
 
             }
 
@@ -772,6 +775,8 @@ class ServiceJson(View):
         bairro_id = request.POST.get("bairro")
         endereco = request.POST.get("endereco")
         tipocozinha_id = request.POST.get("tipo_cozinha_id")
+        aceita_cartao = request.POST.get("aceita_cartao")
+        aceita_valerefeicao = request.POST.get("aceita_valerefeicao")
 
 
 
@@ -812,6 +817,16 @@ class ServiceJson(View):
         if endereco:
             oEmpresa.endereco=endereco
 
+        if aceita_cartao != 'undefined':
+            oEmpresa.aceita_cartao=True
+        else:
+            oEmpresa.aceita_cartao = False
+
+        if aceita_valerefeicao != 'undefined':
+            oEmpresa.aceita_valerefeicao=True
+        else:
+            oEmpresa.aceita_valerefeicao=False
+
         oEmpresa.save()
 
         lista = "true"
@@ -842,10 +857,11 @@ class ServiceJson(View):
         r = []
 
         if empresa:
-            for bairro in empresa.bairros_atendimento.all():
+            for bairro_at in empresa.BairrosAtendimento.all():
                 r_bairro ={
-                    "bairro":bairro.nome,
-                    "bairro_id":bairro.id
+                    "bairro":bairro_at.bairro.nome,
+                    "bairro_id":bairro_at.bairro.id,
+                    "frete":bairro_at.frete
                 }
 
                 rows.append(r_bairro)
@@ -861,7 +877,9 @@ class ServiceJson(View):
                 "bairro_id":empresa.bairro.id,
                 "estado":empresa.cidade.estado.nome,
                 "estado_id":empresa.cidade.estado.id,
-                "bairros_atendimento":rows
+                "bairros_atendimento":rows,
+                "aceita_cartao":empresa.aceita_cartao,
+                "aceita_valerefeicao":empresa.aceita_valerefeicao
             }
 
         lista = json.dumps(r)
@@ -874,13 +892,18 @@ class ServiceJson(View):
         # Filtros
         id = request.POST.get("id")
         bairro_id = request.POST.get("bairro")
+        frete = request.POST.get("frete")
 
         # Objeto de Empresa
         oEmpresa = Empresa.objects.filter(id=id).first()
         oBairro = Bairro.objects.filter(id=bairro_id).first()
 
-        oEmpresa.bairros_atendimento.add(oBairro)
-        oEmpresa.save()
+        oBairroAtendimento = BairroAtendimento()
+        oBairroAtendimento.empresa = oEmpresa
+        oBairroAtendimento.bairro = oBairro
+        oBairroAtendimento.frete = frete
+
+        oBairroAtendimento.save()
 
         lista = "true"
         return HttpResponse(lista, content_type='application/json')
@@ -891,11 +914,8 @@ class ServiceJson(View):
         bairro_id = request.GET.get("bairro_id")
 
         # Query Base
-        oEmpresa = Empresa.objects.filter(id=empresa_id).first()
-        oBairro = Bairro.objects.filter(id=bairro_id).first()
-
-        oEmpresa.bairros_atendimento.remove(oBairro)
-        oEmpresa.save()
+        oBairroAtendimento = BairroAtendimento.objects.filter(bairro__id=bairro_id,empresa__id=empresa_id).first()
+        oBairroAtendimento.delete()
 
         lista = "true"
         return HttpResponse(lista, content_type='application/json')
@@ -1848,7 +1868,7 @@ class ServiceJson(View):
     def efetuarpagamento(request):
 
         # Pegando o modulo do mercado pago
-        mp = mercadopago.MP("TEST-4537199727650400-032722-3d32e32302ec1efe2c4dfe2d135bf5de__LD_LC__-249921863")
+        mp = mercadopago.MP("APP_USR-4537199727650400-032722-d1fc4d6607a88b1056fb37b48cce299e__LA_LB__-249921863")
 
         # Corrigindo as variaveis de POST
         token = request.POST.get("token")
@@ -1919,12 +1939,10 @@ class ServiceJson(View):
         # Query Base
         oCliente = Cliente.objects.filter(id=id).first()
 
-        oRestaurantes = Empresa.objects.filter(bairros_atendimento__id=oCliente.bairro.id)
+        oRestaurantes = Empresa.objects.filter(BairrosAtendimento__bairro__id=oCliente.bairro.id)
 
         if(texto):
             oRestaurantes = oRestaurantes.filter(descricao__icontains=texto)
-
-        print oRestaurantes
 
         if(tipocozinha_id):
             tipocozinha_id = int(tipocozinha_id)
@@ -1957,7 +1975,9 @@ class ServiceJson(View):
                 "tipocozinha":r.tipocozinha.nome,
                 "nota":str(r.nota),
                 "custo":r.custo,
-                "nota_atual":r.nota_atual
+                "nota_atual":r.nota_atual,
+                "aceita_cartao":r.aceita_cartao,
+                "aceita_valerefeicao":r.aceita_valerefeicao
             }
 
             rows.append(row)
@@ -1968,6 +1988,38 @@ class ServiceJson(View):
         # lista = "true"
         return HttpResponse(lista, content_type='application/json')
 
+
+    @staticmethod
+    def getrestaurantebypedido(request):
+        pedido_id = request.GET.get("pedido_id")
+
+        oPedido = Pedido.objects.filter(id=pedido_id).first()
+
+        row = {
+            "id":oPedido.empresa.id,
+            "nome":oPedido.empresa.nome,
+            "descricao":oPedido.empresa.descricao,
+            "email":oPedido.empresa.email,
+            "cidade_id":oPedido.empresa.cidade.id,
+            "cidade":oPedido.empresa.cidade.nome,
+            "endereco":oPedido.empresa.endereco,
+            "bairro_id":oPedido.empresa.bairro.id,
+            "bairro":oPedido.empresa.bairro.nome,
+            "telefone":oPedido.empresa.telefone,
+            "tipocozinha_id":oPedido.empresa.tipocozinha.id,
+            "tipocozinha":oPedido.empresa.tipocozinha.nome,
+            "nota":str(oPedido.empresa.nota),
+            "custo":oPedido.empresa.custo,
+            "nota_atual":oPedido.empresa.nota_atual,
+            "aceita_cartao":oPedido.empresa.aceita_cartao,
+            "aceita_valerefeicao":oPedido.empresa.aceita_valerefeicao
+        }
+
+        # lista = serialize('json',rows)
+        lista = json.dumps(row)
+
+        # lista = "true"
+        return HttpResponse(lista, content_type='application/json')
 
 
     # @staticmethod

@@ -97,7 +97,6 @@ class Empresa(models.Model):
     cidade = models.ForeignKey("Cidade")
     endereco = models.CharField(max_length=512)
     bairro = models.ForeignKey("Bairro")
-    bairros_atendimento = models.ManyToManyField("Bairro", related_name="empresas")
     telefone = models.CharField(max_length=128)
     descricao = models.CharField(max_length=1024)
     tipocozinha = models.ForeignKey("TipoCozinha", null=True)
@@ -106,6 +105,8 @@ class Empresa(models.Model):
     custo = models.ForeignKey("TipoPreco", null=True)
     tempo = models.ForeignKey("TipoTempo", null=True)
     nota_atual = models.FloatField(default=0)
+    aceita_cartao = models.BooleanField(default=False)
+    aceita_valerefeicao = models.BooleanField(default=False)
 
     class Meta:
         verbose_name = "Empresa"
@@ -114,6 +115,17 @@ class Empresa(models.Model):
     def __unicode__(self):
         return str(self.nome)
 
+class BairroAtendimento(models.Model):
+    id = models.AutoField(primary_key=True)
+    bairro = models.ForeignKey(Bairro)
+    empresa = models.ForeignKey(Empresa, related_name="BairrosAtendimento")
+    frete = models.FloatField(default=0)
+    class Meta:
+        verbose_name = "Bairro de Atendimento"
+        verbose_name_plural = "Bairros de Atendimento"
+
+    def __unicode__(self):
+        return str(self.bairro.nome)
 
 class Repasse(models.Model):
     id = models.AutoField(primary_key=True)
