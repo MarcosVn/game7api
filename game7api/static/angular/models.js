@@ -1,6 +1,6 @@
-//URL_BASE = "http://0.0.0.0:8010/js/";
+URL_BASE = "http://0.0.0.0:8010/js/";
 //URL_BASE = "http://127.0.0.1:8000/js/";
-URL_BASE = "https://serene-atoll-63219.herokuapp.com/js/";
+//URL_BASE = "https://serene-atoll-63219.herokuapp.com/js/";
 
 function getTokens(){
     var tokens = [];            // new array to hold result
@@ -317,6 +317,22 @@ game7App.factory("Cliente", function (Ajax,$http) {
         }, function errorCallback(response) {
             console.log("Erro");
         });
+    };
+
+    obj.get_recuperarsenha = function (email_cliente, senha_cliente) {
+        var url = URL_BASE + "recuperar_cliente";
+
+        var f = new FormData();
+        f.append('token', TOKENS['key']);
+        f.append('email', email_cliente);
+        f.append('senha', senha_cliente);
+        $http.post(url, f, {headers: {'Content-Type': undefined}}).success(
+          function(response){
+            obj.retorno= response;
+            alert("Senha Recuperada!");
+          }
+        )
+
     };
 
     obj.get_cliente = function () {

@@ -217,12 +217,23 @@ game7App.controller('pedidoCtrl', function($scope, Pedido, Empresa, Funcionario)
     }
 });
 
-game7App.controller('loginCtrl', function($scope, Funcionario) {
+game7App.controller('loginCtrl', function($scope, Funcionario, Cliente) {
     $scope.lg = Funcionario;
-//    $scope.lg.verifica_login();
+    $scope.cl = Cliente;
     $scope.logar = function(){
         $scope.lg.logar_funcionario(document.getElementById("ipEmail").value,document.getElementById("ipSenha").value);
     }
+    $scope.recuperarsenha = function(){
+        if(document.getElementById("ipSenha").value == document.getElementById("ipSenhaConfirmar").value){
+            $scope.cl.get_recuperarsenha(document.getElementById("ipEmail").value, document.getElementById("ipSenha").value);
+        }
+        else
+        {
+            alert("As senhas precisam ser iguais.");
+        }
+
+    }
+
 });
 
 game7App.controller('tiposcozinhasCtrl', function($scope, TipoCozinha) {

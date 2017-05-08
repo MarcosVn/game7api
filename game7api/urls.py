@@ -47,6 +47,9 @@ urlpatterns = [
     url(r'^adm/cliente-excluir/', adminClienteExcluirView.as_view(), name="ExcluirCliente-adm"),
     url(r'^adm/cliente-ver/', adminClienteVerView.as_view(), name="VerCliente-adm"),
     url(r'^adm/cliente-edicao/', adminClienteEdicaoView.as_view(), name="EdicaoCliente-adm"),
+
+    url(r'^adm/cliente-recuperarsenha/', adminClienteRecuperarSenha.as_view(), name="EdicaoCliente-adm"),
+
     url(r'^adm/filiados/', adminEmpresasView.as_view(), name="Empresas-adm"),
     url(r'^adm/filiado-nova/', adminEmpresaNovaView.as_view(), name="NovoEmpresa-adm"),
     url(r'^adm/filiado-excluir/', adminEmpresaExcluirView.as_view(), name="ExcluirEmpresa-adm"),
@@ -135,5 +138,8 @@ urlpatterns = [
     url(r'^js/getrestaurantes', ServiceJson.getRestaurantes, name='getRestaurantes'),
     url(r'^js/getrestaurantebypedido', ServiceJson.getrestaurantebypedido, name='getrestaurantebypedido'),
     url(r'^js/getaberturas$', ServiceJson.getaberturas, name='getaberturas'),
+    url(r'^js/esqueceusenha_cliente', ServiceJson.esqueceusenhacliente, name='esqueceusenha_cliente'),
+    url(r'^js/recuperar_cliente', ServiceJson.recuperarsenhacliente, name='recuperarsenhacliente'),
+
 
 ]+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

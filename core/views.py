@@ -13,6 +13,9 @@ import random
 import re
 import mercadopago
 import demjson
+import hashlib
+from mailer import Mailer
+from mailer import Message
 
 class adminLoginView(View):
     def get(self, request, *args, **kwargs):
@@ -52,6 +55,9 @@ class adminClienteExcluirView(View):
 class adminClienteVerView(View):
     def get(self, request, *args, **kwargs):
         return render_to_response('adm/cliente/ver.html', {}, RequestContext(request))
+class adminClienteRecuperarSenha(View):
+    def get(self, request, *args, **kwargs):
+        return render_to_response('adm/cliente/esqueceusenha.html', {}, RequestContext(request))
 
 class adminSubCategoriasView(View):
     def get(self, request, *args, **kwargs):
@@ -1019,6 +1025,91 @@ class ServiceJson(View):
             rows.append(r)
 
         lista = json.dumps(rows)
+        return HttpResponse(lista, content_type='application/json')
+
+    @staticmethod
+    def esqueceusenhacliente(request):
+        email = request.GET.get("email")
+
+        h = hashlib.md5()
+        h.update("luk1"+str(email)+"game7")
+
+        hash_key = h.hexdigest()
+
+        msg = """
+        Ola, <br/>
+
+        para recuperar a sua senha basta clicar na link abaixo <br/><br/>
+
+        <a href='http://0.0.0.0:8010/adm/cliente-recuperarsenha/?key=%s'>Recupere sua senha</a> <br/><br/>
+        """%(hash_key)
+
+        message = Message(From="noreplay@menuweb.com.br", To=email)
+        # message = Message(From="menuwebapi@gmail.com", To=email)
+        message.Subject = "Menuweb - Esqueceu sua senha"
+        message.Html = msg
+
+        smtp = Mailer(host='smtp.gmail.com', port=587, usr='menuwebapi@gmail.com', pwd='api2017@app', use_tls=True)
+        smtp.send(message)
+
+        lista = True
+
+        return HttpResponse(lista, content_type='application/json')
+
+
+    @staticmethod
+    @csrf_exempt
+    def recuperarsenhacliente(request):
+        # Filtros
+        token = request.POST.get("token")
+        email = request.POST.get("email")
+        senha = request.POST.get("senha")
+
+
+        # Objeto de Cliente
+        oCliente = Cliente.objects.filter(email=email).first()
+
+        h = hashlib.md5()
+        h.update("luk1"+str(email)+"game7")
+
+        hash_key = h.hexdigest()
+
+        if(hash_key == token):
+            oCliente.senha = senha
+            oCliente.save()
+            lista = "true"
+        else:
+            lista = "false"
+        return HttpResponse(lista, content_type='application/json')
+
+
+    @staticmethod
+    @csrf_exempt
+    def savefuncionario(request):
+        # Filtros
+        id = request.POST.get("id")
+        nome = request.POST.get("nome")
+        email = request.POST.get("email")
+        senha = request.POST.get("senha")
+        telefone = request.POST.get("telefone")
+        endereco = request.POST.get("endereco")
+
+        # Objeto de Funcionarios
+        oFuncionario = Funcionario()
+
+        if (id):
+            if (int(id) > 0):
+                oFuncionario = Funcionario.objects.get(id=id)
+
+        oFuncionario.nome = nome
+        oFuncionario.email = email
+        oFuncionario.senha = senha
+        oFuncionario.telefone = telefone
+        oFuncionario.endereco = endereco
+
+        oFuncionario.save()
+
+        lista = "true"
         return HttpResponse(lista, content_type='application/json')
 
 
