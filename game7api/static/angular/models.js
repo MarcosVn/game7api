@@ -398,6 +398,7 @@ game7App.factory("Cliente", function (Ajax,$http) {
 game7App.factory("Empresa", function (Ajax,$http) {
     var obj = {
         lista_empresas: [],
+        lista_empresasremessas: [],
         empresaselecionado: [],
         retorno : false,
     };
@@ -441,6 +442,41 @@ game7App.factory("Empresa", function (Ajax,$http) {
             console.log("Erro");
         });
     };
+
+    obj.get_empresarepasse = function () {
+        //Get relação de clientes
+        var url = URL_BASE + "empresasrepasses";
+        var params = {
+          id:TOKENS['e_id']
+        }
+        $http({
+            method: "GET",
+            params: params,
+            url: url,
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }).then(function successCallback(response) {
+            obj.lista_empresasremessas = response.data;
+        }, function errorCallback(response) {
+            console.log("Erro");
+        });
+    };
+
+    obj.efetuarrepasse = function (ref) {
+        //Get relação de clientes
+        var url = URL_BASE + "criarrepasse";
+
+        var f = new FormData();
+        f.append('id', TOKENS['e_id']);
+        f.append('referencia', ref);
+        $http.post(url, f, {headers: {'Content-Type': undefined}}).success(
+          function(response){
+            obj.retorno = response;
+          }
+        )
+    };
+
     obj.save_empresa = function (empresa_nome, empresa_email, empresa_senha, empresa_telefone, empresa_estado, empresa_cidade, empresa_bairro, empresa_endereco, empresa_descricao, tipo_cozinha) {
         var url = URL_BASE + "saveempresa";
 

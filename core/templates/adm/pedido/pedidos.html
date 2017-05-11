@@ -29,7 +29,7 @@
             <tr ng-repeat="pedido in pe.lista_pedidos">
               <td class="col-md-4">{[pedido.data]}</td>
               <td class="col-md-4">{[pedido.cliente]}</td>
-              <td class="col-md-2">{[pedido.total]}</td>
+              <td class="col-md-2">R$ {[pedido.total]}</td>
               <td><a href="/adm/filiado/atendimentos?e_id={[empresa.id]}" class="btn btn-default btn-xs">atendimento</a></td>
               <td><a href="/adm/filiado-ver?e_id={[empresa.id]}" class="btn btn-primary btn-xs">ver</a> </td>
             </tr>

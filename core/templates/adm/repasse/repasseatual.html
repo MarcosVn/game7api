@@ -1,0 +1,50 @@
+{% extends "adm/base.html" %}
+{% block title %}Categorias{% endblock %}
+{% load staticfiles %}
+{% block content %}
+
+<div class="col-md-12" ng-app="game7App" ng-controller="empresarepasseCtrl">
+    <div class="col-md-12">
+        <h3>Repasses</h3>
+        <p>Este módulo permite o controle dos repasses, onde pode se colocar como pago um repasse bem como o valor de repasse para todos as empresas cadastradas.</p>
+    </div>
+    <div class="col-md-12">
+        <div class="form-inline well">
+            <div class="form-group">
+                <label for="ipFiltroData">Data</label>
+                <input type="date" class="form-control" id="ipFiltroData" name="ipFiltroData" >
+            </div>
+            <a ng-click="filtrar()" class="btn btn-default">Filtrar</a>
+        </div>
+      </div>
+      <div class="col-md-12">
+        <table class="table">
+            <tr>
+                <th>Empresa</th>
+                <th>status</th>
+                <th>Data do Ultimo fechamento</th>
+                <th>Mercado Pago (R$)</th>
+                <th>Pago na entrega (R$)</th>
+                <th>Repasse (R$)</th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+            </tr>
+            <tr ng-repeat="empresa in em.lista_empresasremessas">
+              <td class="col-md-3">{[empresa.nome]}</td>
+              <td class="col-md-1">{[empresa.status]}</td>
+              <td class="col-md-2">{[empresa.ultima_data]}</td>
+              <td class="col-md-2">R$ {[empresa.total_mercadopago]}</td>
+              <td class="col-md-2">R$ {[empresa.total_naentrega]}</td>
+              <td class="col-md-2">R$ {[empresa.total]}</td>
+              <td><a href="/adm/repasse/pagamentos?e_id={[empresa.id]}" class="btn btn-default btn-xs">Ver Pagamentos</a></td>
+              <td><a href="/adm/repasses?e_id={[empresa.id]}" class="btn btn-default btn-xs">Ver Repasses</a></td>
+              <td><a href="/adm/repasse/criar-repasse?e_id={[empresa.id]}" class="btn btn-success btn-xs">Confirmar Pagamento</a></td>
+              <td><a href="/adm/repasse/limitar?e_id={[empresa.id]}" class="btn btn-danger btn-xs">Limitar</a> </td>
+            </tr>
+        </table>
+    </div>
+</div>
+
+{% endblock %}

@@ -119,6 +119,22 @@ game7App.controller('empresaCtrl', function($scope, Empresa, Estado, Cidade, Bai
     }
 });
 
+game7App.controller('empresarepasseCtrl', function($scope, Empresa, Funcionario) {
+    $scope.fn = Funcionario;
+    $scope.fn.verifica_login();
+
+    $scope.em = Empresa;
+    $scope.em.get_empresarepasse();
+
+    $scope.filtrar = function(){
+        $scope.em.get_empresas(document.getElementById("ipFiltroNome").value,document.getElementById("ipFiltroEmail").value);
+    }
+
+    $scope.efetuarpagamento = function(){
+        $scope.em.efetuarrepasse(document.getElementById("ipReferencia").value);
+    }
+});
+
 game7App.controller('funcionarioCtrl', function($scope, Funcionario) {
     $scope.fn = Funcionario;
     $scope.fn.get_funcionarios();

@@ -107,6 +107,8 @@ class Empresa(models.Model):
     nota_atual = models.FloatField(default=0)
     aceita_cartao = models.BooleanField(default=False)
     aceita_valerefeicao = models.BooleanField(default=False)
+    status = models.CharField(max_length=512, default="ok")
+    porcentagem_repasse = models.FloatField(default=12)
 
     class Meta:
         verbose_name = "Empresa"
@@ -132,6 +134,8 @@ class Repasse(models.Model):
     referencia = models.CharField(max_length=512)
     data_inicio = models.DateField(auto_now=True)
     data_fim = models.DateField(null=True)
+    data_pagamento = models.DateField(null=True)
+    data_bloqueio = models.DateField(null=True)
     total = models.FloatField()
     pago = models.BooleanField(default=False)
     empresa = models.ForeignKey("Empresa", related_name="Repasses")

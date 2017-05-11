@@ -175,6 +175,23 @@ class adminTipoCozinhaVerView(View):
     def get(self, request, *args, **kwargs):
         return render_to_response('adm/tiposcozinha/ver.html', {}, RequestContext(request))
 
+class adminRepassesAtualView(View):
+    def get(self, request, *args, **kwargs):
+        return render_to_response('adm/repasse/repasseatual.html', {}, RequestContext(request))
+class adminRepassesView(View):
+    def get(self, request, *args, **kwargs):
+        return render_to_response('adm/repasse/repasses.html', {}, RequestContext(request))
+class adminRepassesPagamentosView(View):
+    def get(self, request, *args, **kwargs):
+        return render_to_response('adm/repasse/pagamentos.html', {}, RequestContext(request))
+class adminCriarRepasseView(View):
+    def get(self, request, *args, **kwargs):
+        return render_to_response('adm/repasse/criar.html', {}, RequestContext(request))
+class adminLimitarEmpresaView(View):
+    def get(self, request, *args, **kwargs):
+        return render_to_response('adm/repasse/limitar.html', {}, RequestContext(request))
+
+
 class ServiceJson(View):
     @staticmethod
     def categorias(request):
@@ -767,6 +784,134 @@ class ServiceJson(View):
         return HttpResponse(lista, content_type='application/json')
 
     @staticmethod
+    def empresasrepasses(request):
+        # Query Base
+        query = Empresa.objects.all().order_by("nome")
+
+        nome = request.GET.get("nome")
+        id = request.GET.get("id")
+        email = request.GET.get("email")
+        lista_bairros = request.GET.get("bairros")
+
+        if (id == None):
+            id = 0
+
+        id = int(id)
+
+        if (nome):
+            query = query.filter(nome__icontains=nome)
+        if (id > 0):
+            query = query.filter(id=id)
+        if (email):
+            query = query.filter(email__icontains=email)
+        if (lista_bairros):
+            bairros = lista_bairros.split(",")
+            query = query.filter(bairros__id__in=bairros)
+
+        rows = []
+
+        for empresa in query:
+
+            bairros = []
+            avaliacoes = []
+            repasses = []
+            pagamentos = []
+            total_mercadopago = 0
+            total_naentrega=0
+            ultima_data = datetime.now()
+
+            lista_avaliacoes = Avaliacao.objects.filter(pedido__empresa__id=empresa.id).order_by("-data")
+            lista_repasses = empresa.Repasses.all().order_by("-data_inicio")
+            lista_pagamentos = Pagamento.objects.filter(pedido__empresa__id=empresa.id).order_by("-id")
+
+
+            if(len(lista_repasses) > 0):
+                lista_pagamentos = lista_pagamentos.filter(pedido__data__gt=lista_repasses[0].data_fim)
+                ultima_data = lista_repasses[0].data_fim
+
+            for pag in lista_pagamentos:
+                if "na_entrega" in pag.tipopagamento:
+                    total_naentrega = total_naentrega + pag.total
+                else:
+                    total_mercadopago = total_mercadopago + pag.total
+
+                r_pagamento = {
+                    "id":pag.id,
+                    "total":pag.total,
+                    "data":pag.pedido.data.strftime('%Y-%m-%d %H:%M'),
+                    "tipopagamento":pag.tipopagamento,
+                    "obs":pag.obs
+                }
+                pagamentos.append(r_pagamento)
+
+            for avaliacao in lista_avaliacoes:
+                r_avaliacao = {
+                    "avaliacao_id":avaliacao.id,
+                    "avaliacao_nota":avaliacao.nota,
+                    "avaliacao_mensagem":avaliacao.mensagem,
+                    "avaliacao_data":avaliacao.data.strftime('%d-%m-%Y'),
+                    "avaliador":avaliacao.pedido.cliente.nome
+                }
+                avaliacoes.append(r_avaliacao)
+
+            for bairro_at in empresa.BairrosAtendimento.all():
+                r_bairro = {
+                    "bairro":bairro_at.bairro.nome,
+                    "bairro_id":bairro_at.bairro.id,
+                    "frete":bairro_at.frete
+                }
+                bairros.append(r_bairro)
+
+
+            for repasse in lista_repasses:
+                r_repasse = {
+                    "id":repasse.id,
+                    "referencia":repasse.referencia,
+                    "data_inicio":repasse.data_inicio.strftime('%Y-%m-%d %H:%M'),
+                    "data_fim":repasse.data_fim.strftime('%Y-%m-%d %H:%M'),
+                    "total":repasse.total,
+                    "pago":repasse.pago
+                }
+                repasses.append(r_repasse)
+
+
+            r = {
+                "id": empresa.id,
+                "nome": empresa.nome,
+                "email": empresa.email,
+                "telefone": empresa.telefone,
+                "endereco": empresa.endereco,
+                "cidade": empresa.cidade.nome,
+                "cidade_id": empresa.cidade.id,
+                "estado": empresa.cidade.estado.nome,
+                "estado_id": empresa.cidade.estado.id,
+                "bairro":empresa.bairro.nome,
+                "bairro_id":empresa.bairro.id,
+                "bairros":bairros,
+                "descricao":empresa.descricao,
+                "tipo_cozinha":empresa.tipocozinha.nome,
+                "tipo_cozinha_id":empresa.tipocozinha.id,
+                "avaliacoes":avaliacoes,
+                "aceita_cartao":empresa.aceita_cartao,
+                "aceita_valerefeicao":empresa.aceita_valerefeicao,
+                "repasses":repasses,
+                "total_mercadopago":total_mercadopago,
+                "total_naentrega":total_naentrega,
+                "total":((total_naentrega+total_mercadopago) * (float(empresa.porcentagem_repasse)/float(100))) - total_mercadopago,
+                "status":empresa.status,
+                "ultima_data":ultima_data.strftime('%Y-%m-%d'),
+                "pagamentos":pagamentos,
+                "porcentagem_repasse":empresa.porcentagem_repasse,
+                "referencia":str(empresa.id) + "_" + str(ultima_data.strftime('%Y%m%d')) + "_" + empresa.status
+            }
+
+            rows.append(r)
+
+        lista = json.dumps(list(rows))
+        return HttpResponse(lista, content_type='application/json')
+
+
+    @staticmethod
     @csrf_exempt
     def saveempresa(request):
         # Filtros
@@ -834,6 +979,52 @@ class ServiceJson(View):
             oEmpresa.aceita_valerefeicao=False
 
         oEmpresa.save()
+
+        lista = "true"
+        return HttpResponse(lista, content_type='application/json')
+
+    @staticmethod
+    @csrf_exempt
+    def criarrepasse(request):
+
+        # Populando as variaveis
+        ultima_data = datetime.now()
+        total_mercadopago = 0
+        total_naentrega = 0
+
+        # Filtros
+        id = request.POST.get("id")
+        ref = request.POST.get("referencia")
+
+        # Populando a Empresa
+        oempresa = Empresa.objects.filter(id=id).first()
+        lista_repasses = oempresa.Repasses.all().order_by("-data_inicio")
+        lista_pagamentos = Pagamento.objects.filter(pedido__empresa__id=oempresa.id).order_by("-id")
+
+        # Populando a ultima data de repasse
+        if (len(lista_repasses) > 0):
+            lista_pagamentos = lista_pagamentos.filter(pedido__data__gt=lista_repasses[0].data_fim)
+            ultima_data = lista_repasses[0].data_fim
+
+
+        # Atualizando os totais
+        for pag in lista_pagamentos:
+            if "na_entrega" in pag.tipopagamento:
+                total_naentrega = total_naentrega + pag.total
+            else:
+                total_mercadopago = total_mercadopago + pag.total
+
+        # Montando o Repasse
+        orepasse = Repasse()
+        orepasse.referencia = ref
+        orepasse.data_inicio = ultima_data
+        orepasse.data_fim = datetime.now()
+        orepasse.data_pagamento = datetime.now()
+        orepasse.total = total_mercadopago+total_naentrega
+        orepasse.pago = True
+        orepasse.empresa = oempresa
+
+        orepasse.save()
 
         lista = "true"
         return HttpResponse(lista, content_type='application/json')
@@ -1208,7 +1399,7 @@ class ServiceJson(View):
 
 
     @staticmethod
-    def Repasses(request):
+    def repasses(request):
         # Query Base
         query = Repasse.objects.all().order_by("nome")
 
@@ -1621,9 +1812,17 @@ class ServiceJson(View):
                 }
                 itens_rows.append(r_item)
 
+            oPagamento = pedido.Pagamento.first()
+            pagamento_obs = ''
+            pagamento_tipo = ''
+
+            if oPagamento:
+                pagamento_obs = oPagamento.obs
+                pagamento_tipo = oPagamento.tipopagamento
+
             r = {
                 "id":pedido.id,
-                "data":pedido.data.strftime("%Y-%m-%d"),
+                "data":pedido.data.strftime("%Y-%m-%d %H:%m"),
                 "total":pedido.total,
                 "cliente":pedido.cliente.nome,
                 "cliente_id":pedido.cliente.id,
@@ -1636,8 +1835,8 @@ class ServiceJson(View):
                 "cidade":pedido.cidade_entrega.nome,
                 "cidade_id":pedido.cidade_entrega.id,
                 "componente":pedido.complemento_entrega,
-                "pagamento_obs":(pedido.Pagamento.first()).obs,
-                "pagamento_tipo":(pedido.Pagamento.first()).tipopagamento,
+                "pagamento_obs":pagamento_obs,
+                "pagamento_tipo":pagamento_tipo,
 
 
                 "itens":itens_rows

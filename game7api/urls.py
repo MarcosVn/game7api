@@ -74,6 +74,11 @@ urlpatterns = [
     url(r'^adm/tipocozinha-ver', adminTipoCozinhaVerView.as_view(), name="VerTipoCozinha-adm"),
     url(r'^adm/tipocozinha-edicao', adminTipoCozinhaEdicaoView.as_view(), name="EdicaoTipoCozinha-adm"),
 
+    url(r'^adm/repasse-atual', adminRepassesAtualView.as_view(), name="Repasses-adm"),
+    url(r'^adm/repasses/', adminRepassesView.as_view(), name="Repasses-adm"),
+    url(r'^adm/repasse/pagamentos', adminRepassesPagamentosView.as_view(), name="RepassesPagamentos-adm"),
+    url(r'^adm/repasse/criar-repasse', adminCriarRepasseView.as_view(), name="CriarRepasse-adm"),
+    url(r'^adm/repasse/limitar', adminLimitarEmpresaView.as_view(), name="Limitar-adm"),
 
     url(r'^js/categorias', ServiceJson.categorias, name='categorias'),
     url(r'^js/clientes', ServiceJson.clientes, name='clientes'),
@@ -82,17 +87,18 @@ urlpatterns = [
     url(r'^js/estados', ServiceJson.estados, name='estados'),
     url(r'^js/cidades', ServiceJson.cidades, name='Cidades'),
     url(r'^js/bairros', ServiceJson.bairros, name='bairros'),
-    url(r'^js/empresas', ServiceJson.empresas, name='empresas'),
+    url(r'^js/empresas$', ServiceJson.empresas, name='empresas'),
+    url(r'^js/empresasrepasses', ServiceJson.empresasrepasses, name='empresasrepasses'),
     url(r'^js/empresa-login', ServiceJson.empresaLogin, name='empresaLogin'),
     url(r'^js/funcionarios', ServiceJson.funcionarios, name='funcionarios'),
     url(r'^js/funcionario-login', ServiceJson.funcionarioLogin, name='funcionariologin'),
-    url(r'^js/Repasses', ServiceJson.Repasses, name='Repasses'),
     url(r'^js/produtos', ServiceJson.produtos, name='produtos'),
     url(r'^js/pedidos', ServiceJson.pedidos, name='pedidos'),
     url(r'^js/tiposcozinhas', ServiceJson.tiposcozinhas, name='tiposcozinhas'),
     url(r'^js/itens', ServiceJson.itens, name='itens'),
     url(r'^js/carrinho', ServiceJson.carrinho, name='carrinho'),
     url(r'^js/bandeiras', ServiceJson.bandeiras, name='bandeiras'),
+    url(r'^js/repasses', ServiceJson.repasses, name='repasses'),
     # url(r'^js/tipospagamentos', ServiceJson.tipospagamentos, name='tipospagamentos'),
 
 
@@ -117,6 +123,7 @@ urlpatterns = [
     url(r'^js/saveobspagamentopedido', ServiceJson.saveobspagamentopedido, name='saveobspagamentopedido'),
     url(r'^js/efetuar-pagamento', ServiceJson.efetuarpagamento, name='efetuarpagamento'),
     url(r'^js/savepedidostatus$', ServiceJson.savepedido_status, name='savepedidostatus'),
+    url(r'^js/criarrepasse', ServiceJson.criarrepasse, name='criarrepasse'),
 
 
     url(r'^js/excluircategoria', ServiceJson.excluircategoria, name='excluircategoria'),
