@@ -11,7 +11,7 @@
     <div class="col-md-12">
         <div class="form-inline well">
             <div class="form-group">
-                <label for="ipFiltroData">Data</label>
+                <label for="ipFiltroData">Data Final</label>
                 <input type="date" class="form-control" id="ipFiltroData" name="ipFiltroData" >
             </div>
             <a ng-click="filtrar()" class="btn btn-default">Filtrar</a>
@@ -35,13 +35,13 @@
               <td class="col-md-3">{[empresa.nome]}</td>
               <td class="col-md-1">{[empresa.status]}</td>
               <td class="col-md-2">{[empresa.ultima_data]}</td>
-              <td class="col-md-2">R$ {[empresa.total_mercadopago]}</td>
-              <td class="col-md-2">R$ {[empresa.total_naentrega]}</td>
-              <td class="col-md-2">R$ {[empresa.total]}</td>
+              <td class="col-md-2">R$ {[empresa.total_mercadopago.toFixed(2).replace(".", ",")]}</td>
+              <td class="col-md-2">R$ {[empresa.total_naentrega.toFixed(2).replace(".", ",")]}</td>
+              <td class="col-md-2">R$ {[empresa.total.toFixed(2).replace(".", ",")]}</td>
               <td><a href="/adm/repasse/pagamentos?e_id={[empresa.id]}" class="btn btn-default btn-xs">Ver Pagamentos</a></td>
               <td><a href="/adm/repasses?e_id={[empresa.id]}" class="btn btn-default btn-xs">Ver Repasses</a></td>
-              <td><a href="/adm/repasse/criar-repasse?e_id={[empresa.id]}" class="btn btn-success btn-xs">Confirmar Pagamento</a></td>
-              <td><a href="/adm/repasse/limitar?e_id={[empresa.id]}" class="btn btn-danger btn-xs">Limitar</a> </td>
+              <td><a href="/adm/repasse/criar-repasse?e_id={[empresa.id]}&data_fim={[data_final]}" class="btn btn-success btn-xs">Confirmar Pagamento</a></td>
+              <td><a href="/adm/repasse/limitar?e_id={[empresa.id]}" class="btn btn-danger btn-xs">Limitar</a></td>
             </tr>
         </table>
     </div>

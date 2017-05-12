@@ -401,6 +401,7 @@ game7App.factory("Empresa", function (Ajax,$http) {
         lista_empresasremessas: [],
         empresaselecionado: [],
         retorno : false,
+        data_fim : new Date()
     };
     obj.get_empresas = function (nome_empresa, email_empresa) {
         var url = URL_BASE + "empresas";
@@ -443,11 +444,12 @@ game7App.factory("Empresa", function (Ajax,$http) {
         });
     };
 
-    obj.get_empresarepasse = function () {
+    obj.get_empresarepasse = function (data_final) {
         //Get relação de clientes
         var url = URL_BASE + "empresasrepasses";
         var params = {
-          id:TOKENS['e_id']
+          id:TOKENS['e_id'],
+          data_fim:data_final
         }
         $http({
             method: "GET",
@@ -463,19 +465,39 @@ game7App.factory("Empresa", function (Ajax,$http) {
         });
     };
 
-    obj.efetuarrepasse = function (ref) {
+    obj.efetuarrepasse = function (ref, data_final) {
         //Get relação de clientes
         var url = URL_BASE + "criarrepasse";
 
         var f = new FormData();
         f.append('id', TOKENS['e_id']);
         f.append('referencia', ref);
+        f.append('data_final', data_final);
+        f.append('status', true);
         $http.post(url, f, {headers: {'Content-Type': undefined}}).success(
           function(response){
             obj.retorno = response;
           }
         )
     };
+
+    obj.efetuarlimitacao = function (ref, data_final) {
+        //Get relação de clientes
+        var url = URL_BASE + "criarrepasse";
+
+        var f = new FormData();
+        f.append('id', TOKENS['e_id']);
+        f.append('referencia', ref);
+        f.append('data_final', data_final);
+        f.append('status', false);
+        $http.post(url, f, {headers: {'Content-Type': undefined}}).success(
+          function(response){
+            obj.retorno = response;
+          }
+        )
+    };
+
+
 
     obj.save_empresa = function (empresa_nome, empresa_email, empresa_senha, empresa_telefone, empresa_estado, empresa_cidade, empresa_bairro, empresa_endereco, empresa_descricao, tipo_cozinha) {
         var url = URL_BASE + "saveempresa";

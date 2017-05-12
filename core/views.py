@@ -791,7 +791,12 @@ class ServiceJson(View):
         nome = request.GET.get("nome")
         id = request.GET.get("id")
         email = request.GET.get("email")
+        data = request.GET.get("data_fim")
+        data_final = datetime.now()
         lista_bairros = request.GET.get("bairros")
+
+        if data:
+            data_final = data
 
         if (id == None):
             id = 0
@@ -822,12 +827,15 @@ class ServiceJson(View):
 
             lista_avaliacoes = Avaliacao.objects.filter(pedido__empresa__id=empresa.id).order_by("-data")
             lista_repasses = empresa.Repasses.all().order_by("-data_inicio")
-            lista_pagamentos = Pagamento.objects.filter(pedido__empresa__id=empresa.id).order_by("-id")
+            lista_pagamentos = Pagamento.objects.filter(pedido__empresa__id=empresa.id,pedido__data__lte=data_final).order_by("id")
 
 
             if(len(lista_repasses) > 0):
                 lista_pagamentos = lista_pagamentos.filter(pedido__data__gt=lista_repasses[0].data_fim)
                 ultima_data = lista_repasses[0].data_fim
+            else:
+                if(len(lista_pagamentos) > 0):
+                    ultima_data = lista_pagamentos[0].pedido.data
 
             for pag in lista_pagamentos:
                 if "na_entrega" in pag.tipopagamento:
@@ -902,7 +910,7 @@ class ServiceJson(View):
                 "ultima_data":ultima_data.strftime('%Y-%m-%d'),
                 "pagamentos":pagamentos,
                 "porcentagem_repasse":empresa.porcentagem_repasse,
-                "referencia":str(empresa.id) + "_" + str(ultima_data.strftime('%Y%m%d')) + "_" + empresa.status
+                "referencia":str(empresa.id) + "_" + str(ultima_data.strftime('%Y%m%d')) + "_"
             }
 
             rows.append(r)
@@ -995,17 +1003,25 @@ class ServiceJson(View):
         # Filtros
         id = request.POST.get("id")
         ref = request.POST.get("referencia")
+        data_final = request.POST.get("data_final")
+        status_parametro = request.POST.get("status")
+        status = False
 
         # Populando a Empresa
+        if not (data_final):
+            data_final = datetime.now()
+
         oempresa = Empresa.objects.filter(id=id).first()
         lista_repasses = oempresa.Repasses.all().order_by("-data_inicio")
-        lista_pagamentos = Pagamento.objects.filter(pedido__empresa__id=oempresa.id).order_by("-id")
+        lista_pagamentos = Pagamento.objects.filter(pedido__empresa__id=oempresa.id, pedido__data__lte=data_final).order_by("id")
 
         # Populando a ultima data de repasse
         if (len(lista_repasses) > 0):
             lista_pagamentos = lista_pagamentos.filter(pedido__data__gt=lista_repasses[0].data_fim)
             ultima_data = lista_repasses[0].data_fim
-
+        else:
+            if(len(lista_pagamentos) > 0):
+                ultima_data = lista_pagamentos[0].pedido.data
 
         # Atualizando os totais
         for pag in lista_pagamentos:
@@ -1018,13 +1034,25 @@ class ServiceJson(View):
         orepasse = Repasse()
         orepasse.referencia = ref
         orepasse.data_inicio = ultima_data
-        orepasse.data_fim = datetime.now()
-        orepasse.data_pagamento = datetime.now()
+        orepasse.data_fim = data_final
         orepasse.total = total_mercadopago+total_naentrega
-        orepasse.pago = True
         orepasse.empresa = oempresa
 
+        if status_parametro == 'true':
+            status = True
+            orepasse.data_pagamento = datetime.now()
+        else:
+            orepasse.data_bloqueio = datetime.now()
+
+        orepasse.pago = status
         orepasse.save()
+
+        if orepasse.pago:
+            oempresa.status = "OK"
+        else:
+            oempresa.status = "LIMITADO"
+
+        oempresa.save()
 
         lista = "true"
         return HttpResponse(lista, content_type='application/json')
