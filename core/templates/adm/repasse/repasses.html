@@ -26,7 +26,7 @@
                 <td class="col-md-2" ng-if="rep.pago == true">Sim</td>
                 <td class="col-md-2" ng-if="rep.pago == false">Não</td>
                 <td class="col-md-2" ng-if="rep.pago == true"></td>
-                <td class="col-md-2" ng-if="rep.pago == false"><a href="/adm/repasse/limitar?e_id={[rep.id]}" class="btn btn-success btn-xs">Pagar</a></td>
+                <td class="col-md-2" ng-if="rep.pago == false"><a ng-click="receberrepasse(rep.id);" class="btn btn-success btn-xs">Pagar</a></td>
             </tr>
         </table>
     </div>

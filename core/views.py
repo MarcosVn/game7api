@@ -1048,10 +1048,44 @@ class ServiceJson(View):
         orepasse.save()
 
         if orepasse.pago:
-            oempresa.status = "OK"
+            status_autorizado = True
+            for rep in lista_repasses:
+                if not rep.pago:
+                    status_autorizado = False
+
+            if status_autorizado:
+                oempresa.status = "OK"
+            else:
+                oempresa.status = "LIMITADO"
         else:
             oempresa.status = "LIMITADO"
 
+        oempresa.save()
+
+        lista = "true"
+        return HttpResponse(lista, content_type='application/json')
+
+    @staticmethod
+    @csrf_exempt
+    def receberrepasse(request):
+        # Variaveis
+        Liberado = "OK"
+
+        # Filtros
+        id = request.POST.get("id")
+
+        # Montando o Repasse
+        orepasse = Repasse.objects.filter(id=id).first()
+        orepasse.pago = True
+        orepasse.save()
+
+        oempresa = orepasse.empresa
+
+        for rep in oempresa.Repasses.all():
+            if not rep.pago:
+                Liberado = "LIMITADO"
+
+        oempresa.status = Liberado
         oempresa.save()
 
         lista = "true"

@@ -130,13 +130,16 @@ game7App.controller('empresarepasseCtrl', function($scope, Empresa, Funcionario)
         $scope.em.get_empresarepasse($('#ipFiltroData').val());
 
     }
-
     $scope.efetuarpagamento = function(){
         $scope.em.efetuarrepasse(document.getElementById("ipReferencia").value, $('#ipFiltroData').val());
     }
 
     $scope.efetuarlimitacao = function(){
         $scope.em.efetuarlimitacao(document.getElementById("ipReferencia").value, $('#ipFiltroData').val());
+    }
+    $scope.receberrepasse = function(rep_id){
+        $scope.em.receberrepasse(rep_id);
+        window.location = "/adm/repasse-atual/";
     }
 });
 

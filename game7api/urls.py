@@ -124,6 +124,7 @@ urlpatterns = [
     url(r'^js/efetuar-pagamento', ServiceJson.efetuarpagamento, name='efetuarpagamento'),
     url(r'^js/savepedidostatus$', ServiceJson.savepedido_status, name='savepedidostatus'),
     url(r'^js/criarrepasse', ServiceJson.criarrepasse, name='criarrepasse'),
+    url(r'^js/receberrepasse', ServiceJson.receberrepasse, name='receberrepasse'),
 
 
     url(r'^js/excluircategoria', ServiceJson.excluircategoria, name='excluircategoria'),
