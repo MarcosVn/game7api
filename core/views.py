@@ -774,7 +774,8 @@ class ServiceJson(View):
                 "tipo_cozinha_id":empresa.tipocozinha.id,
                 "avaliacoes":avaliacoes,
                 "aceita_cartao":empresa.aceita_cartao,
-                "aceita_valerefeicao":empresa.aceita_valerefeicao
+                "aceita_valerefeicao":empresa.aceita_valerefeicao,
+                "porcentagem_repasse":empresa.porcentagem_repasse
 
             }
 
@@ -822,7 +823,9 @@ class ServiceJson(View):
             repasses = []
             pagamentos = []
             total_mercadopago = 0
+            qtd_mercadopago = 0
             total_naentrega=0
+            qtd_naentrega=0
             ultima_data = datetime.now()
 
             lista_avaliacoes = Avaliacao.objects.filter(pedido__empresa__id=empresa.id).order_by("-data")
@@ -840,8 +843,10 @@ class ServiceJson(View):
             for pag in lista_pagamentos:
                 if "na_entrega" in pag.tipopagamento:
                     total_naentrega = total_naentrega + pag.total
+                    qtd_naentrega = qtd_naentrega + 1
                 else:
                     total_mercadopago = total_mercadopago + pag.total
+                    qtd_mercadopago =qtd_mercadopago +1
 
                 r_pagamento = {
                     "id":pag.id,
@@ -904,7 +909,9 @@ class ServiceJson(View):
                 "aceita_valerefeicao":empresa.aceita_valerefeicao,
                 "repasses":repasses,
                 "total_mercadopago":total_mercadopago,
+                "qtd_mercadopago":qtd_mercadopago,
                 "total_naentrega":total_naentrega,
+                "qtd_naentrega":qtd_naentrega,
                 "total":((total_naentrega+total_mercadopago) * (float(empresa.porcentagem_repasse)/float(100))) - total_mercadopago,
                 "status":empresa.status,
                 "ultima_data":ultima_data.strftime('%Y-%m-%d'),
@@ -936,7 +943,9 @@ class ServiceJson(View):
         tipocozinha_id = request.POST.get("tipo_cozinha_id")
         aceita_cartao = request.POST.get("aceita_cartao")
         aceita_valerefeicao = request.POST.get("aceita_valerefeicao")
+        porcentagem_repasse = request.POST.get("porcentagem_repasse")
 
+        print porcentagem_repasse
 
 
         # Objeto de Empresas
@@ -960,6 +969,9 @@ class ServiceJson(View):
 
         if telefone:
             oEmpresa.telefone = telefone
+
+        if porcentagem_repasse:
+            oEmpresa.porcentagem_repasse = porcentagem_repasse
 
         if cidade_id:
             oEmpresa.cidade = Cidade.objects.filter(id=cidade_id).first()

@@ -126,7 +126,6 @@ urlpatterns = [
     url(r'^js/criarrepasse', ServiceJson.criarrepasse, name='criarrepasse'),
     url(r'^js/receberrepasse', ServiceJson.receberrepasse, name='receberrepasse'),
 
-
     url(r'^js/excluircategoria', ServiceJson.excluircategoria, name='excluircategoria'),
     url(r'^js/excluircliente', ServiceJson.excluircliente, name='excluircliente'),
     url(r'^js/excluirsubcategoria', ServiceJson.excluirsubcategoria, name='excluirsubcategoria'),

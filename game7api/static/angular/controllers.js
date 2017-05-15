@@ -87,8 +87,6 @@ game7App.controller('empresaCtrl', function($scope, Empresa, Estado, Cidade, Bai
     }
     $scope.atualizar = function(){
 
-        alert(document.getElementById("tipocozinha").value);
-
         $scope.em.save_empresa(
             document.getElementById("nome").value,
             document.getElementById("email").value,
@@ -99,7 +97,8 @@ game7App.controller('empresaCtrl', function($scope, Empresa, Estado, Cidade, Bai
             document.getElementById("bairro").value,
             document.getElementById("endereco").value,
             document.getElementById("descricao").value,
-            document.getElementById("tipocozinha").value);
+            document.getElementById("tipocozinha").value,
+            document.getElementById("porcentagem_repasse").value);
     }
     $scope.excluir = function(){
       $scope.em.excluir_empresa();

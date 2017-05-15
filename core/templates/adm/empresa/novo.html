@@ -29,6 +29,10 @@
         <input type="number" id="telefone" name="telefone" required="True" class="form-control"/>
         <br/>
 
+        <label class="control-label">Porcentagem de Repasse</label><br/>
+        <input type="text" id="porcentagem_repasse" name="porcentagem_repasse" required="True" class="form-control"/>
+        <br/>
+
         <label class="control-label">Tipo de Cozinha</label><br/>
         <select class="form-control" name="tipocozinha" id="tipocozinha" ng-options="tipocozinha as tipocozinha.fields.nome for tipocozinha in tc.lista_tiposcozinha track by tipocozinha.pk" ng-model="sel_tipo"></select>
         <br/>

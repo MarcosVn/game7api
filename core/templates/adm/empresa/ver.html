@@ -40,12 +40,16 @@
             <b>Endereço</b><br/>
             {[em.empresaselecionado[0].endereco]}
             <br/><br/>
+
+           <b>Porcentagem de Repasse</b><br/>
+            {[em.empresaselecionado[0].porcentagem_repasse]}
+            <br/><br/>
         </div>
         <div class="col-md-6">
             <b>Bairros</b><br/>
-            <ul>
-                <li ng-repeat="bairro in em.empresasselecionado[0].bairros">
-                    fwefeew
+            <ul class="list-group">
+                <li class="list-group-item" ng-repeat="bairro in em.empresaselecionado[0].bairros">
+                    {[bairro.bairro]}
                 </li>
             </ul>
         </div>
