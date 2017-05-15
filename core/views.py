@@ -2303,7 +2303,8 @@ class ServiceJson(View):
         # Query Base
         oCliente = Cliente.objects.filter(id=id).first()
 
-        oRestaurantes = Empresa.objects.filter(BairrosAtendimento__bairro__id=oCliente.bairro.id)
+        oRestaurantes = Empresa.objects.filter(BairrosAtendimento__bairro__id=oCliente.bairro.id).order_by("BairrosAtendimento__frete")
+        oRestaurantes = oRestaurantes.order_by("-nota")
 
         if(texto):
             oRestaurantes = oRestaurantes.filter(descricao__icontains=texto)
@@ -2311,7 +2312,6 @@ class ServiceJson(View):
         if(tipocozinha_id):
             tipocozinha_id = int(tipocozinha_id)
             if(tipocozinha_id>0):
-                print "ta "
                 oRestaurantes = oRestaurantes.filter(tipocozinha__id=tipocozinha_id)
 
         rows = []
@@ -2376,7 +2376,8 @@ class ServiceJson(View):
             "custo":oPedido.empresa.custo,
             "nota_atual":oPedido.empresa.nota_atual,
             "aceita_cartao":oPedido.empresa.aceita_cartao,
-            "aceita_valerefeicao":oPedido.empresa.aceita_valerefeicao
+            "aceita_valerefeicao":oPedido.empresa.aceita_valerefeicao,
+            "restaurante_status":oPedido.empresa.status
         }
 
         # lista = serialize('json',rows)
