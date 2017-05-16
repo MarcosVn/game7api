@@ -2112,20 +2112,28 @@ class ServiceJson(View):
     @staticmethod
     def carrinho(request):
         # Query Base
-
         cliente_id = request.GET.get("cliente_id")
-
         ocarrinho = Carrinho.objects.filter(cliente__id=cliente_id)
 
         rows = []
 
         sum_compra = 0.0
+        frete = 0.0
+
+
+        if len(ocarrinho) > 0:
+            empresa = ocarrinho[0].produto.empresa
+            cliente = ocarrinho[0].cliente
+
+            for bairro in empresa.BairrosAtendimento.all():
+                if cliente.bairro.id == bairro.bairro.id:
+                    frete = bairro.frete
+
+
 
         for item in ocarrinho:
             sum_compra = sum_compra + item.quantidade * item.produto.preco
 
-
-        for item in ocarrinho:
             r = {
                 "id":item.id,
                 "quantidade":item.quantidade,
@@ -2138,7 +2146,16 @@ class ServiceJson(View):
 
             rows.append(r)
 
-        lista = json.dumps(list(rows))
+        result = {
+            "lista_compra":rows,
+            "frete": frete
+        }
+
+
+        lista = json.dumps(result)
+
+
+
 
         # lista = serialize('json', query)
         return HttpResponse(lista, content_type='application/json')
@@ -2175,11 +2192,28 @@ class ServiceJson(View):
         tipopagamento = request.POST.get("tipopagamento")
         oPedido = Pedido.objects.get(id=pedido_id)
 
+
+        frete = 0.0
+
+        if len(oPedido.Itens.all()) > 0:
+            empresa = oPedido.Itens.all()[0].produto.empresa
+            cliente = oPedido.cliente
+
+            for bairro in empresa.BairrosAtendimento.all():
+                if cliente.bairro.id == bairro.bairro.id:
+                    frete = bairro.frete
+
+
+        oPedido.total = oPedido.total + frete
+        oPedido.save()
+
+
         # Objeto de Itens
         oPagamento = Pagamento()
         oPagamento.pedido = oPedido
         oPagamento.tipopagamento = tipopagamento
-        oPagamento.total = oPedido.total
+        oPagamento.total = oPedido.total + frete
+
         oPagamento.save()
 
         if(tipopagamento == 'na_entrega'):
@@ -2243,6 +2277,20 @@ class ServiceJson(View):
         oPedido = Pedido.objects.filter(id=pedido_id).first()
         oCliente = oPedido.cliente
 
+        frete = 0.0
+
+        if len(oPedido.Itens.all()) > 0:
+            empresa = oPedido.Itens.all()[0].produto.empresa
+            cliente = oPedido.cliente
+
+            for bairro in empresa.BairrosAtendimento.all():
+                if cliente.bairro.id == bairro.bairro.id:
+                    frete = bairro.frete
+
+
+        oPedido.total = oPedido.total + frete
+        oPedido.save()
+
         # Pegando o resultado do MP
         oMp = demjson.decode(request.POST.get("resultado"))
 
@@ -2263,8 +2311,6 @@ class ServiceJson(View):
 
         oPagamento.obs = oMp["id"]
         oPagamento.total = oPedido.total
-
-        print (oMPagoResultado["response"])["status"]
 
         if((oMPagoResultado["response"])["status"] == "approved"):
             oPedido.status = "Aguardando Preparo"
