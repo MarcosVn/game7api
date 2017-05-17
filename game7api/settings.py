@@ -109,19 +109,19 @@ DATABASES = {
         #  'PORT':'5432'
 
         # HEROKU
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'd656f96tpc66bj',
-        'USER':'kfsiuncmbmrrui',
-        'PASSWORD':'7ce822bb4b6350a8f29bbd5ccb9d3390a1085bc6af6a13231be12df4cf4b9c99',
-        'HOST':'ec2-54-243-214-198.compute-1.amazonaws.com',
-        'PORT':'5432'
-
-        # HOME HOST
         # 'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        # 'NAME': 'luk14236_game7',
-        # 'USER':'luk14236',
-        # 'PASSWORD':'28310189',
-        # 'HOST':'177.85.98.245'
+        # 'NAME': 'd656f96tpc66bj',
+        # 'USER':'kfsiuncmbmrrui',
+        # 'PASSWORD':'7ce822bb4b6350a8f29bbd5ccb9d3390a1085bc6af6a13231be12df4cf4b9c99',
+        # 'HOST':'ec2-54-243-214-198.compute-1.amazonaws.com',
+        # 'PORT':'5432'
+
+        # HOSTGATOR
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'menuw652_g7_api',
+        'USER':'menuw652_u',
+        'PASSWORD':'28310189',
+        'HOST':'108.167.132.23'
     }
 }
 

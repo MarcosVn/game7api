@@ -104,7 +104,7 @@ class Empresa(models.Model):
     ttl_avaliacoes = models.IntegerField(default=0)
     custo = models.ForeignKey("TipoPreco", null=True)
     tempo = models.ForeignKey("TipoTempo", null=True)
-    nota_atual = models.FloatField(default=0)
+    nota_atual = models.FloatField(default=0.0)
     aceita_cartao = models.BooleanField(default=False)
     aceita_valerefeicao = models.BooleanField(default=False)
     status = models.CharField(max_length=512, default="ok")
@@ -121,7 +121,7 @@ class BairroAtendimento(models.Model):
     id = models.AutoField(primary_key=True)
     bairro = models.ForeignKey(Bairro)
     empresa = models.ForeignKey(Empresa, related_name="BairrosAtendimento")
-    frete = models.FloatField(default=0)
+    frete = models.FloatField(default=0.0)
     class Meta:
         verbose_name = "Bairro de Atendimento"
         verbose_name_plural = "Bairros de Atendimento"
@@ -260,7 +260,7 @@ class Pagamento(models.Model):
     pedido = models.ForeignKey("Pedido", related_name="Pagamento")
     tipopagamento = models.CharField(max_length=512)
     obs = models.CharField(max_length=512)
-    trocopara = models.FloatField(default=0)
+    trocopara = models.FloatField(default=0.0)
     cpfnanota = models.BooleanField(default=False)
 
     class Meta:
