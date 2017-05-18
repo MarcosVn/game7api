@@ -3,20 +3,16 @@ import os
 import sys
 import site
 
-#/home/meues581/public_html/registrodeimoveisonline.com.br
+site.addsitedir('/home/menuw652/menuwebenv/lib/python2.7/site-packages/')
+sys.path.append('/home/menuw652/public_html')
+sys.path.append('/home/menuw652/public_html/menuweb.com.br')
+
  
-site.addsitedir('/home/meues581/.env/lib/python2.7/site-packages/')
-# Adicione ao PATH do Python as seguintes pastas
-sys.path.append('/home/meues581/public_html')
-sys.path.append('/home/meues581/public_html/registrodeimoveisonline.com.br')
-#sys.path.append('/home/meues581/public_html/libs')
+os.environ['DJANGO_SETTINGS_MODULE'] = 'game7api.settings'
  
-os.environ['DJANGO_SETTINGS_MODULE'] = 'consulta1rimc.settings'
- 
-activate_env=os.path.expanduser("/home/meues581/.env/bin/activate_this.py")
+activate_env=os.path.expanduser("/home/menuw652/menuwebenv/bin/activate_this.py")
 execfile(activate_env, dict(__file__=activate_env))
- 
-# Aqui utilizamos a biblioteca de FastCGI que baixamos anteriormente.
+
 from django_fastcgi.servers.fastcgi import runfastcgi
 from django.core.servers.basehttp import get_internal_wsgi_application
  
