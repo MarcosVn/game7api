@@ -24,8 +24,9 @@ SECRET_KEY = '2!7#8u3*@k!a$)9z=g&y)*suxyb65pm_1a_31=ce6cn3)ljz@&'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
+ALLOWED_HOSTS = ['*', 'www.menuweb.com.br','localhost']
 
-ALLOWED_HOSTS = ['0.0.0.0', '192.168.1.104', '192.168.122.1', '192.168.1.106', '127.0.0.1', 'game7.luk14236.com.br', 'serene-atoll-63219.herokuapp.com', 'localhost']
+#ALLOWED_HOSTS = ['*','www.menuweb.com.br','0.0.0.0', '192.168.1.104', '192.168.122.1', '192.168.1.106', '127.0.0.1', 'game7.luk14236.com.br', 'serene-atoll-63219.herokuapp.com', 'localhost']
 
 
 # Application definition
@@ -37,10 +38,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'django.contrib.gis',
 
     'corsheaders',
-    'rest_framework',
+#    'rest_framework',
 
 
     'core',
@@ -82,7 +82,7 @@ WSGI_APPLICATION = 'game7api.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/1.10/ref/settings/#databases
-DATABASES = {
+DATABASES2 = {
     'default': {
         # MINHA CASA
         # 'ENGINE': 'django.contrib.gis.db.backends.postgis',
@@ -124,7 +124,12 @@ DATABASES = {
         'HOST':'108.167.132.23'
     }
 }
-
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+    }
+}
 
 
 # Password validation
@@ -164,12 +169,11 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.10/howto/static-files/
 
 PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
-STATIC_ROOT = os.path.join(PROJECT_ROOT, 'staticfiles')
 
 STATIC_URL = '/static/'
 STATIC_ROOT = 'static'
 
 STATICFILES_DIRS = (
     os.path.join(PROJECT_ROOT, 'static'),
-    os.path.join(PROJECT_ROOT, 'media'),
+    os.path.join(STATIC_ROOT, 'media'),
 )
