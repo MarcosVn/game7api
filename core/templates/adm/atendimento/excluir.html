@@ -1,0 +1,23 @@
+{% extends 'adm/base.html' %}
+{% block title %}Atendimentos - Excluir{% endblock %}
+{% load staticfiles %}
+{% block content %}
+
+  <div class="content" ng-app="game7App" ng-controller="empresaCtrl">
+    <div class="col-md-12">
+        <h2>Bairro de Atendimento - <small>Exclusão</small></h2>
+    </div>
+    <div ng-if="at.retorno">
+        <p class="alert alert-success" style="text-align:center;">Excluido com sucesso!</p>
+    </div>
+    <div class="col-md-10">
+        <p>A exclusão terá efeito imediato</p>
+        <p>Tem certeza que deseja excluir o bairro  ? </p>
+    </div>
+    <div class="col-md-2">
+        <a ng-click="excluir_atendimento()" style="display: block;width: 100%;" class="btn btn-success btn-lg">Sim</a>
+        <a style="display: block;width: 100%;" class="btn btn-default btn-lg" href="/adm/filiado/atendimentos?e_id={[em.empresaselecionado[0].id]}">Cancelar</a>
+    </div>
+
+  </div>
+{% endblock %}

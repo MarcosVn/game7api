@@ -1,0 +1,63 @@
+{% extends "adm/base.html" %}
+{% block title %}Ver Categoria{% endblock %}
+{% load staticfiles %}
+{% block content %}
+
+<div ng-app="game7App" ng-controller="empresaCtrl" class="col-md-12" xmlns="http://www.w3.org/1999/html">
+    <div class="col-md-12">
+        <h3>Ver Filiado</h3>
+    </div>
+    <div class="col-md-10">
+        <div class="col-md-6">
+            <b>Nome</b><br/>
+            {[em.empresaselecionado[0].nome]}
+            <br/><br/>
+
+            <b>Email</b><br/>
+            {[em.empresaselecionado[0].email]}
+            <br/><br/>
+
+            <b>Tipo de Cozinha</b><br/>
+            {[em.empresaselecionado[0].tipo_cozinha]}
+            <br/><br/>
+
+            <b>Telefone</b><br/>
+            {[em.empresaselecionado[0].telefone]}
+            <br/><br/>
+
+            <b>Estado</b><br/>
+            {[em.empresaselecionado[0].estado]}
+            <br/><br/>
+
+            <b>Cidade</b><br/>
+            {[em.empresaselecionado[0].cidade]}
+            <br/><br/>
+
+            <b>Bairro</b><br/>
+            {[em.empresaselecionado[0].bairro]}
+            <br/><br/>
+
+            <b>Endereço</b><br/>
+            {[em.empresaselecionado[0].endereco]}
+            <br/><br/>
+
+           <b>Porcentagem de Repasse</b><br/>
+            {[em.empresaselecionado[0].porcentagem_repasse]}
+            <br/><br/>
+        </div>
+        <div class="col-md-6">
+            <b>Bairros</b><br/>
+            <ul class="list-group">
+                <li class="list-group-item" ng-repeat="bairro in em.empresaselecionado[0].bairros">
+                    {[bairro.bairro]}
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="col-md-2">
+        <a style="display: block;width: 100%;" class="btn btn-default btn-lg" href="/adm/filiados">Voltar</a>
+    </div>
+</div>
+
+{% endblock %}

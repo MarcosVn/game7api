@@ -1,0 +1,44 @@
+{% extends "adm/base.html" %}
+{% block title %}Categorias{% endblock %}
+{% load staticfiles %}
+{% block content %}
+
+<div ng-app="game7App" ng-controller="categoriaCtrl" class="col-md-12">
+    <div class="col-md-12">
+        <h3>Categorias</h3>
+        <p>Este módulo apresenta por padrão as categorias.</p>
+    </div>
+    <div class="col-md-12">
+        <div class="form-inline well">
+
+            <div class="form-group">
+                <label for="ipFiltroCategoria">Categoria</label>
+                <input type="text" class="form-control" id="ipFiltroCategoria" name="ipFiltroCategoria" >
+            </div>
+
+            <a ng-click="filtrar()" class="btn btn-default">Filtrar</a>
+        </div>
+      </div>
+      <div class="col-md-10">
+        <table class="table">
+            <tr>
+                <th>Título</th>
+                <th></th>
+                <th></th>
+                <th></th>
+            </tr>
+              <tr ng-repeat="categoria in ct.lista_categorias">
+                  <td class="col-md-10">{[categoria.fields.nome]}</td>
+                  <td><a href="/adm/subcategorias?c_id={[categoria.pk]}" class="btn btn-default btn-xs">subcategorias</a> </td>
+                  <td><a href="/adm/categoria-edicao?c_id={[categoria.pk]}" class="btn btn-primary btn-xs">editar</a> </td>
+                  <td><a href="/adm/categoria-ver?c_id={[categoria.pk]}" class="btn btn-primary btn-xs">ver</a> </td>
+                  <td><a href="/adm/categoria-excluir?c_id={[categoria.pk]}" class="btn btn-danger btn-xs">excluir</a> </td>
+              </tr>
+        </table>
+    </div>
+    <div class="col-md-2">
+        <a href="/adm/categorias-nova?c_id=0" class="btn btn-primary btn-lg">Nova Categoria</a>
+    </div>
+</div>
+
+{% endblock %}

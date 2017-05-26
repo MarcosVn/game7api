@@ -1,0 +1,43 @@
+{% extends "adm/base.html" %}
+{% block title %}Categorias{% endblock %}
+{% load staticfiles %}
+{% block content %}
+
+<div class="col-md-12" ng-app="game7App" ng-controller="subcategoriaCtrl" >
+    <div class="col-md-12">
+        <h3>SubCategorias da categoria <b>{[ct.categoriaselecionado[0].fields.nome]}</b></h3>
+        <p>Este módulo apresenta por padrão as subcategorias.</p>
+    </div>
+    <div class="col-md-12">
+        <div class="form-inline well">
+
+            <div class="form-group">
+                <label for="ipFiltroSubCategoria">SubCategoria</label>
+                <input type="text" class="form-control" id="ipFiltroSubCategoria" name="ipFiltroSubCategoria" >
+            </div>
+
+            <button ng-click="filtrar()" class="btn btn-default">Filtrar</button>
+        </div>
+      </div>
+      <div class="col-md-10">
+        <table class="table">
+            <tr>
+                <th>Título</th>
+                <th></th>
+                <th></th>
+                <th></th>
+            </tr>
+              <tr ng-repeat="subcategoria in sc.lista_subcategorias">
+                  <td class="col-md-10">{[subcategoria.fields.nome]}</td>
+                  <td><a href="/adm/subcategoria-edicao?subc_id={[subcategoria.pk]}&c_id={[ct.categoriaselecionado[0].pk]}" class="btn btn-primary btn-xs">editar</a> </td>
+                  <td><a href="/adm/subcategoria-ver?subc_id={[subcategoria.pk]}&c_id={[ct.categoriaselecionado[0].pk]}" class="btn btn-primary btn-xs">ver</a> </td>
+                  <td><a href="/adm/subcategoria-excluir?subc_id={[subcategoria.pk]}" class="btn btn-danger btn-xs">excluir</a> </td>
+              </tr>
+        </table>
+    </div>
+    <div class="col-md-2">
+        <a href="/adm/subcategorias-nova?c_id={[ct.categoriaselecionado[0].pk]}" class="btn btn-primary btn-lg">Nova SubCategoria</a>
+    </div>
+</div>
+
+{% endblock %}

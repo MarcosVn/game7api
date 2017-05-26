@@ -1,0 +1,21 @@
+{% extends "adm/base.html" %}
+{% block title %}Ver Categoria{% endblock %}
+{% load staticfiles %}
+{% block content %}
+
+<div ng-app="game7App" ng-controller="tiposcozinhasCtrl" class="col-md-12" xmlns="http://www.w3.org/1999/html">
+    <div class="col-md-12">
+        <h3>Ver Tipo de Cozinha</h3>
+    </div>
+    <div class="col-md-10">
+        <div class="col-md-3">
+            <b>Tipo de Cozinha</b><br/>
+            {[tc.tipocozinhaselecionado[0].fields.nome]}
+        </div>
+    </div>
+    <div class="col-md-2">
+        <a style="display: block;width: 100%;" class="btn btn-default btn-lg" href="/adm/tiposcozinha/">Voltar</a>
+    </div>
+</div>
+
+{% endblock %}

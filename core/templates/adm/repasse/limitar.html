@@ -1,0 +1,50 @@
+{% extends "adm/base.html" %}
+{% block title %}Categorias{% endblock %}
+{% load staticfiles %}
+{% block content %}
+
+<div class="col-md-12" ng-app="game7App" ng-controller="empresarepasseCtrl">
+    <div class="col-md-12">
+        <h3>Confirmar a Limitar de Repasse</h3>
+        <p>Uma vez que a limitação do Repasse o usuário não poderá mais receber seus pedidos utilizando o pagamento pela entrada</p>
+        <div class="alert alert-success" ng-show="em.retorno == true">
+            Limitação salvo com sucesso!
+        </div>
+    </div>
+    <div class="col-md-10">
+        <b>Referencia</b>
+        <input type="text" class="form-control" value="{[em.lista_empresasremessas[0].referencia]}LIMITAR" name="ipReferencia" id="ipReferencia"/>
+        <br>
+
+        <b>Data Inicial</b><br>
+        {[em.lista_empresasremessas[0].ultima_data]}
+        <br>
+
+        <div class="col-md-12" style="padding:0px;margin-bottom:20px;">
+            <div class="col-md-10"  style="padding:0px;">
+                <b>Data Final</b>
+                <input type="date" class="form-control" id="ipFiltroData" name="ipFiltroData" >
+            </div>
+            <div class="col-md-2">
+                <a ng-click="filtrar()" class="btn btn-default">Atualizar</a>
+            </div>
+        </div>
+
+        <b>Valor Total de faturamento</b><br>
+        R$ {[(em.lista_empresasremessas[0].total_mercadopago + em.lista_empresasremessas[0].total_naentrega).toFixed(2).replace(".", ",")]}
+        <br><br>
+
+        <b>Porcentagem de repasse</b><br>
+        {[(em.lista_empresasremessas[0].porcentagem_repasse)]} %
+        <br><br>
+
+        <b>Valor do repasse</b><br>
+        R$ {[em.lista_empresasremessas[0].total.toFixed(2).replace(".", ",")]}
+        <br><br>
+    </div>
+    <div class="col-md-2">
+        <a ng-click="efetuarlimitacao()" class="btn btn-danger btn-lg">Limitar</a>
+    </div>
+</div>
+
+{% endblock %}

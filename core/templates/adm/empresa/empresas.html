@@ -1,0 +1,55 @@
+{% extends "adm/base.html" %}
+{% block title %}Categorias{% endblock %}
+{% load staticfiles %}
+{% block content %}
+
+<div class="col-md-12" ng-app="game7App" ng-controller="empresaCtrl">
+    <div class="col-md-12">
+        <h3>Empresas</h3>
+        <p>Este módulo apresenta por padrão os empresas.</p>
+    </div>
+    <div class="col-md-12">
+        <div class="form-inline well">
+            <div class="form-group">
+                <label for="ipFiltroNome">Nome</label>
+                <input type="text" class="form-control" id="ipFiltroNome" name="ipFiltroNome" >
+            </div>
+            <div class="form-group">
+                <label for="ipFiltroEmail">Email</label>
+                <input type="text" class="form-control" id="ipFiltroEmail" name="ipFiltroEmail" >
+            </div>
+            <a ng-click="filtrar()" class="btn btn-default">Filtrar</a>
+        </div>
+      </div>
+      <div class="col-md-10">
+        <table class="table">
+            <tr>
+                <th>Nome</th>
+                <th>Email</th>
+                <th>Tipo de Cozinha</th>
+                <th>Telefone</th>
+                <th>Porcentagem de Repasse</th>
+                <th></th>
+                <th></th>
+                <th></th>
+            </tr>
+            <tr ng-repeat="empresa in em.lista_empresas">
+              <td class="col-md-4">{[empresa.nome]}</td>
+              <td class="col-md-4">{[empresa.email]}</td>
+              <td class="col-md-4">{[empresa.tipo_cozinha]}</td>
+              <td class="col-md-2">{[empresa.telefone]}</td>
+              <td class="col-md-2">{[empresa.porcentagem_repasse]} %</td>
+              <td><a href="/adm/filiado/atendimentos?e_id={[empresa.id]}" class="btn btn-default btn-xs">atendimento</a></td>
+              <td><a href="/adm/filiado-edicao?e_id={[empresa.id]}" class="btn btn-primary btn-xs">editar</a></td>
+              <td><a href="/adm/filiado-ver?e_id={[empresa.id]}" class="btn btn-primary btn-xs">ver</a> </td>
+              <td><a href="/adm/filiado-excluir?e_id={[empresa.id]}" class="btn btn-danger btn-xs">excluir</a></td>
+            </tr>
+
+        </table>
+    </div>
+    <div class="col-md-2">
+        <a href="/adm/filiado-nova?e_id=0" class="btn btn-primary btn-lg">Nova Empresa</a>
+    </div>
+</div>
+
+{% endblock %}

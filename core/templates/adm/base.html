@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+        <head>
+          <title> Controle de vendas - {% block titile %}{% endblock %}</title>
+      		{% load staticfiles %}
+			<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+			<link href="{% static 'css/bootstrap_paper.min.css'%}" rel="stylesheet" />
+			<script src="{% static 'js/jQuery.js'%}"></script>
+			<script src="{% static 'js/bootstrap.min.js'%}"></script>
+			<script src="{% static 'angular/angular.min.js' %}"></script>
+			<script src="{% static 'angular/game7_app.js' %}"></script>
+			<script src="{% static 'angular/models.js' %}"></script>
+			<script src="{% static 'angular/controllers.js' %}"></script>
+			<!--<link href="http://luk14236.com.br/game7/static/css/bootstrap_paper.min.css" rel="stylesheet" />-->
+			<!--<script src="http://luk14236.com.br/game7/static/js/jQuery.js"></script>-->
+			<!--<script src="http://luk14236.com.br/game7/static/js/bootstrap.min.js"></script>-->
+			<!--<script src="http://luk14236.com.br/game7/static/angular/angular.min.js"></script>-->
+			<!--<script src="http://luk14236.com.br/game7/static/angular/game7_app.js"></script>-->
+			<!--<script src="http://luk14236.com.br/game7/static/angular/models.js"></script>-->
+			<!--<script src="http://luk14236.com.br/game7/static/angular/controllers.js"></script>-->
+        </head>
+<body>
+    <div class="container-fluid">
+        <div class="row">
+			<nav class="navbar navbar-default">
+				<div class="container-fluid">
+
+					<div class="navbar-header">
+						<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+							<span class="sr-only">Toggle navigation</span>
+							<span class="icon-bar"></span>
+							<span class="icon-bar"></span>
+							<span class="icon-bar"></span>
+						</button>
+						<a class="navbar-brand" style="padding-top: 8px;" href="/"><img style="width: 45px;" /></a>
+					</div>
+
+
+					<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+						<ul class="nav navbar-nav">
+							<li><a href="/adm/categorias/">Categorias</a></li>
+							<li><a href="/adm/clientes/">Clientes</a></li>
+							<li><a href="/adm/tiposcozinha/">Tipos de Cozinha</a></li>
+							<li><a href="/adm/filiados/">Filiados</a></li>
+							<li><a href="/adm/funcionarios/">Funcionários</a></li>
+							<li><a href="/adm/pedidos/">Pedidos</a></li>
+							<li><a href="/adm/produtos/">Produtos</a></li>
+							<li><a href="/adm/repasse-atual/">Repasses</a></li>
+						</ul>
+
+						<ul class="nav navbar-nav navbar-right">
+							<li class="dropdown">
+								<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Olá {{request.user}}, bem vindo! <span class="caret"></span></a>
+								<ul class="dropdown-menu">
+									<li>
+										<a href="#">Meus Dados</a>
+									</li>
+								</ul>
+							</li>
+							<li>
+                				<a href="/sair" class="btn btn-danger btn-sm" style="margin-top:15px;padding:3px 10px;color:#fff;">Sair</a>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</nav>
+			{% block content %}{%endblock %}
+        </div>
+    </div>
+</body>
+</html>

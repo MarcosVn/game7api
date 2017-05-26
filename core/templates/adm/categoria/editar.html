@@ -1,0 +1,27 @@
+{% extends "adm/base.html" %}
+{% block title %}Nova Categoria{% endblock %}
+{% load staticfiles %}
+{% block content %}
+
+<div class="col-md-12" ng-app="game7App" ng-controller="categoriaCtrl" >
+  <form enctype="multipart/form-data" method="post">
+    <div class="col-md-12">
+        <h3>Editar Categoria</h3>
+        <p>A alteração da categoria estará disponível assim que estiver salva.</p>
+    </div>
+    <div ng-if="ct.retorno">
+        <p class="alert alert-success" style="text-align:center;">Salvo com sucesso!</p>
+    </div>
+    <div class="col-md-8">
+        <label class="control-label">Título</label><br/>
+        <input type="text" id="nome" value="{[ct.categoriaselecionado[0].fields.nome]}" required="True" class="form-control"/>
+    </div>
+
+    <div class="col-md-4">
+        <a ng-click="atualizar()" style="display: block;width: 100%;" class="btn btn-success btn-lg">Salvar</a>
+        <a style="display: block;width: 100%;" class="btn btn-default btn-lg" href="/adm/categorias/">Cancelar</a>
+    </div>
+  </form>
+</div>
+
+{% endblock %}

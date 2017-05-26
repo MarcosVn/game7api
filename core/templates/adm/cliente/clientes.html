@@ -1,0 +1,53 @@
+{% extends "adm/base.html" %}
+{% block title %}Categorias{% endblock %}
+{% load staticfiles %}
+{% block content %}
+
+<div class="col-md-12" ng-app="game7App" ng-controller="clienteCtrl">
+    <div class="col-md-12">
+        <h3>Clientes</h3>
+        <p>Este módulo apresenta por padrão os clientes.</p>
+    </div>
+    <div class="col-md-12">
+        <div class="form-inline well">
+            <div class="form-group">
+                <label for="ipFiltroEmail">Email</label>
+                <input type="text" class="form-control" id="ipFiltroEmail" name="ipFiltroEmail" >
+            </div>
+
+            <div class="form-group">
+                <label for="ipFiltroNome">Nome</label>
+                <input type="text" class="form-control" id="ipFiltroNome" name="ipFiltroNome" >
+            </div>
+
+            <a ng-click="filtrar()" class="btn btn-default">Filtrar</a>
+        </div>
+      </div>
+      <div class="col-md-10">
+        <table class="table">
+            <tr>
+                <th>Nome</th>
+                <th>Email</th>
+                <th>Telefone</th>
+                <th></th>
+                <th></th>
+                <th></th>
+            </tr>
+
+              <tr ng-repeat="cliente in cl.lista_clientes">
+                  <td class="col-md-4">{[cliente.nome]}</td>
+                  <td class="col-md-4">{[cliente.email]}</td>
+                  <td class="col-md-2">{[cliente.telefone]}</td>
+                  <td><a href="/adm/cliente-edicao?c_id={[cliente.id]}" class="btn btn-primary btn-xs">editar</a> </td>
+                  <td><a href="/adm/cliente-ver?c_id={[cliente.id]}" class="btn btn-primary btn-xs">ver</a> </td>
+                  <td><a href="/adm/cliente-excluir?c_id={[cliente.id]}" class="btn btn-danger btn-xs">excluir</a> </td>
+              </tr>
+
+        </table>
+    </div>
+    <div class="col-md-2">
+        <a href="/adm/clientes-nova?c_id=0" class="btn btn-primary btn-lg">Nova Cliente</a>
+    </div>
+</div>
+
+{% endblock %}

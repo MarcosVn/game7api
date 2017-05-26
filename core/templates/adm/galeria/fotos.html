@@ -1,0 +1,36 @@
+{% extends "adm/base.html" %}
+{% block title %}Categorias{% endblock %}
+{% load staticfiles %}
+{% block content %}
+
+<div class="col-md-12" ng-app="game7App" ng-controller="produtoCtrl" >
+    <div class="col-md-12">
+        <h3>Galeria de fotos<b></b></h3>
+        <p>Este módulo apresenta por padrão as fotos incluídas para o produto <b>{[pt.produtoselecionado[0].nome]}</b>.</p>
+    </div>
+    <div ng-if="pt.retorno">
+        <p class="alert alert-success" style="text-align:center;">Salvo com sucesso!</p>
+    </div>
+    <div class="col-md-10">
+        <div class="col-md-8">
+            <small>Apenas Imagens .jpg</small>
+            <input type="hidden" name="id" value="30" />
+            <input type="file" ng-model="pt.foto_principal" fileread="pt.foto_principal" />
+        </div>
+        <div class="col-md-3">
+            <img class="col-md-4 thumbnail" ng-src="{[pt.foto_principal]}" />
+        </div>
+        <div class="col-md-1">
+            <a ng-click="atualizar_produtofoto()" style="display: block;width: 100%;" class="btn btn-success btn-lg">Salvar</a>
+            <a href="/adm/produtos" class="btn btn-default btn-lg">Voltar</a>
+        </div>
+
+        <div class="col-md-12" style="margin-top:50px;">
+            <div class="col-md-3 col-xs-4" ng-repeat="foto in pt.produtoselecionado[0].fotos">
+                <img class="img-thumbnail" style="width:342px;height:225px;" src="/static/media/produto/{[foto.foto_caminho]}" />
+                <a ng-click="excluir_produtofoto(foto.foto_id)" style="display: block;width: 100%;" class="btn btn-danger btn-xs">Excluir</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

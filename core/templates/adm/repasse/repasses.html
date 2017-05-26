@@ -1,0 +1,35 @@
+{% extends "adm/base.html" %}
+{% block title %}Categorias{% endblock %}
+{% load staticfiles %}
+{% block content %}
+
+<div class="col-md-12" ng-app="game7App" ng-controller="empresarepasseCtrl">
+    <div class="col-md-12">
+        <h3>Repasses Anteriores</h3>
+        <p>Este módulo permite a visualização de todos os repasses feitos anteiormente</p>
+    </div>
+    <div class="col-md-12">
+        <table class="table">
+            <tr>
+                <th>Referencia</th>
+                <th>Data Inicial</th>
+                <th>Data Final</th>
+                <th>Total (R$)</th>
+                <th>Pago</th>
+                <th></th>
+            </tr>
+            <tr ng-repeat="rep in em.lista_empresasremessas[0].repasses">
+                <td class="col-md-4">{[rep.referencia]}</td>
+                <td class="col-md-2">{[rep.data_inicio]}</td>
+                <td class="col-md-2">{[rep.data_fim]}</td>
+                <td class="col-md-2">R$ {[rep.total]}</td>
+                <td class="col-md-2" ng-if="rep.pago == true">Sim</td>
+                <td class="col-md-2" ng-if="rep.pago == false">Não</td>
+                <td class="col-md-2" ng-if="rep.pago == true"></td>
+                <td class="col-md-2" ng-if="rep.pago == false"><a ng-click="receberrepasse(rep.id);" class="btn btn-success btn-xs">Pagar</a></td>
+            </tr>
+        </table>
+    </div>
+</div>
+
+{% endblock %}

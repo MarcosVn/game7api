@@ -1,0 +1,23 @@
+{% extends 'adm/base.html' %}
+{% block title %}Categorias - Excluir{% endblock %}
+{% load staticfiles %}
+{% block content %}
+
+  <div class="content" ng-app="game7App" ng-controller="subcategoriaCtrl">
+    <div class="col-md-12">
+        <h2>SubCategoria - <small>Exclusão</small></h2>
+    </div>
+    <div ng-if="sc.retorno">
+        <p class="alert alert-success" style="text-align:center;">Excluido com sucesso!</p>
+    </div>
+    <div class="col-md-10">
+        <p>A exclusão terá efeito imediato</p>
+        <p>Tem certeza que deseja excluir a subcategoria <b>{[sc.subcategoriaselecionado[0].fields.nome]}</b> ? </p>
+    </div>
+    <div class="col-md-2">
+        <a ng-click="excluir()" style="display: block;width: 100%;" class="btn btn-success btn-lg">Sim</a>
+        <a href="/adm/subcategorias?c_id={[ct.categoriaselecionado[0].pk]}" style="display: block;width: 100%;" class="btn btn-default">Cancelar</a>
+    </div>
+
+  </div>
+{% endblock %}

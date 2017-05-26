@@ -1,0 +1,43 @@
+{% extends "adm/base.html" %}
+{% block title %}Categorias{% endblock %}
+{% load staticfiles %}
+{% block content %}
+
+<div ng-app="game7App" ng-controller="tiposcozinhasCtrl" class="col-md-12">
+    <div class="col-md-12">
+        <h3>Tipos de Cozinha</h3>
+        <p>Este módulo apresenta por padrão os tipos de cozinha.</p>
+    </div>
+    <div class="col-md-12">
+        <div class="form-inline well">
+
+            <div class="form-group">
+                <label for="ipFiltroTipoCozinha">Tipo de Cozinha</label>
+                <input type="text" class="form-control" id="ipFiltroTipoCozinha" name="ipFiltroTipoCozinha" >
+            </div>
+
+            <a ng-click="filtrar()" class="btn btn-default">Filtrar</a>
+        </div>
+      </div>
+      <div class="col-md-10">
+        <table class="table">
+            <tr>
+                <th>Título</th>
+                <th></th>
+                <th></th>
+                <th></th>
+            </tr>
+              <tr ng-repeat="tipo in tc.lista_tiposcozinha">
+                  <td class="col-md-10">{[tipo.fields.nome]}</td>
+                  <td><a href="/adm/tipocozinha-edicao?t_id={[tipo.pk]}" class="btn btn-primary btn-xs">editar</a> </td>
+                  <td><a href="/adm/tipocozinha-ver?t_id={[tipo.pk]}" class="btn btn-primary btn-xs">ver</a> </td>
+                  <td><a href="/adm/tipocozinha-excluir?t_id={[tipo.pk]}" class="btn btn-danger btn-xs">excluir</a> </td>
+              </tr>
+        </table>
+    </div>
+    <div class="col-md-2">
+        <a href="/adm/tipocozinha-nova?c_id=0" class="btn btn-primary btn-lg">Novo Tipo de Cozinha</a>
+    </div>
+</div>
+
+{% endblock %}

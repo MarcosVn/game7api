@@ -1,0 +1,17 @@
+click==6.6
+demjson==2.2.4
+Django==1.10.3
+django-cors-headers==2.0.2
+djangorestframework==3.5.4
+Flask==0.12
+Flask-Cors==3.0.2
+gunicorn==19.7.0
+itsdangerous==0.24
+Jinja2==2.8.1
+MarkupSafe==0.23
+mercadopago==0.3.4
+psycopg2==2.6.2
+requests==2.13.0
+six==1.10.0
+Werkzeug==0.11.13
+mailer==0.8.1

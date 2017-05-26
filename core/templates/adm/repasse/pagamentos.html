@@ -1,0 +1,30 @@
+{% extends "adm/base.html" %}
+{% block title %}Categorias{% endblock %}
+{% load staticfiles %}
+{% block content %}
+
+<div class="col-md-12" ng-app="game7App" ng-controller="empresarepasseCtrl">
+    <div class="col-md-12">
+        <h3>Pagamentos</h3>
+        <p>Relação de todos os pagamentos recebidos da empresa <b>{[em.lista_empresasremessas[0].nome]}</b> após a data do ultimo repasse ({[em.lista_empresasremessas[0].ultima_data]})</p>
+    </div>
+    <div class="col-md-12">
+        <table class="table">
+            <tr>
+                <th>Data</th>
+                <th>Observação</th>
+                <th>Tipo</th>
+                <th>Total(R$)</th>
+            </tr>
+            <tr ng-repeat="pag in em.lista_empresasremessas[0].pagamentos">
+              <td class="col-md-2">{[pag.data]}</td>
+              <td class="col-md-6">{[pag.obs]}</td>
+              <td class="col-md-2">{[pag.tipopagamento]}</td>
+              <td class="col-md-2">R$ {[pag.total]}</td>
+            </tr>
+
+        </table>
+    </div>
+</div>
+
+{% endblock %}
