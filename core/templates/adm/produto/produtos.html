@@ -33,7 +33,7 @@
               <tr ng-repeat="produto in pt.lista_produtos">
                   <td class="col-md-4">{[produto.nome]}</td>
                   <td class="col-md-4">{[produto.preco]}</td>
-                  <td class="col-md-4"><img src="/static/media/produto/{[produto.foto]}" class="img-thumbnail"></td>
+                  <td class="col-md-4"><img src="/game7api/static/media/produto/{[produto.foto]}" class="img-thumbnail"></td>
                   <td><a href="/adm/produto-categorias?p_id={[produto.id]}" class="btn btn-default btn-xs">categorias</a> </td>
                   <td><a href="/adm/produto-edicao?p_id={[produto.id]}" class="btn btn-primary btn-xs">editar</a> </td>
                   <td><a href="/adm/produto-ver?p_id={[produto.id]}" class="btn btn-primary btn-xs">ver</a> </td>

@@ -106,6 +106,7 @@ class Empresa(models.Model):
     nota_atual = models.FloatField(default=0.0)
     aceita_cartao = models.BooleanField(default=False)
     aceita_valerefeicao = models.BooleanField(default=False)
+    aceita_pagamentoonline = models.BooleanField(default=False)
     status = models.CharField(max_length=512, default="ok")
     porcentagem_repasse = models.FloatField(default=12)
 

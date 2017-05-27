@@ -11,7 +11,7 @@ import json
 import base64
 import random
 import re
-#import mercadopago
+import mercadopago
 import demjson
 import hashlib
 from mailer import Mailer
@@ -775,8 +775,8 @@ class ServiceJson(View):
                 "avaliacoes":avaliacoes,
                 "aceita_cartao":empresa.aceita_cartao,
                 "aceita_valerefeicao":empresa.aceita_valerefeicao,
+                "aceita_pagamentoonline":empresa.aceita_pagamentoonline,
                 "porcentagem_repasse":empresa.porcentagem_repasse
-
             }
 
             rows.append(r)
@@ -907,6 +907,7 @@ class ServiceJson(View):
                 "avaliacoes":avaliacoes,
                 "aceita_cartao":empresa.aceita_cartao,
                 "aceita_valerefeicao":empresa.aceita_valerefeicao,
+                "aceita_pagamentoonline":empresa.aceita_pagamentoonline,
                 "repasses":repasses,
                 "total_mercadopago":total_mercadopago,
                 "qtd_mercadopago":qtd_mercadopago,
@@ -943,6 +944,7 @@ class ServiceJson(View):
         tipocozinha_id = request.POST.get("tipo_cozinha_id")
         aceita_cartao = request.POST.get("aceita_cartao")
         aceita_valerefeicao = request.POST.get("aceita_valerefeicao")
+        aceita_pagamentoonline = request.POST.get("aceita_pagamentoonline")
         porcentagem_repasse = request.POST.get("porcentagem_repasse")
 
         print porcentagem_repasse
@@ -997,6 +999,11 @@ class ServiceJson(View):
             oEmpresa.aceita_valerefeicao=True
         else:
             oEmpresa.aceita_valerefeicao=False
+
+        if aceita_pagamentoonline != 'undefined':
+            oEmpresa.aceita_pagamentoonline=True
+        else:
+            oEmpresa.aceita_pagamentoonline=False
 
         oEmpresa.save()
 
@@ -1150,7 +1157,8 @@ class ServiceJson(View):
                 "estado_id":empresa.cidade.estado.id,
                 "bairros_atendimento":rows,
                 "aceita_cartao":empresa.aceita_cartao,
-                "aceita_valerefeicao":empresa.aceita_valerefeicao
+                "aceita_valerefeicao":empresa.aceita_valerefeicao,
+                "aceita_pagamentoonline":empresa.aceita_pagamentoonline
             }
 
         lista = json.dumps(r)
@@ -2266,7 +2274,6 @@ class ServiceJson(View):
     def efetuarpagamento(request):
 
         # Pegando o modulo do mercado pago
-        import mercadopago
         mp = mercadopago.MP("APP_USR-4537199727650400-032722-d1fc4d6607a88b1056fb37b48cce299e__LA_LB__-249921863")
 
         # Corrigindo as variaveis de POST
@@ -2388,7 +2395,8 @@ class ServiceJson(View):
                 "custo":r.custo,
                 "nota_atual":r.nota_atual,
                 "aceita_cartao":r.aceita_cartao,
-                "aceita_valerefeicao":r.aceita_valerefeicao
+                "aceita_valerefeicao":r.aceita_valerefeicao,
+                "aceita_pagamentoonline":r.aceita_pagamentoonline
             }
 
             rows.append(row)
@@ -2424,6 +2432,7 @@ class ServiceJson(View):
             "nota_atual":oPedido.empresa.nota_atual,
             "aceita_cartao":oPedido.empresa.aceita_cartao,
             "aceita_valerefeicao":oPedido.empresa.aceita_valerefeicao,
+            "aceita_pagamentoonline": oPedido.empresa.aceita_pagamentoonline,
             "restaurante_status":oPedido.empresa.status
         }
 
@@ -2477,3 +2486,4 @@ class ServiceJson(View):
         lista = json.dumps(serialize('json', obandeiras))
 
         return HttpResponse(lista, content_type='application/json')
+

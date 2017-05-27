@@ -175,5 +175,5 @@ STATIC_ROOT = 'static'
 
 STATICFILES_DIRS = (
     os.path.join(PROJECT_ROOT, 'static'),
-    os.path.join(STATIC_ROOT, 'media'),
+    os.path.join("game7api/static", 'media'),
 )
