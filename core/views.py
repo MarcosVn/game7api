@@ -776,7 +776,8 @@ class ServiceJson(View):
                 "aceita_cartao":empresa.aceita_cartao,
                 "aceita_valerefeicao":empresa.aceita_valerefeicao,
                 "aceita_pagamentoonline":empresa.aceita_pagamentoonline,
-                "porcentagem_repasse":empresa.porcentagem_repasse
+                "porcentagem_repasse":empresa.porcentagem_repasse,
+                "logotipo":empresa.logotipo
             }
 
             rows.append(r)
@@ -918,7 +919,8 @@ class ServiceJson(View):
                 "ultima_data":ultima_data.strftime('%Y-%m-%d'),
                 "pagamentos":pagamentos,
                 "porcentagem_repasse":empresa.porcentagem_repasse,
-                "referencia":str(empresa.id) + "_" + str(ultima_data.strftime('%Y%m%d')) + "_"
+                "referencia":str(empresa.id) + "_" + str(ultima_data.strftime('%Y%m%d')) + "_",
+                "logotipo":empresa.logotipo
             }
 
             rows.append(r)
@@ -1085,7 +1087,7 @@ class ServiceJson(View):
                     status_autorizado = False
 
             if status_autorizado:
-                oempresa.status = "OK"
+                oempresa.status = "ok"
             else:
                 oempresa.status = "LIMITADO"
         else:
@@ -1170,7 +1172,8 @@ class ServiceJson(View):
                 "bairros_atendimento":rows,
                 "aceita_cartao":empresa.aceita_cartao,
                 "aceita_valerefeicao":empresa.aceita_valerefeicao,
-                "aceita_pagamentoonline":empresa.aceita_pagamentoonline
+                "aceita_pagamentoonline":empresa.aceita_pagamentoonline,
+                "logotipo":empresa.logotipo
             }
 
         lista = json.dumps(r)
@@ -2408,7 +2411,8 @@ class ServiceJson(View):
                 "nota_atual":r.nota_atual,
                 "aceita_cartao":r.aceita_cartao,
                 "aceita_valerefeicao":r.aceita_valerefeicao,
-                "aceita_pagamentoonline":r.aceita_pagamentoonline
+                "aceita_pagamentoonline":r.aceita_pagamentoonline,
+                "logotipo":r.logotipo
             }
 
             rows.append(row)
@@ -2445,7 +2449,8 @@ class ServiceJson(View):
             "aceita_cartao":oPedido.empresa.aceita_cartao,
             "aceita_valerefeicao":oPedido.empresa.aceita_valerefeicao,
             "aceita_pagamentoonline": oPedido.empresa.aceita_pagamentoonline,
-            "restaurante_status":oPedido.empresa.status
+            "restaurante_status":oPedido.empresa.status,
+            "logotipo":oPedido.empresa.logotipo
         }
 
         # lista = serialize('json',rows)
