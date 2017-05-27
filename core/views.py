@@ -946,6 +946,8 @@ class ServiceJson(View):
         aceita_valerefeicao = request.POST.get("aceita_valerefeicao")
         aceita_pagamentoonline = request.POST.get("aceita_pagamentoonline")
         porcentagem_repasse = request.POST.get("porcentagem_repasse")
+        random_n = random.randint(1, 500000000)
+        foto = request.POST.get("logotipo")
 
         print porcentagem_repasse
 
@@ -1005,6 +1007,16 @@ class ServiceJson(View):
         else:
             oEmpresa.aceita_pagamentoonline=False
 
+        oEmpresa.save()
+
+        print foto
+
+        filename = str(oEmpresa.id) + '_' + str(random_n) + '.jpg'
+        image_data = open(settings.BASE_DIR + '/game7api/static/media/empresa/' + filename, "wb")
+        image_data.write(re.sub('^data:image/.+;base64,', '', foto).decode('base64'))
+        image_data.close()
+
+        oEmpresa.logotipo = filename
         oEmpresa.save()
 
         lista = "true"

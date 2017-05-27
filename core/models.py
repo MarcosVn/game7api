@@ -109,6 +109,7 @@ class Empresa(models.Model):
     aceita_pagamentoonline = models.BooleanField(default=False)
     status = models.CharField(max_length=512, default="ok")
     porcentagem_repasse = models.FloatField(default=12)
+    logotipo = models.CharField(max_length=1024, default="sem-logo.jpg")
 
     class Meta:
         verbose_name = "Empresa"

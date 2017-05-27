@@ -56,6 +56,12 @@
         <label class="control-label">Descrição</label><br/>
         <textarea id="descricao" name="descricao" rows="5" required="true" class="form-control"></textarea>
         <br/>
+
+        <label class="control-label">Logotipo</label><br/>
+        <small>Apenas Imagens .jpg</small>
+        <input type="hidden" name="id" value="30" />
+        <input type="file" ng-model="em.foto_principal" fileread="em.foto_principal" />
+        <img class="col-md-4 thumbnail" ng-src="{[em.foto_principal]}" />
     </div>
 
     <div class="col-md-4">
