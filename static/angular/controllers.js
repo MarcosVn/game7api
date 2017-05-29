@@ -111,7 +111,7 @@ game7App.controller('empresaCtrl', function($scope, Empresa, Estado, Cidade, Bai
     }
     $scope.atualizar_atendimento = function(){
         $scope.at.save_atendimento(
-            document.getElementById("bairro").value);
+            document.getElementById("bairro").value,document.getElementById("frete").value);
     }
     $scope.excluir_atendimento = function(){
         $scope.at.excluir_atendimento();
@@ -161,6 +161,10 @@ game7App.controller('funcionarioCtrl', function($scope, Funcionario) {
     }
     $scope.excluir = function(){
       $scope.fn.excluir_funcionario();
+    }
+
+    $scope.sair = function(){
+      $scope.fn.sair();
     }
 });
 
