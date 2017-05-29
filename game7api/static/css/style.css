@@ -2067,6 +2067,35 @@ margin-bottom: 35px !important;
 		background-color: #fff!important;
     }
 
+/*Login*/
+.login{
+    background-color:#FB4000;
+    color:#fff;
+    border-radius: 5px;
+}
+
+.login input{
+    color:#fff;
+}
+
+.login img{
+    width:150px;
+    margin:0 auto;
+    display:block;
+}
+
+/*Menu*/
+.menu{
+    background-color:#FB4000;
+}
+
+.menu a{
+    color:#fff!important;
+}
+
 /**/
-
-
+.alert-success{
+    text-align: center;
+    display: inline-block;
+    width: 100%;
+}

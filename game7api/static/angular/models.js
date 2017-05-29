@@ -1,7 +1,7 @@
-//URL_BASE = "http://0.0.0.0:8010/js/";
+URL_BASE = "http://0.0.0.0:8010/js/";
 //URL_BASE = "http://127.0.0.1:8000/js/";
 //URL_BASE = "https://serene-atoll-63219.herokuapp.com/js/";
-URL_BASE = "http://menuweb.com.br/js/";
+//URL_BASE = "http://menuweb.com.br/js/";
 
 function getTokens(){
     var tokens = [];            // new array to hold result
@@ -610,7 +610,6 @@ game7App.factory("Funcionario", function (Ajax,$http) {
           function(response){
             if(response != ''){
                 obj.logado = response[0].id;
-                alert(response[0].id);
                 window.localStorage.setItem("e_logado", response[0].id);
                 window.location = "/";
             }

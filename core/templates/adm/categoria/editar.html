@@ -3,14 +3,14 @@
 {% load staticfiles %}
 {% block content %}
 
-<div class="col-md-12" ng-app="game7App" ng-controller="categoriaCtrl" >
+<div class="content col-md-12" ng-app="game7App" ng-controller="categoriaCtrl" >
   <form enctype="multipart/form-data" method="post">
+    <div ng-if="ct.retorno">
+        <p class="alert alert-success" style="text-align:center;">Salvo com sucesso!</p>
+    </div>
     <div class="col-md-12">
         <h3>Editar Categoria</h3>
         <p>A alteração da categoria estará disponível assim que estiver salva.</p>
-    </div>
-    <div ng-if="ct.retorno">
-        <p class="alert alert-success" style="text-align:center;">Salvo com sucesso!</p>
     </div>
     <div class="col-md-8">
         <label class="control-label">Título</label><br/>
