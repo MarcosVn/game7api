@@ -16,8 +16,8 @@
                 <th></th>
             </tr>
             <tr ng-repeat="sub in pt.produtoselecionado[0].subcategorias">
-              <td class="col-md-11">{[sub.categoria]}</td>
-              <td class="col-md-11">{[sub.subcategoria]}</td>
+              <td class="col-md-5">{[sub.categoria]}</td>
+              <td class="col-md-5">{[sub.subcategoria]}</td>
               <td><a href="/adm/produto-categorias-excluir?subc_id={[sub.subcategoria_id]}&p_id={[pt.produtoselecionado[0].id]}" class="btn btn-danger btn-xs">excluir</a> </td>
             </tr>
         </table>

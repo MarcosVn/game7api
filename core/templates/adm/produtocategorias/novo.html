@@ -5,12 +5,12 @@
 
 <div class="col-md-12" ng-app="game7App" ng-controller="produtoCtrl">
   <form method="post">
+    <div ng-if="pt.retorno">
+        <p class="alert alert-success" style="text-align:center;">Salvo com sucesso!</p>
+    </div>
     <div class="col-md-12">
         <h3>Nova SubCategoria para o produto <b>{[pt.produtoselecionado[0].nome]}</b></h3>
         <p>A subcategoria do produto entrará em vigor assim que o mesmo for salvo.</p>
-    </div>
-    <div ng-if="pt.retorno">
-        <p class="alert alert-success" style="text-align:center;">Salvo com sucesso!</p>
     </div>
     <div class="col-md-8">
         <label class="control-label">Categoria</label><br/>

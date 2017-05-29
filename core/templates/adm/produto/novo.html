@@ -5,13 +5,14 @@
 
 <div class="col-md-12" ng-app="game7App" ng-controller="produtoCtrl">
   <form enctype="multipart/form-data" method="post">
+    <div ng-if="pt.retorno">
+        <p class="alert alert-success" style="text-align:center;">Salvo com sucesso!</p>
+    </div>
     <div class="col-md-12">
         <h3>Novo Produto</h3>
         <p>O Produto estará disponível assim que estiver salvo.</p>
     </div>
-    <div ng-if="pt.retorno">
-        <p class="alert alert-success" style="text-align:center;">Salvo com sucesso!</p>
-    </div>
+
     <div class="col-md-8">
         <label class="control-label">Empresa</label><br/>
         <select class="form-control" name="empresa" id="empresa" ng-options="empresa as empresa.nome for empresa in em.lista_empresas track by empresa.id" ng-model="sel_empresa"></select>

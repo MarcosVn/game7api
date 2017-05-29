@@ -5,12 +5,12 @@
 
 <div class="col-md-12" ng-app="game7App" ng-controller="produtoCtrl">
   <form method="post">
+    <div ng-if="pt.retorno">
+        <p class="alert alert-success" style="text-align:center;">Salvo com sucesso!</p>
+    </div>
     <div class="col-md-12">
         <h3>Editar Produto</h3>
         <p>A alteração da produto estará disponível assim que estiver salva.</p>
-    </div>
-    <div ng-if="pt.retorno">
-        <p class="alert alert-success" style="text-align:center;">Salvo com sucesso!</p>
     </div>
     <div class="col-md-8">
         <label class="control-label">Empresa</label><br/>
