@@ -3,10 +3,11 @@
   <component name="ChangeListManager">
     <list default="true" id="905ca3c0-ddf3-4b15-b409-18493b91c1ad" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/db.sqlite3" afterPath="$PROJECT_DIR$/db.sqlite3" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/templates/adm/tiposcozinha/editar.html" afterPath="$PROJECT_DIR$/core/templates/adm/tiposcozinha/editar.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/templates/adm/tiposcozinha/excluir.html" afterPath="$PROJECT_DIR$/core/templates/adm/tiposcozinha/excluir.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/templates/adm/tiposcozinha/novo.html" afterPath="$PROJECT_DIR$/core/templates/adm/tiposcozinha/novo.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/templates/adm/tiposcozinha/tiposcozinha.html" afterPath="$PROJECT_DIR$/core/templates/adm/tiposcozinha/tiposcozinha.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/templates/adm/funcionario/editar.html" afterPath="$PROJECT_DIR$/core/templates/adm/funcionario/editar.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/templates/adm/funcionario/excluir.html" afterPath="$PROJECT_DIR$/core/templates/adm/funcionario/excluir.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/templates/adm/funcionario/funcionarios.html" afterPath="$PROJECT_DIR$/core/templates/adm/funcionario/funcionarios.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/templates/adm/funcionario/novo.html" afterPath="$PROJECT_DIR$/core/templates/adm/funcionario/novo.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/views.py" afterPath="$PROJECT_DIR$/core/views.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -36,18 +37,28 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="editar.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/core/templates/adm/tiposcozinha/editar.html">
+      <file leaf-file-name="controllers.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/game7api/static/angular/controllers.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="75">
-              <caret line="5" column="29" lean-forward="false" selection-start-line="5" selection-start-column="29" selection-end-line="5" selection-end-column="29" />
+            <state relative-caret-position="540">
+              <caret line="165" column="15" lean-forward="false" selection-start-line="165" selection-start-column="11" selection-end-line="165" selection-end-column="15" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="excluir.html" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/core/templates/adm/tiposcozinha/excluir.html">
+      <file leaf-file-name="editar.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/core/templates/adm/funcionario/editar.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="135">
+              <caret line="9" column="10" lean-forward="false" selection-start-line="9" selection-start-column="10" selection-end-line="9" selection-end-column="10" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="excluir.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/core/templates/adm/funcionario/excluir.html">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="75">
               <caret line="5" column="31" lean-forward="false" selection-start-line="5" selection-start-column="31" selection-end-line="5" selection-end-column="31" />
@@ -56,31 +67,31 @@
           </provider>
         </entry>
       </file>
+      <file leaf-file-name="funcionarios.html" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/core/templates/adm/funcionario/funcionarios.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="105">
+              <caret line="7" column="20" lean-forward="false" selection-start-line="7" selection-start-column="20" selection-end-line="7" selection-end-column="20" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="novo.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/core/templates/adm/tiposcozinha/novo.html">
+        <entry file="file://$PROJECT_DIR$/core/templates/adm/funcionario/novo.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="210">
-              <caret line="14" column="24" lean-forward="false" selection-start-line="14" selection-start-column="23" selection-end-line="14" selection-end-column="24" />
+            <state relative-caret-position="300">
+              <caret line="20" column="69" lean-forward="false" selection-start-line="20" selection-start-column="68" selection-end-line="20" selection-end-column="69" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="tiposcozinha.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/core/templates/adm/tiposcozinha/tiposcozinha.html">
+      <file leaf-file-name="views.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/core/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="60">
-              <caret line="4" column="0" lean-forward="true" selection-start-line="4" selection-start-column="0" selection-end-line="4" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="controllers.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/game7api/static/angular/controllers.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="540">
-              <caret line="165" column="15" lean-forward="false" selection-start-line="165" selection-start-column="11" selection-end-line="165" selection-end-column="15" />
+            <state relative-caret-position="190">
+              <caret line="1404" column="30" lean-forward="true" selection-start-line="1404" selection-start-column="30" selection-end-line="1404" selection-end-column="30" />
               <folding />
             </state>
           </provider>
@@ -95,6 +106,7 @@
       <find>save_em</find>
       <find>alert</find>
       <find>funciona</find>
+      <find>funcionarios</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -106,7 +118,6 @@
         <option value="$PROJECT_DIR$/core/models.py" />
         <option value="$PROJECT_DIR$/core/templates/adm/produto/ver.html" />
         <option value="$PROJECT_DIR$/core/templates/adm/empresa/novo.html" />
-        <option value="$PROJECT_DIR$/core/views.py" />
         <option value="$PROJECT_DIR$/core/templates/adm/empresa/ver.html" />
         <option value="$PROJECT_DIR$/game7api/settings.py" />
         <option value="$PROJECT_DIR$/static/angular/models.js" />
@@ -129,6 +140,11 @@
         <option value="$PROJECT_DIR$/core/templates/adm/tiposcozinha/tiposcozinha.html" />
         <option value="$PROJECT_DIR$/core/templates/adm/tiposcozinha/editar.html" />
         <option value="$PROJECT_DIR$/core/templates/adm/tiposcozinha/excluir.html" />
+        <option value="$PROJECT_DIR$/core/templates/adm/funcionario/editar.html" />
+        <option value="$PROJECT_DIR$/core/templates/adm/funcionario/novo.html" />
+        <option value="$PROJECT_DIR$/core/views.py" />
+        <option value="$PROJECT_DIR$/core/templates/adm/funcionario/excluir.html" />
+        <option value="$PROJECT_DIR$/core/templates/adm/funcionario/funcionarios.html" />
       </list>
     </option>
   </component>
@@ -349,7 +365,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="tiposcozinha" />
+              <option name="myItemId" value="funcionario" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -554,34 +570,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/static/angular/models.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="7710">
-          <caret line="514" column="15" lean-forward="false" selection-start-line="514" selection-start-column="8" selection-end-line="514" selection-end-column="15" />
-          <folding>
-            <element signature="e#0#30342#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/core/views.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="37335">
-          <caret line="2489" column="0" lean-forward="true" selection-start-line="2489" selection-start-column="0" selection-end-line="2489" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#65#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/core/templates/adm/empresa/empresas.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/core/templates/adm/produto/editar.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="495">
@@ -641,16 +629,6 @@
         <state relative-caret-position="435">
           <caret line="29" column="0" lean-forward="false" selection-start-line="29" selection-start-column="0" selection-end-line="35" selection-end-column="73" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/core/views.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="37080">
-          <caret line="2489" column="0" lean-forward="false" selection-start-line="2489" selection-start-column="0" selection-end-line="2489" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#65#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -915,22 +893,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/game7api/static/angular/controllers.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="540">
-          <caret line="165" column="15" lean-forward="false" selection-start-line="165" selection-start-column="11" selection-end-line="165" selection-end-column="15" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/core/templates/adm/funcionario/novo.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/core/templates/adm/cliente/clientes.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -973,16 +935,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/game7api/static/angular/models.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
-          <caret line="605" column="0" lean-forward="true" selection-start-line="605" selection-start-column="0" selection-end-line="605" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#30515#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/core/templates/adm/tiposcozinha/novo.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="210">
@@ -1009,8 +961,66 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/core/templates/adm/tiposcozinha/excluir.html">
       <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="285">
+          <caret line="19" column="0" lean-forward="true" selection-start-line="19" selection-start-column="0" selection-end-line="19" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/game7api/static/angular/models.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="153">
+          <caret line="605" column="0" lean-forward="true" selection-start-line="605" selection-start-column="0" selection-end-line="605" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#30515#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/game7api/static/angular/controllers.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="540">
+          <caret line="165" column="15" lean-forward="false" selection-start-line="165" selection-start-column="11" selection-end-line="165" selection-end-column="15" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/templates/adm/funcionario/editar.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="135">
+          <caret line="9" column="10" lean-forward="false" selection-start-line="9" selection-start-column="10" selection-end-line="9" selection-end-column="10" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/templates/adm/funcionario/novo.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="300">
+          <caret line="20" column="69" lean-forward="false" selection-start-line="20" selection-start-column="68" selection-end-line="20" selection-end-column="69" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/views.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="190">
+          <caret line="1404" column="30" lean-forward="true" selection-start-line="1404" selection-start-column="30" selection-end-line="1404" selection-end-column="30" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/templates/adm/funcionario/excluir.html">
+      <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="75">
           <caret line="5" column="31" lean-forward="false" selection-start-line="5" selection-start-column="31" selection-end-line="5" selection-end-column="31" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/templates/adm/funcionario/funcionarios.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="105">
+          <caret line="7" column="20" lean-forward="false" selection-start-line="7" selection-start-column="20" selection-end-line="7" selection-end-column="20" />
           <folding />
         </state>
       </provider>

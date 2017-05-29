@@ -5,12 +5,12 @@
 
 <div class="col-md-12" ng-app="game7App" ng-controller="funcionarioCtrl">
   <form method="post">
+    <div ng-if="fn.retorno">
+        <p class="alert alert-success" style="text-align:center;">Salvo com sucesso!</p>
+    </div>
     <div class="col-md-12">
         <h3>Editar Funcionário</h3>
         <p>A alteração da funcionário estará disponível assim que estiver salva.</p>
-    </div>
-    <div ng-if="fn.retorno">
-        <p class="alert alert-success" style="text-align:center;">Salvo com sucesso!</p>
     </div>
     <div class="col-md-8">
         <label class="control-label">Nome</label><br/>

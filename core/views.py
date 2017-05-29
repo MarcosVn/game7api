@@ -1408,7 +1408,7 @@ class ServiceJson(View):
 
         # Filtros
         nome = request.GET.get("nome")
-        id = request.GET.get("id")
+        id = request.GET.get("funcionario_id")
         email = request.GET.get("email")
 
         if (id == 'undefined'):
