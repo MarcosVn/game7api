@@ -162,6 +162,10 @@ game7App.controller('funcionarioCtrl', function($scope, Funcionario) {
     $scope.excluir = function(){
       $scope.fn.excluir_funcionario();
     }
+
+    $scope.sair = function(){
+      $scope.fn.sair();
+    }
 });
 
 game7App.controller('produtoCtrl', function($scope, Produto, Empresa, Categoria, SubCategoria, Funcionario) {
