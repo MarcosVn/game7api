@@ -560,12 +560,13 @@ game7App.factory("Atendimento", function (Ajax,$http) {
     var obj = {
         retorno : false,
     };
-    obj.save_atendimento = function (empresa_bairro) {
+    obj.save_atendimento = function (empresa_bairro, empresa_frete) {
         var url = URL_BASE + "saveempresabairro";
 
         var f = new FormData();
         f.append('id', TOKENS['e_id']);
         f.append('bairro', empresa_bairro);
+        f.append('frete', empresa_frete);
         $http.post(url, f, {headers: {'Content-Type': undefined}}).success(
           function(response){
             obj.retorno = response;

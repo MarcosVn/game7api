@@ -3,12 +3,12 @@
 {% load staticfiles %}
 {% block content %}
 
-  <div class="content" ng-app="game7App" ng-controller="empresaCtrl">
-    <div class="col-md-12">
-        <h2>Bairro de Atendimento - <small>Exclusão</small></h2>
-    </div>
+  <div class="content col-md-12" ng-app="game7App" ng-controller="empresaCtrl">
     <div ng-if="at.retorno">
         <p class="alert alert-success" style="text-align:center;">Excluido com sucesso!</p>
+    </div>
+    <div class="col-md-12">
+        <h2>Bairro de Atendimento - <small>Exclusão</small></h2>
     </div>
     <div class="col-md-10">
         <p>A exclusão terá efeito imediato</p>

@@ -3,20 +3,20 @@
 {% load staticfiles %}
 {% block content %}
 
-  <div class="content" ng-app="game7App" ng-controller="clienteCtrl">
-    <div class="col-md-12">
-        <h2>Cliente - <small>Exclusão</small></h2>
-    </div>
-    <div ng-if="cl.retorno">
+  <div class="content col-md-12" ng-app="game7App" ng-controller="empresaCtrl">
+    <div ng-if="em.retorno">
         <p class="alert alert-success" style="text-align:center;">Excluido com sucesso!</p>
+    </div>
+    <div class="col-md-12">
+        <h2>Empresa - <small>Exclusão</small></h2>
     </div>
     <div class="col-md-10">
         <p>A exclusão terá efeito imediato</p>
-        <p>Tem certeza que deseja excluir o Cliente <b>{[cl.clienteselecionado[0].nome]}</b> ? </p>
+        <p>Tem certeza que deseja excluir a Empresa <b>{[em.empresaselecionado[0].nome]}</b> ? </p>
     </div>
     <div class="col-md-2">
         <a ng-click="excluir()" style="display: block;width: 100%;" class="btn btn-success btn-lg">Sim</a>
-        <a href="/adm/clientes" style="display: block;width: 100%;" class="btn btn-default">Cancelar</a>
+        <a href="/adm/filiados" style="display: block;width: 100%;" class="btn btn-default">Cancelar</a>
     </div>
 
   </div>

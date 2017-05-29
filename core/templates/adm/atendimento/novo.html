@@ -5,12 +5,12 @@
 
 <div class="col-md-12" ng-app="game7App" ng-controller="empresaCtrl">
   <form method="post">
+    <div ng-if="at.retorno">
+        <p class="alert alert-success" style="text-align:center;">Salvo com sucesso!</p>
+    </div>
     <div class="col-md-12">
         <h3>Novo Bairro de Atendimento para a <b>{[em.empresaselecionado[0].nome]}</b></h3>
         <p>O bairro de abrangencia de empresa entrará em vigor assim que o mesmo for salvo.</p>
-    </div>
-    <div ng-if="at.retorno">
-        <p class="alert alert-success" style="text-align:center;">Salvo com sucesso!</p>
     </div>
     <div class="col-md-8">
         <label class="control-label">Estado</label><br/>
@@ -23,6 +23,10 @@
 
         <label class="control-label">Bairro</label><br/>
         <select class="form-control" name="bairro" id="bairro" ng-options="bairro as bairro.fields.nome for bairro in br.lista_bairros track by bairro.pk" ng-model="sel_bairro"></select>
+        <br/>
+
+        <label class="control-label">Preço do Frete</label><br/>
+        <input type="text" id="frete" name="frete" required="True" class="form-control"/>
         <br/>
     </div>
 
