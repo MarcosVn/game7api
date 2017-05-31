@@ -17,27 +17,28 @@
             <a ng-click="filtrar()" class="btn btn-default">Filtrar</a>
         </div>
       </div>
-      <div class="col-md-10">
+      <div class="col-md-12">
         <table class="table">
             <tr>
                 <th>Data</th>
                 <th>Cliente</th>
+                <th>Empresa</th>
                 <th>Total</th>
+                <th>Status</th>
                 <th></th>
                 <th></th>
             </tr>
             <tr ng-repeat="pedido in pe.lista_pedidos">
-              <td class="col-md-4">{[pedido.data]}</td>
-              <td class="col-md-4">{[pedido.cliente]}</td>
-              <td class="col-md-2">R$ {[pedido.total]}</td>
+              <td>{[pedido.data]}</td>
+              <td>{[pedido.cliente]}</td>
+              <td>{[pedido.empresa]}</td>
+              <td>R$ {[pedido.total]}</td>
+              <td>{[pedido.status]}</td>
               <td><a href="/adm/filiado/atendimentos?e_id={[empresa.id]}" class="btn btn-default btn-xs">atendimento</a></td>
               <td><a href="/adm/filiado-ver?e_id={[empresa.id]}" class="btn btn-primary btn-xs">ver</a> </td>
             </tr>
 
         </table>
-    </div>
-    <div class="col-md-2">
-        <a href="/adm/pedido-nova?p_id=0" class="btn btn-primary btn-lg">Novo Pedido</a>
     </div>
 </div>
 

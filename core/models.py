@@ -14,7 +14,6 @@ class Estado(models.Model):
     def __unicode__(self):
         return str(self.nome)
 
-
 class Cidade(models.Model):
     id = models.AutoField(primary_key=True)
     nome = models.CharField(max_length=256)
@@ -27,7 +26,6 @@ class Cidade(models.Model):
     def __unicode__(self):
         return str(self.nome)
 
-
 class Abertura(models.Model):
     id = models.AutoField(primary_key=True)
     abertura = models.DateTimeField()
@@ -37,7 +35,6 @@ class Abertura(models.Model):
     class Meta:
         verbose_name = "Abertura"
         verbose_name_plural = "Aberturas"
-
 
 class Bairro(models.Model):
     id = models.AutoField(primary_key=True)
@@ -51,7 +48,6 @@ class Bairro(models.Model):
     def __unicode__(self):
         return str(self.nome)
 
-
 class TipoCozinha(models.Model):
     id = models.AutoField(primary_key=True)
     nome = models.CharField(max_length=256)
@@ -62,7 +58,6 @@ class TipoCozinha(models.Model):
 
     def __unicode__(self):
         return str(self.nome)
-
 
 class TipoPreco(models.Model):
     id = models.AutoField(primary_key=True)
@@ -75,7 +70,6 @@ class TipoPreco(models.Model):
     def __unicode__(self):
         return str(self.nome)
 
-
 class TipoTempo(models.Model):
     id = models.AutoField(primary_key=True)
     nome = models.CharField(max_length=256)
@@ -86,7 +80,6 @@ class TipoTempo(models.Model):
 
     def __unicode__(self):
         return str(self.nome)
-
 
 class Empresa(models.Model):
     id = models.AutoField(primary_key=True)
@@ -148,7 +141,6 @@ class Repasse(models.Model):
     def __unicode__(self):
         return str(self.referencia)
 
-
 class Cliente(models.Model):
     id = models.AutoField(primary_key=True)
     nome = models.CharField(max_length=512)
@@ -167,7 +159,6 @@ class Cliente(models.Model):
     def __unicode__(self):
         return str(self.nome)
 
-
 class Categoria(models.Model):
     id = models.AutoField(primary_key=True)
     nome = models.CharField(max_length=256)
@@ -178,7 +169,6 @@ class Categoria(models.Model):
 
     def __unicode__(self):
         return str(self.nome)
-
 
 class SubCategoria(models.Model):
     id = models.AutoField(primary_key=True)
@@ -191,7 +181,6 @@ class SubCategoria(models.Model):
 
     def __unicode__(self):
         return str(self.nome)
-
 
 class Produto(models.Model):
     id = models.AutoField(primary_key=True)
@@ -208,7 +197,6 @@ class Produto(models.Model):
     def __unicode__(self):
         return str(self.nome)
 
-
 class Carrinho(models.Model):
     id = models.AutoField(primary_key=True)
     quantidade=models.IntegerField(default=1)
@@ -223,7 +211,6 @@ class Carrinho(models.Model):
     def __unicode__(self):
         return str(self.produto.nome)
 
-
 class Bandeira(models.Model):
     id = models.AutoField(primary_key=True)
     titulo = models.CharField(max_length=512)
@@ -234,7 +221,6 @@ class Bandeira(models.Model):
         verbose_name_plural = "Bandeiras"
     def __unicode__(self):
         return self.titulo
-
 
 class Pedido(models.Model):
     id = models.AutoField(primary_key=True)
@@ -271,7 +257,6 @@ class Pagamento(models.Model):
     def __unicode__(self):
         return self.obs
 
-
 class Avaliacao(models.Model):
     id = models.AutoField(primary_key=True)
     pedido = models.ForeignKey("Pedido", null=True, related_name="Avaliacoes")
@@ -286,7 +271,6 @@ class Avaliacao(models.Model):
     def __unicode__(self):
         return str(self.nota)
 
-
 class Item(models.Model):
     id=models.AutoField(primary_key=True)
     pedido=models.ForeignKey("Pedido", related_name="Itens")
@@ -300,7 +284,6 @@ class Item(models.Model):
 
     def __unicode__(self):
         return self.produto.nome + "_" + str(self.id)
-
 
 class Funcionario(models.Model):
     id = models.AutoField(primary_key=True)
