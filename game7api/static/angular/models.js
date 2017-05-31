@@ -863,11 +863,12 @@ game7App.factory("Pedido", function (Ajax,$http) {
         pedidoselecionado: [],
         retorno : false
     };
-    obj.get_pedidos= function (data_pedido) {
+    obj.get_pedidos= function (data_pedido, status) {
         var url = URL_BASE + "pedidos";
         var params = {
             empresa_id:TOKENS["e_id"],
-            data:data_pedido
+            data:data_pedido,
+            status:status
         }
         $http({
             method: "GET",

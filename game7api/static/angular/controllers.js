@@ -227,7 +227,7 @@ game7App.controller('pedidoCtrl', function($scope, Pedido, Empresa, Funcionario)
     $scope.pe.get_pedidos();
 
     $scope.filtrar = function(){
-        $scope.pe.get_pedidos(document.getElementById("ipFiltrodata").value);
+        $scope.pe.get_pedidos($("#ipFiltrodata").val(),$("#selStatus").val());
     }
     $scope.atualizar = function(){
         $scope.pe.save_pedido(
