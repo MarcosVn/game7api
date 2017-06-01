@@ -98,6 +98,7 @@ game7App.controller('empresaCtrl', function($scope, Empresa, Estado, Cidade, Bai
             document.getElementById("endereco").value,
             document.getElementById("descricao").value,
             document.getElementById("tipocozinha").value,
+            document.getElementById("valor_mensalidade").value,
             document.getElementById("porcentagem_repasse").value);
     }
     $scope.excluir = function(){
@@ -276,5 +277,23 @@ game7App.controller('tiposcozinhasCtrl', function($scope, TipoCozinha) {
     }
     $scope.excluir = function(){
       $scope.tc.excluir_tipocozinha();
+    }
+});
+
+game7App.controller('mensalidadesCtrl', function($scope, Mensalidade) {
+    $scope.ms = Mensalidade;
+    $scope.ms.get_mensalidades();
+
+    $scope.filtrar = function(){
+        $scope.ms.get_mensalidades($("#ipFiltroData").val(),$("#selStatus").val());
+    }
+    $scope.gerarmensalidade = function(id){
+        $scope.ms.gerar_mensalidade(id);
+    }
+    $scope.recebermensalidade = function(id){
+        $scope.ms.receber_mensalidade(id);
+    }
+    $scope.cancelar = function(id){
+      $scope.ms.cancelar_mensalidade(id);
     }
 });

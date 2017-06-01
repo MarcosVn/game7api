@@ -29,6 +29,7 @@
                 <th>Tipo de Cozinha</th>
                 <th>Telefone</th>
                 <th>Porcentagem de Repasse</th>
+                <th>Valor da Mensalidade</th>
                 <th></th>
                 <th></th>
                 <th></th>
@@ -39,6 +40,7 @@
               <td class="col-md-4">{[empresa.tipo_cozinha]}</td>
               <td class="col-md-2">{[empresa.telefone]}</td>
               <td class="col-md-2">{[empresa.porcentagem_repasse]} %</td>
+              <td class="col-md-2">R$ {[empresa.valor_mensalidade]}</td>
               <td><a href="/adm/filiado/atendimentos?e_id={[empresa.id]}" class="btn btn-default btn-xs">atendimento</a></td>
               <td><a href="/adm/filiado-edicao?e_id={[empresa.id]}" class="btn btn-primary btn-xs">editar</a></td>
               <td><a href="/adm/filiado-ver?e_id={[empresa.id]}" class="btn btn-primary btn-xs">ver</a> </td>

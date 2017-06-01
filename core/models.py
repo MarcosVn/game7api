@@ -103,6 +103,7 @@ class Empresa(models.Model):
     status = models.CharField(max_length=512, default="ok")
     porcentagem_repasse = models.FloatField(default=12)
     logotipo = models.CharField(max_length=1024, default="sem-logo.jpg")
+    valor_mensalidade = models.FloatField(default=0.0)
 
     class Meta:
         verbose_name = "Empresa"
@@ -299,3 +300,18 @@ class Funcionario(models.Model):
 
     def __unicode__(self):
         return str(self.nome)
+
+class Mensalidade(models.Model):
+    id = models.AutoField(primary_key=True)
+    valor = models.FloatField(default=0.0)
+    titulo = models.CharField(max_length=512)
+    empresa = models.ForeignKey("Empresa", related_name="Mensalidades")
+    data_pagamento = models.DateField(null=True)
+    data_cobranca = models.DateField(auto_now=True)
+    status = models.CharField(max_length=512, default="Aguardando Pagamento")
+    class Meta:
+        verbose_name = "Mensalidade"
+        verbose_name_plural = "Mensalidades"
+
+    def __unicode__(self):
+        return self.titulo

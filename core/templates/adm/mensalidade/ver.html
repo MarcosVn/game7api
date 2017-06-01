@@ -17,10 +17,6 @@
             {[em.empresaselecionado[0].email]}
             <br/><br/>
 
-            <b>Tipo de Cozinha</b><br/>
-            {[em.empresaselecionado[0].tipo_cozinha]}
-            <br/><br/>
-
             <b>Telefone</b><br/>
             {[em.empresaselecionado[0].telefone]}
             <br/><br/>
@@ -40,23 +36,12 @@
             <b>Endereço</b><br/>
             {[em.empresaselecionado[0].endereco]}
             <br/><br/>
-
-           <b>Porcentagem de Repasse</b><br/>
-            {[em.empresaselecionado[0].porcentagem_repasse]} %
-            <br/><br/>
-
-           <b>Valor da Mensalidade</b><br/>
-            R$ {[em.empresaselecionado[0].valor_mensalidade]}
-            <br/><br/>
         </div>
         <div class="col-md-6">
-            <b>Logotipo</b><br/>
-            <img src="/game7api/static/media/empresa/{[em.empresaselecionado[0].logotipo]}" class="img-thumbnail">
-
             <b>Bairros</b><br/>
-            <ul class="list-group">
-                <li class="list-group-item" ng-repeat="bairro in em.empresaselecionado[0].bairros">
-                    {[bairro.bairro]}
+            <ul>
+                <li ng-repeat="bairro in em.empresasselecionado[0].bairros">
+                    fwefeew
                 </li>
             </ul>
         </div>

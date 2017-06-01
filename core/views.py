@@ -194,6 +194,9 @@ class adminLimitarEmpresaView(View):
     def get(self, request, *args, **kwargs):
         return render_to_response('adm/repasse/limitar.html', {}, RequestContext(request))
 
+class adminMensalidadesView(View):
+    def get(self, request, *args, **kwargs):
+        return render_to_response('adm/mensalidade/mensalidades.html', {}, RequestContext(request))
 
 class ServiceJson(View):
     @staticmethod
@@ -780,6 +783,7 @@ class ServiceJson(View):
                 "aceita_valerefeicao":empresa.aceita_valerefeicao,
                 "aceita_pagamentoonline":empresa.aceita_pagamentoonline,
                 "porcentagem_repasse":empresa.porcentagem_repasse,
+                "valor_mensalidade":empresa.valor_mensalidade,
                 "logotipo":empresa.logotipo
             }
 
@@ -951,6 +955,7 @@ class ServiceJson(View):
         aceita_valerefeicao = request.POST.get("aceita_valerefeicao")
         aceita_pagamentoonline = request.POST.get("aceita_pagamentoonline")
         porcentagem_repasse = request.POST.get("porcentagem_repasse")
+        valor_mensalidade = request.POST.get("valor_mensalidade")
         random_n = random.randint(1, 500000000)
         foto = request.POST.get("logotipo")
 
@@ -996,6 +1001,9 @@ class ServiceJson(View):
 
         if endereco:
             oEmpresa.endereco=endereco
+
+        if valor_mensalidade:
+            oEmpresa.valor_mensalidade = valor_mensalidade
 
         if aceita_cartao != 'undefined':
             oEmpresa.aceita_cartao=True
@@ -2507,3 +2515,117 @@ class ServiceJson(View):
 
         return HttpResponse(lista, content_type='application/json')
 
+
+    @staticmethod
+    @csrf_exempt
+    def savemensalidade(request):
+        # Filtros
+        empresa_id = request.POST.get("empresa_id")
+        id = request.POST.get("id")
+        status = request.POST.get("status")
+
+        lista_empresas = Empresa.objects.all()
+
+        if (empresa_id):
+            if (empresa_id == 'undefined'):
+                empresa_id = 0
+        if int(empresa_id) > 0:
+            lista_empresas = Empresa.objects.filter(empresa__id=empresa_id)
+
+
+        data_atual = datetime.now()
+
+
+        for oEmpresa in lista_empresas:
+            # Objeto de Mensalidades
+            oMensalidade = Mensalidade()
+
+
+            if (id):
+                if (id == 'undefined'):
+                    id = 0
+
+            if (int(id) > 0):
+                oMensalidade = Mensalidade.objects.get(id=id)
+            else:
+                oMensalidade.titulo = oEmpresa.nome + "_" + str(data_atual.year) + str(data_atual.month) + str(data_atual.day)
+                oMensalidade.valor = oEmpresa.valor_mensalidade
+                oMensalidade.empresa = oEmpresa
+                oMensalidade.data_cobranca = data_atual
+
+            oMensalidade.status = status
+
+            if not status == "Aguardando Pagamento":
+                oMensalidade.data_pagamento = data_atual
+
+            oMensalidade.save()
+
+        lista = "true"
+
+        return HttpResponse(lista, content_type='application/json')
+
+    @staticmethod
+    def excluirmensalidade(request):
+        id = request.GET.get("id")
+
+        # Query Base
+        oMensalidade = Mensalidade.objects.filter(id=id).first()
+        oMensalidade.delete()
+
+        lista = "true"
+        return HttpResponse(lista, content_type='application/json')
+
+    @staticmethod
+    def mensalidades(request):
+        # Query Base
+        query = Mensalidade.objects.all().order_by("-data_cobranca")
+
+        # Filtros
+        data = request.GET.get("data")
+        status = request.GET.get("status")
+        empresa_id = request.GET.get("empresa_id")
+        id = request.GET.get("id")
+
+        if (id == 'undefined'):
+            id = int()
+            id = 0
+
+        if not (id):
+            id = int()
+            id = 0
+
+        if (status):
+            query = query.filter(status__icontains=status)
+        if (id > 0):
+            query = query.filter(id=id)
+        if (data):
+            query = query.filter(data_cobranca__gte=data, data_cobranca__lte=data)
+        if (empresa_id):
+            query = query.filter(empresa__id=empresa_id)
+
+
+        rows = []
+
+        for mensalidade in query:
+
+            data_pagamento =''
+
+            if mensalidade.data_pagamento:
+                data_pagamento = mensalidade.data_pagamento.strftime('%d-%m-%Y')
+
+            r = {
+                "id": mensalidade.id,
+                "valor": mensalidade.valor,
+                "titulo": mensalidade.titulo,
+                "empresa_nome": mensalidade.empresa.nome,
+                "empresa_id": mensalidade.empresa.id,
+                "data_pagamento":data_pagamento,
+                "data_cobranca":mensalidade.data_cobranca.strftime('%d-%m-%Y'),
+                "status":mensalidade.status
+            }
+
+            rows.append(r)
+
+
+        lista = json.dumps(list(rows))
+        return HttpResponse(lista, content_type='application/json')

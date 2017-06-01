@@ -48,6 +48,7 @@ urlpatterns = [
     url(r'^adm/cliente-excluir/', adminClienteExcluirView.as_view(), name="ExcluirCliente-adm"),
     url(r'^adm/cliente-ver/', adminClienteVerView.as_view(), name="VerCliente-adm"),
     url(r'^adm/cliente-edicao/', adminClienteEdicaoView.as_view(), name="EdicaoCliente-adm"),
+    url(r'^adm/mensalidades/', adminMensalidadesView.as_view(), name="Mensalidades-adm"),
 
     url(r'^adm/cliente-recuperarsenha/', adminClienteRecuperarSenha.as_view(), name="EdicaoCliente-adm"),
 
@@ -100,6 +101,7 @@ urlpatterns = [
     url(r'^js/carrinho', ServiceJson.carrinho, name='carrinho'),
     url(r'^js/bandeiras', ServiceJson.bandeiras, name='bandeiras'),
     url(r'^js/repasses', ServiceJson.repasses, name='repasses'),
+    url(r'^js/mensalidades', ServiceJson.mensalidades, name='mensalidades'),
     # url(r'^js/tipospagamentos', ServiceJson.tipospagamentos, name='tipospagamentos'),
 
 
@@ -122,6 +124,7 @@ urlpatterns = [
     url(r'^js/savecarrinho', ServiceJson.savecarrinho, name='savecarrinho'),
     url(r'^js/savetipopagamentopedido', ServiceJson.savetipopagamentopedido, name='savetipopagamentopedido'),
     url(r'^js/saveobspagamentopedido', ServiceJson.saveobspagamentopedido, name='saveobspagamentopedido'),
+    url(r'^js/savemensalidade', ServiceJson.savemensalidade, name='savemensalidade'),
     url(r'^js/efetuar-pagamento', ServiceJson.efetuarpagamento, name='efetuarpagamento'),
     url(r'^js/savepedidostatus$', ServiceJson.savepedido_status, name='savepedidostatus'),
     url(r'^js/criarrepasse', ServiceJson.criarrepasse, name='criarrepasse'),
@@ -139,6 +142,7 @@ urlpatterns = [
     url(r'^js/excluirpedido', ServiceJson.excluirpedido, name='excluirpedido'),
     url(r'^js/excluirtipocozinha', ServiceJson.excluirtipocozinha, name='excluirtipocozinha'),
     url(r'^js/excluircarrinho', ServiceJson.excluircarrinho, name='excluircarrinho'),
+    url(r'^js/excluirmensalidade', ServiceJson.excluirmensalidade, name='excluirmensalidade'),
 
     url(r'^js/abrirempresa', ServiceJson.abrirempresa, name='abrirempresa'),
     url(r'^js/fecharempresa', ServiceJson.fecharempresa, name='fecharempresa'),
