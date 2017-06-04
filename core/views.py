@@ -392,7 +392,10 @@ class ServiceJson(View):
                 "bairro":cliente.bairro.nome,
                 "bairro_id":cliente.bairro.id,
                 "estado":cliente.cidade.estado.nome,
-                "estado_id":cliente.cidade.estado.id
+                "estado_id":cliente.cidade.estado.id,
+                "complemento": cliente.complemento,
+                "numero": cliente.numero,
+                "cep": cliente.cep
             }
 
             rows.append(r)
@@ -423,7 +426,10 @@ class ServiceJson(View):
                 "bairro":cliente.bairro.nome,
                 "bairro_id":cliente.bairro.id,
                 "estado":cliente.cidade.estado.nome,
-                "estado_id":cliente.cidade.estado.id
+                "estado_id":cliente.cidade.estado.id,
+                "complemento":cliente.complemento,
+                "numero":cliente.numero,
+                "cep":cliente.cep
             }
 
             rows.append(r)
@@ -442,6 +448,9 @@ class ServiceJson(View):
         endereco = request.POST.get("endereco")
         bairro_id = request.POST.get("bairro")
         cidade_id = request.POST.get("cidade")
+        numero = request.POST.get("numero")
+        complemento = request.POST.get("complemento")
+        cep = request.POST.get("cep")
 
         # Objeto de Clientes
         oCliente = Cliente()
@@ -460,6 +469,12 @@ class ServiceJson(View):
             oCliente.telefone = telefone
         if(endereco):
             oCliente.endereco = endereco
+        if(numero):
+            oCliente.numero = numero
+        if(complemento):
+            oCliente.complemento = complemento
+        if(cep):
+            oCliente.cep = cep
         if(bairro_id):
             if not (bairro_id == '?'):
                 oCliente.bairro = Bairro.objects.filter(id=bairro_id).first()

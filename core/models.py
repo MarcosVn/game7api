@@ -87,7 +87,10 @@ class Empresa(models.Model):
     email = models.CharField(max_length=512)
     senha = models.CharField(max_length=128)
     cidade = models.ForeignKey("Cidade")
+    cep = models.CharField(max_length=15, default="")
     endereco = models.CharField(max_length=512)
+    numero = models.IntegerField(default=0)
+    complemento = models.CharField(max_length=512, default="")
     bairro = models.ForeignKey("Bairro")
     telefone = models.CharField(max_length=128)
     descricao = models.CharField(max_length=1024)
@@ -148,9 +151,12 @@ class Cliente(models.Model):
     email = models.CharField(max_length=512)
     senha = models.CharField(max_length=128)
     telefone = models.CharField(max_length=128)
+    cep = models.CharField(max_length=15, default="")
     endereco = models.CharField(max_length=512)
     cidade = models.ForeignKey("Cidade")
     bairro = models.ForeignKey("Bairro")
+    numero = models.IntegerField(default=0)
+    complemento = models.CharField(max_length=512, default="")
     # geometria = models.PointField(blank=True, null=True, srid=4326)
 
     class Meta:
