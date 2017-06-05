@@ -298,6 +298,7 @@ game7App.factory("Cliente", function (Ajax,$http) {
         lista_clientes: [],
         clienteselecionado: [],
         retorno : false,
+        sel_cidade:"1"
     };
     obj.get_clientes = function (nome_cliente, email_cliente) {
         var url = URL_BASE + "clientes";
@@ -355,6 +356,7 @@ game7App.factory("Cliente", function (Ajax,$http) {
             console.log("Erro");
         });
     };
+
     obj.save_cliente = function (cliente_nome, cliente_email, cliente_senha, cliente_telefone, cliente_estado, cliente_cidade, cliente_bairro, cliente_endereco, cliente_numero, cliente_complemento, cliente_cep) {
         var url = URL_BASE + "savecliente";
 

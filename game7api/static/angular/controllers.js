@@ -35,7 +35,9 @@ game7App.controller('subcategoriaCtrl', function($scope, SubCategoria, Categoria
     }
 });
 
-game7App.controller('clienteCtrl', function($scope, Cliente, Estado, Cidade, Bairro, Funcionario) {
+game7App.controller('clienteCtrl', function($scope,$http, Cliente, Estado, Cidade, Bairro, Funcionario) {
+    enderecocep = [];
+
     $scope.fn = Funcionario;
     $scope.fn.verifica_login();
 
@@ -75,6 +77,72 @@ game7App.controller('clienteCtrl', function($scope, Cliente, Estado, Cidade, Bai
     }
     $scope.getbairros = function(){
         $scope.br.get_bairros(document.getElementById("cidade").value);
+    }
+    $scope.getcep = function(){
+        cep = $("#cep").val();
+        //Get relação de clientes
+        var url = "http://viacep.com.br/ws/"+ cep + "/json/";
+        var params = {
+        }
+        $http({
+            method: "GET",
+            params: params,
+            url: url,
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }).then(function successCallback(response) {
+            enderecocep = response.data;
+
+            //Endereco
+            $("#endereco").val(enderecocep.logradouro);
+
+            //Estado
+            if(enderecocep.uf = "SP"){
+                $("#estado").val("1");
+            }
+
+            //Cidade
+            $scope.cd.get_cidades($("#estado").val());
+
+
+
+            //Bairro
+//            $scope.br.get_bairros($("#cidade").val());
+//            selbairro = $("#bairro");
+//            for (var i = 0; i < selbairro.options.length; i++) {
+//                if (selbairro.options[i].text === enderecocep.bairro) {
+//                    selbairro.selectedIndex = i;
+//                    break;
+//                }
+//            }
+
+
+        }, function errorCallback(response) {
+            console.log("Erro");
+        });
+    }
+
+    function set_cidade() {
+        selcidade = $("#cidade");
+        for (var i = 0; i < selcidade.options.length; i++) {
+            if (selcidade.options[i].text === enderecocep.cidade) {
+                selcidade.selectedIndex = i;
+                break;
+            }
+        }
+
+        $scope.br.get_bairros($("#cidade").val());
+    }
+
+    function set_bairro() {
+        selbairro = $("#bairro");
+        for (var i = 0; i < selbairro.options.length; i++) {
+            if (selbairro.options[i].text === enderecocep.bairro) {
+                selbairro.selectedIndex = i;
+                break;
+            }
+        }
     }
 });
 

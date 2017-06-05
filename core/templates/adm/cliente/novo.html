@@ -35,7 +35,7 @@
                 <input type="text" id="cep" type="text" name="cep" required="True" class="form-control"/>
             </div>
             <div class="col-md-3" style="padding-right:0px;">
-                <a class="btn btn-primary">Encontrar Endereço</a>
+                <a class="btn btn-primary" ng-click="getcep();">Encontrar Endereço</a>
             </div>
         </div>
 
@@ -44,11 +44,11 @@
         <br/>
 
         <label class="control-label">Cidade</label><br/>
-        <select class="form-control" name="cidade" id="cidade" ng-change="getbairros()" ng-options="cidade as cidade.fields.nome for cidade in cd.lista_cidades track by cidade.pk" ng-model="sel_cidade"></select>
+        <select class="form-control" name="cidade" id="cidade" ng-change="getbairros()" onload="set_cidade();" ng-init="set_cidade();" ng-options="cidade as cidade.fields.nome for cidade in cd.lista_cidades track by cidade.pk" ng-model="sel_cidade"></select>
         <br/>
 
         <label class="control-label">Bairro</label><br/>
-        <select class="form-control" name="bairro" id="bairro" ng-options="bairro as bairro.fields.nome for bairro in br.lista_bairros track by bairro.pk" ng-model="sel_bairro"></select>
+        <select class="form-control" name="bairro" id="bairro" ng-init="set_cidade();" ng-options="bairro as bairro.fields.nome for bairro in br.lista_bairros track by bairro.pk" ng-model="sel_bairro"></select>
         <br/>
 
         <div class="col-md-8" style="padding-left:0px;">
