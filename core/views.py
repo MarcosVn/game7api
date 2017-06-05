@@ -799,7 +799,11 @@ class ServiceJson(View):
                 "aceita_pagamentoonline":empresa.aceita_pagamentoonline,
                 "porcentagem_repasse":empresa.porcentagem_repasse,
                 "valor_mensalidade":empresa.valor_mensalidade,
-                "logotipo":empresa.logotipo
+                "logotipo":empresa.logotipo,
+                "numero":empresa.numero,
+                "cep":empresa.cep,
+                "complemento":empresa.complemento
+
             }
 
             rows.append(r)
@@ -942,7 +946,10 @@ class ServiceJson(View):
                 "pagamentos":pagamentos,
                 "porcentagem_repasse":empresa.porcentagem_repasse,
                 "referencia":str(empresa.id) + "_" + str(ultima_data.strftime('%Y%m%d')) + "_",
-                "logotipo":empresa.logotipo
+                "logotipo":empresa.logotipo,
+                "numero": empresa.numero,
+                "cep": empresa.cep,
+                "complemento": empresa.complemento
             }
 
             rows.append(r)
@@ -973,6 +980,9 @@ class ServiceJson(View):
         valor_mensalidade = request.POST.get("valor_mensalidade")
         random_n = random.randint(1, 500000000)
         foto = request.POST.get("logotipo")
+        cep = request.POST.get("cep")
+        complemento = request.POST.get("complemento")
+        numero = request.POST.get("numero")
 
         print porcentagem_repasse
 
@@ -1035,17 +1045,23 @@ class ServiceJson(View):
         else:
             oEmpresa.aceita_pagamentoonline=False
 
+        if numero:
+            oEmpresa.numero = numero
+        if complemento:
+            oEmpresa.complemento = complemento
+        if cep:
+            oEmpresa.cep = cep
+
         oEmpresa.save()
 
-        print foto
+        if foto:
+            filename = str(oEmpresa.id) + '_' + str(random_n) + '.jpg'
+            image_data = open(settings.BASE_DIR + '/game7api/static/media/empresa/' + filename, "wb")
+            image_data.write(re.sub('^data:image/.+;base64,', '', foto).decode('base64'))
+            image_data.close()
 
-        filename = str(oEmpresa.id) + '_' + str(random_n) + '.jpg'
-        image_data = open(settings.BASE_DIR + '/game7api/static/media/empresa/' + filename, "wb")
-        image_data.write(re.sub('^data:image/.+;base64,', '', foto).decode('base64'))
-        image_data.close()
-
-        oEmpresa.logotipo = filename
-        oEmpresa.save()
+            oEmpresa.logotipo = filename
+            oEmpresa.save()
 
         lista = "true"
         return HttpResponse(lista, content_type='application/json')
@@ -1199,7 +1215,10 @@ class ServiceJson(View):
                 "aceita_cartao":empresa.aceita_cartao,
                 "aceita_valerefeicao":empresa.aceita_valerefeicao,
                 "aceita_pagamentoonline":empresa.aceita_pagamentoonline,
-                "logotipo":empresa.logotipo
+                "logotipo":empresa.logotipo,
+                "numero": empresa.numero,
+                "cep": empresa.cep,
+                "complemento": empresa.complemento
             }
 
         lista = json.dumps(r)

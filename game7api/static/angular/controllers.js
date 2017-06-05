@@ -111,7 +111,11 @@ game7App.controller('empresaCtrl', function($scope, Empresa, Estado, Cidade, Bai
             document.getElementById("descricao").value,
             document.getElementById("tipocozinha").value,
             document.getElementById("valor_mensalidade").value,
-            document.getElementById("porcentagem_repasse").value);
+            document.getElementById("porcentagem_repasse").value,
+            document.getElementById("numero").value,
+            document.getElementById("complemento").value,
+            document.getElementById("cep").value
+            );
     }
     $scope.excluir = function(){
       $scope.em.excluir_empresa();

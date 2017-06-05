@@ -32,7 +32,7 @@
         <div class="col-md-12" style="padding-left:0px;padding-right:0px;margin-bottom:20px;">
             <div class="col-md-9" style="padding-left:0px;padding-right:0px;">
                 <label class="control-label">Cep</label><br/>
-                <input type="text" id="cep" type="text" name="cep" required="True" class="form-control"/>
+                <input type="text" id="cep" type="text" name="cep" value="{[cl.clienteselecionado[0].cep]}" required="True" class="form-control"/>
             </div>
             <div class="col-md-3" style="padding-right:0px;">
                 <a class="btn btn-primary">Encontrar Endereço</a>
@@ -54,15 +54,15 @@
 
         <div class="col-md-8" style="padding-left:0px;">
             <label class="control-label">Endereço</label><br/>
-            <input type="text" id="endereco" type="text" name="endereco" required="True" class="form-control"/>
+            <input type="text" id="endereco" type="text" name="endereco" value="{[cl.clienteselecionado[0].endereco]}" required="True" class="form-control"/>
         </div>
         <div class="col-md-4" style="padding-right:0px;">
             <label class="control-label">Número</label><br/>
-            <input type="text" id="numero" type="number" name="numero" required="True" class="form-control"/>
+            <input type="text" id="numero" type="number" name="numero" required="True" value="{[cl.clienteselecionado[0].numero]}" class="form-control"/>
         </div>
 
         <label style="margin-top:20px;" class="control-label">Complemento</label><br/>
-        <input type="text" id="complemento" type="text" name="complemento" required="True" class="form-control"/>
+        <input type="text" id="complemento" type="text" name="complemento" required="True" value="{[cl.clienteselecionado[0].complemento]}" class="form-control"/>
 
     </div>
 

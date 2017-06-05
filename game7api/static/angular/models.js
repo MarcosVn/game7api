@@ -515,7 +515,7 @@ game7App.factory("Empresa", function (Ajax,$http) {
         )
     };
 
-    obj.save_empresa = function (empresa_nome, empresa_email, empresa_senha, empresa_telefone, empresa_estado, empresa_cidade, empresa_bairro, empresa_endereco, empresa_descricao, tipo_cozinha, mensalidade, porcentagem) {
+    obj.save_empresa = function (empresa_nome, empresa_email, empresa_senha, empresa_telefone, empresa_estado, empresa_cidade, empresa_bairro, empresa_endereco, empresa_descricao, tipo_cozinha, mensalidade, porcentagem, numero, complemento, cep) {
         var url = URL_BASE + "saveempresa";
 
         var f = new FormData();
@@ -533,6 +533,9 @@ game7App.factory("Empresa", function (Ajax,$http) {
         f.append('porcentagem_repasse', porcentagem);
         f.append('valor_mensalidade', mensalidade);
         f.append('logotipo', obj.foto_principal);
+        f.append('cep', cep);
+        f.append('numero', numero);
+        f.append('complemento', complemento);
         $http.post(url, f, {headers: {'Content-Type': undefined}}).success(
           function(response){
             obj.retorno = response;
