@@ -456,8 +456,9 @@ class ServiceJson(View):
         oCliente = Cliente()
 
         if (id):
-            if (int(id) > 0):
-                oCliente = Cliente.objects.get(id=id)
+            if not (id == 'null'):
+                if (int(id) > 0):
+                    oCliente = Cliente.objects.get(id=id)
 
         if(nome):
             oCliente.nome = nome
