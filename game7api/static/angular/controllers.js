@@ -104,18 +104,13 @@ game7App.controller('clienteCtrl', function($scope,$http, Cliente, Estado, Cidad
 
             //Cidade
             $scope.cd.get_cidades($("#estado").val());
-
-
+            $scope.cd.get_cidades_by_nome(enderecocep.cidade);
 
             //Bairro
-//            $scope.br.get_bairros($("#cidade").val());
-//            selbairro = $("#bairro");
-//            for (var i = 0; i < selbairro.options.length; i++) {
-//                if (selbairro.options[i].text === enderecocep.bairro) {
-//                    selbairro.selectedIndex = i;
-//                    break;
-//                }
-//            }
+            $scope.br.get_bairros($scope.cd.cidade_selecionado.id);
+            $scope.br.get_bairros_by_nome(enderecocep.bairro);
+
+
 
 
         }, function errorCallback(response) {
@@ -123,30 +118,9 @@ game7App.controller('clienteCtrl', function($scope,$http, Cliente, Estado, Cidad
         });
     }
 
-    function set_cidade() {
-        selcidade = $("#cidade");
-        for (var i = 0; i < selcidade.options.length; i++) {
-            if (selcidade.options[i].text === enderecocep.cidade) {
-                selcidade.selectedIndex = i;
-                break;
-            }
-        }
-
-        $scope.br.get_bairros($("#cidade").val());
-    }
-
-    function set_bairro() {
-        selbairro = $("#bairro");
-        for (var i = 0; i < selbairro.options.length; i++) {
-            if (selbairro.options[i].text === enderecocep.bairro) {
-                selbairro.selectedIndex = i;
-                break;
-            }
-        }
-    }
 });
 
-game7App.controller('empresaCtrl', function($scope, Empresa, Estado, Cidade, Bairro, Atendimento, Funcionario, TipoCozinha) {
+game7App.controller('empresaCtrl', function($scope,$http, Empresa, Estado, Cidade, Bairro, Atendimento, Funcionario, TipoCozinha) {
     $scope.fn = Funcionario;
     $scope.fn.verifica_login();
 
@@ -200,6 +174,45 @@ game7App.controller('empresaCtrl', function($scope, Empresa, Estado, Cidade, Bai
     }
     $scope.excluir_atendimento = function(){
         $scope.at.excluir_atendimento();
+    }
+    $scope.getcep = function(){
+        cep = $("#cep").val();
+        //Get relação de clientes
+        var url = "http://viacep.com.br/ws/"+ cep + "/json/";
+        var params = {
+        }
+        $http({
+            method: "GET",
+            params: params,
+            url: url,
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }).then(function successCallback(response) {
+            enderecocep = response.data;
+
+            //Endereco
+            $("#endereco").val(enderecocep.logradouro);
+
+            //Estado
+            if(enderecocep.uf = "SP"){
+                $("#estado").val("1");
+            }
+
+            //Cidade
+            $scope.cd.get_cidades($("#estado").val());
+            $scope.cd.get_cidades_by_nome(enderecocep.cidade);
+
+            //Bairro
+            $scope.br.get_bairros($scope.cd.cidade_selecionado.id);
+            $scope.br.get_bairros_by_nome(enderecocep.bairro);
+
+
+
+
+        }, function errorCallback(response) {
+            console.log("Erro");
+        });
     }
 });
 
