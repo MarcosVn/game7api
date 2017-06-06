@@ -14,6 +14,10 @@
                 <label for="ipFiltroNome">Nome</label>
                 <input type="text" class="form-control" id="ipFiltroNome" name="ipFiltroNome" >
             </div>
+            <div class="form-group">
+                <label for="ipFiltroRestaurante">Restaurante</label>
+                <input type="text" class="form-control" id="ipFiltroRestaurante" name="ipFiltroRestaurante" >
+            </div>
 
             <a ng-click="filtrar()" class="btn btn-default">Filtrar</a>
         </div>
@@ -21,6 +25,7 @@
       <div class="col-md-10">
         <table class="table">
             <tr>
+                <th>Restaurante</th>
                 <th>Nome</th>
                 <th>Preço</th>
                 <th>Foto</th>
@@ -31,6 +36,7 @@
             </tr>
 
               <tr ng-repeat="produto in pt.lista_produtos">
+                  <td class="col-md-4">{[produto.empresa]}</td>
                   <td class="col-md-4">{[produto.nome]}</td>
                   <td class="col-md-4">{[produto.preco]}</td>
                   <td class="col-md-4"><img src="/game7api/static/media/produto/{[produto.foto]}" class="img-thumbnail"></td>

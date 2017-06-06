@@ -1706,6 +1706,7 @@ class ServiceJson(View):
         preco = request.POST.get("preco")
         empresa_id = request.POST.get("empresa_id")
         random_n = random.randint(1,500000000)
+        subcategoria_id = request.POST.get("subcategoria_id")
 
         print empresa_id
 
@@ -1732,7 +1733,12 @@ class ServiceJson(View):
                 oProduto.empresa = Empresa.objects.filter(id=empresa_id).first()
         oProduto.save()
 
-        print foto
+        print subcategoria_id
+
+        if subcategoria_id:
+            oSubCategoria = SubCategoria.objects.filter(id=subcategoria_id).first()
+            oProduto.subcategorias.add(oSubCategoria)
+            oProduto.save()
 
         filename = str(oProduto.id) + '_' + str(random_n) + '.jpg'
         image_data = open(settings.BASE_DIR + '/game7api/static/media/produto/' + filename, "wb")
@@ -1768,6 +1774,7 @@ class ServiceJson(View):
         descricao = request.GET.get("descricao")
         preco = request.GET.get("preco")
         empresa_id = request.GET.get("empresa_id")
+        restaurante_nome = request.GET.get("restaurante")
 
         if (id == 'undefined'):
             id = int()
@@ -1785,6 +1792,8 @@ class ServiceJson(View):
             query = query.filter(descricao__icontains=descricao)
         if (empresa_id):
             query = query.filter(empresa__id=empresa_id)
+        if (restaurante_nome):
+            query = query.filter(empresa__nome__icontains=restaurante_nome)
 
 
         rows = []

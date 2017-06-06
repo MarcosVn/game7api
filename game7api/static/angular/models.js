@@ -782,11 +782,12 @@ game7App.factory("Produto", function (Ajax,$http) {
         retorno : false,
         foto_principal:123
     };
-    obj.get_produtos= function (nome_produto) {
+    obj.get_produtos= function (nome_produto, nome_restaurante) {
         var url = URL_BASE + "produtos";
         var params = {
             empresa_id:TOKENS["e_id"],
-            nome:nome_produto
+            nome:nome_produto,
+            restaurante:nome_restaurante
         }
         $http({
             method: "GET",
@@ -821,7 +822,7 @@ game7App.factory("Produto", function (Ajax,$http) {
             console.log("Erro");
         });
     };
-    obj.save_produto = function (produto_nome, produto_preco, produto_descricao, empresa) {
+    obj.save_produto = function (produto_nome, produto_preco, produto_descricao, empresa, subcategoria_id) {
         var url = URL_BASE + "saveproduto";
 
         var f = new FormData();
@@ -831,6 +832,7 @@ game7App.factory("Produto", function (Ajax,$http) {
         f.append('descricao', produto_descricao);
         f.append('foto', obj.foto_principal);
         f.append('empresa_id', empresa);
+        f.append('subcategoria_id', subcategoria_id);
         $http.post(url, f, {headers: {'Content-Type': undefined}}).success(
           function(response){
             obj.retorno = response;

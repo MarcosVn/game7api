@@ -26,6 +26,14 @@
         <input type="number" id="preco" name="preco" required="True" class="form-control"/>
         <br/>
 
+        <label class="control-label">Categoria</label><br/>
+        <select class="form-control" name="categoria" id="categoria" ng-change="getsubs()" ng-options="categoria as categoria.fields.nome for categoria in ct.lista_categorias track by categoria.pk" ng-model="sc.sel_categoria"></select>
+        <br/>
+
+        <label class="control-label">SubCategoria</label><br/>
+        <select class="form-control" name="subcategoria" id="subcategoria" ng-options="subcategoria as subcategoria.fields.nome for subcategoria in sc.lista_subcategorias track by subcategoria.pk" ng-model="sc.sel_subcategorias"></select>
+        <br/>
+
         <label class="control-label">Descrição</label><br/>
         <textarea id="descricao" name="descricao" rows="5" required="true" class="form-control"></textarea>
         <br/>
