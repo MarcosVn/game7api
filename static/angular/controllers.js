@@ -35,7 +35,9 @@ game7App.controller('subcategoriaCtrl', function($scope, SubCategoria, Categoria
     }
 });
 
-game7App.controller('clienteCtrl', function($scope, Cliente, Estado, Cidade, Bairro, Funcionario) {
+game7App.controller('clienteCtrl', function($scope,$http, Cliente, Estado, Cidade, Bairro, Funcionario) {
+    enderecocep = [];
+
     $scope.fn = Funcionario;
     $scope.fn.verifica_login();
 
@@ -53,7 +55,19 @@ game7App.controller('clienteCtrl', function($scope, Cliente, Estado, Cidade, Bai
         $scope.cl.get_clientes(document.getElementById("ipFiltroNome").value,document.getElementById("ipFiltroEmail").value);
     }
     $scope.atualizar = function(){
-        $scope.cl.save_cliente(document.getElementById("nome").value, document.getElementById("email").value,document.getElementById("senha").value, document.getElementById("telefone").value, document.getElementById("estado").value, document.getElementById("cidade").value,document.getElementById("bairro").value,document.getElementById("endereco").value);
+        $scope.cl.save_cliente(
+            document.getElementById("nome").value,
+            document.getElementById("email").value,
+            document.getElementById("senha").value,
+            document.getElementById("telefone").value,
+            document.getElementById("estado").value,
+            document.getElementById("cidade").value,
+            document.getElementById("bairro").value,
+            document.getElementById("endereco").value,
+            document.getElementById("numero").value,
+            document.getElementById("complemento").value,
+            document.getElementById("cep").value
+            );
     }
     $scope.excluir = function(){
       $scope.cl.excluir_cliente();
@@ -64,9 +78,49 @@ game7App.controller('clienteCtrl', function($scope, Cliente, Estado, Cidade, Bai
     $scope.getbairros = function(){
         $scope.br.get_bairros(document.getElementById("cidade").value);
     }
+    $scope.getcep = function(){
+        cep = $("#cep").val();
+        //Get relação de clientes
+        var url = "http://viacep.com.br/ws/"+ cep + "/json/";
+        var params = {
+        }
+        $http({
+            method: "GET",
+            params: params,
+            url: url,
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }).then(function successCallback(response) {
+            enderecocep = response.data;
+
+            //Endereco
+            $("#endereco").val(enderecocep.logradouro);
+
+            //Estado
+            if(enderecocep.uf = "SP"){
+                $("#estado").val("1");
+            }
+
+            //Cidade
+            $scope.cd.get_cidades($("#estado").val());
+            $scope.cd.get_cidades_by_nome(enderecocep.cidade);
+
+            //Bairro
+            $scope.br.get_bairros($scope.cd.cidade_selecionado.id);
+            $scope.br.get_bairros_by_nome(enderecocep.bairro);
+
+
+
+
+        }, function errorCallback(response) {
+            console.log("Erro");
+        });
+    }
+
 });
 
-game7App.controller('empresaCtrl', function($scope, Empresa, Estado, Cidade, Bairro, Atendimento, Funcionario, TipoCozinha) {
+game7App.controller('empresaCtrl', function($scope,$http, Empresa, Estado, Cidade, Bairro, Atendimento, Funcionario, TipoCozinha) {
     $scope.fn = Funcionario;
     $scope.fn.verifica_login();
 
@@ -98,7 +152,12 @@ game7App.controller('empresaCtrl', function($scope, Empresa, Estado, Cidade, Bai
             document.getElementById("endereco").value,
             document.getElementById("descricao").value,
             document.getElementById("tipocozinha").value,
-            document.getElementById("porcentagem_repasse").value);
+            document.getElementById("valor_mensalidade").value,
+            document.getElementById("porcentagem_repasse").value,
+            document.getElementById("numero").value,
+            document.getElementById("complemento").value,
+            document.getElementById("cep").value
+            );
     }
     $scope.excluir = function(){
       $scope.em.excluir_empresa();
@@ -115,6 +174,45 @@ game7App.controller('empresaCtrl', function($scope, Empresa, Estado, Cidade, Bai
     }
     $scope.excluir_atendimento = function(){
         $scope.at.excluir_atendimento();
+    }
+    $scope.getcep = function(){
+        cep = $("#cep").val();
+        //Get relação de clientes
+        var url = "http://viacep.com.br/ws/"+ cep + "/json/";
+        var params = {
+        }
+        $http({
+            method: "GET",
+            params: params,
+            url: url,
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }).then(function successCallback(response) {
+            enderecocep = response.data;
+
+            //Endereco
+            $("#endereco").val(enderecocep.logradouro);
+
+            //Estado
+            if(enderecocep.uf = "SP"){
+                $("#estado").val("1");
+            }
+
+            //Cidade
+            $scope.cd.get_cidades($("#estado").val());
+            $scope.cd.get_cidades_by_nome(enderecocep.cidade);
+
+            //Bairro
+            $scope.br.get_bairros($scope.cd.cidade_selecionado.id);
+            $scope.br.get_bairros_by_nome(enderecocep.bairro);
+
+
+
+
+        }, function errorCallback(response) {
+            console.log("Erro");
+        });
     }
 });
 
@@ -227,7 +325,7 @@ game7App.controller('pedidoCtrl', function($scope, Pedido, Empresa, Funcionario)
     $scope.pe.get_pedidos();
 
     $scope.filtrar = function(){
-        $scope.pe.get_pedidos(document.getElementById("ipFiltrodata").value);
+        $scope.pe.get_pedidos($("#ipFiltrodata").val(),$("#selStatus").val());
     }
     $scope.atualizar = function(){
         $scope.pe.save_pedido(
@@ -276,5 +374,23 @@ game7App.controller('tiposcozinhasCtrl', function($scope, TipoCozinha) {
     }
     $scope.excluir = function(){
       $scope.tc.excluir_tipocozinha();
+    }
+});
+
+game7App.controller('mensalidadesCtrl', function($scope, Mensalidade) {
+    $scope.ms = Mensalidade;
+    $scope.ms.get_mensalidades();
+
+    $scope.filtrar = function(){
+        $scope.ms.get_mensalidades($("#ipFiltroData").val(),$("#selStatus").val());
+    }
+    $scope.gerarmensalidade = function(id){
+        $scope.ms.gerar_mensalidade(id);
+    }
+    $scope.recebermensalidade = function(id){
+        $scope.ms.receber_mensalidade(id);
+    }
+    $scope.cancelar = function(id){
+      $scope.ms.cancelar_mensalidade(id);
     }
 });

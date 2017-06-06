@@ -33,6 +33,7 @@ game7App.factory("Estado", function (Ajax,$http) {
     var obj = {
         lista_estados: [],
         retorno : false,
+        estado_selecionado:[]
     };
     obj.get_estados= function () {
         var url = URL_BASE + "estados";
@@ -51,6 +52,24 @@ game7App.factory("Estado", function (Ajax,$http) {
             console.log("Erro");
         });
     };
+    obj.get_estados_by_nome= function (nome) {
+        var url = URL_BASE + "estados";
+        var params = {
+            nome:nome
+        }
+        $http({
+            method: "GET",
+            params: params,
+            url: url,
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }).then(function successCallback(response) {
+            obj.estado_selecionado= response.data[0];
+        }, function errorCallback(response) {
+            console.log("Erro");
+        });
+    };
     return obj;
 });
 
@@ -58,6 +77,7 @@ game7App.factory("Cidade", function (Ajax,$http) {
     var obj = {
         lista_cidades: [],
         retorno : false,
+        cidade_selecionado :[]
     };
     obj.get_cidades= function (estado_id) {
         var url = URL_BASE + "cidades";
@@ -78,6 +98,24 @@ game7App.factory("Cidade", function (Ajax,$http) {
             console.log("Erro");
         });
     };
+    obj.get_cidades_by_nome= function (nome) {
+        var url = URL_BASE + "cidades";
+        var params = {
+            nome:nome
+        }
+        $http({
+            method: "GET",
+            params: params,
+            url: url,
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }).then(function successCallback(response) {
+            obj.cidade_selecionado=response.data[0];
+        }, function errorCallback(response) {
+            console.log("Erro");
+        });
+    };
     return obj;
 });
 
@@ -85,6 +123,7 @@ game7App.factory("Bairro", function (Ajax,$http) {
     var obj = {
         lista_bairros: [],
         retorno : false,
+        bairro_selecionado: []
     };
     obj.get_bairros= function (cidade_id) {
         var url = URL_BASE + "bairros";
@@ -101,6 +140,24 @@ game7App.factory("Bairro", function (Ajax,$http) {
             }
         }).then(function successCallback(response) {
             obj.lista_bairros= response.data;
+        }, function errorCallback(response) {
+            console.log("Erro");
+        });
+    };
+    obj.get_bairros_by_nome= function (nome) {
+        var url = URL_BASE + "bairros";
+        var params = {
+            nome:nome
+        }
+        $http({
+            method: "GET",
+            params: params,
+            url: url,
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }).then(function successCallback(response) {
+            obj.bairro_selecionado= response.data[0];
         }, function errorCallback(response) {
             console.log("Erro");
         });
@@ -298,6 +355,7 @@ game7App.factory("Cliente", function (Ajax,$http) {
         lista_clientes: [],
         clienteselecionado: [],
         retorno : false,
+        sel_cidade:"1"
     };
     obj.get_clientes = function (nome_cliente, email_cliente) {
         var url = URL_BASE + "clientes";
@@ -355,7 +413,8 @@ game7App.factory("Cliente", function (Ajax,$http) {
             console.log("Erro");
         });
     };
-    obj.save_cliente = function (cliente_nome, cliente_email, cliente_senha, cliente_telefone, cliente_estado, cliente_cidade, cliente_bairro, cliente_endereco) {
+
+    obj.save_cliente = function (cliente_nome, cliente_email, cliente_senha, cliente_telefone, cliente_estado, cliente_cidade, cliente_bairro, cliente_endereco, cliente_numero, cliente_complemento, cliente_cep) {
         var url = URL_BASE + "savecliente";
 
         var f = new FormData();
@@ -368,6 +427,9 @@ game7App.factory("Cliente", function (Ajax,$http) {
         f.append('cidade', cliente_cidade);
         f.append('bairro', cliente_bairro);
         f.append('endereco', cliente_endereco);
+        f.append('numero', cliente_numero);
+        f.append('complemento', cliente_complemento);
+        f.append('cep', cliente_cep);
         $http.post(url, f, {headers: {'Content-Type': undefined}}).success(
           function(response){
             obj.retorno = response;
@@ -512,7 +574,7 @@ game7App.factory("Empresa", function (Ajax,$http) {
         )
     };
 
-    obj.save_empresa = function (empresa_nome, empresa_email, empresa_senha, empresa_telefone, empresa_estado, empresa_cidade, empresa_bairro, empresa_endereco, empresa_descricao, tipo_cozinha, porcentagem) {
+    obj.save_empresa = function (empresa_nome, empresa_email, empresa_senha, empresa_telefone, empresa_estado, empresa_cidade, empresa_bairro, empresa_endereco, empresa_descricao, tipo_cozinha, mensalidade, porcentagem, numero, complemento, cep) {
         var url = URL_BASE + "saveempresa";
 
         var f = new FormData();
@@ -528,7 +590,11 @@ game7App.factory("Empresa", function (Ajax,$http) {
         f.append('descricao', empresa_descricao);
         f.append('tipo_cozinha_id', tipo_cozinha);
         f.append('porcentagem_repasse', porcentagem);
+        f.append('valor_mensalidade', mensalidade);
         f.append('logotipo', obj.foto_principal);
+        f.append('cep', cep);
+        f.append('numero', numero);
+        f.append('complemento', complemento);
         $http.post(url, f, {headers: {'Content-Type': undefined}}).success(
           function(response){
             obj.retorno = response;
@@ -863,11 +929,12 @@ game7App.factory("Pedido", function (Ajax,$http) {
         pedidoselecionado: [],
         retorno : false
     };
-    obj.get_pedidos= function (data_pedido) {
+    obj.get_pedidos= function (data_pedido, status) {
         var url = URL_BASE + "pedidos";
         var params = {
             empresa_id:TOKENS["e_id"],
-            data:data_pedido
+            data:data_pedido,
+            status:status
         }
         $http({
             method: "GET",
@@ -940,6 +1007,99 @@ game7App.factory("Pedido", function (Ajax,$http) {
     return obj;
 });
 
+
+game7App.factory("Mensalidade", function (Ajax,$http) {
+    var obj = {
+        lista_mensalidades: [],
+        mensalidadeselecionado: [],
+        retorno : false,
+    };
+    obj.get_mensalidades = function (data_mensalidade, status_mensalidade) {
+        var url = URL_BASE + "mensalidades";
+        var params = {
+            data:data_mensalidade,
+            status:status_mensalidade
+        }
+        $http({
+            method: "GET",
+            params: params,
+            url: url,
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }).then(function successCallback(response) {
+            obj.lista_mensalidades=response.data;
+        }, function errorCallback(response) {
+            console.log("Erro");
+        });
+    };
+
+    obj.gerar_mensalidade = function (id_empresa) {
+        var url = URL_BASE + "savemensalidade";
+
+        var f = new FormData();
+        f.append('empresa_id', id_empresa);
+        f.append('id', 0);
+        f.append('status', 'Aguardando Pagamento');
+        $http.post(url, f, {headers: {'Content-Type': undefined}}).success(
+          function(response){
+            obj.retorno= response;
+            obj.get_mensalidades();
+          }
+        )
+    };
+
+    obj.receber_mensalidade = function (id_mensalidade) {
+        var url = URL_BASE + "savemensalidade";
+
+        var f = new FormData();
+        f.append('empresa_id', 0);
+        f.append('id', id_mensalidade);
+        f.append('status', 'Pago');
+        $http.post(url, f, {headers: {'Content-Type': undefined}}).success(
+          function(response){
+            obj.retorno= response;
+            obj.get_mensalidades();
+          }
+        )
+    };
+
+    obj.cancelar_mensalidade = function (id_mensalidade) {
+
+        var url = URL_BASE + "savemensalidade";
+
+        var f = new FormData();
+        f.append('empresa_id', 0);
+        f.append('id', id_mensalidade);
+        f.append('status', 'Cancelado');
+        $http.post(url, f, {headers: {'Content-Type': undefined}}).success(
+          function(response){
+            obj.retorno= response;
+            obj.get_mensalidades();
+          }
+        )
+
+        //Get relação de clientes
+//        var url = URL_BASE + "excluirmensalidade";
+//        var params = {
+//          id:id
+//        }
+//        $http({
+//            method: "GET",
+//            params: params,
+//            url: url,
+//            headers: {
+//                'Content-Type': 'application/json'
+//            }
+//        }).then(function successCallback(response) {
+//            obj.retorno= response;
+//        }, function errorCallback(response) {
+//            console.log("Erro");
+//        });
+    };
+
+    return obj;
+});
 
 game7App.factory("TipoCozinha", function (Ajax,$http) {
     var obj = {
