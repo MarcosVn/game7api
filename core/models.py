@@ -148,7 +148,7 @@ class Repasse(models.Model):
 class Cliente(models.Model):
     id = models.AutoField(primary_key=True)
     nome = models.CharField(max_length=512)
-    email = models.CharField(max_length=512)
+    email = models.CharField(max_length=512, null=True)
     senha = models.CharField(max_length=128, null=True)
     telefone = models.CharField(max_length=128, null=True)
     cep = models.CharField(max_length=15, default="", null=True)

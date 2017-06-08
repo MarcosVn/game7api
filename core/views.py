@@ -442,22 +442,18 @@ class ServiceJson(View):
     def clienteFaceLogin(request):
         # Filtros
         nome = request.POST.get("nome")
-        email = request.POST.get("email")
-        cidade = request.POST.get("cidade")
         face_id = request.POST.get("face_id")
 
         print nome
-        print email
-        print cidade
         print face_id
 
-        query = Cliente.objects.filter(email=email).first()
+        query = Cliente.objects.filter(f_id=face_id).first()
 
 
-        oUsuario = Cliente()
-        if not query.id > 0:
+
+        if not query:
+            oUsuario = Cliente()
             oUsuario.nome = nome
-            oUsuario.email = email
             oUsuario.face_id = face_id
             oUsuario.save()
 
