@@ -436,6 +436,59 @@ class ServiceJson(View):
         lista = json.dumps(list(rows))
         return HttpResponse(lista, content_type='application/json')
 
+
+    @staticmethod
+    @csrf_exempt
+    def clienteFaceLogin(request):
+        # Filtros
+        nome = request.POST.get("nome")
+        email = request.POST.get("email")
+        cidade = request.POST.get("cidade")
+        face_id = request.POST.get("face_id")
+
+        print nome
+        print email
+        print cidade
+        print face_id
+
+        query = Cliente.objects.filter(email=email).first()
+
+
+        oUsuario = Cliente()
+        if not query.count() > 0:
+            oUsuario.nome = nome
+            oUsuario.email = email
+            oUsuario.face_id = face_id
+            oUsuario.save()
+
+        query = Cliente.objects.filter(email=email).first()
+
+        rows = []
+
+        if query:
+            cliente = query
+            r = {
+                "id":cliente.id,
+                "nome":cliente.nome,
+                "email":cliente.email,
+                "telefone":cliente.telefone,
+                "endereco":cliente.endereco,
+                "cidade":cliente.cidade.nome,
+                "cidade_id":cliente.cidade.id,
+                "bairro":cliente.bairro.nome,
+                "bairro_id":cliente.bairro.id,
+                "estado":cliente.cidade.estado.nome,
+                "estado_id":cliente.cidade.estado.id,
+                "complemento":cliente.complemento,
+                "numero":cliente.numero,
+                "cep":cliente.cep
+            }
+
+            rows.append(r)
+        lista = json.dumps(list(rows))
+        return HttpResponse(lista, content_type='application/json')
+
+
     @staticmethod
     @csrf_exempt
     def savecliente(request):
