@@ -455,7 +455,7 @@ class ServiceJson(View):
 
 
         oUsuario = Cliente()
-        if not query.count() > 0:
+        if not query.id > 0:
             oUsuario.nome = nome
             oUsuario.email = email
             oUsuario.face_id = face_id
