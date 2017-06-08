@@ -461,7 +461,7 @@ class ServiceJson(View):
             oUsuario.face_id = face_id
             oUsuario.save()
 
-        query = Cliente.objects.filter(email=email).first()
+        query = Cliente.objects.filter(face_id=face_id).first()
 
         rows = []
 
