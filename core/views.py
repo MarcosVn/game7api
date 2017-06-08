@@ -451,11 +451,11 @@ class ServiceJson(View):
 
 
 
-        if not query:
-            oUsuario = Cliente()
-            oUsuario.nome = nome
-            oUsuario.face_id = face_id
-            oUsuario.save()
+        # if not query:
+        oUsuario = Cliente()
+        oUsuario.nome = nome
+        oUsuario.face_id = face_id
+        oUsuario.save()
 
         query = Cliente.objects.filter(face_id=face_id).first()
 
