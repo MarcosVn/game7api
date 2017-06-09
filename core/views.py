@@ -382,11 +382,9 @@ class ServiceJson(View):
 
         for cliente in query:
             ocidade = Cidade()
+            oestado = Estado()
             if cliente.cidade:
                 ocidade = cliente.cidade
-
-            oestado = Estado()
-            if ocidade.estado:
                 oestado = cliente.cidade.estado
 
             obairro = Bairro()
