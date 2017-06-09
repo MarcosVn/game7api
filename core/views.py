@@ -444,18 +444,15 @@ class ServiceJson(View):
         nome = request.POST.get("nome")
         face_id = request.POST.get("face_id")
 
-        print nome
-        print face_id
-
-        query = Cliente.objects.filter(face_id=face_id).first()
+        # query = Cliente.objects.filter(face_id=face_id).first()
 
 
 
-        if not query:
-            oUsuario = Cliente()
-            oUsuario.nome = nome
-            oUsuario.face_id = face_id
-            oUsuario.save()
+        # if not query:
+        oUsuario = Cliente()
+        oUsuario.nome = nome
+        oUsuario.face_id = face_id
+        oUsuario.save()
 
         query = Cliente.objects.filter(face_id=face_id).first()
 
