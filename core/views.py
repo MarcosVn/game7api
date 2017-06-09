@@ -473,11 +473,9 @@ class ServiceJson(View):
             cliente = query
 
             ocidade = Cidade()
+            oestado = Estado()
             if cliente.cidade:
                 ocidade = cliente.cidade
-
-            oestado = Estado()
-            if ocidade.estado:
                 oestado = cliente.cidade.estado
 
             obairro = Bairro()
@@ -490,15 +488,15 @@ class ServiceJson(View):
                 "email":cliente.email,
                 "telefone":cliente.telefone,
                 "endereco":cliente.endereco,
-                "cidade": cliente.cidade.nome,
-                "cidade_id": cliente.cidade.id,
-                "bairro": cliente.bairro.nome,
-                "bairro_id": cliente.bairro.id,
-                "estado": cliente.cidade.estado.nome,
-                "estado_id": cliente.cidade.estado.id,
-                "complemento":cliente.complemento,
-                "numero":cliente.numero,
-                "cep":cliente.cep
+                "cidade":ocidade.nome,
+                "cidade_id":ocidade.id,
+                "bairro":obairro.nome,
+                "bairro_id":obairro.id,
+                "estado":oestado.nome,
+                "estado_id":oestado.id,
+                "complemento": cliente.complemento,
+                "numero": cliente.numero,
+                "cep": cliente.cep
             }
 
             rows.append(r)
