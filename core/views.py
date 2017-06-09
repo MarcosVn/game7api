@@ -444,15 +444,15 @@ class ServiceJson(View):
         nome = request.POST.get("nome")
         face_id = request.POST.get("face_id")
 
-        # query = Cliente.objects.filter(face_id=face_id).first()
+        query = Cliente.objects.filter(face_id=face_id).first()
 
 
 
-        # if not query:
-        oUsuario = Cliente()
-        oUsuario.nome = nome
-        oUsuario.face_id = face_id
-        oUsuario.save()
+        if not query:
+            oUsuario = Cliente()
+            oUsuario.nome = nome
+            oUsuario.face_id = face_id
+            oUsuario.save()
 
         query = Cliente.objects.filter(face_id=face_id).first()
 
@@ -466,18 +466,19 @@ class ServiceJson(View):
                 "email":cliente.email,
                 "telefone":cliente.telefone,
                 "endereco":cliente.endereco,
-                "cidade":cliente.cidade.nome,
-                "cidade_id":cliente.cidade.id,
-                "bairro":cliente.bairro.nome,
-                "bairro_id":cliente.bairro.id,
-                "estado":cliente.cidade.estado.nome,
-                "estado_id":cliente.cidade.estado.id,
                 "complemento":cliente.complemento,
                 "numero":cliente.numero,
                 "cep":cliente.cep
             }
 
             rows.append(r)
+
+        # "cidade":cliente.cidade.nome,
+        # "cidade_id":cliente.cidade.id,
+        # "bairro":cliente.bairro.nome,
+        # "bairro_id":cliente.bairro.id,
+        # "estado":cliente.cidade.estado.nome,
+        # "estado_id":cliente.cidade.estado.id,
         lista = json.dumps(list(rows))
         return HttpResponse(lista, content_type='application/json')
 

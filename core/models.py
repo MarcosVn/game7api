@@ -148,16 +148,16 @@ class Repasse(models.Model):
 class Cliente(models.Model):
     id = models.AutoField(primary_key=True)
     nome = models.CharField(max_length=512)
-    email = models.CharField(max_length=512, null=True)
-    senha = models.CharField(max_length=128, null=True)
-    telefone = models.CharField(max_length=128, null=True)
+    email = models.CharField(max_length=512, default=None, null=True)
+    senha = models.CharField(max_length=128, default=None, null=True)
+    telefone = models.CharField(max_length=128, default=None, null=True)
     cep = models.CharField(max_length=15, default="", null=True)
-    endereco = models.CharField(max_length=512, null=True)
-    cidade = models.ForeignKey("Cidade", null=True)
-    bairro = models.ForeignKey("Bairro", null=True)
+    endereco = models.CharField(max_length=512, default=None, null=True)
+    cidade = models.ForeignKey("Cidade", default=None, null=True)
+    bairro = models.ForeignKey("Bairro", default=None, null=True)
     numero = models.IntegerField(default=0, null=True)
     complemento = models.CharField(max_length=512, default="", null=True)
-    face_id = models.CharField(max_length=1024, null=True)
+    face_id = models.CharField(max_length=1024, default=None, null=True)
 
     # geometria = models.PointField(blank=True, null=True, srid=4326)
 
