@@ -473,12 +473,31 @@ class ServiceJson(View):
 
         if query:
             cliente = query
+
+            ocidade = Cidade()
+            if cliente.cidade:
+                ocidade = cliente.cidade
+
+            oestado = Estado()
+            if ocidade.estado:
+                oestado = cliente.cidade.estado
+
+            obairro = Bairro()
+            if cliente.bairro:
+                obairro = cliente.bairro
+
             r = {
                 "id":cliente.id,
                 "nome":cliente.nome,
                 "email":cliente.email,
                 "telefone":cliente.telefone,
                 "endereco":cliente.endereco,
+                "cidade": cliente.cidade.nome,
+                "cidade_id": cliente.cidade.id,
+                "bairro": cliente.bairro.nome,
+                "bairro_id": cliente.bairro.id,
+                "estado": cliente.cidade.estado.nome,
+                "estado_id": cliente.cidade.estado.id,
                 "complemento":cliente.complemento,
                 "numero":cliente.numero,
                 "cep":cliente.cep
