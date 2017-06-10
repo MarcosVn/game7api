@@ -19,8 +19,8 @@ from core.views import *
 from django.conf.urls.static import static
 
 urlpatterns = [
-    url(r'^$', adminHomeView.as_view(), name="Home"),
-    url(r'^admin/', admin.site.urls),
+    url(r'^$', HomeView.as_view(), name="Home"),
+    url(r'^admin/', adminHomeView.as_view(), name="Home Admin"),
     url(r'^politica-privacidade/', politicaprivacidadeView.as_view(), name = "Politica-privacidade"),
     url(r'^adm/login/', adminLoginView.as_view(), name = "Login"),
     url(r'^adm/$', adminHomeView.as_view(), name = "Home-adm"),

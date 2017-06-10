@@ -20,6 +20,12 @@ from mailer import Message
 class politicaprivacidadeView(View):
     def get(self, request, *args, **kwargs):
         return render_to_response('politica-privacidade.html', {}, RequestContext(request))
+
+class HomeView(View):
+    def get(self, request, *args, **kwargs):
+        return render_to_response('home.html', {}, RequestContext(request))
+
+
 class adminLoginView(View):
     def get(self, request, *args, **kwargs):
         return render_to_response('adm/login.html', {}, RequestContext(request))
