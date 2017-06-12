@@ -2,5 +2,111 @@
 {% block title %}Bem vindo{% endblock %}
 {% load staticfiles %}
 {% block content %}
+<div class="home">
+    <div class="mediabox-home">
+        <div class="container">
+            <div class="busca col-md-6 col-xs-6 col-xs-offset-3 col-md-offset-3">
+                <p>
+                    Bateu aquela <b>fome</b>? Seja <b>esperto.</b><br>
+                    <b>Peça</b> e <b>receba</b> em <b>casa.;) </b>
+                </p>
+
+                <div class="input-group">
+                  <input type="text" class="form-control" placeholder="Digite aqui o seu CEP">
+                  <span class="input-group-btn">
+                    <button class="btn btn-default" type="button">Buscar</button>
+                  </span>
+                </div>
+
+                <p class="cep">Não sabe o seu CEP?</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="melhores-restaurantes col-md-12 col-xs-12">
+            <p class="titulo">Os <b>melhores restaurantes</b> sem sair de casa.</p>
+            <p class="subtitulo">Encontre aqui pratos deliciosos que combinam com qualquer bolso, gosto e humor.</p>
+
+            <ul class="nav nav-pills col-md-12 col-xs-12">
+                <li><img src="{% static 'img/Pizza_Hut_Logo.png' %}"/></li>
+                <li><img src="{% static 'img/Pizza_Hut_Logo.png' %}"/></li>
+                <li><img src="{% static 'img/Pizza_Hut_Logo.png' %}"/></li>
+                <li><img src="{% static 'img/Pizza_Hut_Logo.png' %}"/></li>
+                <li><img src="{% static 'img/Pizza_Hut_Logo.png' %}"/></li>
+            </ul>
+        </div>
+
+        <div class="comunidade col-md-12 col-xs-12">
+            <p class="titulo">O quê a nossa <b>comunidade</b> tem a dizer.</p>
+            <p class="subtitulo">Veja as opiniões dos usuários sobre nossos serviços e parceiros.</p>
+
+            <ul class="nav nav-pills">
+                <li class="depoimento col-md-3 col-xs-3">
+                    <img class="img-thumbnail col-md-12 col-xs-12" src="{% static 'img/sem-foto.png' %}"/>
+                    <div class="conteudo col-md-12 col-xs-12">
+                        <p>Gilberto Oliveira</p>
+
+                        <p>Tropeiro muito bom, so acho q pode diminuir um pouco a pimenta do reino.</p>
+
+                        <p><b>Cantina da Lena</b> (09/05/2017)</p>
+                    </div>
+                </li>
+                <li class="depoimento col-md-3 col-xs-3">
+                    <img class="img-thumbnail col-md-12 col-xs-12" src="{% static 'img/sem-foto.png' %}"/>
+                    <div class="conteudo col-md-12 col-xs-12">
+                        <p>Gilberto Oliveira</p>
+
+                        <p>Tropeiro muito bom, so acho q pode diminuir um pouco a pimenta do reino.</p>
+
+                        <p><b>Cantina da Lena</b> (09/05/2017)</p>
+                    </div>
+                </li>
+                <li class="depoimento col-md-3 col-xs-3">
+                    <img class="img-thumbnail col-md-12 col-xs-12" src="{% static 'img/sem-foto.png' %}"/>
+                    <div class="conteudo col-md-12 col-xs-12">
+                        <p>Gilberto Oliveira</p>
+
+                        <p>Tropeiro muito bom, so acho q pode diminuir um pouco a pimenta do reino.</p>
+
+                        <p><b>Cantina da Lena</b> (09/05/2017)</p>
+                    </div>
+                </li>
+                <li class="depoimento col-md-3 col-xs-3">
+                    <img class="img-thumbnail col-md-12 col-xs-12" src="{% static 'img/sem-foto.png' %}"/>
+                    <div class="conteudo col-md-12 col-xs-12">
+                        <p>Gilberto Oliveira</p>
+
+                        <p>Tropeiro muito bom, so acho q pode diminuir um pouco a pimenta do reino.</p>
+
+                        <p><b>Cantina da Lena</b> (09/05/2017)</p>
+                    </div>
+                </li>
+            </ul>
+        </div>
+
+        <div class="apps col-md-12 col-xs-12">
+            <div class="desc col-md-6 col-xs-6">
+                <p class="titulo">
+                    Baixe <b>nosso app</b> e faça <br> o seu pedido <b>online.</b>
+                </p>
+                <p class="subtitulo">
+                    Acompanhe seu pedido direto do app, disponível<br>
+                    para smartphones, tablets e computadores.
+                </p>
+            </div>
+            <div class="col-md-4 col-xs-4">
+                <img src="{% static 'img/img-cel.png' %}"/>
+            </div>
+            <div class="download">
+                <ul class="nav nav-pills">
+                    <li><img src="{% static 'img/baixar-app-store.png' %}"/></li>
+                    <li><img src="{% static 'img/baixar-play-store.png' %}"/></li>
+                    <li><img src="{% static 'img/baixar-windows-store.png' %}"/></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
 
 {% endblock %}
