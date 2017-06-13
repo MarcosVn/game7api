@@ -84,6 +84,7 @@ a:hover, a:active, a:focus{
 .home .mediabox-home{
     background:url(../img/fd-mediabox.jpg) no-repeat;
     height:500px;
+    background-size:100%;
 }
 
 .home .mediabox-home .busca{
