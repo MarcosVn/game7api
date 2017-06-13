@@ -680,7 +680,7 @@ game7App.factory("Funcionario", function (Ajax,$http) {
                 obj.funcionario_logado = response[0];
                 obj.logado = response[0].id;
                 window.localStorage.setItem("e_logado", response[0].id);
-                window.location = "/";
+                window.location = "/adm";
             }
           }
         )

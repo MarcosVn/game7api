@@ -285,13 +285,24 @@ game7App.controller('produtoCtrl', function($scope, Produto, Empresa, Categoria,
         $scope.pt.get_produtos(document.getElementById("ipFiltroNome").value, document.getElementById("ipFiltroRestaurante").value);
     }
     $scope.atualizar = function(){
-        $scope.pt.save_produto(
-            document.getElementById("nome").value,
-            document.getElementById("preco").value,
-            document.getElementById("descricao").value,
-            document.getElementById("empresa").value,
-            $scope.sc.sel_subcategorias.pk
-            );
+        if($scope.sc.sel_subcategorias){
+            $scope.pt.save_produto(
+                document.getElementById("nome").value,
+                document.getElementById("preco").value,
+                document.getElementById("descricao").value,
+                document.getElementById("empresa").value,
+                $scope.sc.sel_subcategorias.pk
+                );
+        }
+        else{
+            $scope.pt.save_produto(
+                document.getElementById("nome").value,
+                document.getElementById("preco").value,
+                document.getElementById("descricao").value,
+                document.getElementById("empresa").value,
+                ''
+                );
+        }
     }
     $scope.excluir = function(){
       $scope.pt.excluir_produto();

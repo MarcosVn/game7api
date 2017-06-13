@@ -1821,13 +1821,14 @@ class ServiceJson(View):
             oProduto.subcategorias.add(oSubCategoria)
             oProduto.save()
 
-        filename = str(oProduto.id) + '_' + str(random_n) + '.jpg'
-        image_data = open(settings.BASE_DIR + '/game7api/static/media/produto/' + filename, "wb")
-        image_data.write(re.sub('^data:image/.+;base64,', '', foto).decode('base64'))
-        image_data.close()
+        if foto:
+            filename = str(oProduto.id) + '_' + str(random_n) + '.jpg'
+            image_data = open(settings.BASE_DIR + '/game7api/static/media/produto/' + filename, "wb")
+            image_data.write(re.sub('^data:image/.+;base64,', '', foto).decode('base64'))
+            image_data.close()
 
-        oProduto.foto = filename
-        oProduto.save()
+            oProduto.foto = filename
+            oProduto.save()
 
         lista = "true"
 
