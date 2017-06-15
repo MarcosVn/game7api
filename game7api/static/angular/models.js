@@ -1,7 +1,7 @@
-//URL_BASE = "http://0.0.0.0:8010/js/";
+URL_BASE = "http://0.0.0.0:8010/js/";
 //URL_BASE = "http://127.0.0.1:8000/js/";
 //URL_BASE = "https://serene-atoll-63219.herokuapp.com/js/";
-URL_BASE = "http://menuweb.com.br/js/";
+//URL_BASE = "http://menuweb.com.br/js/";
 
 function getTokens(){
     var tokens = [];            // new array to hold result
@@ -1163,6 +1163,88 @@ game7App.factory("TipoCozinha", function (Ajax,$http) {
         var url = URL_BASE + "excluirtipocozinha";
         var params = {
           id:TOKENS['t_id']
+        }
+        $http({
+            method: "GET",
+            params: params,
+            url: url,
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }).then(function successCallback(response) {
+            obj.retorno = response.data;
+        }, function errorCallback(response) {
+            console.log("Erro");
+        });
+    };
+    return obj;
+});
+
+
+game7App.factory("Opcional", function (Ajax,$http) {
+    var obj = {
+        lista_opcionais: [],
+        opcionalselecionado: [],
+        retorno : false,
+    };
+    obj.get_opcionais = function (titulo_opcional) {
+        var url = URL_BASE + "opcionais";
+        var params = {
+            titulo:titulo_opcional
+        }
+        $http({
+            method: "GET",
+            params: params,
+            url: url,
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }).then(function successCallback(response) {
+            obj.lista_opcionais = response.data;
+        }, function errorCallback(response) {
+            console.log("Erro");
+        });
+    };
+
+    obj.get_opcional = function () {
+        var url = URL_BASE + "opcionais";
+        var params = {
+          id:TOKENS['o_id']
+        }
+        $http({
+            method: "GET",
+            params: params,
+            url: url,
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }).then(function successCallback(response) {
+            obj.opcionalselecionado= response.data;
+        }, function errorCallback(response) {
+            console.log("Erro");
+        });
+    };
+    obj.save_opcional = function (empresa_selecionado, opcional_titulo, opcional_quantitativo, opcional_unico) {
+        var url = URL_BASE + "saveopcional";
+
+        var f = new FormData();
+        f.append('id', TOKENS['o_id']);
+        f.append('titulo', opcional_titulo);
+        f.append('quantitativo', opcional_quantitativo);
+        f.append('unico', opcional_unico);
+        f.append('empresa_id', empresa_selecionado);
+
+        $http.post(url, f, {headers: {'Content-Type': undefined}}).success(
+          function(response){
+            obj.retorno = response;
+          }
+        )
+
+    };
+    obj.excluir_opcional = function () {
+        var url = URL_BASE + "excluiropcional";
+        var params = {
+          id:TOKENS['o_id']
         }
         $http({
             method: "GET",

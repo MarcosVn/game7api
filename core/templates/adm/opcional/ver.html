@@ -3,30 +3,32 @@
 {% load staticfiles %}
 {% block content %}
 
-<div ng-app="game7App" ng-controller="funcionarioCtrl" class="col-md-12" xmlns="http://www.w3.org/1999/html">
+<div ng-app="game7App" ng-controller="opcionalCtrl" class="col-md-12" xmlns="http://www.w3.org/1999/html">
     <div class="col-md-12">
-        <h3>Ver Funcionário</h3>
+        <h3>Ver Opcional</h3>
     </div>
     <div class="col-md-10">
-        <b>Nome</b><br/>
-        {[fn.funcionarioselecionado[0].fields.nome]}
+        <b>Empresa</b><br/>
+        {[op.opcionalselecionado[0].empresa_nome]}
         <br/><br/>
 
-        <b>Email</b><br/>
-        {[fn.funcionarioselecionado[0].fields.email]}
+        <b>Opcional</b><br/>
+        {[op.opcionalselecionado[0].titulo]}
         <br/><br/>
 
-        <b>Telefone</b><br/>
-        {[fn.funcionarioselecionado[0].fields.telefone]}
-        <br/><br/>
+        <b>Seleção unica?</b><br/>
+        <p ng-if="op.opcionalselecionado[0].unico==true">Sim</p>
+        <p ng-if="op.opcionalselecionado[0].unico==false">Não</p>
 
-        <b>Endereço</b><br/>
-        {[fn.funcionarioselecionado[0].fields.endereco]}
+
+        <b>Seleção quantitativa?</b><br/>
+        <p ng-if="op.opcionalselecionado[0].quantitativo==true">Sim</p>
+        <p ng-if="op.opcionalselecionado[0].quantitativo==false">Não</p>
         <br/><br/>
     </div>
 
     <div class="col-md-2">
-        <a style="display: block;width: 100%;" class="btn btn-default btn-lg" href="/adm/funcionarios">Voltar</a>
+        <a style="display: block;width: 100%;" class="btn btn-default btn-lg" href="/adm/opcionais">Voltar</a>
     </div>
 </div>
 

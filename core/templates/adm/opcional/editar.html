@@ -1,43 +1,35 @@
 {% extends "adm/base.html" %}
-{% block title %}Nova Categoria{% endblock %}
+{% block title %}Novo Funcionário{% endblock %}
 {% load staticfiles %}
 {% block content %}
 
-<div class="col-md-12" ng-app="game7App" ng-controller="funcionarioCtrl">
+<div class="col-md-12" ng-app="game7App" ng-controller="opcionalCtrl">
   <form method="post">
-    <div ng-if="fn.retorno">
+    <div ng-if="op.retorno">
         <p class="alert alert-success" style="text-align:center;">Salvo com sucesso!</p>
     </div>
     <div class="col-md-12">
-        <h3>Editar Funcionário</h3>
-        <p>A alteração da funcionário estará disponível assim que estiver salva.</p>
+        <h3>Editar Opcional</h3>
+        <p>A edição estará disponível assim que estiver salvo.</p>
     </div>
     <div class="col-md-8">
-        <label class="control-label">Nome</label><br/>
-        <input type="text" id="nome" name="nome" value="{[fn.funcionarioselecionado[0].fields.nome]}" required="True" class="form-control"/>
+
+        <label class="control-label">Empresa</label><br/>
+        <small>{[op.opcionalselecionado[0].empresa_nome]}</small>
+        <select class="form-control" name="empresa" id="empresa" ng-options="empresa as empresa.nome for empresa in em.lista_empresas track by empresa.id" ng-model="sel_empresa"></select>
         <br/>
 
-        <label class="control-label">Email</label><br/>
-        <input type="text" id="email" type="email" name="email" value="{[fn.funcionarioselecionado[0].fields.email]}" required="True" class="form-control"/>
+        <label class="control-label">Titulo</label><br/>
+        <input type="text" id="titulo" name="titulo" required="True" value="{[op.opcionalselecionado[0].titulo]}" class="form-control"/>
         <br/>
 
-        <label class="control-label">Senha</label><br/>
-        <input type="password" id="senha" name="senha" required="True" class="form-control"/>
-        <br/>
-
-        <label class="control-label">Telefone</label><br/>
-        <input type="number" id="telefone" name="telefone" value="{[fn.funcionarioselecionado[0].fields.telefone]}" required="True" class="form-control"/>
-        <br/>
-
-        <label class="control-label">Endereço</label><br/>
-        <textarea id="endereco" name="endereco" rows="5" required="true" class="form-control">{[fn.funcionarioselecionado[0].fields.endereco]}</textarea>
-        <br/>
-
+        <input type="checkbox" name="quantitativo" id="quantitativo" ng-checked="{[op.opcionalselecionado[0].quantitativo]}" value="quantitativo">O cliente poderá selecionar mais de um do mesmo item desta opcional?<br>
+        <input type="checkbox" name="unico" id="unico" ng-checked="{[op.opcionalselecionado[0].unico==true]}" value="unico">O cliente deve escolher apenas um item?<br>
     </div>
 
     <div class="col-md-4">
         <a ng-click="atualizar()" style="display: block;width: 100%;" class="btn btn-success btn-lg">Salvar</a>
-        <a style="display: block;width: 100%;" class="btn btn-default btn-lg" href="/adm/funcionarios/">Cancelar</a>
+        <a style="display: block;width: 100%;" class="btn btn-default btn-lg" href="/adm/opcionais/">Cancelar</a>
     </div>
   </form>
 </div>

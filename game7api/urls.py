@@ -67,11 +67,11 @@ urlpatterns = [
     url(r'^adm/funcionario-ver', adminFuncionarioVerView.as_view(), name="VerCategoria-adm"),
     url(r'^adm/funcionario-edicao', adminFuncionarioEdicaoView.as_view(), name="EdicaoCategoria-adm"),
 
-    url(r'^adm/opcionais/', adminFuncionariosView.as_view(), name="Categorias-adm"),
-    url(r'^adm/opcional-nova', adminFuncionarioNovaView.as_view(), name="NovaCategoria-adm"),
-    url(r'^adm/opcional-excluir$', adminFuncionarioExcluirView.as_view(), name="ExcluirCategoria-adm"),
-    url(r'^adm/opcional-ver', adminFuncionarioVerView.as_view(), name="VerCategoria-adm"),
-    url(r'^adm/opcional-edicao', adminFuncionarioEdicaoView.as_view(), name="EdicaoCategoria-adm"),
+    url(r'^adm/opcionais/', adminOpcionaisView.as_view(), name="Opcionais-adm"),
+    url(r'^adm/opcional-novo', adminOpcionalNovaView.as_view(), name="NovoOpcional-adm"),
+    url(r'^adm/opcional-excluir$', adminOpcionalExcluirView.as_view(), name="ExcluirOpcional-adm"),
+    url(r'^adm/opcional-ver', adminOpcionalVerView.as_view(), name="VerOpcional-adm"),
+    url(r'^adm/opcional-edicao', adminOpcionalEdicaoView.as_view(), name="EdicaoOpcional-adm"),
 
     url(r'^adm/pedidos/', adminPedidosView.as_view(), name="Pedidos-adm"),
     url(r'^adm/pedido-nova', adminPedidoNovaView.as_view(), name="NovaPedido-adm"),
@@ -112,9 +112,11 @@ urlpatterns = [
     url(r'^js/bandeiras', ServiceJson.bandeiras, name='bandeiras'),
     url(r'^js/repasses', ServiceJson.repasses, name='repasses'),
     url(r'^js/mensalidades', ServiceJson.mensalidades, name='mensalidades'),
+    url(r'^js/opcionais', ServiceJson.opcionais, name='opcionais'),
     # url(r'^js/tipospagamentos', ServiceJson.tipospagamentos, name='tipospagamentos'),
 
 
+    url(r'^js/saveopcional', ServiceJson.saveopcional, name='saveopcional'),
     url(r'^js/saveavaliacao', ServiceJson.saveavaliacao, name='saveavaliacao'),
     url(r'^js/savecategoria', ServiceJson.savecategoria, name='savecategoria'),
     url(r'^js/savecliente', ServiceJson.savecliente, name='savecliente'),
@@ -140,6 +142,7 @@ urlpatterns = [
     url(r'^js/criarrepasse', ServiceJson.criarrepasse, name='criarrepasse'),
     url(r'^js/receberrepasse', ServiceJson.receberrepasse, name='receberrepasse'),
 
+    url(r'^js/excluiropcional', ServiceJson.excluiropcional, name='excluiropcional'),
     url(r'^js/excluircategoria', ServiceJson.excluircategoria, name='excluircategoria'),
     url(r'^js/excluircliente', ServiceJson.excluircliente, name='excluircliente'),
     url(r'^js/excluirsubcategoria', ServiceJson.excluirsubcategoria, name='excluirsubcategoria'),

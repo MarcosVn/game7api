@@ -121,16 +121,16 @@ class adminOpcionaisView(View):
         return render_to_response('adm/opcional/opcionais.html', {}, RequestContext(request))
 class adminOpcionalNovaView(View):
     def get(self, request, *args, **kwargs):
-        return render(request, 'adm/funcionario/novo.html', {}, RequestContext(request))
+        return render(request, 'adm/opcional/novo.html', {}, RequestContext(request))
 class adminOpcionalEdicaoView(View):
     def get(self, request, *args, **kwargs):
-        return render(request, 'adm/funcionario/editar.html', {}, RequestContext(request))
+        return render(request, 'adm/opcional/editar.html', {}, RequestContext(request))
 class adminOpcionalExcluirView(View):
     def get(self, request, *args, **kwargs):
-        return render_to_response('adm/funcionario/excluir.html', {}, RequestContext(request))
+        return render_to_response('adm/opcional/excluir.html', {}, RequestContext(request))
 class adminOpcionalVerView(View):
     def get(self, request, *args, **kwargs):
-        return render_to_response('adm/funcionario/ver.html', {}, RequestContext(request))
+        return render_to_response('adm/opcional/ver.html', {}, RequestContext(request))
 
 class adminAtendimentosView(View):
     def get(self, request, *args, **kwargs):
@@ -221,6 +221,111 @@ class adminMensalidadesView(View):
         return render_to_response('adm/mensalidade/mensalidades.html', {}, RequestContext(request))
 
 class ServiceJson(View):
+
+    @staticmethod
+    def opcionais(request):
+        # Query Base
+        query = Opcional.objects.all().order_by("titulo")
+
+        # Filtros
+        titulo = request.GET.get("titulo")
+        id = request.GET.get("id")
+        empresa_id = request.GET.get("empresa_id")
+
+        if (id == 'undefined'):
+            id = int()
+            id = 0
+
+        if not (id):
+            id = int()
+            id = 0
+
+        if (titulo):
+            query = query.filter(titulo__icontains=titulo)
+        if (id > 0):
+            query = query.filter(id=id)
+        if (empresa_id):
+            query = query.filter(empresa__id=empresa_id)
+
+
+        rows = []
+
+        for op in query:
+            r = {
+                "id":op.id,
+                "empresa_id" : op.empresa.id,
+                "empresa_nome" : op.empresa.nome,
+                "titulo":op.titulo,
+                "unico":op.unico,
+                "quantitativo":op.quantitativo
+            }
+
+            rows.append(r)
+
+            lista = json.dumps(list(rows))
+        return HttpResponse(lista, content_type='application/json')
+
+
+    @staticmethod
+    @csrf_exempt
+    def saveopcional(request):
+        # Filtros
+        id = request.POST.get("id")
+        titulo = request.POST.get("titulo")
+        unico = request.POST.get("unico")
+        empresa_id = request.POST.get("empresa_id")
+        quantitativo = request.POST.get("quantitativo")
+
+
+        print id
+        print titulo
+        print unico
+        print empresa_id
+        print quantitativo
+
+        # Objeto de Opcional
+        oOpcional = Opcional()
+
+        if (id):
+            if (int(id) > 0):
+                oOpcional = Opcional.objects.get(id=id)
+
+        oOpcional.titulo = titulo
+
+        if unico != 'undefined':
+            oOpcional.unico =True
+        else:
+            oOpcional.unico =False
+
+        if empresa_id:
+            if empresa_id != '?':
+                oempresa = Empresa.objects.filter(id=empresa_id).first()
+                oOpcional.empresa = oempresa
+
+        if quantitativo != 'undefined':
+            oOpcional.quantitativo =True
+        else:
+            oOpcional.quantitativo =False
+
+        oOpcional.save()
+
+        lista = "true"
+        return HttpResponse(lista, content_type='application/json')
+
+    @staticmethod
+    def excluiropcional(request):
+        id = request.GET.get("id")
+
+        # Query Base
+        oOpcional = Opcional.objects.filter(id=id).first()
+
+        oOpcional.delete()
+
+        lista = "true"
+
+        return HttpResponse(lista, content_type='application/json')
+
+
     @staticmethod
     def categorias(request):
         # Query Base
@@ -245,6 +350,7 @@ class ServiceJson(View):
 
         lista = serialize('json', query, fields=["id", "nome"])
         return HttpResponse(lista, content_type='application/json')
+
 
     @staticmethod
     @csrf_exempt
