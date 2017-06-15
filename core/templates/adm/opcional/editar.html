@@ -1,0 +1,45 @@
+{% extends "adm/base.html" %}
+{% block title %}Nova Categoria{% endblock %}
+{% load staticfiles %}
+{% block content %}
+
+<div class="col-md-12" ng-app="game7App" ng-controller="funcionarioCtrl">
+  <form method="post">
+    <div ng-if="fn.retorno">
+        <p class="alert alert-success" style="text-align:center;">Salvo com sucesso!</p>
+    </div>
+    <div class="col-md-12">
+        <h3>Editar Funcionário</h3>
+        <p>A alteração da funcionário estará disponível assim que estiver salva.</p>
+    </div>
+    <div class="col-md-8">
+        <label class="control-label">Nome</label><br/>
+        <input type="text" id="nome" name="nome" value="{[fn.funcionarioselecionado[0].fields.nome]}" required="True" class="form-control"/>
+        <br/>
+
+        <label class="control-label">Email</label><br/>
+        <input type="text" id="email" type="email" name="email" value="{[fn.funcionarioselecionado[0].fields.email]}" required="True" class="form-control"/>
+        <br/>
+
+        <label class="control-label">Senha</label><br/>
+        <input type="password" id="senha" name="senha" required="True" class="form-control"/>
+        <br/>
+
+        <label class="control-label">Telefone</label><br/>
+        <input type="number" id="telefone" name="telefone" value="{[fn.funcionarioselecionado[0].fields.telefone]}" required="True" class="form-control"/>
+        <br/>
+
+        <label class="control-label">Endereço</label><br/>
+        <textarea id="endereco" name="endereco" rows="5" required="true" class="form-control">{[fn.funcionarioselecionado[0].fields.endereco]}</textarea>
+        <br/>
+
+    </div>
+
+    <div class="col-md-4">
+        <a ng-click="atualizar()" style="display: block;width: 100%;" class="btn btn-success btn-lg">Salvar</a>
+        <a style="display: block;width: 100%;" class="btn btn-default btn-lg" href="/adm/funcionarios/">Cancelar</a>
+    </div>
+  </form>
+</div>
+
+{% endblock %}

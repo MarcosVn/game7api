@@ -1,0 +1,23 @@
+{% extends 'adm/base.html' %}
+{% block title %}Funcionários - Excluir{% endblock %}
+{% load staticfiles %}
+{% block content %}
+
+  <div class="content col-md-12" ng-app="game7App" ng-controller="funcionarioCtrl">
+    <div ng-if="fn.retorno">
+        <p class="alert alert-success" style="text-align:center;">Excluido com sucesso!</p>
+    </div>
+    <div class="col-md-12">
+        <h2>Funcionário - <small>Exclusão</small></h2>
+    </div>
+    <div class="col-md-10">
+        <p>A exclusão terá efeito imediato</p>
+        <p>Tem certeza que deseja excluir o Funcionário <b>{[fn.funcionarioselecionado[0].fields.nome]}</b> ? </p>
+    </div>
+    <div class="col-md-2">
+        <a ng-click="excluir()" style="display: block;width: 100%;" class="btn btn-success btn-lg">Sim</a>
+        <a href="/adm/funcionarios" style="display: block;width: 100%;" class="btn btn-default">Cancelar</a>
+    </div>
+
+  </div>
+{% endblock %}

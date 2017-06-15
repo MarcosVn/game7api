@@ -323,3 +323,24 @@ class Mensalidade(models.Model):
 
     def __unicode__(self):
         return self.titulo
+
+class Opcional(models.Model):
+    id = models.AutoField(primary_key=True)
+    empresa = models.ForeignKey("Empresa", related_name="Opcionais")
+    titulo = models.CharField(max_length=512)
+    class Meta:
+        verbose_name = "Opcional"
+        verbose_name_plural = "Opcionais"
+    def __unicode__(self):
+        return self.titulo
+
+class Opcao(models.Model):
+    id = models.AutoField(primary_key=True)
+    opcional = models.ForeignKey("Opcional", related_name="Opcoes")
+    titulo = models.CharField(max_length=512)
+    valor = models.FloatField()
+    class Meta:
+        verbose_name = "Opcional"
+        verbose_name_plural = "Opcionais"
+    def __unicode__(self):
+        return self.titulo

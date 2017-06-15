@@ -116,6 +116,22 @@ class adminFuncionarioVerView(View):
     def get(self, request, *args, **kwargs):
         return render_to_response('adm/funcionario/ver.html', {}, RequestContext(request))
 
+class adminOpcionaisView(View):
+    def get(self, request, *args, **kwargs):
+        return render_to_response('adm/opcional/opcionais.html', {}, RequestContext(request))
+class adminOpcionalNovaView(View):
+    def get(self, request, *args, **kwargs):
+        return render(request, 'adm/funcionario/novo.html', {}, RequestContext(request))
+class adminOpcionalEdicaoView(View):
+    def get(self, request, *args, **kwargs):
+        return render(request, 'adm/funcionario/editar.html', {}, RequestContext(request))
+class adminOpcionalExcluirView(View):
+    def get(self, request, *args, **kwargs):
+        return render_to_response('adm/funcionario/excluir.html', {}, RequestContext(request))
+class adminOpcionalVerView(View):
+    def get(self, request, *args, **kwargs):
+        return render_to_response('adm/funcionario/ver.html', {}, RequestContext(request))
+
 class adminAtendimentosView(View):
     def get(self, request, *args, **kwargs):
         return render_to_response('adm/atendimento/atendimentos.html', {}, RequestContext(request))
@@ -1852,6 +1868,81 @@ class ServiceJson(View):
         oProduto.delete()
 
         lista = "true"
+        return HttpResponse(lista, content_type='application/json')
+
+    @staticmethod
+    def cardapio(request):
+        # Query Base
+        query = Produto.objects.all().order_by("nome")
+
+        # Filtros
+        nome = request.GET.get("nome")
+        id = request.GET.get("id")
+        descricao = request.GET.get("descricao")
+        preco = request.GET.get("preco")
+        empresa_id = request.GET.get("empresa_id")
+        restaurante_nome = request.GET.get("restaurante")
+
+        if (id == 'undefined'):
+            id = int()
+            id = 0
+
+        if not (id):
+            id = int()
+            id = 0
+
+        if (nome):
+            query = query.filter(nome__icontains=nome)
+        if (id > 0):
+            query = query.filter(id=id)
+        if (descricao):
+            query = query.filter(descricao__icontains=descricao)
+        if (empresa_id):
+            query = query.filter(empresa__id=empresa_id)
+        if (restaurante_nome):
+            query = query.filter(empresa__nome__icontains=restaurante_nome)
+
+
+        rows = []
+
+        listasubcategorias = []
+
+        for produto in query:
+            for subcategoria in produto.subcategorias.all():
+                if not subcategoria in listasubcategorias:
+                    listasubcategorias.append(subcategoria)
+
+
+        for subcategoria_atual in listasubcategorias:
+            produtos = []
+
+            for produto in query:
+                for subcategoria in produto.subcategorias.all():
+                    if subcategoria_atual.id == subcategoria.id:
+                        prod = {
+                            "id": produto.id,
+                            "nome": produto.nome,
+                            "descricao": produto.descricao,
+                            "preco": produto.preco,
+                            "foto": produto.foto,
+                            "empresa_id":produto.empresa.id,
+                            "empresa":produto.empresa.nome
+                        }
+
+                        produtos.append(prod)
+
+            r_sub = {
+                "subcategoria": subcategoria_atual.nome,
+                "subcategoria_id": subcategoria_atual.id,
+                "categoria": subcategoria_atual.categoria.nome,
+                "categoria_id": subcategoria_atual.categoria.id,
+                "produtos":produtos
+            }
+
+            rows.append(r_sub)
+
+
+        lista = json.dumps(list(rows))
         return HttpResponse(lista, content_type='application/json')
 
     @staticmethod

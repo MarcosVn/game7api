@@ -60,11 +60,19 @@ urlpatterns = [
     url(r'^adm/filiado/atendimentos/', adminAtendimentosView.as_view(), name="AtendimentosEmpresa-adm"),
     url(r'^adm/filiado/atendimento-novo', adminAtendimentoNovaView.as_view(), name="NovoAtendimentosEmpresa-adm"),
     url(r'^adm/filiado/atendimento-excluir', adminAtendimentoExcluirView.as_view(), name="ExcluirAtendimentosEmpresa-adm"),
+
     url(r'^adm/funcionarios/', adminFuncionariosView.as_view(), name="Categorias-adm"),
     url(r'^adm/funcionario-nova', adminFuncionarioNovaView.as_view(), name="NovaCategoria-adm"),
     url(r'^adm/funcionario-excluir$', adminFuncionarioExcluirView.as_view(), name="ExcluirCategoria-adm"),
     url(r'^adm/funcionario-ver', adminFuncionarioVerView.as_view(), name="VerCategoria-adm"),
     url(r'^adm/funcionario-edicao', adminFuncionarioEdicaoView.as_view(), name="EdicaoCategoria-adm"),
+
+    url(r'^adm/opcionais/', adminFuncionariosView.as_view(), name="Categorias-adm"),
+    url(r'^adm/opcional-nova', adminFuncionarioNovaView.as_view(), name="NovaCategoria-adm"),
+    url(r'^adm/opcional-excluir$', adminFuncionarioExcluirView.as_view(), name="ExcluirCategoria-adm"),
+    url(r'^adm/opcional-ver', adminFuncionarioVerView.as_view(), name="VerCategoria-adm"),
+    url(r'^adm/opcional-edicao', adminFuncionarioEdicaoView.as_view(), name="EdicaoCategoria-adm"),
+
     url(r'^adm/pedidos/', adminPedidosView.as_view(), name="Pedidos-adm"),
     url(r'^adm/pedido-nova', adminPedidoNovaView.as_view(), name="NovaPedido-adm"),
     url(r'^adm/pedido-excluir$', adminPedidoExcluirView.as_view(), name="ExcluirPedido-adm"),
@@ -96,6 +104,7 @@ urlpatterns = [
     url(r'^js/funcionarios', ServiceJson.funcionarios, name='funcionarios'),
     url(r'^js/funcionario-login', ServiceJson.funcionarioLogin, name='funcionariologin'),
     url(r'^js/produtos', ServiceJson.produtos, name='produtos'),
+    url(r'^js/cardapio', ServiceJson.cardapio, name='cardapio'),
     url(r'^js/pedidos', ServiceJson.pedidos, name='pedidos'),
     url(r'^js/tiposcozinhas', ServiceJson.tiposcozinhas, name='tiposcozinhas'),
     url(r'^js/itens', ServiceJson.itens, name='itens'),
