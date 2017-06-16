@@ -132,6 +132,17 @@ class adminOpcionalVerView(View):
     def get(self, request, *args, **kwargs):
         return render_to_response('adm/opcional/ver.html', {}, RequestContext(request))
 
+class adminOpcaoView(View):
+    def get(self, request, *args, **kwargs):
+        return render_to_response('adm/opcionalopcoes/opcoes.html', {}, RequestContext(request))
+class adminOpcaoNovaView(View):
+    def get(self, request, *args, **kwargs):
+        return render(request, 'adm/opcionalopcoes/novo.html', {}, RequestContext(request))
+class adminOpcaoExcluirView(View):
+    def get(self, request, *args, **kwargs):
+        return render_to_response('adm/opcionalopcoes/excluir.html', {}, RequestContext(request))
+
+
 class adminAtendimentosView(View):
     def get(self, request, *args, **kwargs):
         return render_to_response('adm/atendimento/atendimentos.html', {}, RequestContext(request))
@@ -223,6 +234,49 @@ class adminMensalidadesView(View):
 class ServiceJson(View):
 
     @staticmethod
+    def opcoes(request):
+        # Query Base
+        query = Opcao.objects.all().order_by("titulo")
+
+        # Filtros
+        titulo = request.GET.get("titulo")
+        id = request.GET.get("id")
+        opcional_id = request.GET.get("empresa_id")
+
+        if (id == 'undefined'):
+            id = int()
+            id = 0
+
+        if not (id):
+            id = int()
+            id = 0
+
+        if (titulo):
+            query = query.filter(titulo__icontains=titulo)
+        if (id > 0):
+            query = query.filter(id=id)
+        if (opcional_id):
+            query = query.filter(opcional__id=opcional_id)
+
+
+        rows = []
+
+        for op in query:
+            r = {
+                "id":op.id,
+                "opcional__id" : op.id,
+                "opcional_titulo" : op.titulo,
+                "titulo":op.titulo,
+                "valor":op.valor
+            }
+
+            rows.append(r)
+
+        lista = json.dumps(list(rows))
+        return HttpResponse(lista, content_type='application/json')
+
+
+    @staticmethod
     def opcionais(request):
         # Query Base
         query = Opcional.objects.all().order_by("titulo")
@@ -268,6 +322,40 @@ class ServiceJson(View):
 
     @staticmethod
     @csrf_exempt
+    def saveopcao(request):
+        # Filtros
+        id = request.POST.get("id")
+        titulo = request.POST.get("titulo")
+        opcional_id = request.POST.get("opcional_id")
+        valor = request.POST.get("valor")
+
+        # Objeto de Opcional
+        oOpcao = Opcao()
+
+        if (id):
+            if (int(id) > 0):
+                oOpcao = Opcional.objects.get(id=id)
+
+        oOpcao.titulo = titulo
+
+        if opcional_id:
+            if opcional_id != '?':
+                oOpcional = Opcional.objects.filter(id=opcional_id).first()
+                oOpcao.opcional = oOpcional
+
+        if valor:
+            oOpcao.valor = valor
+        else:
+            oOpcao.valor = 0
+
+        oOpcao.save()
+
+        lista = "true"
+        return HttpResponse(lista, content_type='application/json')
+
+
+    @staticmethod
+    @csrf_exempt
     def saveopcional(request):
         # Filtros
         id = request.POST.get("id")
@@ -275,13 +363,6 @@ class ServiceJson(View):
         unico = request.POST.get("unico")
         empresa_id = request.POST.get("empresa_id")
         quantitativo = request.POST.get("quantitativo")
-
-
-        print id
-        print titulo
-        print unico
-        print empresa_id
-        print quantitativo
 
         # Objeto de Opcional
         oOpcional = Opcional()
@@ -325,6 +406,18 @@ class ServiceJson(View):
 
         return HttpResponse(lista, content_type='application/json')
 
+    @staticmethod
+    def excluiropcao(request):
+        id = request.GET.get("id")
+
+        # Query Base
+        oOpcao = Opcao.objects.filter(id=id).first()
+
+        oOpcao.delete()
+
+        lista = "true"
+
+        return HttpResponse(lista, content_type='application/json')
 
     @staticmethod
     def categorias(request):

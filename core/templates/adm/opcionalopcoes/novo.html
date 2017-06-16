@@ -1,0 +1,32 @@
+{% extends "adm/base.html" %}
+{% block title %}Nova SubCategoria{% endblock %}
+{% load staticfiles %}
+{% block content %}
+
+<div class="col-md-12" ng-app="game7App" ng-controller="opcaoCtrl">
+  <form method="post">
+    <div ng-if="oa.retorno">
+        <p class="alert alert-success" style="text-align:center;">Salvo com sucesso!</p>
+    </div>
+    <div class="col-md-12">
+        <h3>Nova opção para o opcional <b>{[op.opcionalselecionado[0].titulo]}</b></h3>
+        <p>A opção da opcional entrará em vigor assim que o mesmo for salvo.</p>
+    </div>
+    <div class="col-md-8">
+        <label class="control-label">Titulo</label><br/>
+        <input type="text" id="titulo" name="titulo" required="True" class="form-control"/>
+        <br/>
+
+        <label class="control-label">Valor</label><br/>
+        <input type="text" id="valor" name="valor" required="True" class="form-control"/>
+        <br/>
+    </div>
+
+    <div class="col-md-4">
+        <a ng-click="atualizar()" style="display: block;width: 100%;" class="btn btn-success btn-lg">Salvar</a>
+        <a style="display: block;width: 100%;" class="btn btn-default btn-lg" href="/adm/opcoes?o_id={[op.opcionalselecionado[0].id]}">Cancelar</a>
+    </div>
+  </form>
+</div>
+
+{% endblock %}

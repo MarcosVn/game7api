@@ -1,0 +1,30 @@
+{% extends "adm/base.html" %}
+{% block title %}Categorias{% endblock %}
+{% load staticfiles %}
+{% block content %}
+
+<div class="col-md-12" ng-app="game7App" ng-controller="opcaoCtrl" >
+    <div class="col-md-12">
+        <h3>Opções do Opcional <b>{[op.opcionalselecionado[0].titulo]}</b></h3>
+        <p>Este módulo apresenta por padrão as opções.</p>
+    </div>
+      <div class="col-md-9">
+        <table class="table">
+            <tr>
+                <th>Opção</th>
+                <th>valor</th>
+                <th></th>
+            </tr>
+            <tr ng-repeat="opcao in oa.lista_opcoes">
+              <td class="col-md-5">{[opcao.titulo]}</td>
+              <td class="col-md-5">{[opcao.valor]}</td>
+              <td><a href="/adm/opcao-excluir?oa_id={[opcao.id]}" class="btn btn-danger btn-xs">excluir</a> </td>
+            </tr>
+        </table>
+    </div>
+    <div class="col-md-1">
+        <a href="/adm/opcao-novo?o_id={[op.opcionalselecionado[0].id]}" class="btn btn-primary btn-lg">Adicionar Opção</a>
+    </div>
+</div>
+
+{% endblock %}

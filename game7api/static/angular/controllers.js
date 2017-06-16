@@ -408,7 +408,6 @@ game7App.controller('mensalidadesCtrl', function($scope, Mensalidade) {
     }
 });
 
-
 game7App.controller('opcionalCtrl', function($scope, Opcional, Empresa) {
     $scope.op = Opcional;
     $scope.op.get_opcionais();
@@ -429,5 +428,28 @@ game7App.controller('opcionalCtrl', function($scope, Opcional, Empresa) {
     }
     $scope.excluir = function(){
       $scope.op.excluir_opcional();
+    }
+});
+
+game7App.controller('opcaoCtrl', function($scope, Opcional, Opcao) {
+    $scope.op = Opcional;
+    $scope.op.get_opcionais();
+    $scope.op.get_opcional();
+
+
+    $scope.oa = Opcao;
+    $scope.oa.get_opcoes();
+    $scope.oa.get_opcao();
+
+    $scope.filtrar = function(){
+        $scope.oa.get_opcoes(document.getElementById("ipFiltroTitulo").value);
+    }
+    $scope.atualizar = function(){
+        $scope.oa.save_opcao(
+            document.getElementById("titulo").value,
+            document.getElementById("valor").value);
+    }
+    $scope.excluir = function(){
+      $scope.oa.excluir_opcao();
     }
 });

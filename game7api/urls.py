@@ -73,6 +73,10 @@ urlpatterns = [
     url(r'^adm/opcional-ver', adminOpcionalVerView.as_view(), name="VerOpcional-adm"),
     url(r'^adm/opcional-edicao', adminOpcionalEdicaoView.as_view(), name="EdicaoOpcional-adm"),
 
+    url(r'^adm/opcoes/', adminOpcaoView.as_view(), name="Opcao-adm"),
+    url(r'^adm/opcao-novo', adminOpcaoNovaView.as_view(), name="NovaOpcao-adm"),
+    url(r'^adm/opcao-excluir$', adminOpcaoExcluirView.as_view(), name="ExcluirOpcao-adm"),
+
     url(r'^adm/pedidos/', adminPedidosView.as_view(), name="Pedidos-adm"),
     url(r'^adm/pedido-nova', adminPedidoNovaView.as_view(), name="NovaPedido-adm"),
     url(r'^adm/pedido-excluir$', adminPedidoExcluirView.as_view(), name="ExcluirPedido-adm"),
@@ -113,10 +117,12 @@ urlpatterns = [
     url(r'^js/repasses', ServiceJson.repasses, name='repasses'),
     url(r'^js/mensalidades', ServiceJson.mensalidades, name='mensalidades'),
     url(r'^js/opcionais', ServiceJson.opcionais, name='opcionais'),
+    url(r'^js/opcoes', ServiceJson.opcoes, name='opcoes'),
     # url(r'^js/tipospagamentos', ServiceJson.tipospagamentos, name='tipospagamentos'),
 
 
     url(r'^js/saveopcional', ServiceJson.saveopcional, name='saveopcional'),
+    url(r'^js/saveopcao', ServiceJson.saveopcao, name='saveopcao'),
     url(r'^js/saveavaliacao', ServiceJson.saveavaliacao, name='saveavaliacao'),
     url(r'^js/savecategoria', ServiceJson.savecategoria, name='savecategoria'),
     url(r'^js/savecliente', ServiceJson.savecliente, name='savecliente'),
@@ -143,6 +149,7 @@ urlpatterns = [
     url(r'^js/receberrepasse', ServiceJson.receberrepasse, name='receberrepasse'),
 
     url(r'^js/excluiropcional', ServiceJson.excluiropcional, name='excluiropcional'),
+    url(r'^js/excluiropcao', ServiceJson.excluiropcao, name='excluiropcao'),
     url(r'^js/excluircategoria', ServiceJson.excluircategoria, name='excluircategoria'),
     url(r'^js/excluircliente', ServiceJson.excluircliente, name='excluircliente'),
     url(r'^js/excluirsubcategoria', ServiceJson.excluirsubcategoria, name='excluirsubcategoria'),

@@ -1261,3 +1261,85 @@ game7App.factory("Opcional", function (Ajax,$http) {
     };
     return obj;
 });
+
+
+game7App.factory("Opcao", function (Ajax,$http) {
+    var obj = {
+        lista_opcoes: [],
+        opcaoselecionado: [],
+        retorno : false,
+    };
+    obj.get_opcoes = function (titulo_opcional) {
+        var url = URL_BASE + "opcoes";
+        var params = {
+            titulo:titulo_opcional,
+            empresa_id:TOKENS['o_id']
+        }
+        $http({
+            method: "GET",
+            params: params,
+            url: url,
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }).then(function successCallback(response) {
+            obj.lista_opcoes = response.data;
+        }, function errorCallback(response) {
+            console.log("Erro");
+        });
+    };
+
+    obj.get_opcao = function () {
+        var url = URL_BASE + "opcoes";
+        var params = {
+          id:TOKENS['oa_id']
+        }
+        $http({
+            method: "GET",
+            params: params,
+            url: url,
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }).then(function successCallback(response) {
+            obj.opcaoselecionado= response.data;
+        }, function errorCallback(response) {
+            console.log("Erro");
+        });
+    };
+    obj.save_opcao = function (opcao_titulo, opcao_valor) {
+        var url = URL_BASE + "saveopcao";
+
+        var f = new FormData();
+        f.append('opcional_id', TOKENS['o_id']);
+        f.append('titulo', opcao_titulo);
+        f.append('valor', opcao_valor);
+
+
+        $http.post(url, f, {headers: {'Content-Type': undefined}}).success(
+          function(response){
+            obj.retorno = response;
+          }
+        )
+
+    };
+    obj.excluir_opcao = function () {
+        var url = URL_BASE + "excluiropcao";
+        var params = {
+          id:TOKENS['oa_id']
+        }
+        $http({
+            method: "GET",
+            params: params,
+            url: url,
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }).then(function successCallback(response) {
+            obj.retorno = response.data;
+        }, function errorCallback(response) {
+            console.log("Erro");
+        });
+    };
+    return obj;
+});
