@@ -1,7 +1,7 @@
-//URL_BASE = "http://0.0.0.0:8010/js/";
+URL_BASE = "http://0.0.0.0:8010/js/";
 //URL_BASE = "http://127.0.0.1:8000/js/";
 //URL_BASE = "https://serene-atoll-63219.herokuapp.com/js/";
-URL_BASE = "http://menuweb.com.br/js/";
+//URL_BASE = "http://menuweb.com.br/js/";
 
 function getTokens(){
     var tokens = [];            // new array to hold result
@@ -890,6 +890,38 @@ game7App.factory("Produto", function (Ajax,$http) {
             console.log("Erro");
         });
     };
+    obj.save_produtoopcional = function (opcional_id) {
+        var url = URL_BASE + "saveprodutoopcional";
+
+        var f = new FormData();
+        f.append('id', TOKENS['p_id']);
+        f.append('opcional_id', opcional_id);
+        $http.post(url, f, {headers: {'Content-Type': undefined}}).success(
+          function(response){
+            obj.retorno = response;
+          }
+        )
+
+    };
+    obj.excluir_produtoopcional= function () {
+        var url = URL_BASE + "excluirprodutoopcional";
+        var params = {
+          p_id:TOKENS['p_id'],
+          op_id:TOKENS['op_id']
+        }
+        $http({
+            method: "GET",
+            params: params,
+            url: url,
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }).then(function successCallback(response) {
+            obj.retorno = response.data;
+        }, function errorCallback(response) {
+            console.log("Erro");
+        });
+    };
     obj.save_produtofoto = function (subcategoria_id) {
         var url = URL_BASE + "saveprodutofoto";
 
@@ -1190,7 +1222,8 @@ game7App.factory("Opcional", function (Ajax,$http) {
     obj.get_opcionais = function (titulo_opcional) {
         var url = URL_BASE + "opcionais";
         var params = {
-            titulo:titulo_opcional
+            titulo:titulo_opcional,
+            empresa_id:TOKENS['e_id']
         }
         $http({
             method: "GET",

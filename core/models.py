@@ -191,21 +191,6 @@ class SubCategoria(models.Model):
     def __unicode__(self):
         return str(self.nome)
 
-class Produto(models.Model):
-    id = models.AutoField(primary_key=True)
-    nome = models.CharField(max_length=512)
-    foto = models.CharField(max_length=1024)
-    descricao = models.CharField(max_length=1024)
-    preco = models.FloatField(null=True)
-    empresa = models.ForeignKey("Empresa", related_name="produtos")
-    subcategorias = models.ManyToManyField("SubCategoria", related_name="subcategorias")
-    class Meta:
-        verbose_name="Produto"
-        verbose_name_plural="Produtos"
-
-    def __unicode__(self):
-        return str(self.nome)
-
 class Carrinho(models.Model):
     id = models.AutoField(primary_key=True)
     quantidade=models.IntegerField(default=1)
@@ -346,3 +331,20 @@ class Opcao(models.Model):
         verbose_name_plural = "Opções"
     def __unicode__(self):
         return self.titulo
+
+
+class Produto(models.Model):
+    id = models.AutoField(primary_key=True)
+    nome = models.CharField(max_length=512)
+    foto = models.CharField(max_length=1024)
+    descricao = models.CharField(max_length=1024)
+    preco = models.FloatField(null=True)
+    empresa = models.ForeignKey("Empresa", related_name="produtos")
+    subcategorias = models.ManyToManyField("SubCategoria", related_name="subcategorias")
+    opcionais = models.ManyToManyField("Opcional", related_name="opcionais", null=True, default=None)
+    class Meta:
+        verbose_name="Produto"
+        verbose_name_plural="Produtos"
+
+    def __unicode__(self):
+        return str(self.nome)

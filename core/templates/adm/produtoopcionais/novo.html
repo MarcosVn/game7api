@@ -1,0 +1,33 @@
+{% extends "adm/base.html" %}
+{% block title %}Nova SubCategoria{% endblock %}
+{% load staticfiles %}
+{% block content %}
+
+<div class="col-md-12" ng-app="game7App" ng-controller="produtoCtrl">
+  <form method="post">
+    <div ng-if="pt.retorno">
+        <p class="alert alert-success" style="text-align:center;">Salvo com sucesso!</p>
+    </div>
+    <div class="col-md-12">
+        <h3>Nova Opcionais para o produto <b>{[pt.produtoselecionado[0].nome]}</b></h3>
+        <p>O opcional do produto entrará em vigor assim que o mesmo for salvo.</p>
+    </div>
+    <div class="col-md-8">
+        <label class="control-label">Opcionais</label><br/>
+        <select class="form-control" name="opcional" id="opcional" ng-options="opcional as opcional.titulo for opcional in op.lista_opcionais track by opcional.id" ng-model="op.sel_opcional"></select>
+        <br/>
+
+        Opções
+        <ul class="list-group">
+            <li class="list-group-item" ng-repeat="opcao in op.sel_opcional.opcoes">{[opcao.titulo]}</li>
+        </ul>
+    </div>
+
+    <div class="col-md-4">
+        <a ng-click="atualizar_produtoopcional()" style="display: block;width: 100%;" class="btn btn-success btn-lg">Salvar</a>
+        <a style="display: block;width: 100%;" class="btn btn-default btn-lg" href="/adm/produto-opcionais?p_id={[pt.produtoselecionado[0].id]}">Cancelar</a>
+    </div>
+  </form>
+</div>
+
+{% endblock %}

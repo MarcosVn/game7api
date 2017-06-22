@@ -266,9 +266,10 @@ game7App.controller('funcionarioCtrl', function($scope, Funcionario) {
     }
 });
 
-game7App.controller('produtoCtrl', function($scope, Produto, Empresa, Categoria, SubCategoria, Funcionario) {
+game7App.controller('produtoCtrl', function($scope, Produto, Empresa, Categoria, SubCategoria, Funcionario, Opcional) {
     $scope.em = Empresa;
     $scope.em.get_empresas();
+
     $scope.pt = Produto;
     $scope.pt.get_produtos();
     $scope.pt.get_produto();
@@ -280,6 +281,9 @@ game7App.controller('produtoCtrl', function($scope, Produto, Empresa, Categoria,
     $scope.fn.verifica_login();
 
     $scope.sc = SubCategoria;
+
+    $scope.op = Opcional;
+    $scope.op.get_opcionais();
 
     $scope.filtrar = function(){
         $scope.pt.get_produtos(document.getElementById("ipFiltroNome").value, document.getElementById("ipFiltroRestaurante").value);
@@ -312,6 +316,12 @@ game7App.controller('produtoCtrl', function($scope, Produto, Empresa, Categoria,
     }
     $scope.atualizar_produtocategoria = function(){
         $scope.pt.save_produtocategoria($scope.sc.sel_subcategorias.pk);
+    }
+    $scope.atualizar_produtoopcional = function(){
+        $scope.pt.save_produtoopcional($scope.op.sel_opcional.id);
+    }
+    $scope.excluir_produtoopcional = function(){
+        $scope.pt.excluir_produtoopcional();
     }
     $scope.excluir_produtocategoria = function(){
         $scope.pt.excluir_produtocategoria();

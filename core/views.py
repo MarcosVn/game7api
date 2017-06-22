@@ -182,6 +182,16 @@ class adminProdutoCategoriasNovoView(View):
     def get(self, request, *args, **kwargs):
         return render_to_response('adm/produtocategorias/novo.html', {}, RequestContext(request))
 
+class adminProdutoOpcionaisView(View):
+    def get(self, request, *args, **kwargs):
+        return render_to_response('adm/produtoopcionais/produtoopcionais.html', {}, RequestContext(request))
+class adminProdutoOpcionaisExcluirView(View):
+    def get(self, request, *args, **kwargs):
+        return render_to_response('adm/produtoopcionais/excluir.html', {}, RequestContext(request))
+class adminProdutoOpcionaisNovoView(View):
+    def get(self, request, *args, **kwargs):
+        return render_to_response('adm/produtoopcionais/novo.html', {}, RequestContext(request))
+
 class adminPedidosView(View):
     def get(self, request, *args, **kwargs):
         return render_to_response('adm/pedido/pedidos.html', {}, RequestContext(request))
@@ -305,13 +315,24 @@ class ServiceJson(View):
         rows = []
 
         for op in query:
+
+            ops = []
+            for opcao in op.Opcoes.all():
+                os = {
+                    "id":opcao.id,
+                    "titulo":opcao.titulo,
+                    "valor":opcao.valor
+                }
+                ops.append(os)
+
             r = {
                 "id":op.id,
                 "empresa_id" : op.empresa.id,
                 "empresa_nome" : op.empresa.nome,
                 "titulo":op.titulo,
                 "unico":op.unico,
-                "quantitativo":op.quantitativo
+                "quantitativo":op.quantitativo,
+                "opcoes":ops
             }
 
             rows.append(r)
@@ -1965,6 +1986,27 @@ class ServiceJson(View):
         return HttpResponse(lista, content_type='application/json')
 
     @staticmethod
+    @csrf_exempt
+    def saveprodutoopcional(request):
+        # Filtros
+        id = request.POST.get("id")
+        opcional_id = request.POST.get("opcional_id")
+
+        print opcional_id
+        print id
+
+        oProduto = Produto.objects.filter(id=id).first()
+        oOpcional = Opcional.objects.filter(id=opcional_id).first()
+
+        print oOpcional
+
+        oProduto.opcionais.add(oOpcional)
+        oProduto.save()
+
+        lista = "true"
+        return HttpResponse(lista, content_type='application/json')
+
+    @staticmethod
     def excluirproduto_categoria(request):
         produto_id = request.GET.get("p_id")
         subcategoria_id = request.GET.get("subc_id")
@@ -1974,6 +2016,24 @@ class ServiceJson(View):
         oSubCategoria = SubCategoria.objects.filter(id=subcategoria_id).first()
 
         oProduto.subcategorias.remove(oSubCategoria)
+        oProduto.save()
+
+        lista = "true"
+        return HttpResponse(lista, content_type='application/json')
+
+    @staticmethod
+    def excluirproduto_opcional(request):
+        produto_id = request.GET.get("p_id")
+        opcional_id = request.GET.get("op_id")
+
+        print produto_id
+        print opcional_id
+
+        # Query Base
+        oProduto = Produto.objects.filter(id=produto_id).first()
+        oOpcional = Opcional.objects.filter(id=opcional_id).first()
+
+        oProduto.opcionais.remove(oOpcional)
         oProduto.save()
 
         lista = "true"
@@ -2182,6 +2242,7 @@ class ServiceJson(View):
         for produto in query:
 
             subs = []
+            ops = []
             # fotos = []
 
             for subcategoria in produto.subcategorias.all():
@@ -2192,6 +2253,28 @@ class ServiceJson(View):
                     "categoria_id":subcategoria.categoria.id
                 }
                 subs.append(r_sub)
+
+            for opc in produto.opcionais.all():
+                opcoes = []
+
+                for opo in opc.Opcoes.all():
+                    r_opcao = {
+                        "opcao_titulo":opo.titulo,
+                        "opcao_valor":opo.valor,
+                        "opcao_id":opo.id
+                    }
+
+                    opcoes.append(r_opcao)
+
+                r_opc = {
+                    "opcional_titulo":opc.titulo,
+                    "opcional_quantitativo":opc.quantitativo,
+                    "opcional_unico":opc.unico,
+                    "opcional_id":opc.id,
+                    "opcional_opcoes":opcoes
+                }
+
+                ops.append(r_opc)
 
             # for foto in produto.fotos.all():
             #     r_foto = {
@@ -2208,7 +2291,8 @@ class ServiceJson(View):
                 "foto": produto.foto,
                 "empresa_id":produto.empresa.id,
                 "empresa":produto.empresa.nome,
-                "subcategorias":subs
+                "subcategorias":subs,
+                "opcionais":ops
             }
 
             rows.append(r)
