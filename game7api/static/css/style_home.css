@@ -206,3 +206,31 @@ a:hover, a:active, a:focus{
     position: absolute;
     bottom: 60px;
 }
+
+
+/*popup Login*/
+.popup .modal-dialog .modal-content{
+    background-color:#FB4000;
+    color:#fff;
+}
+
+.popup .modal-dialog .modal-content label{
+    margin-bottom:0px;
+}
+
+.popup .modal-dialog .modal-content input{
+    color:#fff;
+    font-size:12px;
+}
+
+.bemvindo{
+    padding: 5px;
+    margin: 0px;
+    background: transparent;
+    color: #fff;
+}
+
+.bemvindo a{
+    margin-left:10px;
+    color:#fff;
+}

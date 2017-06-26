@@ -22,6 +22,12 @@ urlpatterns = [
     url(r'^$', HomeView.as_view(), name="Home"),
     url(r'^admin/', adminHomeView.as_view(), name="Home Admin"),
     url(r'^politica-privacidade/', politicaprivacidadeView.as_view(), name = "Politica-privacidade"),
+
+
+
+    url(r'^restaurante/', adminLoginView.as_view(), name = "LoginRestaurante"),
+
+
     url(r'^adm/login/', adminLoginView.as_view(), name = "Login"),
     url(r'^adm/$', adminHomeView.as_view(), name = "Home-adm"),
     url(r'^adm/categorias/', adminCategoriasView.as_view(), name = "Categorias-adm"),
@@ -103,6 +109,7 @@ urlpatterns = [
     url(r'^js/categorias', ServiceJson.categorias, name='categorias'),
     url(r'^js/clientes', ServiceJson.clientes, name='clientes'),
     url(r'^js/cliente-login', ServiceJson.clienteLogin, name='clientelogin'),
+    url(r'^js/cliente-logado', ServiceJson.clienteLogado, name='clientelogado'),
     url(r'^js/cliente-face-login', ServiceJson.clienteFaceLogin, name='clientefacelogin'),
     url(r'^js/subcategorias', ServiceJson.subcategorias, name='subcategorias'),
     url(r'^js/estados', ServiceJson.estados, name='estados'),

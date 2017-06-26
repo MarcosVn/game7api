@@ -594,6 +594,67 @@ class ServiceJson(View):
 
         return HttpResponse(lista, content_type='application/json')
 
+    @staticmethod
+    def clienteLogado(request):
+        # Query Base
+        query = Cliente.objects.all().order_by("nome")
+
+        # Filtros
+        nome = request.GET.get("nome")
+        id = request.GET.get("id")
+        email = request.GET.get("email")
+
+        if (id == 'undefined'):
+            id = int()
+            id = 0
+
+        if not (id):
+            id = int()
+            id = 0
+
+        if (nome):
+            query = query.filter(nome__icontains=nome)
+        if (id > 0):
+            query = query.filter(id=id)
+        if (email):
+            query = query.filter(email__icontains=email)
+
+        rows = []
+        if id > 0:
+            for cliente in query:
+                ocidade = Cidade()
+                oestado = Estado()
+                if cliente.cidade:
+                    ocidade = cliente.cidade
+                    oestado = cliente.cidade.estado
+
+                obairro = Bairro()
+                if cliente.bairro:
+                    obairro = cliente.bairro
+
+
+
+                r = {
+                    "id":cliente.id,
+                    "nome":cliente.nome,
+                    "email":cliente.email,
+                    "telefone":cliente.telefone,
+                    "endereco":cliente.endereco,
+                    "cidade":ocidade.nome,
+                    "cidade_id":ocidade.id,
+                    "bairro":obairro.nome,
+                    "bairro_id":obairro.id,
+                    "estado":oestado.nome,
+                    "estado_id":oestado.id,
+                    "complemento": cliente.complemento,
+                    "numero": cliente.numero,
+                    "cep": cliente.cep
+                }
+                rows.append(r)
+
+        lista = json.dumps(list(rows))
+        return HttpResponse(lista, content_type='application/json')
+
 
     @staticmethod
     def clientes(request):
@@ -2063,8 +2124,9 @@ class ServiceJson(View):
         empresa_id = request.POST.get("empresa_id")
         random_n = random.randint(1,500000000)
         subcategoria_id = request.POST.get("subcategoria_id")
+        lista_opcionais = request.POST.get("opcionais")
 
-        print empresa_id
+        print lista_opcionais
 
         # Objeto de Produtos
         oProduto = Produto()
@@ -2113,6 +2175,22 @@ class ServiceJson(View):
 
             oProduto.foto = filename
             oProduto.save()
+
+
+        #pegando a lista de opcionais
+
+        opcionais = oProduto.opcionais.all()
+        for op in opcionais:
+            oProduto.opcionais.remove(op)
+            oProduto.save()
+
+        if lista_opcionais:
+            opcionais = lista_opcionais.split(",")
+            for op_id in opcionais:
+                oOpcional = Opcional.objects.filter(id=op_id).first()
+
+                oProduto.opcionais.add(oOpcional)
+                oProduto.save()
 
         lista = "true"
 
@@ -2254,7 +2332,7 @@ class ServiceJson(View):
                 }
                 subs.append(r_sub)
 
-            for opc in produto.opcionais.all():
+            for opc in produto.opcionais.all().order_by("titulo"):
                 opcoes = []
 
                 for opo in opc.Opcoes.all():
