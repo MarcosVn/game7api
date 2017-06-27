@@ -1304,14 +1304,13 @@ game7App.factory("Opcional", function (Ajax,$http) {
             console.log("Erro");
         });
     };
-    obj.save_opcional = function (empresa_selecionado, opcional_titulo, opcional_quantitativo, opcional_unico) {
+    obj.save_opcional = function (empresa_selecionado, opcional_titulo, opcional_tipo) {
         var url = URL_BASE + "saveopcional";
 
         var f = new FormData();
         f.append('id', TOKENS['o_id']);
         f.append('titulo', opcional_titulo);
-        f.append('quantitativo', opcional_quantitativo);
-        f.append('unico', opcional_unico);
+        f.append('tipo', opcional_tipo);
         f.append('empresa_id', empresa_selecionado);
 
         $http.post(url, f, {headers: {'Content-Type': undefined}}).success(

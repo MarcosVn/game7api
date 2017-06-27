@@ -23,8 +23,7 @@
             <tr>
                 <th>Empresa</th>
                 <th>Titulo</th>
-                <th>Seleção Única?</th>
-                <th>Seleção Quantitativa?</th>
+                <th>Tipo de Seleção</th>
                 <th></th>
                 <th></th>
                 <th></th>
@@ -34,10 +33,9 @@
               <tr ng-repeat="opcional in op.lista_opcionais">
                   <td class="col-md-4">{[opcional.empresa_nome]}</td>
                   <td class="col-md-4">{[opcional.titulo]}</td>
-                  <td class="col-md-2" ng-if="opcional.unico == true">Sim</td>
-                  <td class="col-md-2" ng-if="opcional.unico == false">Não</td>
-                  <td class="col-md-2" ng-if="opcional.quantitativo == true">Sim</td>
-                  <td class="col-md-2" ng-if="opcional.quantitativo == false">Não</td>
+                  <td class="col-md-2" ng-if="opcional.tipo == 'U'">Único</td>
+                  <td class="col-md-2" ng-if="opcional.tipo == 'Q'">Quantitativo</td>
+                  <td class="col-md-2" ng-if="opcional.tipo == 'M'">Multipla</td>
                   <td><a href="/adm/opcoes?o_id={[opcional.id]}" class="btn btn-default btn-xs">Opções</a> </td>
                   <td><a href="/adm/opcional-edicao?o_id={[opcional.id]}" class="btn btn-primary btn-xs">editar</a> </td>
                   <td><a href="/adm/opcional-ver?o_id={[opcional.id]}" class="btn btn-primary btn-xs">ver</a> </td>

@@ -1,7 +1,7 @@
-//URL_BASE = "http://0.0.0.0:8010/js/";
+URL_BASE = "http://0.0.0.0:8010/js/";
 //URL_BASE = "http://127.0.0.1:8000/js/";
 //URL_BASE = "https://serene-atoll-63219.herokuapp.com/js/";
-URL_BASE = "http://menuweb.com.br/js/";
+//URL_BASE = "http://menuweb.com.br/js/";
 
 function getTokens(){
     var tokens = [];            // new array to hold result
@@ -394,6 +394,12 @@ game7App.factory("Cliente", function (Ajax,$http) {
 
     };
 
+    obj.sair_cliente = function () {
+        window.localStorage.removeItem("c_logado");
+        window.location = "";
+
+    };
+
     obj.get_cliente = function () {
         //Get relação de clientes
         var url = URL_BASE + "clientes";
@@ -409,6 +415,27 @@ game7App.factory("Cliente", function (Ajax,$http) {
             }
         }).then(function successCallback(response) {
             obj.clienteselecionado = response.data;
+        }, function errorCallback(response) {
+            console.log("Erro");
+        });
+    };
+
+    obj.get_clientelogado = function () {
+        //Get relação de clientes
+        var url = URL_BASE + "cliente-logado";
+        var params = {
+          id:window.localStorage.getItem("c_logado")
+        }
+        $http({
+            method: "GET",
+            params: params,
+            url: url,
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }).then(function successCallback(response) {
+            obj.clientelogado = response.data;
+
         }, function errorCallback(response) {
             console.log("Erro");
         });
@@ -455,6 +482,26 @@ game7App.factory("Cliente", function (Ajax,$http) {
             console.log("Erro");
         });
     };
+    obj.logar_cliente = function (email_cliente,senha_cliente) {
+        var url = URL_BASE + "cliente-login";
+
+        var f = new FormData();
+        f.append('email', email_cliente);
+        f.append('senha', senha_cliente);
+        $http.post(url, f, {headers: {'Content-Type': undefined}}).success(
+          function(response){
+            if(response.length > 0){
+                obj.clientelogado = response;
+
+                window.localStorage.setItem("c_logado", response[0].id);
+            }
+            else{
+                alert("Usuário ou senha incorretos");
+            }
+          }
+        )
+    };
+
     return obj;
 });
 
@@ -1257,14 +1304,13 @@ game7App.factory("Opcional", function (Ajax,$http) {
             console.log("Erro");
         });
     };
-    obj.save_opcional = function (empresa_selecionado, opcional_titulo, opcional_quantitativo, opcional_unico) {
+    obj.save_opcional = function (empresa_selecionado, opcional_titulo, opcional_tipo) {
         var url = URL_BASE + "saveopcional";
 
         var f = new FormData();
         f.append('id', TOKENS['o_id']);
         f.append('titulo', opcional_titulo);
-        f.append('quantitativo', opcional_quantitativo);
-        f.append('unico', opcional_unico);
+        f.append('tipo', opcional_tipo);
         f.append('empresa_id', empresa_selecionado);
 
         $http.post(url, f, {headers: {'Content-Type': undefined}}).success(

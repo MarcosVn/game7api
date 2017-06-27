@@ -26,6 +26,10 @@ class HomeView(View):
         return render_to_response('home.html', {}, RequestContext(request))
 
 
+class restauranteLoginView(View):
+    def get(self, request, *args, **kwargs):
+        return render_to_response('restaurante-login.html', {}, RequestContext(request))
+
 class adminLoginView(View):
     def get(self, request, *args, **kwargs):
         return render_to_response('adm/login.html', {}, RequestContext(request))
@@ -330,8 +334,7 @@ class ServiceJson(View):
                 "empresa_id" : op.empresa.id,
                 "empresa_nome" : op.empresa.nome,
                 "titulo":op.titulo,
-                "unico":op.unico,
-                "quantitativo":op.quantitativo,
+                "tipo":op.tipo,
                 "opcoes":ops
             }
 
@@ -381,9 +384,8 @@ class ServiceJson(View):
         # Filtros
         id = request.POST.get("id")
         titulo = request.POST.get("titulo")
-        unico = request.POST.get("unico")
+        tipo = request.POST.get("tipo")
         empresa_id = request.POST.get("empresa_id")
-        quantitativo = request.POST.get("quantitativo")
 
         # Objeto de Opcional
         oOpcional = Opcional()
@@ -394,20 +396,12 @@ class ServiceJson(View):
 
         oOpcional.titulo = titulo
 
-        if unico != 'undefined':
-            oOpcional.unico =True
-        else:
-            oOpcional.unico =False
+        oOpcional.tipo = tipo
 
         if empresa_id:
             if empresa_id != '?':
                 oempresa = Empresa.objects.filter(id=empresa_id).first()
                 oOpcional.empresa = oempresa
-
-        if quantitativo != 'undefined':
-            oOpcional.quantitativo =True
-        else:
-            oOpcional.quantitativo =False
 
         oOpcional.save()
 
@@ -2346,8 +2340,7 @@ class ServiceJson(View):
 
                 r_opc = {
                     "opcional_titulo":opc.titulo,
-                    "opcional_quantitativo":opc.quantitativo,
-                    "opcional_unico":opc.unico,
+                    "opcional_tipo":opc.tipo,
                     "opcional_id":opc.id,
                     "opcional_opcoes":opcoes
                 }

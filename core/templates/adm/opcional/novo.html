@@ -21,8 +21,14 @@
         <input type="text" id="titulo" name="titulo" required="True" class="form-control"/>
         <br/>
 
-        <input type="checkbox" name="quantitativo" id="quantitativo" ng-checked="{[op.opcionalselecionado[0].quantitativo==true]}" value="quantitativo">O cliente poderá selecionar mais de um do mesmo item desta opcional?<br>
-        <input type="checkbox" name="unico" id="unico" ng-checked="{[op.opcionalselecionado[0].unico==true]}" value="unico">O cliente deve escolher apenas um item?<br>
+        <label class="control-label">Tipo</label><br/>
+        <select class="form-control" name="tipo" id="tipo">
+            <option value="U" selected="True">Único</option>
+            <option value="Q">Quantitativo</option>
+            <option value="M">Multiplo</option>
+        </select>
+        <br/>
+
     </div>
 
     <div class="col-md-4">

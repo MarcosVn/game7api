@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title></title>
+        {% load staticfiles %}
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <link href="{% static 'css/bootstrap_paper.min.css'%}" rel="stylesheet" />
+        <link href="{% static 'css/style.css'%}" rel="stylesheet" />
+        <script src="{% static 'js/jQuery.js'%}"></script>
+        <script src="{% static 'js/bootstrap.min.js'%}"></script>
+        <script src="{% static 'angular/angular.min.js' %}"></script>
+        <script src="{% static 'angular/game7_app.js' %}"></script>
+        <script src="{% static 'angular/models.js' %}"></script>
+        <script src="{% static 'angular/controllers.js' %}"></script>
+    </head>
+<body>
+     <div class="container-fluid"  ng-app="game7App" ng-controller="loginCtrl">
+        <div class="col-md-4 well col-md-offset-4 login" style="margin-top:20px;">
+            <img src="{% static 'img/logo.png'%}" class="img-rounded" />
+            <form enctype="multipart/form-data" method="post">
+                <b>RESTAURANTE</b>
+                <p>Acesso dos usuários responsáveis pelos restaurantes, bem como controle de todos os dados ligados ao mesmo</p>
+                Email
+                <input type="text" id="ipEmail" class="form-control"/><br>
+                Senha
+                <input type="password" id="ipSenha" class="form-control"/><br>
+                <br>
+                <a class="btn btn-sm btn-default" style="display:block;width:100%;" ng-click="logar()">ENTRAR</a>
+            </form>
+        </div>
+    </div>
+{% block content %}{%endblock %}
+</body>
+</html>

@@ -25,7 +25,7 @@ urlpatterns = [
 
 
 
-    url(r'^restaurante/', adminLoginView.as_view(), name = "LoginRestaurante"),
+    url(r'^restaurante-login/', restauranteLoginView.as_view(), name = "RestauranteLogin"),
 
 
     url(r'^adm/login/', adminLoginView.as_view(), name = "Login"),

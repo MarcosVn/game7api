@@ -313,8 +313,7 @@ class Opcional(models.Model):
     id = models.AutoField(primary_key=True)
     empresa = models.ForeignKey("Empresa", related_name="Opcionais")
     titulo = models.CharField(max_length=512)
-    unico = models.BooleanField(default=True)
-    quantitativo = models.BooleanField(default=False)
+    tipo = models.CharField(max_length=8, default="U", null=True)
     class Meta:
         verbose_name = "Opcional"
         verbose_name_plural = "Opcionais"

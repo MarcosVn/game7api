@@ -16,14 +16,10 @@
         {[op.opcionalselecionado[0].titulo]}
         <br/><br/>
 
-        <b>Seleção unica?</b><br/>
-        <p ng-if="op.opcionalselecionado[0].unico==true">Sim</p>
-        <p ng-if="op.opcionalselecionado[0].unico==false">Não</p>
-
-
-        <b>Seleção quantitativa?</b><br/>
-        <p ng-if="op.opcionalselecionado[0].quantitativo==true">Sim</p>
-        <p ng-if="op.opcionalselecionado[0].quantitativo==false">Não</p>
+        <b>Tipo de Seleção</b><br/>
+        <p ng-if="op.opcionalselecionado[0].tipo=='U'">Único</p>
+        <p ng-if="op.opcionalselecionado[0].tipo=='M'">Múltiplo</p>
+        <p ng-if="op.opcionalselecionado[0].tipo=='Q'">Quantitativo</p>
         <br/><br/>
     </div>
 
