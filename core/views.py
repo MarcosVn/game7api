@@ -2333,7 +2333,9 @@ class ServiceJson(View):
                     r_opcao = {
                         "opcao_titulo":opo.titulo,
                         "opcao_valor":opo.valor,
-                        "opcao_id":opo.id
+                        "opcao_id":opo.id,
+                        "opcao_selecionado":False,
+                        "opcao_quantidade":0
                     }
 
                     opcoes.append(r_opcao)
