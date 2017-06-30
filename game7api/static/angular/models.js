@@ -645,8 +645,10 @@ game7App.factory("Empresa", function (Ajax,$http) {
         $http.post(url, f, {headers: {'Content-Type': undefined}}).success(
           function(response){
             obj.retorno = response;
+            window.location = "/adm/filiados/";
           }
-        )
+        );
+
     };
     obj.excluir_empresa= function () {
         var url = URL_BASE + "excluirempresa";
@@ -683,6 +685,9 @@ game7App.factory("Atendimento", function (Ajax,$http) {
         $http.post(url, f, {headers: {'Content-Type': undefined}}).success(
           function(response){
             obj.retorno = response;
+
+            if (obj.retorno == false)
+                alert('Este bairro já foi adicionado')
           }
         )
     };

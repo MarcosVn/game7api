@@ -12,10 +12,12 @@
         <table class="table">
             <tr>
                 <th>Título</th>
+                <th>Valor</th>
                 <th></th>
             </tr>
               <tr ng-repeat="bairro in em.empresaselecionado[0].bairros">
-                  <td class="col-md-11">{[bairro.bairro]}</td>
+                  <td class="col-md-8">{[bairro.bairro]}</td>
+                  <td class="col-md-3">{[bairro.frete]}</td>
                   <td><a href="/adm/filiado/atendimento-excluir?e_id={[em.empresaselecionado[0].id]}&b_id={[bairro.bairro_id]}" class="btn btn-danger btn-xs">excluir</a> </td>
               </tr>
         </table>

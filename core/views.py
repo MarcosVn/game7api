@@ -1615,14 +1615,18 @@ class ServiceJson(View):
         oEmpresa = Empresa.objects.filter(id=id).first()
         oBairro = Bairro.objects.filter(id=bairro_id).first()
 
-        oBairroAtendimento = BairroAtendimento()
-        oBairroAtendimento.empresa = oEmpresa
-        oBairroAtendimento.bairro = oBairro
-        oBairroAtendimento.frete = frete
+        if (BairroAtendimento.objects.filter(bairro__id=bairro_id).count())==0:
+            oBairroAtendimento = BairroAtendimento()
+            oBairroAtendimento.empresa = oEmpresa
+            oBairroAtendimento.bairro = oBairro
+            oBairroAtendimento.frete = frete
 
-        oBairroAtendimento.save()
+            oBairroAtendimento.save()
 
-        lista = "true"
+            lista = "true"
+        else:
+            lista = "false"
+
         return HttpResponse(lista, content_type='application/json')
 
     @staticmethod
