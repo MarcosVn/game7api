@@ -335,6 +335,7 @@ class ServiceJson(View):
                 "empresa_nome" : op.empresa.nome,
                 "titulo":op.titulo,
                 "tipo":op.tipo,
+                "quantidade":op.quantidade,
                 "opcoes":ops
             }
 
@@ -386,6 +387,7 @@ class ServiceJson(View):
         titulo = request.POST.get("titulo")
         tipo = request.POST.get("tipo")
         empresa_id = request.POST.get("empresa_id")
+        quantidade = request.POST.get("quantidade")
 
         # Objeto de Opcional
         oOpcional = Opcional()
@@ -395,6 +397,9 @@ class ServiceJson(View):
                 oOpcional = Opcional.objects.get(id=id)
 
         oOpcional.titulo = titulo
+
+        if quantidade:
+            oOpcional.quantidade = quantidade
 
         oOpcional.tipo = tipo
 
@@ -2047,9 +2052,6 @@ class ServiceJson(View):
         id = request.POST.get("id")
         opcional_id = request.POST.get("opcional_id")
 
-        print opcional_id
-        print id
-
         oProduto = Produto.objects.filter(id=id).first()
         oOpcional = Opcional.objects.filter(id=opcional_id).first()
 
@@ -2344,7 +2346,9 @@ class ServiceJson(View):
                     "opcional_titulo":opc.titulo,
                     "opcional_tipo":opc.tipo,
                     "opcional_id":opc.id,
-                    "opcional_opcoes":opcoes
+                    "opcional_opcoes":opcoes,
+                    "opcional_quantidade":opc.quantidade,
+                    "opcional_quantidade_selecionado":0
                 }
 
                 ops.append(r_opc)

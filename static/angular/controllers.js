@@ -430,9 +430,14 @@ game7App.controller('opcionalCtrl', function($scope, Opcional, Empresa) {
         $scope.op.get_opcionais(document.getElementById("ipFiltroTitulo").value);
     }
     $scope.atualizar = function(){
+        alert(document.getElementById("empresa").value);
+        alert(document.getElementById("titulo").value);
+        alert(document.getElementById("quantidade").value);
+        alert(document.getElementById("tipo").value);
         $scope.op.save_opcional(
             document.getElementById("empresa").value,
             document.getElementById("titulo").value,
+            document.getElementById("quantidade").value,
             document.getElementById("tipo").value);
     }
     $scope.excluir = function(){

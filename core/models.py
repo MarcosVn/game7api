@@ -314,6 +314,7 @@ class Opcional(models.Model):
     empresa = models.ForeignKey("Empresa", related_name="Opcionais")
     titulo = models.CharField(max_length=512)
     tipo = models.CharField(max_length=8, default="U", null=True)
+    quantidade = models.IntegerField(default=1)
     class Meta:
         verbose_name = "Opcional"
         verbose_name_plural = "Opcionais"

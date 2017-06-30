@@ -1,7 +1,7 @@
-//URL_BASE = "http://0.0.0.0:8010/js/";
+URL_BASE = "http://0.0.0.0:8010/js/";
 //URL_BASE = "http://127.0.0.1:8000/js/";
 //URL_BASE = "https://serene-atoll-63219.herokuapp.com/js/";
-URL_BASE = "http://menuweb.com.br/js/";
+//URL_BASE = "http://menuweb.com.br/js/";
 
 function getTokens(){
     var tokens = [];            // new array to hold result
@@ -1304,13 +1304,14 @@ game7App.factory("Opcional", function (Ajax,$http) {
             console.log("Erro");
         });
     };
-    obj.save_opcional = function (empresa_selecionado, opcional_titulo, opcional_tipo) {
+    obj.save_opcional = function (empresa_selecionado, opcional_titulo, opcional_quantidade, opcional_tipo) {
         var url = URL_BASE + "saveopcional";
 
         var f = new FormData();
         f.append('id', TOKENS['o_id']);
         f.append('titulo', opcional_titulo);
         f.append('tipo', opcional_tipo);
+        f.append('quantidade', opcional_quantidade);
         f.append('empresa_id', empresa_selecionado);
 
         $http.post(url, f, {headers: {'Content-Type': undefined}}).success(
