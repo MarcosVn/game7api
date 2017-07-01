@@ -1362,7 +1362,12 @@ class ServiceJson(View):
         complemento = request.POST.get("complemento")
         numero = request.POST.get("numero")
 
-        print porcentagem_repasse
+        print id
+        print cidade_id
+        print estado_id
+        print bairro_id
+        print tipocozinha_id
+        print foto
 
 
         # Objeto de Empresas
@@ -1390,17 +1395,21 @@ class ServiceJson(View):
         if porcentagem_repasse:
             oEmpresa.porcentagem_repasse = porcentagem_repasse
 
-        if cidade_id:
-            oEmpresa.cidade = Cidade.objects.filter(id=cidade_id).first()
+        if not cidade_id == '?':
+            if cidade_id:
+                oEmpresa.cidade = Cidade.objects.filter(id=cidade_id).first()
 
-        if estado_id:
-            oEmpresa.estado = Estado.objects.filter(id=estado_id).first()
+        if not estado_id == '?':
+            if estado_id:
+                oEmpresa.estado = Estado.objects.filter(id=estado_id).first()
 
-        if bairro_id:
-            oEmpresa.bairro = Bairro.objects.filter(id=bairro_id).first()
+        if not bairro_id == '?':
+            if bairro_id:
+                oEmpresa.bairro = Bairro.objects.filter(id=bairro_id).first()
 
-        if tipocozinha_id:
-            oEmpresa.tipocozinha = TipoCozinha.objects.filter(id=tipocozinha_id).first()
+        if not tipocozinha_id == '?':
+            if tipocozinha_id:
+                oEmpresa.tipocozinha = TipoCozinha.objects.filter(id=tipocozinha_id).first()
 
         if endereco:
             oEmpresa.endereco=endereco
@@ -1432,7 +1441,9 @@ class ServiceJson(View):
 
         oEmpresa.save()
 
-        if foto:
+        print foto
+
+        if not foto == '123':
             filename = str(oEmpresa.id) + '_' + str(random_n) + '.jpg'
             image_data = open(settings.BASE_DIR + '/game7api/static/media/empresa/' + filename, "wb")
             image_data.write(re.sub('^data:image/.+;base64,', '', foto).decode('base64'))

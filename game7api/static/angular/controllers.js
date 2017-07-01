@@ -136,6 +136,7 @@ game7App.controller('empresaCtrl', function($scope,$http, Empresa, Estado, Cidad
     $scope.em.get_empresas();
     $scope.em.get_empresa();
 
+
     $scope.filtrar = function(){
         $scope.em.get_empresas(document.getElementById("ipFiltroNome").value,document.getElementById("ipFiltroEmail").value);
     }

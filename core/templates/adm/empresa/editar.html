@@ -38,6 +38,7 @@
         <br/>
 
         <label class="control-label">Tipo de Cozinha</label><br/>
+        {[em.empresaselecionado[0].tipo_cozinha]}
         <select class="form-control" name="tipocozinha" id="tipocozinha" ng-options="tipocozinha as tipocozinha.fields.nome for tipocozinha in tc.lista_tiposcozinha track by tipocozinha.pk" ng-model="sel_tipo"></select>
         <br/>
 
@@ -47,20 +48,23 @@
                 <input id="cep" type="number" name="cep" value="{[em.empresaselecionado[0].cep]}" required="True" class="form-control"/>
             </div>
             <div class="col-md-3" style="padding-right:0px;">
-                <a class="btn btn-primary">Encontrar Endereço</a>
+                <a class="btn btn-primary" ng-click="getcep();" >Encontrar Endereço</a>
             </div>
         </div>
 
         <label class="control-label">Estado</label><br/>
-        <select class="form-control" name="estado" id="estado" ng-change="getcidades()" ng-options="estado as estado.fields.nome for estado in et.lista_estados track by estado.pk" ng-model="sel_estado"></select>
+        {[em.empresaselecionado[0].estado]}
+        <select class="form-control" name="estado" id="estado" ng-change="getcidades()" ng-options="estado as estado.fields.nome for estado in et.lista_estados track by estado.pk" ng-model="et.estado_selecionado"></select>
         <br/>
 
         <label class="control-label">Cidade</label><br/>
-        <select class="form-control" name="cidade" id="cidade" ng-change="getbairros()" ng-options="cidade as cidade.fields.nome for cidade in cd.lista_cidades track by cidade.pk" ng-model="sel_cidade"></select>
+        {[em.empresaselecionado[0].cidade]}
+        <select class="form-control" name="cidade" id="cidade" ng-change="getbairros()" onload="set_cidade();" ng-init="set_cidade();" ng-options="cidade as cidade.fields.nome for cidade in cd.lista_cidades track by cidade.pk" ng-model="cd.cidade_selecionado"></select>
         <br/>
 
         <label class="control-label">Bairro</label><br/>
-        <select class="form-control" name="bairro" id="bairro" ng-options="bairro as bairro.fields.nome for bairro in br.lista_bairros track by bairro.pk" ng-model="sel_bairro"></select>
+        {[em.empresaselecionado[0].bairro]}
+        <select class="form-control" name="bairro" id="bairro" ng-options="bairro as bairro.fields.nome for bairro in br.lista_bairros track by bairro.pk" ng-model="br.bairro_selecionado"></select>
         <br/>
 
         <div class="col-md-8" style="padding-left:0px;">
@@ -83,7 +87,7 @@
         <small>Apenas Imagens .jpg</small>
         <input type="hidden" name="id" value="30" />
         <input type="file" ng-model="em.foto_principal" fileread="em.foto_principal" />
-        <img class="col-md-4 img-thumbnail" ng-src="/game7api/static/media/empresa/{[em.empresaselecionado[0].logotipo]}" />
+        <img class="col-md-4 img-thumbnail" ng-src="/static/media/empresa/{[em.empresaselecionado[0].logotipo]}" />
     </div>
 
     <div class="col-md-4">
@@ -92,5 +96,4 @@
     </div>
   </form>
 </div>
-
 {% endblock %}
