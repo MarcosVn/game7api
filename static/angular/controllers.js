@@ -545,77 +545,75 @@ game7App.controller('topoCtrl', function($scope, $http, Cliente, Estado, Cidade,
     }
 });
 
+game7App.controller('restauranteloginCtrl', function($scope, Empresa) {
+    $scope.em = Empresa;
 
-game7App.controller('restauranteloginCtrl', function($scope, $http, Cliente, Estado, Cidade, Bairro) {
-    $scope.cl = Cliente;
-    $scope.cl.get_clientelogado();
-
-    $scope.et = Estado;
-    $scope.cd = Cidade;
-    $scope.br = Bairro;
-
-    $scope.et.get_estados();
-
-    $scope.efetuarlogar = function(){
-        $scope.cl.logar_cliente(
-            document.getElementById("loginemail").value,
-            document.getElementById("loginsenha").value);
-    }
-    $scope.sair= function(){
-        $scope.cl.sair_cliente();
-    }
-    $scope.atualizar = function(){
-        $scope.cl.save_cliente(
-            document.getElementById("nome").value,
-            document.getElementById("email").value,
-            document.getElementById("senha").value,
-            document.getElementById("telefone").value,
-            document.getElementById("estado").value,
-            document.getElementById("cidade").value,
-            document.getElementById("bairro").value,
-            document.getElementById("endereco").value,
-            document.getElementById("numero").value,
-            document.getElementById("complemento").value,
-            document.getElementById("cep").value
-            );
-    }
-    $scope.getcep = function(){
-        cep = $("#cep").val();
-        //Get relação de clientes
-        var url = "http://viacep.com.br/ws/"+ cep + "/json/";
-        var params = {
-        }
-        $http({
-            method: "GET",
-            params: params,
-            url: url,
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        }).then(function successCallback(response) {
-            enderecocep = response.data;
-
-            //Endereco
-            $("#endereco").val(enderecocep.logradouro);
-
-            //Estado
-            if(enderecocep.uf = "SP"){
-                $("#estado").val("1");
-            }
-
-            //Cidade
-            $scope.cd.get_cidades($("#estado").val());
-            $scope.cd.get_cidades_by_nome(enderecocep.cidade);
-
-            //Bairro
-            $scope.br.get_bairros($scope.cd.cidade_selecionado.id);
-            $scope.br.get_bairros_by_nome(enderecocep.bairro);
-
-
-
-
-        }, function errorCallback(response) {
-            console.log("Erro");
-        });
+    $scope.logar = function(){
+        $scope.em.logar_empresa(
+            document.getElementById("ipEmail").value,
+            document.getElementById("ipSenha").value);
     }
 })
+
+game7App.controller('topoRestauranteCtrl', function($scope, Empresa) {
+    $scope.em = Empresa;
+    $scope.em.get_empresalogado();
+    $scope.em.verifica_login();
+
+    $scope.sair= function(){
+        $scope.em.sair_empresa();
+    }
+});
+
+game7App.controller('homeRestauranteCtrl', function($scope, Empresa) {
+    $scope.em = Empresa;
+    $scope.em.get_empresalogado();
+    $scope.em.verifica_login();
+
+    $scope.sair= function(){
+        $scope.em.sair_empresa();
+    }
+});
+
+game7App.controller('perfilRestauranteCtrl', function($scope, Empresa) {
+    $scope.em = Empresa;
+    $scope.em.get_empresalogado();
+    $scope.em.verifica_login();
+
+    $scope.atualizar = function(){
+
+        $scope.em.atualizar_perfil_empresa(
+            document.getElementById("telefone").value,
+            document.getElementById("endereco").value,
+            document.getElementById("descricao").value,
+            $('input[name="aceita_cartao"]:checked').val(),
+            $('input[name="aceita_valerefeicao"]:checked').val(),
+            $('input[name="aceita_pagamentoonline"]:checked').val());
+    }
+});
+
+game7App.controller('expedienteRestauranteCtrl', function($scope, Empresa) {
+    $scope.em = Empresa;
+    $scope.em.get_empresalogado();
+    $scope.em.verifica_login();
+    $scope.em.get_abertura();
+    $scope.em.get_aberturas();
+
+    $scope.abrir_empresa = function(){
+        $scope.em.abrir_empresa();
+    }
+    $scope.fechar_empresa = function(abertura_id){
+        $scope.em.fechar_empresa(abertura_id);
+        window.location="/restaurante/expediente";
+    }
+});
+
+game7App.controller('cardapioRestauranteCtrl', function($scope, Empresa, Produto) {
+    $scope.em = Empresa;
+    $scope.em.get_empresalogado();
+    $scope.em.verifica_login();
+
+    $scope.pt = Produto;
+    $scope.pt.get_produtos_restaurante("");
+
+});

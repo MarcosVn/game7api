@@ -510,6 +510,7 @@ game7App.factory("Empresa", function (Ajax,$http) {
         lista_empresas: [],
         lista_empresasremessas: [],
         empresaselecionado: [],
+        empresalogado: [],
         retorno : false,
         data_fim : new Date(),
         foto_principal:123
@@ -667,6 +668,182 @@ game7App.factory("Empresa", function (Ajax,$http) {
         }, function errorCallback(response) {
             console.log("Erro");
         });
+    };
+    obj.logar_empresa= function (email_empresa,senha_empresa) {
+        var url = URL_BASE + "empresa-login";
+
+        var f = new FormData();
+        f.append('email', email_empresa);
+        f.append('senha', senha_empresa);
+        $http.post(url, f, {headers: {'Content-Type': undefined}}).success(
+          function(response){
+            if(response.id > 0){
+                obj.logado = response.id;
+                window.localStorage.setItem("e_logado", response.id);
+                window.location = "/restaurante/";
+            }
+            else{
+                alert("Usuário ou senha incorretos");
+            }
+          }
+        )
+    };
+
+    obj.sair_empresa = function () {
+        window.localStorage.removeItem("e_logado");
+        window.location = "/";
+
+    };
+
+    obj.get_empresa = function () {
+        //Get relação de clientes
+        var url = URL_BASE + "empresas";
+        var params = {
+          id:TOKENS['e_id']
+        }
+        $http({
+            method: "GET",
+            params: params,
+            url: url,
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }).then(function successCallback(response) {
+            obj.empresaselecionado = response.data;
+        }, function errorCallback(response) {
+            console.log("Erro");
+        });
+    };
+
+    obj.get_empresalogado = function () {
+        //Get relação de clientes
+        var url = URL_BASE + "empresas";
+        var params = {
+          id:window.localStorage.getItem("e_logado")
+        }
+        $http({
+            method: "GET",
+            params: params,
+            url: url,
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }).then(function successCallback(response) {
+            obj.empresalogado = response.data;
+
+        }, function errorCallback(response) {
+            console.log("Erro");
+        });
+    };
+
+    obj.atualizar_perfil_empresa = function (empresa_telefone, empresa_endereco, empresa_descricao, aceita_cartao, aceita_valerefeicao, aceita_pagamentoonline) {
+        var url = URL_BASE + "saveempresa";
+
+        var f = new FormData();
+        f.append('id', window.localStorage.getItem("e_logado"));
+        f.append('telefone', empresa_telefone);
+        f.append('endereco', empresa_endereco);
+        f.append('descricao', empresa_descricao);
+        f.append('aceita_cartao', aceita_cartao);
+        f.append('aceita_valerefeicao', aceita_valerefeicao);
+        f.append('aceita_pagamentoonline', aceita_pagamentoonline);
+        f.append('logotipo', obj.foto_principal);
+        $http.post(url, f, {headers: {'Content-Type': undefined}}).success(
+          function(response){
+            obj.retorno = response;
+          }
+        )
+    };
+
+    obj.abrir_empresa= function (abertura_id) {
+        var url = URL_BASE + "abrirempresa";
+        var params = {
+          e_id:window.localStorage.getItem("e_logado")
+        }
+        $http({
+            method: "GET",
+            params: params,
+            url: url,
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }).then(function successCallback(response) {
+            obj.abertura = response.data;
+        }, function errorCallback(response) {
+            console.log("Erro");
+        });
+    };
+
+    obj.fechar_empresa= function (abertura_id) {
+        var url = URL_BASE + "fecharempresa";
+        var params = {
+          id:abertura_id
+        }
+        $http({
+            method: "GET",
+            params: params,
+            url: url,
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }).then(function successCallback(response) {
+            obj.abertura = response.data;
+        }, function errorCallback(response) {
+            console.log("Erro");
+        });
+    };
+
+
+    obj.get_abertura=function () {
+        var url = URL_BASE + "getabertura";
+        var params = {
+          e_id:window.localStorage.getItem("e_logado")
+        }
+        $http({
+            method: "GET",
+            params: params,
+            url: url,
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }).then(function successCallback(response) {
+            obj.abertura = response.data;
+        }, function errorCallback(response) {
+            console.log("Erro");
+        });
+    };
+
+    obj.get_aberturas=function () {
+        var url = URL_BASE + "getaberturas";
+        var params = {
+          e_id:window.localStorage.getItem("e_logado")
+        }
+        $http({
+            method: "GET",
+            params: params,
+            url: url,
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }).then(function successCallback(response) {
+            obj.lista_aberturas = response.data;
+        }, function errorCallback(response) {
+            console.log("Erro");
+        });
+    };
+
+    obj.verifica_login = function () {
+      //  var logado = $cookies.getObject("logado");
+       var logado = window.localStorage.getItem("e_logado");
+       var url = window.location.pathname;
+
+       if(logado != undefined){
+         obj.logado = logado;
+//         window.location = "/restaurante/";
+       }
+       else if (!(url.indexOf("/restaurante/login") > -1)) {
+         window.location = "/restaurante/login";
+       }
     };
     return obj;
 });
@@ -832,7 +1009,8 @@ game7App.factory("Produto", function (Ajax,$http) {
         lista_produtos: [],
         produtoselecionado: [],
         retorno : false,
-        foto_principal:123
+        foto_principal:123,
+        burl : "http://menuweb.com.br/",
     };
     obj.get_produtos= function (nome_produto, nome_restaurante) {
         var url = URL_BASE + "produtos";
@@ -840,6 +1018,26 @@ game7App.factory("Produto", function (Ajax,$http) {
             empresa_id:TOKENS["e_id"],
             nome:nome_produto,
             restaurante:nome_restaurante
+        }
+        $http({
+            method: "GET",
+            params: params,
+            url: url,
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }).then(function successCallback(response) {
+            obj.lista_produtos= response.data;
+        }, function errorCallback(response) {
+            console.log("Erro");
+        });
+    };
+
+    obj.get_produtos_restaurante= function (nome_produto) {
+        var url = URL_BASE + "produtos";
+        var params = {
+            empresa_id:window.localStorage.getItem("e_logado"),
+            nome:nome_produto
         }
         $http({
             method: "GET",

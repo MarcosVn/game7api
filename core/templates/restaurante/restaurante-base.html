@@ -1,0 +1,88 @@
+<html>
+	<head>
+		<title>MenuWeb</title>
+		{% load staticfiles %}
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<link href="{% static 'css/bootstrap_paper.min.css'%}" rel="stylesheet" />
+		<link href="{% static 'css/style_home.css'%}" rel="stylesheet" />
+		<script src="{% static 'js/jQuery.js'%}"></script>
+		<script src="{% static 'js/bootstrap.min.js'%}"></script>
+		<script src="{% static 'angular/angular.min.js' %}"></script>
+		<script src="{% static 'angular/game7_app.js' %}"></script>
+		<script src="{% static 'angular/models.js' %}"></script>
+		<script src="{% static 'angular/controllers.js' %}"></script>
+	</head>
+	<body ng-app="game7App">
+        <div ng-controller="topoRestauranteCtrl">
+            <div class="menu-topo col-md-12 col-xs-12" style="padding:15px 175px;">
+                <div class="container col-md-12 col-xs-12" style="padding:0px;">
+                    <div class="col-md-2 col-xs-2">
+                        <a href="/restaurante/"><img src="{% static 'img/logo-menu.png' %}" style="width:150px;padding-top:8px;"/></a>
+                    </div>
+                    <div class="col-md-7 col-xs-7">
+                        <ul class="nav nav-pills">
+                            <li style="padding-left:30px;"><a href="/restaurante/cardapio">Cardápio</a></li>
+                            <li><a href="/restaurante/repasse">Repasse</a></li>
+                            <li><a href="/restaurante/pedidos">Pedidos</a></li>
+                            <li><a href="/restaurante/expediente">Expediente</a></li>
+                            <li><a href="/restaurante/perfil">Meu Restaurante</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-md-3 col-xs-3 orange">
+                        <div class="well bemvindo">
+                            Bem vindo <b>{[em.empresalogado[0].nome]}</b>!<a ng-click="sair();" class="btn btn-xs btn-danger">Sair</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+		{% block content %}{%endblock %}
+
+		<div class="rodape col-md-12 col-xs-12">
+			<div class="container col-md-12 col-xs-12">
+				<div class="links col-md-7 col-xs-7">
+					<ul class="col-md-4 col-xs-4">
+						<li><a>Quem somos</a></li>
+						<li><a>Contato</a></li>
+						<li><a>Imprensa</a></li>
+					</ul>
+					<ul class="col-md-4 col-xs-4">
+						<li><a>Termos e condições de uso</a></li>
+						<li><a>Trabalhe conosco</a></li>
+						<li><a>Sugerir restaurante</a></li>
+					</ul>
+					<ul class="col-md-4 col-xs-4">
+						<li><a>Como pedir</a></li>
+						<li><a>Privacidade</a></li>
+						<li><a>Cadastre-se</a></li>
+					</ul>
+				</div>
+
+				<div class="col-md-5 col-xs-5 apps-social">
+					<div class="col-md-6 col-xs-6">
+						Siga a gente
+						<ul class="nav nav-pills col-md-12 col-xs-12">
+							<li><a><img src="{% static 'img/facebook-icon.png' %}"/> </a></li>
+							<li><a><img src="{% static 'img/twitter-icon.png' %}"/> </a></li>
+							<li><a><img src="{% static 'img/instagram-icon.png' %}"/> </a></li>
+						</ul>
+					</div>
+
+					<div class="col-md-6 col-xs-6">
+						Baixe o app
+						<ul class="nav nav-pills col-md-12 col-xs-12">
+							<li><a><img style="width:28px;margin-right:4px;" src="{% static 'img/apple-icon.png' %}"/> </a></li>
+							<li><a><img style="width:25px;" src="{% static 'img/android-icon.png' %}"/> </a></li>
+							<li><a><img style="width:25px;margin-left:5px; margin-top:4px;" src="{% static 'img/windows8-icon.png' %}"/> </a></li>
+						</ul>
+					</div>
+				</div>
+
+				<div class="copyright col-md-12 col-xs-12">
+					MenuWeb © 2017. Todos os direitos reservados.
+				</div>
+			</div>
+		</div>
+	</body>
+</html>

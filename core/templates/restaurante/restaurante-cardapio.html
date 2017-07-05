@@ -1,0 +1,47 @@
+{% extends "restaurante/restaurante-base.html" %}
+{% block title %}MenuWeb Restaurante - Cardápio{% endblock %}
+{% load staticfiles %}
+{% block content %}
+  <div ng-controller="cardapioRestauranteCtrl" class="app" role="main">
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12" style="margin-bottom: 20px;">
+                <h4>CARDÁPIO</h4>
+                <small style="margin-bottom:15px;display:block;">Controle os dados de expediente, é importante ressaltar que para que o restaurante apareça nas buscas o mesmo deverá estar "aberto"</small>
+                <a href="/adm/produto-nova?p_id=0" style="float:right;margin-bottom:20px;" class="btn btn-primary btn-lg">Novo Produto</a>
+
+                <ul class="list-group">
+                    <li class="list-group-item col-md-12" ng-repeat="prod in pt.lista_produtos" style="border-radius:0px;">
+                        <div class="col-md-12" style="padding:2px;text-transform:uppercase;padding:0px; margin-bottom:2px;border-bottom:1px solid;font-weight:bold;">
+                            <div class="col-md-8" style="padding:0px;">
+                                {[prod.nome]}
+                            </div>
+                            <div class="col-md-4" style="padding:0px;text-align:right;color:#000;">
+                                R$ {[prod.preco.toFixed(2)]}
+                            </div>
+                        </div>
+                         <div class="col-md-12" style="padding:0px;">
+                             <div class="col-md-1" style="padding-left:0px;padding-right:2px;">
+                                <img class="img-thumbnail img-responsive" ng-src="{[pt.burl]}/game7api/static/media/produto/{[prod.foto]}" />
+                             </div>
+                             <div class="col-md-9" style="padding:0px 2px;font-size:9px;height: 60px;overflow: hidden;">
+                                {[prod.descricao]}
+                             </div>
+                             <div class="col-md-2 btn-group-vertical btns">
+                                <a href="editar-produto.html?p_id={[prod.id]}" class="btn-xs btn btn-default" style="border-radius:0px;">Editar</a>
+                                <a href="categorias-produto.html?p_id={[prod.id]}" class="btn-xs btn btn-primary" style="border-radius:0px;">Categorias</a>
+                                <a href="excluir-produto.html?p_id={[prod.id]}" class="btn-xs btn btn-danger" style="border-radius:0px;">Excluir</a>
+                             </div>
+                        </div>
+                         <div class="col-md-12" style="padding:0px 2px;font-size:9px;">
+                            <div class="label label-default" style="font-size:10px;margin:2px;display:inline-block;border-radius:0px;padding:5px 10px;" ng-repeat="subs in prod.subcategorias">{[subs.categoria]} - {[subs.subcategoria]}</div>
+                         </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+  </div>
+
+{% endblock %}

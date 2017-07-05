@@ -1,0 +1,120 @@
+{% extends "restaurante/restaurante-base.html" %}
+{% block title %}MenuWeb - Restaurante{% endblock %}
+{% load staticfiles %}
+{% block content %}
+<div class="restaurante-home" ng-controller="homeRestauranteCtrl">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 well topo">
+                <div class="col-md-2">
+                    <img class="img-thumbnail img-responsive" ng-src="http://menuweb.com.br/game7api/static/media/empresa/{[em.empresalogado[0].logotipo]}">
+                </div>
+                <div class="col-md-4">
+                    <b>{[em.empresalogado[0].nome]}</b> <br>
+                    <small>{[em.empresalogado[0].descricao]}</small>
+                </div>
+                <div class="col-md-6">
+                    <div class="col-md-4">
+                        <label>Tempo de entrega</label>
+                        <select class="form-control">
+                            <option value="30">30 min</option>
+                            <option value="45">45 min</option>
+                            <option value="60">60 min</option>
+                        </select>
+                        <br>
+
+                        <label>Disponibilidade</label>
+                        <select class="form-control">
+                            <option value="Disponível">Disponível</option>
+                            <option value="Fechado">Fechado</option>
+                        </select>
+                    </div>
+
+                    <div class="col-md-8 well avaliacoes">
+                        <div class="col-md-6">
+                            <b>Avaliações</b>
+                        </div>
+                        <div class="col-md-6">
+                            <a class="btn btn-xs btn-primary">ver avaliações</a>
+                        </div>
+                        <br>
+                        <hr style="margin: 5px 0px 10px;">
+                        <div class="col-md-12" style="margin:0px;padding:0px;">
+                            <div class="semavaliacoes" style="text-align:center;display:none;">
+                                Avaliações não disponíveis no momento<br/>
+                                <i class="glyphicon glyphicon-save-file" style="font-size:40px;"></i>
+                            </div>
+                            <div class="lista"  ng-if="em.empresalogado[0].avaliacoes">
+                                <table class="table table-striped">
+                                    <tr>
+                                        <th class="col-md-2">Nota</th>
+                                        <th class="col-md-6">Mensagem</th>
+                                        <th class="col-md-4">Data</th>
+                                    </tr>
+                                    <tr ng-repeat="aval in em.empresalogado[0].avaliacoes">
+                                        <td style="text-align:center;">{[aval.avaliacao_nota]}</td>
+                                        <td>{[aval.avaliacao_mensagem]}</td>
+                                        <td>{[aval.avaliacao_data]}</td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-8" style="padding:0px;">
+                <div class="col-md-12 well acumulado">
+                    <div class="col-md-10">
+                        <b>Acumulado do mês</b>
+                    </div>
+                    <div class="col-md-2">
+                        <a class="btn btn-xs btn-primary">ver gráficos</a>
+                    </div>
+                    <hr>
+
+                    <div class="col-md-6">
+                        <div class="col-md-6">
+                            <b>Pedidos<br>
+                                49
+                            </b>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="col-md-6">
+                            <b>Faturamento<br>
+                                R$ 2159,98
+                            </b>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="faturamento col-md-12 well">
+                    <div class="col-md-8">
+                        <b>Faturamento do Mês</b>
+                    </div>
+                    <div class="col-md-4">
+                        <a class="btn btn-xs btn-primary">ver faturas</a>
+                    </div>
+                    <hr>
+                    <table class="table">
+                        <tr>
+                            <th class="col-md-3">Mês</th>
+                            <th class="col-md-3">Valor</th>
+                            <th class="col-md-3">Venc.</th>
+                            <th class="col-md-3">Status</th>
+                        </tr>
+                        <tr><td>Janeiro</td><td>R$ 255,00</td><td>2017-05-12</td><td>Pago</td></tr>
+                        <tr><td>Janeiro</td><td>R$ 255,00</td><td>2017-05-12</td><td>Pago</td></tr>
+                        <tr><td>Janeiro</td><td>R$ 255,00</td><td>2017-05-12</td><td>Pago</td></tr>
+                        <tr><td>Janeiro</td><td>R$ 255,00</td><td>2017-05-12</td><td>Pago</td></tr>
+                    </table>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

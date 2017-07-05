@@ -1,0 +1,102 @@
+{% extends "restaurante/restaurante-base.html" %}
+{% block title %}MenuWeb - Restaurante{% endblock %}
+{% load staticfiles %}
+{% block content %}
+  <div ng-controller="perfilRestauranteCtrl" class="app" role="main">
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12" style="margin-bottom: 100px;">
+                <div ng-if="em.retorno">
+                    <p class="alert alert-success" style="text-align:center;">Atualizado com sucesso!</p>
+                </div>
+                <form method="post">
+                    <div class="col-md-12" style="margin-top:30px;">
+                        <img class="col-md-6 col-md-offset-3 img-thumbnail img-responsive" ng-src="http://menuweb.com.br/game7api/static/media/empresa/{[em.empresalogado[0].logotipo]}" />
+                    </div>
+                    <br/>
+
+                    <label class="control-label">Nome</label><br/>
+                    {[em.empresalogado[0].nome]}
+                    <br><br>
+
+                    <label class="control-label">Email</label><br/>
+                    {[em.empresalogado[0].email]}
+                    <br><br>
+
+                    <label class="control-label">Telefone</label><br/>
+                    <input type="number" id="telefone" name="telefone" value="{[em.empresalogado[0].telefone]}" required="True" class="form-control"/>
+                    <br>
+
+                    <label class="control-label">Cep</label><br/>
+                    <input type="text" id="cep" type="text" name="cep" value="{[em.empresalogado[0].cep]}" required="True" class="form-control"/>
+                    <br/>
+
+                    <label class="control-label">Estado</label><br/>
+                    {[em.empresalogado[0].estado]}
+                    <br><br>
+
+                    <label class="control-label">Cidade</label><br/>
+                    {[em.empresalogado[0].cidade]}
+                    <br><br>
+
+                    <label class="control-label">Bairro</label><br/>
+                    {[em.empresalogado[0].bairro]}
+                    <br><br>
+
+                    <label class="control-label">Endereço</label><br/>
+                    <input id="endereco" name="endereco" required="true" class="form-control" value="{[em.empresalogado[0].endereco]}" />
+                    <br/>
+
+                    <label class="control-label">Numero</label><br/>
+                    <input type="text" id="numero" type="text" name="numero" value="{[em.empresalogado[0].numero]}" required="True" class="form-control"/>
+                    <br/>
+
+                    <label class="control-label">Complemento</label><br/>
+                    <input type="text" id="complemento" type="text" name="complemento" value="{[em.empresalogado[0].complemento]}" required="True" class="form-control"/>
+                    <br/>
+
+                    <label class="control-label">Descrição</label><br/>
+                    <textarea id="descricao" name="descricao" rows="5" required="true" class="form-control">{[em.empresalogado[0].descricao]}</textarea>
+
+                    <br/><br/>
+                    <b>Formas de Pagamento</b><br>
+                    <input type="checkbox" name="aceita_cartao" id="aceita_cartao" ng-checked="{[em.empresalogado[0].aceita_cartao==true]}" value="cartao"> Aceita Cartão Crédito/Débito?<br>
+                    <input type="checkbox" name="aceita_valerefeicao" id="aceita_valerefeicao" ng-checked="{[em.empresalogado[0].aceita_valerefeicao==true]}" value="valerefeicao"> Aceita Vale Refeição ?<br>
+                    <input type="checkbox" name="aceita_pagamentoonline" id="aceita_pagamentoonline" ng-checked="{[em.empresalogado[0].aceita_pagamentoonline==true]}" value="pagamentoonline"> Aceita Pagamento Online ?
+                    <br><br>
+
+                    <label class="control-label">Porcentagem da MenuWeb</label><br/>
+                    {[em.empresalogado[0].porcentagem_repasse]} %
+                    <br/><br/>
+
+                    <label class="control-label">Logotipo</label><br/>
+                    <small>Apenas Imagens .jpg</small>
+                    <input type="hidden" name="id" value="30" />
+                    <input type="file" ng-model="em.foto_principal" fileread="em.foto_principal" />
+                    <br/>
+
+                    <b>Atendimentos</b>
+                    <a href="novo-atendimento.html?e_id={[em.empresalogado[0].id]}" class="btn btn-xs btn-primary" style="float:right;">Adicionar Bairro</a>
+                    <p>Controle os seus bairros de atendimentos, a mudança dos bairros implica diretamente nos resultaados da busca.</p>
+                    <table class="table">
+                        <tr>
+                            <th>Bairro</th>
+                            <th>Frete</th>
+                            <th></th>
+                        </tr>
+                        <tr ng-repeat="bai in em.empresalogado[0].bairros">
+                          <td class="col-md-7 col-xs-7">{[bai.bairro]}</td>
+                          <td class="col-md-4 col-xs-4">R$ {[bai.frete.toFixed(2)]}</td>
+                          <td class="col-md-1 col-xs-1"><a href="excluir-atendimento.html?e_id={[em.empresalogado[0].id]}&b_id={[bai.bairro_id]}" class="btn btn-danger btn-xs">excluir</a> </td>
+                        </tr>
+                    </table>
+
+                </form>
+                <a class="btn btn-success" style="float:right;" ng-click="atualizar()">Salvar</a>
+            </div>
+        </div>
+    </div>
+  </div>
+
+{% endblock %}

@@ -28,7 +28,23 @@ class HomeView(View):
 
 class restauranteLoginView(View):
     def get(self, request, *args, **kwargs):
-        return render_to_response('restaurante-login.html', {}, RequestContext(request))
+        return render_to_response('restaurante/restaurante-login.html', {}, RequestContext(request))
+
+class restauranteHomeView(View):
+    def get(self, request, *args, **kwargs):
+        return render_to_response('restaurante/restaurante-home.html', {}, RequestContext(request))
+
+class restaurantePerfilView(View):
+    def get(self, request, *args, **kwargs):
+        return render_to_response('restaurante/restaurante-profile.html', {}, RequestContext(request))
+
+class restauranteExpedienteView(View):
+    def get(self, request, *args, **kwargs):
+        return render_to_response('restaurante/restaurante-expediente.html', {}, RequestContext(request))
+
+class restauranteCardapioView(View):
+    def get(self, request, *args, **kwargs):
+        return render_to_response('restaurante/restaurante-cardapio.html', {}, RequestContext(request))
 
 class adminLoginView(View):
     def get(self, request, *args, **kwargs):

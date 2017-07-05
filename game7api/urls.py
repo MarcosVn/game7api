@@ -25,7 +25,11 @@ urlpatterns = [
 
 
 
-    url(r'^restaurante-login/', restauranteLoginView.as_view(), name = "RestauranteLogin"),
+    url(r'^restaurante/$', restauranteHomeView.as_view(), name = "RestauranteHome"),
+    url(r'^restaurante/login$', restauranteLoginView.as_view(), name = "RestauranteLogin"),
+    url(r'^restaurante/perfil$', restaurantePerfilView.as_view(), name = "RestaurantePerfil"),
+    url(r'^restaurante/expediente$', restauranteExpedienteView.as_view(), name = "RestaurantePerfil"),
+    url(r'^restaurante/cardapio$', restauranteCardapioView.as_view(), name = "RestauranteCardapio"),
 
 
     url(r'^adm/login/', adminLoginView.as_view(), name = "Login"),
