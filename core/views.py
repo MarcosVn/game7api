@@ -70,6 +70,9 @@ class restauranteCardapioCategoriasExcluirView(View):
     def get(self, request, *args, **kwargs):
         return render_to_response('restaurante/restaurante-cardapio-categoria-excluir.html', {}, RequestContext(request))
 
+class restauranteRepasseView(View):
+    def get(self, request, *args, **kwargs):
+        return render_to_response('restaurante/restaurante-repasse.html', {}, RequestContext(request))
 
 class adminLoginView(View):
     def get(self, request, *args, **kwargs):

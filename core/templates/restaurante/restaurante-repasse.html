@@ -1,0 +1,100 @@
+{% extends "restaurante/restaurante-base.html" %}
+{% block title %}MenuWeb - Restaurante{% endblock %}
+{% load staticfiles %}
+{% block content %}
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<div ng-controller="repasseRestauranteCtrl" class="app expediente" id="wrap" role="main">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12" style="margin-top:30px;margin-bottom:20px;">
+                <h4>REPASSES</h4>
+                <small style="margin-bottom:15px;display:block;">Este controle de repasse apresenta um pequeno balancete da empresa, sempre respeitando a data do ultimo repasse.</small>
+
+
+                <b>Total em vendas</b>
+                <ul class="list-group">
+                    <li class="list-group-item">
+                        <span class="badge">R$ {[em.lista_empresasremessas[0].total_mercadopago.toFixed(2)]}</span>
+                        Total vendido por Pagamento Online
+                    </li>
+
+                    <li class="list-group-item">
+                        <span class="badge">R$ {[em.lista_empresasremessas[0].total_naentrega.toFixed(2)]}</span>
+                        Total vendido por na entrega
+                    </li>
+                </ul>
+
+                <b>Quantia em vendas</b>
+                <ul class="list-group">
+                    <li class="list-group-item">
+                        <span class="badge">{[em.lista_empresasremessas[0].qtd_mercadopago]}</span>
+                        Total vendido por Pagamento Online
+                    </li>
+
+                    <li class="list-group-item">
+                        <span class="badge">{[em.lista_empresasremessas[0].qtd_naentrega]}</span>
+                        Total vendido por na entrega
+                    </li>
+                </ul>
+                <div class="col-md-12">
+                    <div class="col-md-6" style="text-align:center;">
+                        <b>Relação entre mercado pago e pagamento na entrega</b>
+                        <div id="piechart"></div>
+                    </div>
+                    <div class="col-md-6" style="text-align:center;">
+                        <b>Relação entre valores vendidos por pagamento online e pagamento na entrega</b>
+                        <div id="piechartDinheiro"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+        var myVar = setInterval(myTimer, 10000);
+        function myTimer() {
+            var scope = angular.element(document.getElementById("wrap")).scope();
+            console.log(scope);
+            var empresaremessa = scope.em.lista_empresasremessas[0];
+
+            google.charts.load("current", {packages:["corechart"]});
+            google.charts.setOnLoadCallback(drawChart);
+            google.charts.setOnLoadCallback(drawpriceChart);
+            function drawChart() {
+            var data = google.visualization.arrayToDataTable([
+              ['Pagamentos', 'Tipos'],
+              ['Mercado Pago',  empresaremessa.qtd_mercadopago],
+              ['Na entrega',  empresaremessa.qtd_naentrega]
+            ]);
+
+            var options = {
+                legend: 'none',
+                pieSliceText: 'label',
+                title: '',
+                pieStartAngle: 100,
+            };
+
+            var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+            chart.draw(data, options);
+          }
+
+        function drawpriceChart() {
+            var data = google.visualization.arrayToDataTable([
+              ['Pagamentos', 'Valores'],
+              ['Mercado Pago',  empresaremessa.total_mercadopago],
+              ['Na entrega',  empresaremessa.total_naentrega]
+            ]);
+
+            var options = {
+                legend: 'none',
+                pieSliceText: 'label',
+                title: '',
+                pieStartAngle: 100,
+            };
+
+            var chart = new google.visualization.PieChart(document.getElementById('piechartDinheiro'));
+            chart.draw(data, options);
+          }
+        }
+    </script>
+</div>
+{% endblock %}

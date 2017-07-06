@@ -694,3 +694,16 @@ game7App.controller('cardapioRestauranteNovoCtrl', function($scope, Empresa, Pro
     }
 
 });
+
+game7App.controller('repasseRestauranteCtrl', function($scope, Empresa) {
+    $scope.em = Empresa;
+    $scope.em.get_empresarepasse();
+
+    $scope.filtrar = function(){
+        $scope.em.get_empresarepasse($('#ipFiltroData').val());
+
+    }
+    $scope.efetuarpagamento = function(){
+        $scope.em.efetuarrepasse(document.getElementById("ipReferencia").value, $('#ipFiltroData').val());
+    }
+});
