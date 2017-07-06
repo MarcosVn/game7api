@@ -272,6 +272,10 @@ a:hover, a:active, a:focus{
     border:1px solid #dddddd;
 }
 
+.restaurante-home .novospedidos{
+    border:1px solid #dddddd;
+}
+
 .restaurante-home .faturamento table{
     font-size:12px;
 }

@@ -2617,6 +2617,7 @@ class ServiceJson(View):
                     "quantidade":item.quantidade,
                     "produto_id":item.produto.id,
                     "produto":item.produto.nome,
+                    "observacao":item.observacao,
                     "preco_parcial":(item.quantidade*item.produto.preco),
                 }
                 itens_rows.append(r_item)

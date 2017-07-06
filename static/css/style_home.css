@@ -276,6 +276,10 @@ a:hover, a:active, a:focus{
     font-size:12px;
 }
 
+.restaurante-home .novospedidos{
+    border:1px solid #dddddd;
+}
+
 /*Expediente*/
 
 .expediente table{

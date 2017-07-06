@@ -565,7 +565,7 @@ game7App.controller('topoRestauranteCtrl', function($scope, Empresa) {
     }
 });
 
-game7App.controller('homeRestauranteCtrl', function($scope, Empresa, TipoTempo) {
+game7App.controller('homeRestauranteCtrl', function($scope, Empresa, TipoTempo, Pedido) {
     $scope.em = Empresa;
     $scope.em.get_empresalogado();
     $scope.em.get_empresalogadorepasse();
@@ -573,6 +573,10 @@ game7App.controller('homeRestauranteCtrl', function($scope, Empresa, TipoTempo) 
 
     $scope.tt = TipoTempo;
     $scope.tt.get_tipostempo();
+
+    $scope.pe = Pedido;
+    $scope.pe.get_pedidos_status('Aguardando Aprovacao');
+
 
     $scope.sair= function(){
         $scope.em.sair_empresa();
@@ -585,7 +589,15 @@ game7App.controller('homeRestauranteCtrl', function($scope, Empresa, TipoTempo) 
     $scope.abriredicaotempo = function(){
         $('#temposelecionado').hide();
         $('#temposelecionar').show();
+    }
 
+    $scope.atualizar_status = function(pedido_id, status_valor){
+        $scope.pe.save_pedido_status(
+            pedido_id,
+            status_valor
+        );
+
+        $scope.pe.get_pedidos_status('Aguardando Aprovacao');
     }
 });
 
