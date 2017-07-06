@@ -37,6 +37,7 @@ urlpatterns = [
     url(r'^restaurante/cardapio/categorias/nova$', restauranteCardapioCategoriasNovaView.as_view(), name = "RestauranteCardapioCategoriasNova"),
     url(r'^restaurante/cardapio/categorias/excluir$', restauranteCardapioCategoriasExcluirView.as_view(), name = "RestauranteCardapioCategoriasExcluir"),
     url(r'^restaurante/repasse$', restauranteRepasseView.as_view(), name = "RestauranteRepasse"),
+    url(r'^restaurante/pedidos', restaurantePedidosView.as_view(), name = "RestaurantePedidos"),
 
 
     url(r'^adm/login/', adminLoginView.as_view(), name = "Login"),

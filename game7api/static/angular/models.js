@@ -577,6 +577,29 @@ game7App.factory("Empresa", function (Ajax,$http) {
         });
     };
 
+
+    obj.get_empresalogadorepasse = function (data_final) {
+        //Get relação de clientes
+        var url = URL_BASE + "empresasrepasses";
+        var params = {
+          id:window.localStorage.getItem("e_logado"),
+          data_fim:data_final
+        }
+        $http({
+            method: "GET",
+            params: params,
+            url: url,
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }).then(function successCallback(response) {
+            obj.lista_empresasremessas = response.data;
+        }, function errorCallback(response) {
+            console.log("Erro");
+        });
+    };
+
+
     obj.efetuarrepasse = function (ref, data_final) {
         //Get relação de clientes
         var url = URL_BASE + "criarrepasse";
@@ -1229,6 +1252,135 @@ game7App.factory("Pedido", function (Ajax,$http) {
             }
         }).then(function successCallback(response) {
             obj.lista_pedidos= response.data;
+        }, function errorCallback(response) {
+            console.log("Erro");
+        });
+    };
+
+    obj.get_pedidos_agpreparo= function () {
+        var url = URL_BASE + "pedidos";
+        var params = {
+            empresa_id:window.localStorage.getItem("e_logado"),
+            status:"Aguardando Preparo"
+        }
+        $http({
+            method: "GET",
+            params: params,
+            url: url,
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }).then(function successCallback(response) {
+            obj.lista_pedidos_agpreparo= response.data;
+        }, function errorCallback(response) {
+            console.log("Erro");
+        });
+    };
+
+
+    obj.get_pedidos_empreparo= function () {
+        var url = URL_BASE + "pedidos";
+        var params = {
+            empresa_id:window.localStorage.getItem("e_logado"),
+            status:"Em Preparo"
+        }
+        $http({
+            method: "GET",
+            params: params,
+            url: url,
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }).then(function successCallback(response) {
+            obj.lista_pedidos_empreparo= response.data;
+        }, function errorCallback(response) {
+            console.log("Erro");
+        });
+    };
+
+    obj.get_pedidos_agentrega= function () {
+        var url = URL_BASE + "pedidos";
+        var params = {
+            empresa_id:window.localStorage.getItem("e_logado"),
+            status:"Aguardando Entrega"
+        }
+        $http({
+            method: "GET",
+            params: params,
+            url: url,
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }).then(function successCallback(response) {
+            obj.lista_pedidos_aguardandoentrega= response.data;
+        }, function errorCallback(response) {
+            console.log("Erro");
+        });
+    };
+
+    obj.get_pedidos_concluido= function () {
+        var url = URL_BASE + "pedidos";
+        var params = {
+            empresa_id:window.localStorage.getItem("e_logado"),
+            status:"Concluido"
+        }
+        $http({
+            method: "GET",
+            params: params,
+            url: url,
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }).then(function successCallback(response) {
+            obj.lista_pedidos_concluidos= response.data;
+        }, function errorCallback(response) {
+            console.log("Erro");
+        });
+    };
+
+
+    obj.get_pedidos_status= function (status) {
+        var url = URL_BASE + "pedidos";
+        var params = {
+            empresa_id:window.localStorage.getItem("e_logado"),
+            status:status
+        }
+        $http({
+            method: "GET",
+            params: params,
+            url: url,
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }).then(function successCallback(response) {
+            obj.lista_pedidos= response.data;
+        }, function errorCallback(response) {
+            console.log("Erro");
+        });
+    };
+
+
+    obj.save_pedido_status = function (pedido_id, status) {
+        var url = URL_BASE + "savepedidostatus";
+
+        var params = {
+          id:pedido_id,
+          status:status
+        }
+
+        $http({
+            method: "GET",
+            params: params,
+            url: url,
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }).then(function successCallback(response) {
+            obj.retorno = response.data;
+            obj.get_pedidos_agpreparo();
+            obj.get_pedidos_empreparo();
+            obj.get_pedidos_agentrega();
+            obj.get_pedidos_concluido();
         }, function errorCallback(response) {
             console.log("Erro");
         });

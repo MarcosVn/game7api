@@ -74,6 +74,10 @@ class restauranteRepasseView(View):
     def get(self, request, *args, **kwargs):
         return render_to_response('restaurante/restaurante-repasse.html', {}, RequestContext(request))
 
+class restaurantePedidosView(View):
+    def get(self, request, *args, **kwargs):
+        return render_to_response('restaurante/restaurante-pedidos.html', {}, RequestContext(request))
+
 class adminLoginView(View):
     def get(self, request, *args, **kwargs):
         return render_to_response('adm/login.html', {}, RequestContext(request))

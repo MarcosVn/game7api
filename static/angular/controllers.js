@@ -278,10 +278,10 @@ game7App.controller('produtoCtrl', function($scope, Produto, Empresa, Categoria,
     $scope.ct = Categoria;
     $scope.ct.get_categorias();
 
+    $scope.sc = SubCategoria;
+
     $scope.fn = Funcionario;
     $scope.fn.verifica_login();
-
-    $scope.sc = SubCategoria;
 
     $scope.op = Opcional;
     $scope.op.get_opcionais();
@@ -616,4 +616,151 @@ game7App.controller('cardapioRestauranteCtrl', function($scope, Empresa, Produto
     $scope.pt = Produto;
     $scope.pt.get_produtos_restaurante("");
 
+});
+
+
+game7App.controller('cardapioRestauranteNovoCtrl', function($scope, Empresa, Produto, Categoria, SubCategoria, Opcional) {
+    $scope.em = Empresa;
+    $scope.em.get_empresalogado();
+    $scope.em.verifica_login();
+
+    $scope.ct = Categoria;
+    $scope.ct.get_categorias();
+
+    $scope.sc = SubCategoria;
+    $scope.pt = Produto;
+
+    $scope.pt = Produto;
+    $scope.pt.get_produtos();
+    $scope.pt.get_produto();
+
+    $scope.ct = Categoria;
+    $scope.ct.get_categorias();
+
+    $scope.sc = SubCategoria;
+
+    $scope.op = Opcional;
+    $scope.op.get_opcionais();
+
+    $scope.filtrar = function(){
+        $scope.pt.get_produtos(document.getElementById("ipFiltroNome").value, document.getElementById("ipFiltroRestaurante").value);
+    }
+    $scope.atualizar = function(){
+        if($scope.sc.sel_subcategorias){
+            $scope.pt.save_produto(
+                document.getElementById("nome").value,
+                document.getElementById("preco").value,
+                document.getElementById("descricao").value,
+                window.localStorage.getItem("e_logado"),
+                $scope.sc.sel_subcategorias.pk
+                );
+        }
+        else{
+            $scope.pt.save_produto(
+                document.getElementById("nome").value,
+                document.getElementById("preco").value,
+                document.getElementById("descricao").value,
+                window.localStorage.getItem("e_logado"),
+                ''
+                );
+        }
+    }
+    $scope.excluir = function(){
+      $scope.pt.excluir_produto();
+    }
+    $scope.getsubs= function(){
+        $scope.sc.get_subcategorias("",$scope.sc.sel_categoria.pk);
+    }
+    $scope.atualizar_produtocategoria = function(){
+        $scope.pt.save_produtocategoria($scope.sc.sel_subcategorias.pk);
+    }
+    $scope.atualizar_produtoopcional = function(){
+        $scope.pt.save_produtoopcional($scope.op.sel_opcional.id);
+    }
+    $scope.excluir_produtoopcional = function(){
+        $scope.pt.excluir_produtoopcional();
+    }
+    $scope.excluir_produtocategoria = function(){
+        $scope.pt.excluir_produtocategoria();
+    }
+    $scope.atualizar_produtofoto = function(){
+        $scope.pt.save_produtofoto();
+        $scope.pt.get_produto();
+        location.reload();
+    }
+    $scope.excluir_produtofoto = function(foto_id){
+        $scope.pt.excluir_produtofoto(foto_id);
+        location.reload();
+    }
+
+});
+
+game7App.controller('repasseRestauranteCtrl', function($scope, Empresa) {
+    $scope.em = Empresa;
+    $scope.em.get_empresalogadorepasse();
+
+    $scope.filtrar = function(){
+        $scope.em.get_empresarepasse($('#ipFiltroData').val());
+
+    }
+    $scope.efetuarpagamento = function(){
+        $scope.em.efetuarrepasse(document.getElementById("ipReferencia").value, $('#ipFiltroData').val());
+    }
+});
+
+
+game7App.controller('pedidosRestauranteCtrl', function($scope, Empresa, Pedido) {
+    $scope.em = Empresa;
+    $scope.em.get_empresalogadorepasse();
+
+    $scope.pe = Pedido;
+
+    $scope.pe.get_pedidos_agpreparo();
+    $scope.pe.get_pedidos_empreparo();
+    $scope.pe.get_pedidos_agentrega();
+    $scope.pe.get_pedidos_concluido();
+
+    $scope.filtrar = function(){
+        $scope.pe.get_pedidos(document.getElementById("ipFiltrodata").value);
+    }
+
+    $scope.filtrar_status = function(status){
+        $scope.pe.get_pedidos_status(status);
+    }
+
+    $scope.filtrar_status_agentrega = function(){
+        $scope.pe.get_pedidos_agentrega();
+    }
+
+    $scope.filtrar_status_agpreparo = function(){
+        $scope.pe.get_pedidos_agpreparo();
+    }
+
+    $scope.filtrar_status_empreparo = function(){
+        $scope.pe.get_pedidos_empreparo();
+    }
+
+    $scope.filtrar_status_concluido = function(){
+        $scope.pe.get_pedidos_concluido();
+    }
+
+    $scope.atualizar_status = function(status,pedido_id){
+        $scope.pe.save_pedido_status(pedido_id,status);
+    }
+
+    $scope.atualizar = function(){
+        $scope.pe.save_pedido(
+            document.getElementById("nome").value,
+            document.getElementById("preco").value,
+            document.getElementById("descricao").value,
+            window.localStorage.getItem("e_logado"));
+    }
+
+    $scope.filtrar = function(){
+        $scope.em.get_empresarepasse($('#ipFiltroData').val());
+
+    }
+    $scope.efetuarpagamento = function(){
+        $scope.em.efetuarrepasse(document.getElementById("ipReferencia").value, $('#ipFiltroData').val());
+    }
 });

@@ -697,7 +697,64 @@ game7App.controller('cardapioRestauranteNovoCtrl', function($scope, Empresa, Pro
 
 game7App.controller('repasseRestauranteCtrl', function($scope, Empresa) {
     $scope.em = Empresa;
-    $scope.em.get_empresarepasse();
+    $scope.em.get_empresalogadorepasse();
+
+    $scope.filtrar = function(){
+        $scope.em.get_empresarepasse($('#ipFiltroData').val());
+
+    }
+    $scope.efetuarpagamento = function(){
+        $scope.em.efetuarrepasse(document.getElementById("ipReferencia").value, $('#ipFiltroData').val());
+    }
+});
+
+
+game7App.controller('pedidosRestauranteCtrl', function($scope, Empresa, Pedido) {
+    $scope.em = Empresa;
+    $scope.em.get_empresalogadorepasse();
+
+    $scope.pe = Pedido;
+
+    $scope.pe.get_pedidos_agpreparo();
+    $scope.pe.get_pedidos_empreparo();
+    $scope.pe.get_pedidos_agentrega();
+    $scope.pe.get_pedidos_concluido();
+
+    $scope.filtrar = function(){
+        $scope.pe.get_pedidos(document.getElementById("ipFiltrodata").value);
+    }
+
+    $scope.filtrar_status = function(status){
+        $scope.pe.get_pedidos_status(status);
+    }
+
+    $scope.filtrar_status_agentrega = function(){
+        $scope.pe.get_pedidos_agentrega();
+    }
+
+    $scope.filtrar_status_agpreparo = function(){
+        $scope.pe.get_pedidos_agpreparo();
+    }
+
+    $scope.filtrar_status_empreparo = function(){
+        $scope.pe.get_pedidos_empreparo();
+    }
+
+    $scope.filtrar_status_concluido = function(){
+        $scope.pe.get_pedidos_concluido();
+    }
+
+    $scope.atualizar_status = function(status,pedido_id){
+        $scope.pe.save_pedido_status(pedido_id,status);
+    }
+
+    $scope.atualizar = function(){
+        $scope.pe.save_pedido(
+            document.getElementById("nome").value,
+            document.getElementById("preco").value,
+            document.getElementById("descricao").value,
+            window.localStorage.getItem("e_logado"));
+    }
 
     $scope.filtrar = function(){
         $scope.em.get_empresarepasse($('#ipFiltroData').val());
