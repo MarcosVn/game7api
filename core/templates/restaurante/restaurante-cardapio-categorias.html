@@ -1,0 +1,37 @@
+{% extends "restaurante/restaurante-base.html" %}
+{% block title %}MenuWeb Restaurante - Novo Produto{% endblock %}
+{% load staticfiles %}
+{% block content %}
+  <div ng-controller="cardapioRestauranteNovoCtrl" class="app" role="main">
+
+    <div class="container">
+        <div class="row" style="margin-bottom: 20px;margin-top:30px;">
+            <div ng-if="pt.retorno">
+                <p class="alert alert-success" style="text-align:center;">Atualizado com sucesso!</p>
+            </div>
+            <div class="col-md-12">
+                <h4>Categorias e Subcategorias do Produto <b>{[pt.produtoselecionado[0].nome]}</b></h4>
+                <p>Este módulo apresenta por padrão as subcategorias.</p>
+            </div>
+            <div class="col-md-9">
+                <table class="table" style="font-size:12px;">
+                    <tr>
+                        <th>Categoria</th>
+                        <th>SubCategoria</th>
+                        <th></th>
+                    </tr>
+                    <tr ng-repeat="sub in pt.produtoselecionado[0].subcategorias">
+                      <td class="col-md-5">{[sub.categoria]}</td>
+                      <td class="col-md-5">{[sub.subcategoria]}</td>
+                      <td class="col-md-2"><a href="/restaurante/cardapio/categorias/excluir?subc_id={[sub.subcategoria_id]}&p_id={[pt.produtoselecionado[0].id]}" class="btn btn-danger btn-xs">excluir</a> </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="col-md-1">
+                <a href="/restaurante/cardapio/categorias/excluir?p_id={[pt.produtoselecionado[0].id]}" class="btn btn-primary btn-lg">Adicionar SubCategoria</a>
+            </div>
+        </div>
+    </div>
+  </div>
+
+{% endblock %}

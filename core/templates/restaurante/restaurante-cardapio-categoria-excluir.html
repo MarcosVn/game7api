@@ -2,25 +2,26 @@
 {% block title %}MenuWeb Restaurante - Novo Produto{% endblock %}
 {% load staticfiles %}
 {% block content %}
-<div ng-controller="cardapioRestauranteNovoCtrl" class="app" role="main">
+  <div ng-controller="cardapioRestauranteNovoCtrl" class="app" role="main">
+
     <div class="container">
         <div class="row" style="margin-bottom: 20px;margin-top:30px;">
-           <div ng-if="pt.retorno">
+            <div ng-if="pt.retorno">
                 <p class="alert alert-success" style="text-align:center;">Excluido com sucesso!</p>
             </div>
             <div class="col-md-12">
-                <h4>Produto - <small>Exclusão</small></h4>
+                <h4>Categoria do Produto - <small>Exclusão</small></h4>
             </div>
             <div class="col-md-10">
                 <p>A exclusão terá efeito imediato</p>
-                <p>Tem certeza que deseja excluir o Produto <b>{[pt.produtoselecionado[0].nome]}</b> ? </p>
+                <p>Tem certeza que deseja excluir a categoria <b>{[sc.atendimentoselecionado[0].fields.bairro]}</b> ? </p>
             </div>
             <div class="col-md-2">
-                <a ng-click="excluir()" style="display: block;width: 100%;" class="btn btn-success btn-lg">Sim</a>
-                <a href="/restaurante/cardapio" style="display: block;width: 100%;" class="btn btn-default">Cancelar</a>
+                <a ng-click="excluir_produtocategoria()" style="display: block;width: 100%;" class="btn btn-success btn-lg">Sim</a>
+                <a style="display: block;width: 100%;" class="btn btn-default btn-lg" href="/restaurante/cardapio/categorias?p_id={[pt.produtoselecionado[0].id]}">Cancelar</a>
             </div>
         </div>
     </div>
-</div>
+  </div>
 
 {% endblock %}

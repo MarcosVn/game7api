@@ -33,6 +33,9 @@ urlpatterns = [
     url(r'^restaurante/cardapio/novo$', restauranteCardapioNovoView.as_view(), name = "RestauranteCardapioNovo"),
     url(r'^restaurante/cardapio/editar$', restauranteCardapioEditarView.as_view(), name = "RestauranteCardapioEditar"),
     url(r'^restaurante/cardapio/excluir$', restauranteCardapioExcluirView.as_view(), name = "RestauranteCardapioExcluir"),
+    url(r'^restaurante/cardapio/categorias$', restauranteCardapioCategoriasView.as_view(), name = "RestauranteCardapioCategorias"),
+    url(r'^restaurante/cardapio/categorias/nova$', restauranteCardapioCategoriasNovaView.as_view(), name = "RestauranteCardapioCategoriasNova"),
+    url(r'^restaurante/cardapio/categorias/excluir$', restauranteCardapioCategoriasExcluirView.as_view(), name = "RestauranteCardapioCategoriasExcluir"),
 
 
     url(r'^adm/login/', adminLoginView.as_view(), name = "Login"),

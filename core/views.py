@@ -58,6 +58,19 @@ class restauranteCardapioExcluirView(View):
     def get(self, request, *args, **kwargs):
         return render_to_response('restaurante/restaurante-cardapio-excluir.html', {}, RequestContext(request))
 
+class restauranteCardapioCategoriasView(View):
+    def get(self, request, *args, **kwargs):
+        return render_to_response('restaurante/restaurante-cardapio-categorias.html', {}, RequestContext(request))
+
+class restauranteCardapioCategoriasNovaView(View):
+    def get(self, request, *args, **kwargs):
+        return render_to_response('restaurante/restaurante-cardapio-categoria-novo.html', {}, RequestContext(request))
+
+class restauranteCardapioCategoriasExcluirView(View):
+    def get(self, request, *args, **kwargs):
+        return render_to_response('restaurante/restaurante-cardapio-categoria-excluir.html', {}, RequestContext(request))
+
+
 class adminLoginView(View):
     def get(self, request, *args, **kwargs):
         return render_to_response('adm/login.html', {}, RequestContext(request))
