@@ -278,10 +278,10 @@ game7App.controller('produtoCtrl', function($scope, Produto, Empresa, Categoria,
     $scope.ct = Categoria;
     $scope.ct.get_categorias();
 
+    $scope.sc = SubCategoria;
+
     $scope.fn = Funcionario;
     $scope.fn.verifica_login();
-
-    $scope.sc = SubCategoria;
 
     $scope.op = Opcional;
     $scope.op.get_opcionais();
@@ -615,5 +615,82 @@ game7App.controller('cardapioRestauranteCtrl', function($scope, Empresa, Produto
 
     $scope.pt = Produto;
     $scope.pt.get_produtos_restaurante("");
+
+});
+
+
+game7App.controller('cardapioRestauranteNovoCtrl', function($scope, Empresa, Produto, Categoria, SubCategoria, Opcional) {
+    $scope.em = Empresa;
+    $scope.em.get_empresalogado();
+    $scope.em.verifica_login();
+
+    $scope.ct = Categoria;
+    $scope.ct.get_categorias();
+
+    $scope.sc = SubCategoria;
+    $scope.pt = Produto;
+
+    $scope.pt = Produto;
+    $scope.pt.get_produtos();
+    $scope.pt.get_produto();
+
+    $scope.ct = Categoria;
+    $scope.ct.get_categorias();
+
+    $scope.sc = SubCategoria;
+
+    $scope.op = Opcional;
+    $scope.op.get_opcionais();
+
+    $scope.filtrar = function(){
+        $scope.pt.get_produtos(document.getElementById("ipFiltroNome").value, document.getElementById("ipFiltroRestaurante").value);
+    }
+    $scope.atualizar = function(){
+        if($scope.sc.sel_subcategorias){
+            $scope.pt.save_produto(
+                document.getElementById("nome").value,
+                document.getElementById("preco").value,
+                document.getElementById("descricao").value,
+                window.localStorage.getItem("e_logado"),
+                $scope.sc.sel_subcategorias.pk
+                );
+        }
+        else{
+            $scope.pt.save_produto(
+                document.getElementById("nome").value,
+                document.getElementById("preco").value,
+                document.getElementById("descricao").value,
+                window.localStorage.getItem("e_logado"),
+                ''
+                );
+        }
+    }
+    $scope.excluir = function(){
+      $scope.pt.excluir_produto();
+    }
+    $scope.getsubs= function(){
+        $scope.sc.get_subcategorias("",$scope.sc.sel_categoria.pk);
+    }
+    $scope.atualizar_produtocategoria = function(){
+        $scope.pt.save_produtocategoria($scope.sc.sel_subcategorias.pk);
+    }
+    $scope.atualizar_produtoopcional = function(){
+        $scope.pt.save_produtoopcional($scope.op.sel_opcional.id);
+    }
+    $scope.excluir_produtoopcional = function(){
+        $scope.pt.excluir_produtoopcional();
+    }
+    $scope.excluir_produtocategoria = function(){
+        $scope.pt.excluir_produtocategoria();
+    }
+    $scope.atualizar_produtofoto = function(){
+        $scope.pt.save_produtofoto();
+        $scope.pt.get_produto();
+        location.reload();
+    }
+    $scope.excluir_produtofoto = function(foto_id){
+        $scope.pt.excluir_produtofoto(foto_id);
+        location.reload();
+    }
 
 });
