@@ -1,0 +1,28 @@
+{% extends "restaurante/restaurante-base.html" %}
+{% block title %}MenuWeb - Restaurante{% endblock %}
+{% load staticfiles %}
+{% block content %}
+<div ng-controller="avaliacoesRestauranteCtrl" class="app expediente" role="main">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12" style="margin-top:30px;margin-bottom:20px;">
+                <h4>AVALIAÇÕES</h4>
+                <small style="margin-bottom:15px;display:block;">Acompanhe as avaliações de seu restaurante</small>
+
+                <table class="table table-striped">
+                    <tr>
+                        <th class="col-md-2">Nota</th>
+                        <th class="col-md-6">Mensagem</th>
+                        <th class="col-md-4">Data</th>
+                    </tr>
+                    <tr ng-repeat="aval in em.empresalogado[0].avaliacoes">
+                        <td style="text-align:center;">{[aval.avaliacao_nota]}</td>
+                        <td>{[aval.avaliacao_mensagem]}</td>
+                        <td>{[aval.avaliacao_data]}</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -16,18 +16,19 @@
                 <div class="col-md-6">
                     <div class="col-md-4">
                         <label>Tempo de entrega</label>
-                        <select class="form-control">
-                            <option value="30">30 min</option>
-                            <option value="45">45 min</option>
-                            <option value="60">60 min</option>
-                        </select>
+                        <div id="temposelecionado">
+                            {[em.empresalogado[0].tipo_tempo]}
+                            <a class="btn btn-default btn-xs" style="float:right;" ng-click="abriredicaotempo()">Editar</a>
+                        </div>
+                        <div id="temposelecionar" style="display:none;">
+                            <select class="form-control" id="selTempoEntrega" ng-change="set_tempoentrega();" ng-model="seltempo">
+                                <option value="{[tipot.pk]}" ng-repeat="tipot in tt.lista_tipostempo">{[tipot.fields.nome]}</option>
+                            </select>
+                        </div>
                         <br>
 
                         <label>Disponibilidade</label>
-                        <select class="form-control">
-                            <option value="Disponível">Disponível</option>
-                            <option value="Fechado">Fechado</option>
-                        </select>
+                        <a href="/restaurante/expediente" class="btn btn-primary">VER EXPEDIENTE</a>
                     </div>
 
                     <div class="col-md-8 well avaliacoes">
@@ -35,7 +36,7 @@
                             <b>Avaliações</b>
                         </div>
                         <div class="col-md-6">
-                            <a class="btn btn-xs btn-primary">ver avaliações</a>
+                            <a href="/restaurante/avaliacoes" class="btn btn-xs btn-primary">ver avaliações</a>
                         </div>
                         <br>
                         <hr style="margin: 5px 0px 10px;">
@@ -68,14 +69,13 @@
                         <b>Acumulado do mês</b>
                     </div>
                     <div class="col-md-2">
-                        <a class="btn btn-xs btn-primary">ver gráficos</a>
                     </div>
                     <hr>
 
                     <div class="col-md-6">
                         <div class="col-md-6">
                             <b>Pedidos<br>
-                                49
+                                {[em.lista_empresasremessas[0].qtd_naentrega + em.lista_empresasremessas[0].qtd_mercadopago]}
                             </b>
                         </div>
                     </div>
@@ -83,7 +83,7 @@
                     <div class="col-md-6">
                         <div class="col-md-6">
                             <b>Faturamento<br>
-                                R$ 2159,98
+                               R$ {[em.lista_empresasremessas[0].total_naentrega + em.lista_empresasremessas[0].total_mercadopago]}
                             </b>
                         </div>
                     </div>
@@ -95,20 +95,23 @@
                         <b>Faturamento do Mês</b>
                     </div>
                     <div class="col-md-4">
-                        <a class="btn btn-xs btn-primary">ver faturas</a>
+                        <a href="/restaurante/repasse" class="btn btn-xs btn-primary">ver faturas</a>
                     </div>
                     <hr>
                     <table class="table">
                         <tr>
-                            <th class="col-md-3">Mês</th>
+                            <th class="col-md-3">Dt Atual</th>
+                            <th class="col-md-3">Dt Fim</th>
                             <th class="col-md-3">Valor</th>
-                            <th class="col-md-3">Venc.</th>
-                            <th class="col-md-3">Status</th>
+                            <th class="col-md-3">Pago</th>
                         </tr>
-                        <tr><td>Janeiro</td><td>R$ 255,00</td><td>2017-05-12</td><td>Pago</td></tr>
-                        <tr><td>Janeiro</td><td>R$ 255,00</td><td>2017-05-12</td><td>Pago</td></tr>
-                        <tr><td>Janeiro</td><td>R$ 255,00</td><td>2017-05-12</td><td>Pago</td></tr>
-                        <tr><td>Janeiro</td><td>R$ 255,00</td><td>2017-05-12</td><td>Pago</td></tr>
+                        <tr>
+                            <td>{[em.lista_empresasremessas[0].repasses[0].data_inicio]}</td>
+                            <td>{[em.lista_empresasremessas[0].repasses[0].data_fim]}</td>
+                            <td>R$ {[em.lista_empresasremessas[0].repasses[0].total]}</td>
+                            <td class="col-md-2" ng-if="em.lista_empresasremessas[0].repasses[0].pago == true">Sim</td>
+                            <td class="col-md-2" ng-if="em.lista_empresasremessas[0].repasses[0].pago == false">Não</td>
+                        </tr>
                     </table>
 
                 </div>

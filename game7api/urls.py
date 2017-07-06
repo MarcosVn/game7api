@@ -38,6 +38,7 @@ urlpatterns = [
     url(r'^restaurante/cardapio/categorias/excluir$', restauranteCardapioCategoriasExcluirView.as_view(), name = "RestauranteCardapioCategoriasExcluir"),
     url(r'^restaurante/repasse$', restauranteRepasseView.as_view(), name = "RestauranteRepasse"),
     url(r'^restaurante/pedidos', restaurantePedidosView.as_view(), name = "RestaurantePedidos"),
+    url(r'^restaurante/avaliacoes', restauranteAvaliacoesView.as_view(), name = "RestauranteAvaliacoes"),
 
 
     url(r'^adm/login/', adminLoginView.as_view(), name = "Login"),
@@ -136,6 +137,7 @@ urlpatterns = [
     url(r'^js/cardapio', ServiceJson.cardapio, name='cardapio'),
     url(r'^js/pedidos', ServiceJson.pedidos, name='pedidos'),
     url(r'^js/tiposcozinhas', ServiceJson.tiposcozinhas, name='tiposcozinhas'),
+    url(r'^js/tipostempo', ServiceJson.tipostempo, name='tipostempo'),
     url(r'^js/itens', ServiceJson.itens, name='itens'),
     url(r'^js/carrinho', ServiceJson.carrinho, name='carrinho'),
     url(r'^js/bandeiras', ServiceJson.bandeiras, name='bandeiras'),
@@ -173,6 +175,7 @@ urlpatterns = [
     url(r'^js/savepedidostatus$', ServiceJson.savepedido_status, name='savepedidostatus'),
     url(r'^js/criarrepasse', ServiceJson.criarrepasse, name='criarrepasse'),
     url(r'^js/receberrepasse', ServiceJson.receberrepasse, name='receberrepasse'),
+    url(r'^js/settempoentrega', ServiceJson.settempoentrega, name='receberrepasse'),
 
     url(r'^js/excluiropcional', ServiceJson.excluiropcional, name='excluiropcional'),
     url(r'^js/excluiropcao', ServiceJson.excluiropcao, name='excluiropcao'),

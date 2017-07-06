@@ -565,13 +565,27 @@ game7App.controller('topoRestauranteCtrl', function($scope, Empresa) {
     }
 });
 
-game7App.controller('homeRestauranteCtrl', function($scope, Empresa) {
+game7App.controller('homeRestauranteCtrl', function($scope, Empresa, TipoTempo) {
     $scope.em = Empresa;
     $scope.em.get_empresalogado();
+    $scope.em.get_empresalogadorepasse();
     $scope.em.verifica_login();
+
+    $scope.tt = TipoTempo;
+    $scope.tt.get_tipostempo();
 
     $scope.sair= function(){
         $scope.em.sair_empresa();
+    }
+
+    $scope.set_tempoentrega = function(){
+        $scope.em.set_tempoentrega($('#selTempoEntrega').val());
+    }
+
+    $scope.abriredicaotempo = function(){
+        $('#temposelecionado').hide();
+        $('#temposelecionar').show();
+
     }
 });
 
@@ -701,7 +715,6 @@ game7App.controller('repasseRestauranteCtrl', function($scope, Empresa) {
 
     $scope.filtrar = function(){
         $scope.em.get_empresarepasse($('#ipFiltroData').val());
-
     }
     $scope.efetuarpagamento = function(){
         $scope.em.efetuarrepasse(document.getElementById("ipReferencia").value, $('#ipFiltroData').val());
@@ -763,4 +776,9 @@ game7App.controller('pedidosRestauranteCtrl', function($scope, Empresa, Pedido) 
     $scope.efetuarpagamento = function(){
         $scope.em.efetuarrepasse(document.getElementById("ipReferencia").value, $('#ipFiltroData').val());
     }
+});
+
+game7App.controller('avaliacoesRestauranteCtrl', function($scope, Empresa, Pedido) {
+    $scope.em = Empresa;
+//    $scope.em.get_empresalogadorepasse();
 });

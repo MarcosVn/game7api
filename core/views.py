@@ -78,6 +78,10 @@ class restaurantePedidosView(View):
     def get(self, request, *args, **kwargs):
         return render_to_response('restaurante/restaurante-pedidos.html', {}, RequestContext(request))
 
+class restauranteAvaliacoesView(View):
+    def get(self, request, *args, **kwargs):
+        return render_to_response('restaurante/restaurante-avaliacoes.html', {}, RequestContext(request))
+
 class adminLoginView(View):
     def get(self, request, *args, **kwargs):
         return render_to_response('adm/login.html', {}, RequestContext(request))
@@ -583,6 +587,31 @@ class ServiceJson(View):
     def tiposcozinhas(request):
         # Query Base
         query = TipoCozinha.objects.all().order_by("nome")
+
+        # Filtros
+        nome = request.GET.get("nome")
+        id = request.GET.get("id")
+
+        if (id == 'undefined'):
+            id = int()
+            id = 0
+
+        if not (id):
+            id = int()
+            id = 0
+
+        if (nome):
+            query = query.filter(nome__icontains=nome)
+        if (id > 0):
+            query = query.filter(id=id)
+
+        lista = serialize('json', query, fields=["id", "nome"])
+        return HttpResponse(lista, content_type='application/json')
+
+    @staticmethod
+    def tipostempo(request):
+        # Query Base
+        query = TipoTempo.objects.all().order_by("nome")
 
         # Filtros
         nome = request.GET.get("nome")
@@ -1194,6 +1223,10 @@ class ServiceJson(View):
 
                 avaliacoes.append(r_avaliacao)
 
+            otipotempo = TipoTempo()
+            if empresa.tempo:
+                otipotempo = empresa.tempo
+
             for bairro_at in empresa.BairrosAtendimento.all():
                 r_bairro = {
                     "bairro":bairro_at.bairro.nome,
@@ -1219,6 +1252,8 @@ class ServiceJson(View):
                 "descricao":empresa.descricao,
                 "tipo_cozinha":empresa.tipocozinha.nome,
                 "tipo_cozinha_id":empresa.tipocozinha.id,
+                "tipo_tempo":otipotempo.nome,
+                "tipo_tempo_id":otipotempo.id,
                 "avaliacoes":avaliacoes,
                 "aceita_cartao":empresa.aceita_cartao,
                 "aceita_valerefeicao":empresa.aceita_valerefeicao,
@@ -1659,6 +1694,23 @@ class ServiceJson(View):
             }
 
         lista = json.dumps(r)
+        return HttpResponse(lista, content_type='application/json')
+
+    @staticmethod
+    def settempoentrega(request):
+        # Filtros
+        id = request.GET.get("id")
+        tempo_id = request.GET.get("tempo_id")
+
+        # Objeto de Empresa
+        oEmpresa = Empresa.objects.filter(id=id).first()
+        oTempo= TipoTempo.objects.filter(id=tempo_id).first()
+
+        oEmpresa.tempo = oTempo
+        oEmpresa.save()
+
+        lista = "True"
+
         return HttpResponse(lista, content_type='application/json')
 
 

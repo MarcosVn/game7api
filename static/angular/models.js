@@ -1,7 +1,7 @@
-URL_BASE = "http://0.0.0.0:8010/js/";
+//URL_BASE = "http://0.0.0.0:8010/js/";
 //URL_BASE = "http://127.0.0.1:8000/js/";
 //URL_BASE = "https://serene-atoll-63219.herokuapp.com/js/";
-//URL_BASE = "http://menuweb.com.br/js/";
+URL_BASE = "http://menuweb.com.br/js/";
 
 function getTokens(){
     var tokens = [];            // new array to hold result
@@ -551,6 +551,28 @@ game7App.factory("Empresa", function (Ajax,$http) {
             }
         }).then(function successCallback(response) {
             obj.empresaselecionado = response.data;
+        }, function errorCallback(response) {
+            console.log("Erro");
+        });
+    };
+
+    obj.set_tempoentrega = function (id_tempo) {
+        //Get relação de clientes
+        var url = URL_BASE + "settempoentrega";
+        var params = {
+          id:window.localStorage.getItem("e_logado"),
+          tempo_id:id_tempo
+        }
+        $http({
+            method: "GET",
+            params: params,
+            url: url,
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }).then(function successCallback(response) {
+            window.locate="/restaurante/";
+//            obj.empresaselecionado = response.data;
         }, function errorCallback(response) {
             console.log("Erro");
         });
@@ -1607,6 +1629,53 @@ game7App.factory("TipoCozinha", function (Ajax,$http) {
             }
         }).then(function successCallback(response) {
             obj.retorno = response.data;
+        }, function errorCallback(response) {
+            console.log("Erro");
+        });
+    };
+    return obj;
+});
+
+
+game7App.factory("TipoTempo", function (Ajax,$http) {
+    var obj = {
+        lista_tipostempo: [],
+        tipotemposelecionado: [],
+        retorno : false,
+    };
+    obj.get_tipostempo = function (nome_tipotempo) {
+        var url = URL_BASE + "tipostempo";
+        var params = {
+            nome:nome_tipotempo
+        }
+        $http({
+            method: "GET",
+            params: params,
+            url: url,
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }).then(function successCallback(response) {
+            obj.lista_tipostempo = response.data;
+        }, function errorCallback(response) {
+            console.log("Erro");
+        });
+    };
+
+    obj.get_tipocozinha = function () {
+        var url = URL_BASE + "tipostempo";
+        var params = {
+          id:TOKENS['t_id']
+        }
+        $http({
+            method: "GET",
+            params: params,
+            url: url,
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }).then(function successCallback(response) {
+            obj.tipotemposelecionado = response.data;
         }, function errorCallback(response) {
             console.log("Erro");
         });
