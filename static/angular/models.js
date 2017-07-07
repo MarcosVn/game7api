@@ -464,6 +464,31 @@ game7App.factory("Cliente", function (Ajax,$http) {
         )
 
     };
+
+    obj.save_logado_cliente = function (cliente_nome, cliente_email, cliente_senha, cliente_telefone, cliente_estado, cliente_cidade, cliente_bairro, cliente_endereco, cliente_numero, cliente_complemento, cliente_cep) {
+        var url = URL_BASE + "savecliente";
+
+        var f = new FormData();
+        f.append('id', window.localStorage.getItem("c_logado"));
+        f.append('nome', cliente_nome);
+        f.append('email', cliente_email);
+        f.append('senha', cliente_senha);
+        f.append('telefone', cliente_telefone);
+        f.append('estado', cliente_estado);
+        f.append('cidade', cliente_cidade);
+        f.append('bairro', cliente_bairro);
+        f.append('endereco', cliente_endereco);
+        f.append('numero', cliente_numero);
+        f.append('complemento', cliente_complemento);
+        f.append('cep', cliente_cep);
+        $http.post(url, f, {headers: {'Content-Type': undefined}}).success(
+          function(response){
+            obj.retorno = response;
+          }
+        )
+
+    };
+
     obj.excluir_cliente= function () {
         var url = URL_BASE + "excluircliente";
         var params = {
@@ -1304,6 +1329,26 @@ game7App.factory("Pedido", function (Ajax,$http) {
             empresa_id:TOKENS["e_id"],
             data:data_pedido,
             status:status
+        }
+        $http({
+            method: "GET",
+            params: params,
+            url: url,
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }).then(function successCallback(response) {
+            obj.lista_pedidos= response.data;
+        }, function errorCallback(response) {
+            console.log("Erro");
+        });
+    };
+
+    obj.get_pedidos_logado= function (data_pedido) {
+        var url = URL_BASE + "pedidos";
+        var params = {
+            cliente_id:window.localStorage.getItem("c_logado"),
+            data:data_pedido
         }
         $http({
             method: "GET",

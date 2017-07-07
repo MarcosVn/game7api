@@ -1,0 +1,16 @@
+{% extends "cliente/cliente-base.html" %}
+{% block title %}MenuWeb - Clientes{% endblock %}
+{% load staticfiles %}
+{% block content %}
+<div class="cliente-home" ng-controller="homeClienteCtrl">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <input class="form-control" placeholder="Buscar Prato ou restaurante">
+
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

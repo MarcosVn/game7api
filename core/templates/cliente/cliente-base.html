@@ -13,31 +13,44 @@
 		<script src="{% static 'angular/controllers.js' %}"></script>
 	</head>
 	<body ng-app="game7App">
-        <div ng-controller="topoRestauranteCtrl">
+        <div ng-controller="topoClienteCtrl">
             <div class="menu-topo col-md-12 col-xs-12" style="padding:15px 175px;">
                 <div class="container col-md-12 col-xs-12" style="padding:0px;">
                     <div class="col-md-2 col-xs-2">
-                        <a href="/restaurante/"><img src="{% static 'img/logo-menu.png' %}" style="width:150px;padding-top:8px;"/></a>
+                        <a href="/cliente/"><img src="{% static 'img/logo-menu.png' %}" style="width:150px;"/></a>
                     </div>
                     <div class="col-md-7 col-xs-7">
-                        <ul class="nav nav-pills">
-                            <li style="padding-left:30px;"><a href="/restaurante/cardapio">Cardápio</a></li>
-                            <li><a href="/restaurante/repasse">Repasse</a></li>
-                            <li><a href="/restaurante/pedidos">Pedidos</a></li>
-                            <li><a href="/restaurante/expediente">Expediente</a></li>
-                            <li><a href="/restaurante/perfil">Meu Restaurante</a></li>
-                        </ul>
+						<p class="topo-endereco" style="color:#fff;font-size:14px;margin:2px 0px 0px 12px;">
+							<i class="glyphicon glyphicon-map-marker" style="font-size:20px;"></i> {[cl.clientelogado[0].endereco]}, {[cl.clientelogado[0].numero]} - {[cl.clientelogado[0].bairro]} - {[cl.clientelogado[0].estado]}
+							<a href="/cliente/perfil" style="margin-left:15px;">Alterar</a>
+						</p>
+
                     </div>
                     <div class="col-md-3 col-xs-3 orange">
                         <div class="well bemvindo">
-                            Bem vindo <b>{[em.empresalogado[0].nome]}</b>!<a ng-click="sair();" class="btn btn-xs btn-danger">Sair</a>
+                            Bem vindo <b>{[cl.clientelogado[0].nome]}</b>!<a ng-click="sair();" class="btn btn-xs btn-danger">Sair</a>
                         </div>
+                    </div>
+                </div>
+            </div>
+            <div class="menu-topo-links col-md-12">
+                <div class="container col-md-12" style="padding:0px;">
+                    <div class="col-md-12">
+                        <ul class="nav nav-pills">
+                            <li style="padding-left:30px;"><a href="/cliente/"><i class="glyphicon glyphicon-search"></i> Buscar</a></li>
+                            <li><a href="/cliente/pedidos"><i class="glyphicon glyphicon-th-list"></i> Pedidos</a></li>
+                            <li><a href="/cliente/perfil"><i class="glyphicon glyphicon-user"></i> Meu Perfil</a></li>
+                            <li style="float:right;"><a href="/restaurante/perfil" style="margin-top:5px;" class="btn btn-warning btn-sm"><i class="glyphicon glyphicon-shopping-cart"></i></a></li>
+                        </ul>
                     </div>
                 </div>
             </div>
         </div>
 
-		{% block content %}{%endblock %}
+		<div class="col-md-12">
+			{% block content %}{%endblock %}
+		</div>
+
 
 		<div class="rodape col-md-12 col-xs-12">
 			<div class="container col-md-12 col-xs-12">

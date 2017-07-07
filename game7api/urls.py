@@ -42,6 +42,10 @@ urlpatterns = [
     url(r'^restaurante/atendimento/novo', restauranteAtendimentoNovoView.as_view(), name = "RestauranteAtendimentoNovo"),
     url(r'^restaurante/atendimento/excluir', restauranteAtendimentoExcluirView.as_view(), name = "RestauranteAtendimentoExcluir"),
 
+    url(r'^cliente/$', clienteHomeView.as_view(), name = "ClienteHome"),
+    url(r'^cliente/perfil$', clientePerfilView.as_view(), name = "ClientePerfil"),
+    url(r'^cliente/pedidos$', clientePedidosView.as_view(), name = "ClientePedidos"),
+
 
     url(r'^adm/login/', adminLoginView.as_view(), name = "Login"),
     url(r'^adm/$', adminHomeView.as_view(), name = "Home-adm"),

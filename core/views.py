@@ -29,66 +29,61 @@ class HomeView(View):
 class restauranteLoginView(View):
     def get(self, request, *args, **kwargs):
         return render_to_response('restaurante/restaurante-login.html', {}, RequestContext(request))
-
 class restauranteHomeView(View):
     def get(self, request, *args, **kwargs):
         return render_to_response('restaurante/restaurante-home.html', {}, RequestContext(request))
-
 class restaurantePerfilView(View):
     def get(self, request, *args, **kwargs):
         return render_to_response('restaurante/restaurante-profile.html', {}, RequestContext(request))
-
 class restauranteExpedienteView(View):
     def get(self, request, *args, **kwargs):
         return render_to_response('restaurante/restaurante-expediente.html', {}, RequestContext(request))
-
 class restauranteCardapioView(View):
     def get(self, request, *args, **kwargs):
         return render_to_response('restaurante/restaurante-cardapio.html', {}, RequestContext(request))
-
 class restauranteCardapioNovoView(View):
     def get(self, request, *args, **kwargs):
         return render_to_response('restaurante/restaurante-cardapio-novo.html', {}, RequestContext(request))
-
 class restauranteCardapioEditarView(View):
     def get(self, request, *args, **kwargs):
         return render_to_response('restaurante/restaurante-cardapio-editar.html', {}, RequestContext(request))
-
 class restauranteCardapioExcluirView(View):
     def get(self, request, *args, **kwargs):
         return render_to_response('restaurante/restaurante-cardapio-excluir.html', {}, RequestContext(request))
-
 class restauranteCardapioCategoriasView(View):
     def get(self, request, *args, **kwargs):
         return render_to_response('restaurante/restaurante-cardapio-categorias.html', {}, RequestContext(request))
-
 class restauranteCardapioCategoriasNovaView(View):
     def get(self, request, *args, **kwargs):
         return render_to_response('restaurante/restaurante-cardapio-categoria-novo.html', {}, RequestContext(request))
-
 class restauranteCardapioCategoriasExcluirView(View):
     def get(self, request, *args, **kwargs):
         return render_to_response('restaurante/restaurante-cardapio-categoria-excluir.html', {}, RequestContext(request))
-
 class restauranteRepasseView(View):
     def get(self, request, *args, **kwargs):
         return render_to_response('restaurante/restaurante-repasse.html', {}, RequestContext(request))
-
 class restaurantePedidosView(View):
     def get(self, request, *args, **kwargs):
         return render_to_response('restaurante/restaurante-pedidos.html', {}, RequestContext(request))
-
 class restauranteAvaliacoesView(View):
     def get(self, request, *args, **kwargs):
         return render_to_response('restaurante/restaurante-avaliacoes.html', {}, RequestContext(request))
-
 class restauranteAtendimentoNovoView(View):
     def get(self, request, *args, **kwargs):
         return render_to_response('restaurante/restaurante-atendimento-novo.html', {}, RequestContext(request))
-
 class restauranteAtendimentoExcluirView(View):
     def get(self, request, *args, **kwargs):
         return render_to_response('restaurante/restaurante-atendimento-excluir.html', {}, RequestContext(request))
+
+class clienteHomeView(View):
+    def get(self, request, *args, **kwargs):
+        return render_to_response('cliente/cliente-home.html', {}, RequestContext(request))
+class clientePerfilView(View):
+    def get(self, request, *args, **kwargs):
+        return render_to_response('cliente/cliente-perfil.html', {}, RequestContext(request))
+class clientePedidosView(View):
+    def get(self, request, *args, **kwargs):
+        return render_to_response('cliente/cliente-pedidos.html', {}, RequestContext(request))
 
 class adminLoginView(View):
     def get(self, request, *args, **kwargs):
