@@ -1,0 +1,43 @@
+{% extends "restaurante/restaurante-base.html" %}
+{% block title %}MenuWeb - Restaurante{% endblock %}
+{% load staticfiles %}
+{% block content %}
+ <div ng-controller="atendimentoRestauranteCtrl" class="app atendimento" role="main">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12" style="margin-top:30px;margin-bottom:20px;">
+                <h4>NOVO BAIRRO DE ATENDIMENTO</h4>
+                <small style="margin-bottom:15px;display:block;">Inclusão de novo bairro de atendimento</small>
+
+
+                <div class="col-md-12" style="margin-bottom: 55px;">
+                    <div ng-if="at.retorno">
+                        <p class="alert alert-success" style="text-align:center;">Salvo com sucesso!</p>
+                    </div>
+
+                    <p>A subcategoria do produto entrará em vigor assim que o mesmo for salvo.</p>
+
+                    <label class="control-label">Estado</label><br/>
+                    <select class="form-control" name="estado" id="estado" ng-change="getcidades()" ng-options="estado as estado.fields.nome for estado in et.lista_estados track by estado.pk" ng-model="sel_estado"></select>
+                    <br/>
+
+                    <label class="control-label">Cidade</label><br/>
+                    <select class="form-control" name="cidade" id="cidade" ng-change="getbairros()" ng-options="cidade as cidade.fields.nome for cidade in cd.lista_cidades track by cidade.pk" ng-model="sel_cidade"></select>
+                    <br/>
+
+                    <label class="control-label">Bairro</label><br/>
+                    <select class="form-control" name="bairro" id="bairro" ng-options="bairro as bairro.fields.nome for bairro in br.lista_bairros track by bairro.pk" ng-model="sel_bairro"></select>
+                    <br/>
+
+                    <label class="control-label">Preço do Frete</label><br/>
+                    <input type="number" id="frete" name="frete" required="True" class="form-control"/>
+                    <br/>
+
+                    <a class="btn btn-success col-md-3" style="float: right;margin-bottom: 10px;" ng-click="atualizar_atendimento()" >Salvar</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

@@ -794,3 +794,29 @@ game7App.controller('avaliacoesRestauranteCtrl', function($scope, Empresa, Pedid
     $scope.em = Empresa;
 //    $scope.em.get_empresalogadorepasse();
 });
+
+
+game7App.controller('atendimentoRestauranteCtrl', function($scope, Empresa, Estado, Cidade, Bairro, Atendimento) {
+    $scope.et = Estado;
+    $scope.cd = Cidade;
+    $scope.br = Bairro;
+    $scope.em = Empresa;
+    $scope.at = Atendimento;
+
+    $scope.et.get_estados();
+
+    $scope.getcidades = function(){
+        $scope.cd.get_cidades(document.getElementById("estado").value);
+    }
+    $scope.getbairros = function(){
+        $scope.br.get_bairros(document.getElementById("cidade").value);
+    }
+    $scope.atualizar_atendimento = function(){
+        $scope.at.save_restaurante_atendimento(
+            document.getElementById("bairro").value,
+            document.getElementById("frete").value);
+    }
+    $scope.excluir_atendimento = function(){
+        $scope.at.excluir_restaurante_atendimento();
+    }
+});

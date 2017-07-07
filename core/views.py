@@ -82,6 +82,14 @@ class restauranteAvaliacoesView(View):
     def get(self, request, *args, **kwargs):
         return render_to_response('restaurante/restaurante-avaliacoes.html', {}, RequestContext(request))
 
+class restauranteAtendimentoNovoView(View):
+    def get(self, request, *args, **kwargs):
+        return render_to_response('restaurante/restaurante-atendimento-novo.html', {}, RequestContext(request))
+
+class restauranteAtendimentoExcluirView(View):
+    def get(self, request, *args, **kwargs):
+        return render_to_response('restaurante/restaurante-atendimento-excluir.html', {}, RequestContext(request))
+
 class adminLoginView(View):
     def get(self, request, *args, **kwargs):
         return render_to_response('adm/login.html', {}, RequestContext(request))

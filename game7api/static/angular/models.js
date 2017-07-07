@@ -913,6 +913,25 @@ game7App.factory("Atendimento", function (Ajax,$http) {
           }
         )
     };
+
+    obj.save_restaurante_atendimento = function (empresa_bairro, empresa_frete) {
+        var url = URL_BASE + "saveempresabairro";
+
+        var f = new FormData();
+        f.append('id', window.localStorage.getItem("e_logado"));
+        f.append('bairro', empresa_bairro);
+        f.append('frete', empresa_frete);
+        $http.post(url, f, {headers: {'Content-Type': undefined}}).success(
+          function(response){
+            obj.retorno = response;
+            window.location = "/restaurante/perfil";
+
+            if (obj.retorno == false)
+                alert('Este bairro já foi adicionado')
+          }
+        )
+    };
+
     obj.excluir_atendimento= function () {
         var url = URL_BASE + "excluirempresa_bairro";
         var params = {
@@ -928,6 +947,27 @@ game7App.factory("Atendimento", function (Ajax,$http) {
             }
         }).then(function successCallback(response) {
             obj.retorno = response.data;
+        }, function errorCallback(response) {
+            console.log("Erro");
+        });
+    };
+
+    obj.excluir_restaurante_atendimento= function () {
+        var url = URL_BASE + "excluirempresa_bairro";
+        var params = {
+          empresa_id:window.localStorage.getItem("e_logado"),
+          bairro_id:TOKENS['b_id']
+        }
+        $http({
+            method: "GET",
+            params: params,
+            url: url,
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }).then(function successCallback(response) {
+            obj.retorno = response.data;
+            window.location = "/restaurante/perfil";
         }, function errorCallback(response) {
             console.log("Erro");
         });

@@ -77,9 +77,9 @@
                     <br/>
 
                     <b>Atendimentos</b>
-                    <a href="novo-atendimento.html?e_id={[em.empresalogado[0].id]}" class="btn btn-xs btn-primary" style="float:right;">Adicionar Bairro</a>
+                    <a href="/restaurante/atendimento/novo?e_id={[em.empresalogado[0].id]}" class="btn btn-xs btn-primary" style="float:right;">Adicionar Bairro</a>
                     <p>Controle os seus bairros de atendimentos, a mudança dos bairros implica diretamente nos resultaados da busca.</p>
-                    <table class="table">
+                    <table class="table" style="font-size:10px;">
                         <tr>
                             <th>Bairro</th>
                             <th>Frete</th>
@@ -88,7 +88,7 @@
                         <tr ng-repeat="bai in em.empresalogado[0].bairros">
                           <td class="col-md-7 col-xs-7">{[bai.bairro]}</td>
                           <td class="col-md-4 col-xs-4">R$ {[bai.frete.toFixed(2)]}</td>
-                          <td class="col-md-1 col-xs-1"><a href="excluir-atendimento.html?e_id={[em.empresalogado[0].id]}&b_id={[bai.bairro_id]}" class="btn btn-danger btn-xs">excluir</a> </td>
+                          <td class="col-md-1 col-xs-1"><a href="/restaurante/atendimento/excluir?e_id={[em.empresalogado[0].id]}&b_id={[bai.bairro_id]}" class="btn btn-danger btn-xs">excluir</a> </td>
                         </tr>
                     </table>
 

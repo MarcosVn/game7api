@@ -1,0 +1,28 @@
+{% extends "restaurante/restaurante-base.html" %}
+{% block title %}MenuWeb - Restaurante{% endblock %}
+{% load staticfiles %}
+{% block content %}
+ <div ng-controller="atendimentoRestauranteCtrl" class="app atendimento" role="main">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12" style="margin-top:30px;margin-bottom:20px;">
+                <h4>EXCLUIR BAIRRO DE ATENDIMENTO</h4>
+                <small style="margin-bottom:15px;display:block;">Exclusão de novo bairro de atendimento</small>
+
+                <div class="col-md-12" style="margin-bottom: 55px;">
+                    <div ng-if="at.retorno">
+                        <p class="alert alert-success" style="text-align:center;">Excluido com sucesso!</p>
+                    </div>
+                    <div class="col-md-10">
+                        <p>A exclusão terá efeito imediato</p>
+                        <p>Tem certeza que deseja excluir o Bairro ? </p>
+                    </div>
+                </div>
+
+                <a class="btn btn-danger col-md-3" ng-click="excluir_atendimento()">Excluir</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
