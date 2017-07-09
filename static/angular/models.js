@@ -517,8 +517,8 @@ game7App.factory("Cliente", function (Ajax,$http) {
           function(response){
             if(response.length > 0){
                 obj.clientelogado = response;
-
                 window.localStorage.setItem("c_logado", response[0].id);
+                window.location="/cliente/";
             }
             else{
                 alert("Usuário ou senha incorretos");
@@ -552,6 +552,27 @@ game7App.factory("Empresa", function (Ajax,$http) {
             params: params,
             url: url,
             headers: {
+                'Content-Type': 'application/json'/
+            }
+        }).then(function successCallback(response) {
+            obj.lista_empresas= response.data;
+        }, function errorCallback(response) {
+            console.log("Erro");
+        });
+    };
+
+    obj.get_empresas_buscas = function (nome_empresa) {
+        var url = URL_BASE + "getrestaurantes";
+        var params = {
+            id:window.localStorage.getItem("c_logado"),
+            texto:nome_empresa,
+            tipocozinha_id:obj.var_tipocozinha_id,
+        }
+        $http({
+            method: "GET",
+            params: params,
+            url: url,
+            headers: {
                 'Content-Type': 'application/json'
             }
         }).then(function successCallback(response) {
@@ -560,6 +581,7 @@ game7App.factory("Empresa", function (Ajax,$http) {
             console.log("Erro");
         });
     };
+
 
     obj.get_empresa = function () {
         //Get relação de clientes
@@ -596,7 +618,7 @@ game7App.factory("Empresa", function (Ajax,$http) {
                 'Content-Type': 'application/json'
             }
         }).then(function successCallback(response) {
-            window.locate="/restaurante/";
+            window.location="/restaurante/";
 //            obj.empresaselecionado = response.data;
         }, function errorCallback(response) {
             console.log("Erro");
@@ -1018,7 +1040,7 @@ game7App.factory("Funcionario", function (Ajax,$http) {
             if(response != ''){
                 obj.funcionario_logado = response[0];
                 obj.logado = response[0].id;
-                window.localStorage.setItem("e_logado", response[0].id);
+                window.localStorage.setItem("f_logado", response[0].id);
                 window.location = "/adm";
             }
           }
@@ -1099,7 +1121,7 @@ game7App.factory("Funcionario", function (Ajax,$http) {
         });
     };
     obj.verifica_login = function () {
-       var logado = window.localStorage.getItem("e_logado");
+       var logado = window.localStorage.getItem("f_logado");
        var url = window.location.pathname;
 
        if(logado == undefined){
@@ -1108,7 +1130,7 @@ game7App.factory("Funcionario", function (Ajax,$http) {
    };
 
     obj.sair = function () {
-        window.localStorage.removeItem("e_logado");
+        window.localStorage.removeItem("f_logado");
         window.location = "/adm/login";
    };
     return obj;

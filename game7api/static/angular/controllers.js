@@ -827,9 +827,22 @@ game7App.controller('topoClienteCtrl', function($scope, Cliente) {
 //    $scope.em.get_empresalogadorepasse();
 });
 
-game7App.controller('homeClienteCtrl', function($scope, Cliente) {
+game7App.controller('homeClienteCtrl', function($scope, Cliente, Empresa) {
     $scope.cl = Cliente;
     $scope.cl.get_clientelogado();
+
+    $scope.em = Empresa;
+    $scope.em.get_empresas_buscas();
+
+    if(document.getElementById('iFiltro')){
+        $scope.em.get_empresas(document.getElementById('iFiltro').value);
+    }
+
+    $scope.set_tipocozinha = function(nTipoCozinha){
+        $scope.em.set_tipocozinha(nTipoCozinha);
+
+        $scope.filtrar();
+    }
 //    $scope.em.get_empresalogadorepasse();
 });
 
