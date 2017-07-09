@@ -552,7 +552,7 @@ game7App.factory("Empresa", function (Ajax,$http) {
             params: params,
             url: url,
             headers: {
-                'Content-Type': 'application/json'/
+                'Content-Type': 'application/json'
             }
         }).then(function successCallback(response) {
             obj.lista_empresas= response.data;

@@ -1,7 +1,7 @@
-//URL_BASE = "http://0.0.0.0:8010/js/";
+URL_BASE = "http://0.0.0.0:8010/js/";
 //URL_BASE = "http://127.0.0.1:8000/js/";
 //URL_BASE = "https://serene-atoll-63219.herokuapp.com/js/";
-URL_BASE = "http://menuweb.com.br/js/";
+//URL_BASE = "http://menuweb.com.br/js/";
 
 function getTokens(){
     var tokens = [];            // new array to hold result
@@ -552,7 +552,7 @@ game7App.factory("Empresa", function (Ajax,$http) {
             params: params,
             url: url,
             headers: {
-                'Content-Type': 'application/json'/
+                'Content-Type': 'application/json'
             }
         }).then(function successCallback(response) {
             obj.lista_empresas= response.data;
