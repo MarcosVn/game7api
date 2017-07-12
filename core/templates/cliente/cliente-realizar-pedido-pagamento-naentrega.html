@@ -1,0 +1,50 @@
+{% extends "cliente/cliente-base.html" %}
+{% block title %}MenuWeb - Clientes{% endblock %}
+{% load staticfiles %}
+{% block content %}
+<div class="cliente-home" ng-controller="realizarpedidosCtrl">
+    <div class="container">
+        <div class="row">
+            <div style="margin:0px;padding:0px;">
+                <div class="col-md-12" style="margin-top:20px;margin-bottom:5px;">
+                    <b>PAGAMENTO</b>
+                </div>
+                <div class="col-md-12" style="font-size:10px;">
+                    <div class="col-xs-12" style="font-size:10px;">
+                        <div ng-if="pe.na_entrega_tipo == 'dinheiro'" style="margin-bottom:10px;">
+                            <label for="troco_para">Troco para</label><br>
+                            <div class="input-group">
+                              <span class="input-group-addon">R$</span>
+                              <input type="text" class="form-control" id="troco_para" >
+                            </div>
+                        </div>
+                        <div ng-if="pe.na_entrega_tipo == 'cartao'">
+                            <label>Bandeira</label><br>
+                            <select name="selbandeira" id="selbandeira" class="form-control">
+                              <option value="">Selecione</option>
+                              <option value="Master Card">Master Card</option>
+                              <option value="Visa">Visa</option>
+                              <option value="Hipercard">Hipercard</option>
+                              <option value="American Express">American Express</option>
+                              <option value="elo">elo</option>
+                              <option value="Dinner Club">Dinner Club</option>
+                            </select>
+
+                            <br>
+                            <label for="outro_cartao">Outro</label><br>
+                            <input type="text" class="form-control" id="outro_cartao" />
+                        </div>
+
+                        <br>
+                        <label for="cpf_nota">CPF na nota?</label><br>
+                        <input type="checkbox" name="cpf_nota" id="cpf_nota" value="1"/> Sim
+                    </div>
+
+                    <a ng-click="atualizar_pagamento();" style="margin-top:10px;margin-bottom:20px;" class="btn btn-default">CONCLUIR PAGAMENTO <i class="glyphicon glyphicon-credit-card"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

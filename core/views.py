@@ -84,6 +84,28 @@ class clientePerfilView(View):
 class clientePedidosView(View):
     def get(self, request, *args, **kwargs):
         return render_to_response('cliente/cliente-pedidos.html', {}, RequestContext(request))
+class clienteRestauranteView(View):
+    def get(self, request, *args, **kwargs):
+        return render_to_response('cliente/cliente-restaurante-integra.html', {}, RequestContext(request))
+class clienteProdutoView(View):
+    def get(self, request, *args, **kwargs):
+        return render_to_response('cliente/cliente-produto-integra.html', {}, RequestContext(request))
+class clienteRealizarPedidoEnderecoView(View):
+    def get(self, request, *args, **kwargs):
+        return render_to_response('cliente/cliente-realizar-pedido-endereco.html', {}, RequestContext(request))
+class clienteRealizarPedidoTipoPagamentoView(View):
+    def get(self, request, *args, **kwargs):
+        return render_to_response('cliente/cliente-realizar-pedido-tipo-pagamento.html', {}, RequestContext(request))
+class clienteRealizarPedidoPagamentoNaEntregaView(View):
+    def get(self, request, *args, **kwargs):
+        return render_to_response('cliente/cliente-realizar-pedido-pagamento-naentrega.html', {}, RequestContext(request))
+class clienteRealizarPedidoPagamentoView(View):
+    def get(self, request, *args, **kwargs):
+        return render_to_response('cliente/cliente-realizar-pedido-pagamento.html', {}, RequestContext(request))
+class clientePedidoIntegraView(View):
+    def get(self, request, *args, **kwargs):
+        return render_to_response('cliente/cliente-pedido-integra.html', {}, RequestContext(request))
+
 
 class adminLoginView(View):
     def get(self, request, *args, **kwargs):
@@ -2880,14 +2902,15 @@ class ServiceJson(View):
                 "produto_id":item.produto.id,
                 "produto":item.produto.nome,
                 "produto_preco":item.produto.preco,
-                "total_compra":sum_compra
+                "total_parcial":(item.quantidade * item.produto.preco)
             }
 
             rows.append(r)
 
         result = {
             "lista_compra":rows,
-            "frete": frete
+            "frete": frete,
+            "total_compra": sum_compra
         }
 
 

@@ -45,6 +45,13 @@ urlpatterns = [
     url(r'^cliente/$', clienteHomeView.as_view(), name = "ClienteHome"),
     url(r'^cliente/perfil$', clientePerfilView.as_view(), name = "ClientePerfil"),
     url(r'^cliente/pedidos$', clientePedidosView.as_view(), name = "ClientePedidos"),
+    url(r'^cliente/restaurante$', clienteRestauranteView.as_view(), name = "ClienteRestaurante"),
+    url(r'^cliente/produto$', clienteProdutoView.as_view(), name = "ClienteProduto"),
+    url(r'^cliente/realizarpedido/endereco', clienteRealizarPedidoEnderecoView.as_view(), name = "ClienteRealizarPedidoEndereco"),
+    url(r'^cliente/realizarpedido/tipopagamento', clienteRealizarPedidoTipoPagamentoView.as_view(), name = "ClienteRealizarPedidoTipoPagamento"),
+    url(r'^cliente/realizarpedido/pagamento-naentrega', clienteRealizarPedidoPagamentoNaEntregaView.as_view(), name = "ClienteRealizarPedidoPagamentoNaEntrega"),
+    url(r'^cliente/realizarpedido/pagamento$', clienteRealizarPedidoPagamentoView.as_view(), name = "ClienteRealizarPedidoPagamentoNaEntrega"),
+    url(r'^cliente/pedido', clientePedidoIntegraView.as_view(), name = "ClientePedidoIntegra"),
 
 
     url(r'^adm/login/', adminLoginView.as_view(), name = "Login"),

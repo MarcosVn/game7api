@@ -1,0 +1,67 @@
+{% extends "cliente/cliente-base.html" %}
+{% block title %}MenuWeb - Clientes{% endblock %}
+{% load staticfiles %}
+{% block content %}
+<div class="cliente-home" ng-controller="realizarpedidosCtrl">
+    <div class="container">
+        <div class="row">
+            <div style="margin:0px;padding:0px;">
+                <div class="col-md-12" style="margin-top:20px;margin-bottom:5px;">
+                    <b>PEDIDO #{[pe.pedidoselecionado[0].id]}</b>
+                </div>
+                <div class="col-xs-12" style="font-size:10px;">
+                    <ul class="list-group">
+                        <li class="list-group-item">
+                            <b>DATA</b><br>
+                            {[pe.pedidoselecionado[0].data]}
+                        </li>
+                        <li class="list-group-item">
+                            <b>RESTAURANTE</b><br>
+                            {[pe.pedidoselecionado[0].empresa]}
+                        </li>
+                        <li class="list-group-item">
+                            <b>ENTREGA</b><br>
+                            {[pe.pedidoselecionado[0].endereco]}, {[pe.pedidoselecionado[0].bairro]} -
+                            {[pe.pedidoselecionado[0].cidade]}
+                        </li>
+                        <li class="list-group-item">
+                            <b>ITENS</b>
+                            <table class="table" style="margin-bottom:0px;font-size:11px;">
+                                <thead>
+                                    <tr>
+                                        <th>Produto</th>
+                                        <th>Observação</th>
+                                        <th>Quantidade</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="it in pe.pedidoselecionado[0].itens">
+                                        <td>{[it.produto]}</td>
+                                        <td>{[it.observacao]}</td>
+                                        <td>{[it.quantidade]}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </li>
+                        <li class="list-group-item">
+                            <b>PAGAMENTO</b><br>
+                            {[pe.pedidoselecionado[0].pagamento_obs]} - {[pe.pedidoselecionado[0].pagamento_tipo]}
+                        </li>
+                        <li class="list-group-item">
+                            <b>STATUS</b><br>
+                            {[pe.pedidoselecionado[0].status]}
+                        </li>
+                        <li class="list-group-item">
+                            <b class="label label-primary" style="font-size: 16PX;padding: 14PX 0PX;text-align: center;display: block;">
+                                R$ {[pe.pedidoselecionado[0].total.toFixed(2)]}
+                            </b>
+                        </li>
+                    </ul>
+                    <a href="/cliente/pedidos" class="btn btn-default" style="display:block;margin:0px 0px 20px 0px;">CONCLUIR</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

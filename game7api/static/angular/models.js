@@ -538,7 +538,8 @@ game7App.factory("Empresa", function (Ajax,$http) {
         empresalogado: [],
         retorno : false,
         data_fim : new Date(),
-        foto_principal:123
+        foto_principal:123,
+        caminho_foto: 'http://menuweb.com.br/game7api/static/media/empresa/',
     };
     obj.get_empresas = function (nome_empresa, email_empresa) {
         var url = URL_BASE + "empresas";
@@ -556,6 +557,27 @@ game7App.factory("Empresa", function (Ajax,$http) {
             }
         }).then(function successCallback(response) {
             obj.lista_empresas= response.data;
+        }, function errorCallback(response) {
+            console.log("Erro");
+        });
+    };
+
+    obj.get_empresabypedido = function () {
+        //Get relação de clientes
+        var url = URL_BASE + "getrestaurantebypedido";
+        var params = {
+          pedido_id:window.localStorage.getItem("pedido_id")
+        }
+        $http({
+            method: "GET",
+            params: params,
+            url: url,
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }).then(function successCallback(response) {
+            console.log(response.data);
+            obj.empresapedido = response.data;
         }, function errorCallback(response) {
             console.log("Erro");
         });
@@ -1143,6 +1165,7 @@ game7App.factory("Produto", function (Ajax,$http) {
         retorno : false,
         foto_principal:123,
         burl : "http://menuweb.com.br/",
+        caminho_foto: 'http://menuweb.com.br/game7api/static/media/produto/',
     };
     obj.get_produtos= function (nome_produto, nome_restaurante) {
         var url = URL_BASE + "produtos";
@@ -1150,6 +1173,27 @@ game7App.factory("Produto", function (Ajax,$http) {
             empresa_id:TOKENS["e_id"],
             nome:nome_produto,
             restaurante:nome_restaurante
+        }
+        $http({
+            method: "GET",
+            params: params,
+            url: url,
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }).then(function successCallback(response) {
+            obj.lista_produtos= response.data;
+        }, function errorCallback(response) {
+            console.log("Erro");
+        });
+    };
+
+    obj.get_cardapio= function (nome_produto) {
+//        var url = URL_BASE + "produtos";
+        var url = URL_BASE + "cardapio";
+        var params = {
+            empresa_id:TOKENS["e_id"],
+            nome:nome_produto
         }
         $http({
             method: "GET",
@@ -1343,7 +1387,9 @@ game7App.factory("Pedido", function (Ajax,$http) {
     var obj = {
         lista_pedidos: [],
         pedidoselecionado: [],
-        retorno : false
+        lista_pedidos_concluidos: [],
+        retorno : false,
+        na_entrega_tipo:TOKENS['t']
     };
     obj.get_pedidos= function (data_pedido, status) {
         var url = URL_BASE + "pedidos";
@@ -1551,6 +1597,88 @@ game7App.factory("Pedido", function (Ajax,$http) {
         )
 
     };
+
+    obj.save_pedido_logado = function (pedido_endereco, pedido_cidade, pedido_bairro, pedido_complemento) {
+        var url = URL_BASE + "savepedido";
+        var f = new FormData();
+        f.append('id', TOKENS['p_id']);
+        f.append('cliente_id', window.localStorage.getItem("c_logado"));
+        f.append('endereco', pedido_endereco);
+        f.append('cidade_id', pedido_cidade);
+        f.append('bairro_id', pedido_bairro);
+        f.append('complemento', complemento);
+        $http.post(url, f, {headers: {'Content-Type': undefined}}).success(
+          function(response){
+            window.localStorage.setItem("pedido_id", response);
+            window.location = "/cliente/realizarpedido/tipopagamento";
+          }
+        )
+    };
+
+    obj.save_avaliacao = function (nota, pedido_id,mensagem) {
+        var url = URL_BASE + "saveavaliacao";
+        var f = new FormData();
+        f.append('nota', nota);
+        f.append('pedido_id', pedido_id);
+        f.append('mensagem', mensagem);
+        $http.post(url, f, {headers: {'Content-Type': undefined}}).success(
+          function(response){
+            alert("Avaliação enviada!");
+            window.location = "/cliente/";
+          }
+        )
+    };
+
+
+    obj.save_tipo_pagamento = function (tipo_pagamento) {
+        var url = URL_BASE + "savetipopagamentopedido";
+        var f = new FormData();
+        f.append('id', window.localStorage.getItem("pedido_id"));
+        f.append('tipopagamento', tipo_pagamento);
+        $http.post(url, f, {headers: {'Content-Type': undefined}}).success(
+          function(response){
+            obj.retorno = response.data;
+            if(tipo_pagamento == 'na_entrega_dinheiro'){
+                window.location = "/cliente/realizarpedido/pagamento-naentrega?p_id="+window.localStorage.getItem("pedido_id")+"&t=dinheiro";
+            }
+            else if(tipo_pagamento == 'na_entrega_cartao'){
+                window.location = "/cliente/realizarpedido/pagamento-naentrega?p_id="+window.localStorage.getItem("pedido_id")+"&t=cartao";
+            }
+            else if(tipo_pagamento == 'mercado_pago'){
+                window.location = "/cliente/realizarpedido/pagamento?p_id="+window.localStorage.getItem("pedido_id");
+            }
+            else{
+                window.location = "/cliente/pedido?p_id="+window.localStorage.getItem("pedido_id");
+            }
+
+          }
+        )
+    };
+
+    obj.save_pagamento_obs = function (troco,outro,cpfnanota,bandeira) {
+        var url = URL_BASE + "saveobspagamentopedido";
+        var f = new FormData();
+
+        if (troco > 0){
+            if(troco <= obj.pedidoselecionado[0].total){
+                alert("O valor de troco deve ser maior que o total do pedido");
+                return
+            }
+        }
+        f.append('id', window.localStorage.getItem("pedido_id"));
+        f.append('troco', troco);
+        f.append('outro', outro);
+        f.append('cpfnanota', cpfnanota);
+        f.append('bandeira', bandeira);
+        f.append('tipo', TOKENS['t']);
+        $http.post(url, f, {headers: {'Content-Type': undefined}}).success(
+          function(response){
+            obj.retorno = response.data;
+            window.location = "/cliente/pedido?p_id="+window.localStorage.getItem("pedido_id");
+          }
+        )
+    };
+
     obj.excluir_produto= function () {
         var url = URL_BASE + "excluirproduto";
         var params = {
@@ -1952,5 +2080,79 @@ game7App.factory("Opcao", function (Ajax,$http) {
             console.log("Erro");
         });
     };
+    return obj;
+});
+
+
+game7App.factory("Carrinho", function (Ajax,$http) {
+    var obj = {
+        lista_compra: [],
+        qtd_atual:1,
+        retorno : false,
+        val_total:0.0,
+        var_total_geral:0.0,
+        frete:0.0
+    };
+
+
+    obj.get_carrinhos = function () {
+        var url = URL_BASE + "carrinhos";
+        var params = {
+            cliente_id:window.localStorage.getItem("c_logado")
+        }
+        $http({
+            method: "GET",
+            params: params,
+            url: url,
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }).then(function successCallback(response) {
+
+            obj.lista_compra = response.data.lista_compra;
+            obj.frete = response.data.frete;
+
+            if(obj.lista_compra.length > 0){
+                obj.var_total_geral = response.data.total_compra + obj.frete;
+            }
+        }, function errorCallback(response) {
+            console.log("Erro");
+        });
+    };
+
+    obj.save_carrinho = function (produto_id, quantidade, observacao) {
+        var url = URL_BASE + "savecarrinho";
+
+        var f = new FormData();
+        f.append('produto_id', produto_id);
+        f.append('quantidade', quantidade);
+        f.append('observacao', observacao);
+        f.append('cliente_id', window.localStorage.getItem("c_logado"));
+        $http.post(url, f, {headers: {'Content-Type': undefined}}).success(
+          function(response){
+            obj.retorno = response;
+          }
+        )
+
+    };
+    obj.excluir_carrinho = function (car_id) {
+        var url = URL_BASE + "excluircarrinho";
+        var params = {
+          id:car_id
+        }
+        $http({
+            method: "GET",
+            params: params,
+            url: url,
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }).then(function successCallback(response) {
+            obj.retorno = response.data;
+        }, function errorCallback(response) {
+            console.log("Erro");
+        });
+    };
+
     return obj;
 });

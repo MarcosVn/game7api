@@ -843,6 +843,11 @@ game7App.controller('homeClienteCtrl', function($scope, Cliente, Empresa) {
 
         $scope.filtrar();
     }
+
+    $scope.filtrar = function(){
+        $scope.em.get_empresas_buscas(document.getElementById('iFiltro').value);
+    }
+
 //    $scope.em.get_empresalogadorepasse();
 });
 
@@ -927,4 +932,227 @@ game7App.controller('pedidosClienteCtrl', function($scope, Pedido) {
     $scope.pe = Pedido;
     $scope.pe.get_pedidos_logado();
 //    $scope.em.get_empresalogadorepasse();
+});
+
+
+game7App.controller('restauranteintegraClienteCtrl', function($scope, Empresa, Produto) {
+    $scope.em = Empresa;
+    $scope.em.get_empresa();
+
+    $scope.pt = Produto;
+    $scope.pt.get_cardapio();
+//    $scope.em.get_empresalogadorepasse();
+});
+
+game7App.controller('carrinhoCtrl', function($scope, Produto, Carrinho) {
+    $scope.pt = Produto;
+//    $scope.pt.get_produtos();
+    $scope.pt.get_produto();
+
+    $scope.cr = Carrinho;
+    $scope.cr.get_carrinhos();
+
+    $scope.add_opcao_quantidade = function(opcional_id, opcao_id){
+        for (x = 0; x < $scope.pt.produtoselecionado[0].opcionais.length; x++){
+            if($scope.pt.produtoselecionado[0].opcionais[x].opcional_id == opcional_id){
+                for (y = 0; y < $scope.pt.produtoselecionado[0].opcionais[x].opcional_opcoes.length; y++){
+                    if($scope.pt.produtoselecionado[0].opcionais[x].opcional_opcoes[y].opcao_id == opcao_id){
+                        if($scope.pt.produtoselecionado[0].opcionais[x].opcional_quantidade_selecionado < $scope.pt.produtoselecionado[0].opcionais[x].opcional_quantidade){
+                            $scope.pt.produtoselecionado[0].opcionais[x].opcional_opcoes[y].opcao_quantidade ++;
+                            $scope.pt.produtoselecionado[0].opcionais[x].opcional_opcoes[y].opcao_selecionado = true;
+                            $scope.pt.produtoselecionado[0].opcionais[x].opcional_quantidade_selecionado ++;
+                        }
+                        else{
+                            alert("Você já atingiu o limite de opcionais");
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    $scope.rm_opcao_quantidade = function(opcional_id, opcao_id){
+        for (x = 0; x < $scope.pt.produtoselecionado[0].opcionais.length; x++){
+            if($scope.pt.produtoselecionado[0].opcionais[x].opcional_id == opcional_id){
+                for (y = 0; y < $scope.pt.produtoselecionado[0].opcionais[x].opcional_opcoes.length; y++){
+                    if($scope.pt.produtoselecionado[0].opcionais[x].opcional_opcoes[y].opcao_id == opcao_id){
+                        if($scope.pt.produtoselecionado[0].opcionais[x].opcional_opcoes[y].opcao_quantidade > 0){
+                            $scope.pt.produtoselecionado[0].opcionais[x].opcional_opcoes[y].opcao_quantidade --;
+                            if($scope.pt.produtoselecionado[0].opcionais[x].opcional_opcoes[y].opcao_quantidade == 0){
+                                $scope.pt.produtoselecionado[0].opcionais[x].opcional_opcoes[y].opcao_selecionado = false;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+
+    $scope.seleciona_opcao_multiplo = function(opcional_id, opcao_id){
+        for (x = 0; x < $scope.pt.produtoselecionado[0].opcionais.length; x++){
+            if($scope.pt.produtoselecionado[0].opcionais[x].opcional_id == opcional_id){
+                for (y = 0; y < $scope.pt.produtoselecionado[0].opcionais[x].opcional_opcoes.length; y++){
+                    if($scope.pt.produtoselecionado[0].opcionais[x].opcional_opcoes[y].opcao_id == opcao_id){
+                        opc_selecionado = "#opc_" + $scope.pt.produtoselecionado[0].opcionais[x].opcional_id + " #" + $scope.pt.produtoselecionado[0].opcionais[x].opcional_opcoes[y].opcao_id;
+                        if($(opc_selecionado)[0].checked){
+                            if($scope.pt.produtoselecionado[0].opcionais[x].opcional_quantidade_selecionado < $scope.pt.produtoselecionado[0].opcionais[x].opcional_quantidade){
+                                $scope.pt.produtoselecionado[0].opcionais[x].opcional_opcoes[y].opcao_selecionado = true;
+                                $scope.pt.produtoselecionado[0].opcionais[x].opcional_opcoes[y].opcao_quantidade = 1;
+                                $scope.pt.produtoselecionado[0].opcionais[x].opcional_quantidade_selecionado ++;
+                            }
+                            else{
+                                alert("Você já atingiu o limite de opcionais");
+                                $(opc_selecionado)[0].checked = false;
+                            }
+                        }
+                        else{
+                            $scope.pt.produtoselecionado[0].opcionais[x].opcional_opcoes[y].opcao_selecionado = false;
+                            $scope.pt.produtoselecionado[0].opcionais[x].opcional_opcoes[y].opcao_quantidade = 0;
+                            $scope.pt.produtoselecionado[0].opcionais[x].opcional_quantidade_selecionado --;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    $scope.seleciona_opcao_unico = function(opcional_id, opcao_id){
+        for (x = 0; x < $scope.pt.produtoselecionado[0].opcionais.length; x++){
+            if($scope.pt.produtoselecionado[0].opcionais[x].opcional_id == opcional_id){
+                for (y = 0; y < $scope.pt.produtoselecionado[0].opcionais[x].opcional_opcoes.length; y++){
+                    $scope.pt.produtoselecionado[0].opcionais[x].opcional_opcoes[y].opcao_selecionado = false;
+                    $scope.pt.produtoselecionado[0].opcionais[x].opcional_opcoes[y].opcao_quantidade = 0;
+
+                    if($scope.pt.produtoselecionado[0].opcionais[x].opcional_opcoes[y].opcao_id == opcao_id){
+                        $scope.pt.produtoselecionado[0].opcionais[x].opcional_opcoes[y].opcao_selecionado = true;
+                        $scope.pt.produtoselecionado[0].opcionais[x].opcional_opcoes[y].opcao_quantidade = 1;
+                    }
+                }
+            }
+        }
+    }
+
+    $scope.add_quantidade = function(){
+        $scope.cr.qtd_atual = $scope.cr.qtd_atual + 1;
+    }
+
+    $scope.rm_quantidade = function(){
+        if($scope.cr.qtd_atual > 1){
+            $scope.cr.qtd_atual = $scope.cr.qtd_atual - 1;
+        }
+    }
+
+    $scope.add_lista = function(){
+        $scope.cr.save_carrinho($scope.pt.produtoselecionado[0].id, $scope.cr.qtd_atual ,document.getElementById("ipObservacao").value);
+
+        window.location = "/cliente/";
+    }
+
+    $scope.rm_lista = function(car_id){
+        $scope.cr.excluir_carrinho(car_id);
+
+        window.location = "/cliente/";
+    }
+
+    $scope.getOpcionalSelecionado = function(){
+
+        texto_selecionado = "";
+
+        for (x = 0; x < $scope.pt.produtoselecionado[0].opcionais.length; x++){
+            texto_selecionado = texto_selecionado + $scope.pt.produtoselecionado[0].opcionais[x].opcional_titulo + "\n";
+            for (y = 0; y < $scope.pt.produtoselecionado[0].opcionais[x].opcional_opcoes.length; y++){
+                if($scope.pt.produtoselecionado[0].opcionais[x].opcional_opcoes[y].opcao_selecionado){
+                    texto_selecionado = texto_selecionado +  $scope.pt.produtoselecionado[0].opcionais[x].opcional_opcoes[y].opcao_quantidade + " x " + $scope.pt.produtoselecionado[0].opcionais[x].opcional_opcoes[y].opcao_titulo + "\n";
+                    $scope.pt.produtoselecionado[0].preco = $scope.pt.produtoselecionado[0].preco + ($scope.pt.produtoselecionado[0].opcionais[x].opcional_opcoes[y].opcao_quantidade * $scope.pt.produtoselecionado[0].opcionais[x].opcional_opcoes[y].opcao_valor);
+                }
+            }
+            texto_selecionado = texto_selecionado + "\n\n";
+        }
+
+        $("#genopcionais").hide();
+        $("#gencarrinho").show();
+
+        $("#ipObservacao").val(texto_selecionado);
+    }
+});
+
+game7App.controller('pagamentoCtrl', function($scope, Pedido, Pagamento) {
+    $scope.pe = Pedido;
+    $scope.pe.get_pedido();
+
+    $scope.pg = Pagamento;
+    $scope.pg.get_pagamento();
+
+});
+
+game7App.controller('realizarpedidosCtrl', function($scope, Pedido, Cliente, Estado, Cidade, Bairro, Empresa) {
+    $scope.pe = Pedido;
+    $scope.pe.get_pedidos_logado();
+    $scope.pe.get_pedido();
+
+    $scope.cl = Cliente;
+    $scope.cl.get_clientelogado();
+
+    $scope.et = Estado;
+    $scope.et.get_estados();
+
+    $scope.cd = Cidade;
+    $scope.br = Bairro;
+    $scope.em = Empresa;
+    $scope.em.get_empresabypedido();
+
+
+    $scope.filtrar = function(){
+        $scope.pe.get_pedidos(document.getElementById("ipFiltrodata").value);
+    }
+    $scope.atualizar = function(){
+        $scope.pe.save_pedido_logado(
+            document.getElementById("endereco").value,
+            document.getElementById("cidade").value,
+            document.getElementById("bairro").value,
+            document.getElementById("complemento").value);
+
+
+    }
+    $scope.atualizar_tipo_pagamento = function(){
+        $scope.pe.save_tipo_pagamento(
+                $('input[name="rd_pagamento_tipo"]:checked').val()
+            );
+    }
+    $scope.atualizar_pagamento = function(){
+            $scope.pe.save_pagamento_obs(
+                $('#troco_para').val(),
+                $('#outro_cartao').val(),
+                $('input[name="cpf_nota"]:checked').val(),
+                $('#selbandeira').val()
+            );
+    }
+    $scope.excluir = function(){
+      $scope.pt.excluir_produto();
+    }
+    $scope.getsubs= function(){
+        $scope.sc.get_subcategorias("",$scope.sc.sel_categoria.pk);
+    }
+    $scope.getcidades = function(){
+        $scope.cd.get_cidades(document.getElementById("estado").value);
+    }
+    $scope.getbairros = function(){
+        $scope.br.get_bairros(document.getElementById("cidade").value);
+    }
+
+    $scope.pagarmercadopago = function(request){
+        $scope.list = [];
+
+        console.log(request);
+
+        if ($scope.text) {
+            $scope.list.push(this.text);
+            $scope.text = '';
+
+            alert($scope.list);
+        }
+        //http://127.0.0.1:8010/js/efetuar-pagamento
+
+    }
 });

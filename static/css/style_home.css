@@ -272,16 +272,33 @@ a:hover, a:active, a:focus{
     border:1px solid #dddddd;
 }
 
-.restaurante-home .faturamento table{
-    font-size:12px;
-}
-
 .restaurante-home .novospedidos{
     border:1px solid #dddddd;
+}
+
+.restaurante-home .faturamento table{
+    font-size:12px;
 }
 
 /*Expediente*/
 
 .expediente table{
     font-size:12px;
+}
+
+/*Cliente toṕo*/
+
+.menu-topo-links{
+    background-color:#CD3700;
+    padding:0px 175px;
+}
+
+.menu-topo-links a{
+    color:#fff;
+}
+
+/*Cliente home*/
+
+.cliente-home .well{
+    border:1px solid #dddddd;
 }
