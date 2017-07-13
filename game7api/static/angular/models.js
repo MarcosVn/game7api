@@ -2120,17 +2120,20 @@ game7App.factory("Carrinho", function (Ajax,$http) {
         });
     };
 
-    obj.save_carrinho = function (produto_id, quantidade, observacao) {
+    obj.save_carrinho = function (produto_id, quantidade, observacao, valor) {
         var url = URL_BASE + "savecarrinho";
 
         var f = new FormData();
         f.append('produto_id', produto_id);
         f.append('quantidade', quantidade);
         f.append('observacao', observacao);
+        f.append('valor', valor);
         f.append('cliente_id', window.localStorage.getItem("c_logado"));
         $http.post(url, f, {headers: {'Content-Type': undefined}}).success(
           function(response){
             obj.retorno = response;
+
+            window.location = "/cliente/";
           }
         )
 
@@ -2149,6 +2152,58 @@ game7App.factory("Carrinho", function (Ajax,$http) {
             }
         }).then(function successCallback(response) {
             obj.retorno = response.data;
+            window.location = "/cliente/";
+        }, function errorCallback(response) {
+            console.log("Erro");
+        });
+    };
+
+    return obj;
+});
+
+
+
+game7App.factory("Home", function (Ajax,$http) {
+    var obj = {
+        lista_logotipos: [],
+        lista_avaliacoes: [],
+        caminho_foto: 'http://menuweb.com.br/game7api/static/media/empresa/',
+    };
+
+
+    obj.get_avaliacoes = function () {
+        var url = URL_BASE + "empresasavaliacoes";
+        var params = {
+        }
+        $http({
+            method: "GET",
+            params: params,
+            url: url,
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }).then(function successCallback(response) {
+            obj.lista_avaliacoes = response.data;
+
+        }, function errorCallback(response) {
+            console.log("Erro");
+        });
+    };
+
+    obj.get_logotipos = function () {
+        var url = URL_BASE + "empresaslogotipos";
+        var params = {
+        }
+        $http({
+            method: "GET",
+            params: params,
+            url: url,
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }).then(function successCallback(response) {
+            obj.lista_logotipos = response.data;
+
         }, function errorCallback(response) {
             console.log("Erro");
         });

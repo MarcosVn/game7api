@@ -1443,6 +1443,45 @@ class ServiceJson(View):
         lista = json.dumps(list(rows))
         return HttpResponse(lista, content_type='application/json')
 
+    @staticmethod
+    def empresaslogotipos(request):
+        # Query Base
+        query = Empresa.objects.all().order_by("-id")[:5]
+
+        rows = []
+
+        for empresa in query:
+            r = {
+                "id": empresa.id,
+                "nome": empresa.nome,
+                "logotipo":empresa.logotipo
+            }
+
+            rows.append(r)
+
+        lista = json.dumps(list(rows))
+        return HttpResponse(lista, content_type='application/json')
+
+    @staticmethod
+    def empresasavaliacoes(request):
+        # Query Base
+        query = Avaliacao.objects.exclude(mensagem="").order_by("-id")[:4]
+
+        rows = []
+
+        for avaliacao in query:
+            r = {
+                "id": avaliacao.id,
+                "mensagem": avaliacao.mensagem,
+                "data":avaliacao.data.strftime('%Y-%m-%d'),
+                "cliente":avaliacao.pedido.cliente.nome,
+                "empresa":avaliacao.pedido.empresa.nome
+            }
+
+            rows.append(r)
+
+        lista = json.dumps(list(rows))
+        return HttpResponse(lista, content_type='application/json')
 
     @staticmethod
     @csrf_exempt
@@ -2893,7 +2932,7 @@ class ServiceJson(View):
 
 
         for item in ocarrinho:
-            sum_compra = sum_compra + item.quantidade * item.produto.preco
+            sum_compra = sum_compra + (item.preco * item.quantidade)
 
             r = {
                 "id":item.id,
@@ -2901,8 +2940,8 @@ class ServiceJson(View):
                 "observacao":item.observacao,
                 "produto_id":item.produto.id,
                 "produto":item.produto.nome,
-                "produto_preco":item.produto.preco,
-                "total_parcial":(item.quantidade * item.produto.preco)
+                "produto_preco":item.preco,
+                "total_parcial":item.quantidade * item.preco
             }
 
             rows.append(r)
@@ -2930,12 +2969,14 @@ class ServiceJson(View):
         quantidade = request.POST.get("quantidade")
         observacao = request.POST.get("observacao")
         cliente_id = request.POST.get("cliente_id")
+        valor = request.POST.get("valor")
 
         # Objeto de Itens
         oCarrinho = Carrinho()
 
         oCarrinho.quantidade = quantidade
         oCarrinho.observacao = observacao
+        oCarrinho.preco = valor
         oCarrinho.cliente = Cliente.objects.filter(id=cliente_id).first()
         oCarrinho.produto = Produto.objects.filter(id=produto_id).first()
 

@@ -197,6 +197,7 @@ class Carrinho(models.Model):
     produto = models.ForeignKey("Produto")
     observacao = models.CharField(max_length=1024, null=True)
     cliente = models.ForeignKey("Cliente")
+    preco = models.FloatField()
 
     class Meta:
         verbose_name = "Carrinho"

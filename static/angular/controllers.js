@@ -1044,15 +1044,11 @@ game7App.controller('carrinhoCtrl', function($scope, Produto, Carrinho) {
     }
 
     $scope.add_lista = function(){
-        $scope.cr.save_carrinho($scope.pt.produtoselecionado[0].id, $scope.cr.qtd_atual ,document.getElementById("ipObservacao").value);
-
-        window.location = "/cliente/";
+        $scope.cr.save_carrinho($scope.pt.produtoselecionado[0].id, $scope.cr.qtd_atual, document.getElementById("ipObservacao").value, $scope.pt.produtoselecionado[0].preco);
     }
 
     $scope.rm_lista = function(car_id){
         $scope.cr.excluir_carrinho(car_id);
-
-        window.location = "/cliente/";
     }
 
     $scope.getOpcionalSelecionado = function(){
@@ -1071,7 +1067,8 @@ game7App.controller('carrinhoCtrl', function($scope, Produto, Carrinho) {
         }
 
         $("#genopcionais").hide();
-        $("#gencarrinho").show();
+        $("#gencarrinho").attr("style", "display:block!important;");
+
 
         $("#ipObservacao").val(texto_selecionado);
     }
@@ -1155,4 +1152,10 @@ game7App.controller('realizarpedidosCtrl', function($scope, Pedido, Cliente, Est
         //http://127.0.0.1:8010/js/efetuar-pagamento
 
     }
+});
+
+game7App.controller('homeCtrl', function($scope, Home) {
+    $scope.ho = Home;
+    $scope.ho.get_avaliacoes();
+    $scope.ho.get_logotipos();
 });

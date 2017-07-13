@@ -2,7 +2,7 @@
 {% block title %}Bem vindo{% endblock %}
 {% load staticfiles %}
 {% block content %}
-<div class="home">
+<div class="home" ng-controller="homeCtrl">
     <div class="mediabox-home">
         <div class="container">
             <div class="busca col-md-6 col-xs-6 col-xs-offset-3 col-md-offset-3">
@@ -27,13 +27,10 @@
         <div class="melhores-restaurantes col-md-12 col-xs-12">
             <p class="titulo">Os <b>melhores restaurantes</b> sem sair de casa.</p>
             <p class="subtitulo">Encontre aqui pratos deliciosos que combinam com qualquer bolso, gosto e humor.</p>
-
             <ul class="nav nav-pills col-md-12 col-xs-12">
-                <li><img src="{% static 'img/Pizza_Hut_Logo.png' %}"/></li>
-                <li><img src="{% static 'img/Pizza_Hut_Logo.png' %}"/></li>
-                <li><img src="{% static 'img/Pizza_Hut_Logo.png' %}"/></li>
-                <li><img src="{% static 'img/Pizza_Hut_Logo.png' %}"/></li>
-                <li><img src="{% static 'img/Pizza_Hut_Logo.png' %}"/></li>
+                <li ng-repeat="logo in ho.lista_logotipos">
+                    <img style="width:100px;height:100px;" class="img-thumbnail img-responsive" ng-src="{[ho.caminho_foto]}{[logo.logotipo]}" />
+                </li>
             </ul>
         </div>
 
@@ -42,44 +39,14 @@
             <p class="subtitulo">Veja as opiniões dos usuários sobre nossos serviços e parceiros.</p>
 
             <ul class="nav nav-pills">
-                <li class="depoimento col-md-3 col-xs-3">
+                <li class="depoimento col-md-3 col-xs-3" ng-repeat="aval in ho.lista_avaliacoes">
                     <img class="img-thumbnail col-md-12 col-xs-12" src="{% static 'img/sem-foto.png' %}"/>
                     <div class="conteudo col-md-12 col-xs-12">
-                        <p>Gilberto Oliveira</p>
+                        <p>{[aval.autor]}</p>
 
-                        <p>Tropeiro muito bom, so acho q pode diminuir um pouco a pimenta do reino.</p>
+                        <p>{[aval.mensagem]}</p>
 
-                        <p><b>Cantina da Lena</b> (09/05/2017)</p>
-                    </div>
-                </li>
-                <li class="depoimento col-md-3 col-xs-3">
-                    <img class="img-thumbnail col-md-12 col-xs-12" src="{% static 'img/sem-foto.png' %}"/>
-                    <div class="conteudo col-md-12 col-xs-12">
-                        <p>Gilberto Oliveira</p>
-
-                        <p>Tropeiro muito bom, so acho q pode diminuir um pouco a pimenta do reino.</p>
-
-                        <p><b>Cantina da Lena</b> (09/05/2017)</p>
-                    </div>
-                </li>
-                <li class="depoimento col-md-3 col-xs-3">
-                    <img class="img-thumbnail col-md-12 col-xs-12" src="{% static 'img/sem-foto.png' %}"/>
-                    <div class="conteudo col-md-12 col-xs-12">
-                        <p>Gilberto Oliveira</p>
-
-                        <p>Tropeiro muito bom, so acho q pode diminuir um pouco a pimenta do reino.</p>
-
-                        <p><b>Cantina da Lena</b> (09/05/2017)</p>
-                    </div>
-                </li>
-                <li class="depoimento col-md-3 col-xs-3">
-                    <img class="img-thumbnail col-md-12 col-xs-12" src="{% static 'img/sem-foto.png' %}"/>
-                    <div class="conteudo col-md-12 col-xs-12">
-                        <p>Gilberto Oliveira</p>
-
-                        <p>Tropeiro muito bom, so acho q pode diminuir um pouco a pimenta do reino.</p>
-
-                        <p><b>Cantina da Lena</b> (09/05/2017)</p>
+                        <p><b>{[aval.empresa]}</b> ({[aval.data]})</p>
                     </div>
                 </li>
             </ul>
