@@ -17,13 +17,12 @@
             <div class="menu-topo col-md-12 col-xs-12">
                 <div class="container col-md-12 col-xs-12">
                     <div class="col-md-2 col-xs-2">
-                        <img src="{% static 'img/logo-menu.png' %}" style="width:150px;padding-top:8px;"/>
+                        <a href="/"><img src="{% static 'img/logo-menu.png' %}" style="width:150px;padding-top:8px;"/></a>
                     </div>
                     <div class="col-md-7 col-xs-7">
                         <ul class="nav nav-pills">
-                            <li style="padding-left:30px;"><a>Sobre o MenuWeb</a></li>
-                            <li><a>Cadastre seu Restaurante</a></li>
-                            <li><a>Cadastro</a></li>
+                            <li style="padding-left:30px;"><a href="/sobre">Sobre o MenuWeb</a></li>
+                            <li><a data-toggle="modal" data-target="#poprestaurante" href="#">Cadastre seu Restaurante</a></li>
                         </ul>
                     </div>
                     <div class="col-md-3 col-xs-3 orange">
@@ -41,6 +40,9 @@
                     </div>
 
                 </div>
+            </div>
+            <div class="well alert-success" style="margin:0px;color: #fff;text-align: center;" ng-show="em.envio_precadastro">
+                O seu pré cadastro foi enviado com sucesso, um representante da <b>MenuWeb</b> estará entrando em contato.
             </div>
             <div class="modal fade popup" id="poplogin" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
                 <div class="modal-dialog modal-sm" role="document">
@@ -125,7 +127,78 @@
                             <input type="text" id="complemento" type="text" name="complemento" required="True" class="form-control"/>
 
                             <br>
-                            <a class="btn btn-sm btn-success"><i class="glyphicon glyphicon-ok"></i> Cadastrar</a>
+                            <a class="btn btn-sm btn-success" ng-click="atualizar();"><i class="glyphicon glyphicon-ok"></i> Cadastrar</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal fade popup" id="poprestaurante" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <br/>
+                            <img src="{% static 'img/logo-menu.png' %}" style="width:150px;margin:0 auto;display:block;"/>
+                        </div>
+                        <div class="modal-body">
+                            <label class="control-label">Nome</label><br/>
+                            <input type="text" id="restaurantenome" name="restaurantenome" required="True" class="form-control"/>
+                            <br/>
+
+                            <label class="control-label">Email</label><br/>
+                            <input type="text" id="restauranteemail" type="email" name="restauranteemail" required="True" class="form-control"/>
+                            <br/>
+
+                            <label class="control-label">Telefone</label><br/>
+                            <input type="number" id="restaurantetelefone" name="restaurantetelefone" required="True" class="form-control"/>
+                            <br/>
+
+                            <label class="control-label">Nome do Responsável</label><br/>
+                            <input type="text" id="restauranteresponsavel" name="restauranteresponsavel" required="True" class="form-control"/>
+                            <br/>
+
+                            <div class="col-md-12" style="padding-left:0px;padding-right:0px;margin-bottom:20px;">
+                                <div class="col-md-9" style="padding-left:0px;padding-right:0px;">
+                                    <label class="control-label">Cep</label><br/>
+                                    <input type="text" id="restaurantecep" type="text" name="restaurantecep" required="True" class="form-control"/>
+                                </div>
+                                <div class="col-md-3" style="padding-right:0px;">
+                                    <a class="btn btn-primary" ng-click="getceprestaurante();">Localizar</a>
+                                </div>
+                            </div>
+
+                            <label class="control-label">Estado</label><br/>
+                            <select class="form-control" name="restauranteestado" id="restauranteestado" ng-change="getcidades()" ng-options="estado as estado.fields.nome for estado in et.lista_estados track by estado.pk" ng-model="et.estado_selecionado"></select>
+                            <br/>
+
+                            <label class="control-label">Cidade</label><br/>
+                            <select class="form-control" name="restaurantecidade" id="restaurantecidade" ng-change="getbairros()" onload="set_cidade();" ng-init="set_cidade();" ng-options="cidade as cidade.fields.nome for cidade in cd.lista_cidades track by cidade.pk" ng-model="cd.cidade_selecionado"></select>
+                            <br/>
+
+                            <label class="control-label">Bairro</label><br/>
+                            <select class="form-control" name="restaurantebairro" id="restaurantebairro" ng-options="bairro as bairro.fields.nome for bairro in br.lista_bairros track by bairro.pk" ng-model="br.bairro_selecionado"></select>
+                            <br/>
+
+                            <div class="col-md-8" style="padding-left:0px;">
+                                <label class="control-label">Endereço</label><br/>
+                                <input type="text" id="restauranteendereco" type="text" name="restauranteendereco" required="True" class="form-control"/>
+                            </div>
+                            <div class="col-md-4" style="padding-right:0px;">
+                                <label class="control-label">Número</label><br/>
+                                <input type="text" id="restaurantenumero" type="number" name="restaurantenumero" required="True" class="form-control"/>
+                            </div>
+
+                            <label style="margin-top:20px;" class="control-label">Complemento</label><br/>
+                            <input type="text" id="restaurantecomplemento" type="text" name="restaurantecomplemento" required="True" class="form-control"/>
+                            <br/>
+
+                            <label class="control-label">Tipo da Cozinha</label><br/>
+                            <select class="form-control" name="restaurantetipocozinha" id="restaurantetipocozinha" ng-options="tipocozinha as tipocozinha.fields.nome for tipocozinha in tc.lista_tiposcozinha track by tipocozinha.pk" ng-model="tc.tipocozinha_selecionado"></select>
+                            <br/>
+
+                            <br>
+                            <a ng-click="atualizarrestaurante();" href="#" class="btn btn-sm btn-success"><i class="glyphicon glyphicon-ok"></i> Enviar Pré-Cadastro</a>
                         </div>
                     </div>
                 </div>

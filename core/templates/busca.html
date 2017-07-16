@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% block title %}Bem vindo{% endblock %}
+{% load staticfiles %}
+{% block content %}
+<div class="sobre" ng-controller="buscaCtrl" style="min-height:800px;">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12" style="min-height:500px;">
+                <div class="col-md-12">
+                    <b>BUSCA</b><br/>
+                    <small>Restaurantes de realizam entregas no seu bairro</small>
+                </div>
+                <div class="col-md-6 well" ng-repeat="emp in em.lista_empresas" style="background-color:#fff;">
+                    <a data-toggle="modal" data-target="#poplogin" href="#">
+                        <div class="col-md-12 col-xs-12" style="padding:2px;color:#bc2026;text-transform:uppercase;padding:0px; margin-bottom:2px;font-weight:bold;">
+                            <div class="col-md-2 col-xs-2" style="padding:0px;">
+                                <img class="img-rounded" style="width:60px;height:60px;" ng-src="{[em.caminho_foto]}{[emp.logotipo]}" width="40" />
+                            </div>
+                            <div class="col-md-9 col-xs-9" style="padding:0px;">
+                                <b>{[emp.nome]}</b>
+                                <p style="color:#333;">
+                                    {[emp.tipocozinha]}
+                                </p>
+                            </div>
+                            <div class="col-md-1 col-xs-1" style="padding:0px;">
+                                <img src="{% static 'img/estrela_amarela.png'%}" style="width:18px;">
+                                {[emp.nota_atual.toFixed(2)]}
+                            </div>
+                        </div>
+                        <div class="col-md-12 col-xs-12" style="padding:0px 2px;font-size:9px;">
+                            <div class="label label-primary" style="font-size:10px;margin:2px;display:inline-block;" ng-repeat="subs in prod.subcategorias">{[subs.categoria]} - {[subs.subcategoria]}</div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

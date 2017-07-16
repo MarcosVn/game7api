@@ -471,15 +471,18 @@ game7App.controller('opcaoCtrl', function($scope, Opcional, Opcao) {
 
 
 
-game7App.controller('topoCtrl', function($scope, $http, Cliente, Estado, Cidade, Bairro) {
+game7App.controller('topoCtrl', function($scope, $http, Cliente, Estado, Cidade, Bairro, TipoCozinha, Empresa) {
     $scope.cl = Cliente;
     $scope.cl.get_clientelogado();
 
     $scope.et = Estado;
     $scope.cd = Cidade;
     $scope.br = Bairro;
+    $scope.tc = TipoCozinha;
+    $scope.em = Empresa;
 
     $scope.et.get_estados();
+    $scope.tc.get_tiposcozinha();
 
     $scope.efetuarlogar = function(){
         $scope.cl.logar_cliente(
@@ -502,6 +505,22 @@ game7App.controller('topoCtrl', function($scope, $http, Cliente, Estado, Cidade,
             document.getElementById("numero").value,
             document.getElementById("complemento").value,
             document.getElementById("cep").value
+            );
+    }
+    $scope.atualizarrestaurante = function(){
+        $scope.em.enviar_empresa(
+            document.getElementById("restaurantenome").value,
+            document.getElementById("restauranteemail").value,
+            document.getElementById("restaurantetelefone").value,
+            document.getElementById("restauranteresponsavel").value,
+            document.getElementById("restauranteestado").value,
+            document.getElementById("restaurantecidade").value,
+            document.getElementById("restaurantebairro").value,
+            document.getElementById("restauranteendereco").value,
+            document.getElementById("restaurantenumero").value,
+            document.getElementById("restaurantecomplemento").value,
+            document.getElementById("restaurantecep").value,
+            document.getElementById("restaurantetipocozinha").value
             );
     }
     $scope.getcep = function(){
@@ -530,6 +549,46 @@ game7App.controller('topoCtrl', function($scope, $http, Cliente, Estado, Cidade,
 
             //Cidade
             $scope.cd.get_cidades($("#estado").val());
+            $scope.cd.get_cidades_by_nome(enderecocep.cidade);
+
+            //Bairro
+            $scope.br.get_bairros($scope.cd.cidade_selecionado.id);
+            $scope.br.get_bairros_by_nome(enderecocep.bairro);
+
+
+
+
+        }, function errorCallback(response) {
+            console.log("Erro");
+        });
+    }
+
+    $scope.getceprestaurante = function(){
+        cep = $("#restaurantecep").val();
+        //Get relação de clientes
+        var url = "http://viacep.com.br/ws/"+ cep + "/json/";
+        var params = {
+        }
+        $http({
+            method: "GET",
+            params: params,
+            url: url,
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }).then(function successCallback(response) {
+            enderecocep = response.data;
+
+            //Endereco
+            $("#restauranteendereco").val(enderecocep.logradouro);
+
+            //Estado
+            if(enderecocep.uf = "SP"){
+                $("#restauranteestado").val("1");
+            }
+
+            //Cidade
+            $scope.cd.get_cidades($("#restauranteestado").val());
             $scope.cd.get_cidades_by_nome(enderecocep.cidade);
 
             //Bairro
@@ -1154,8 +1213,39 @@ game7App.controller('realizarpedidosCtrl', function($scope, Pedido, Cliente, Est
     }
 });
 
-game7App.controller('homeCtrl', function($scope, Home) {
+game7App.controller('homeCtrl', function($scope, Home, $http, Empresa) {
     $scope.ho = Home;
     $scope.ho.get_avaliacoes();
     $scope.ho.get_logotipos();
+
+    $scope.em = Empresa;
+
+    $scope.buscahome = function(request){
+        cep = $("#cephome").val();
+        //Get relação de clientes
+        var url = "http://viacep.com.br/ws/"+ cep + "/json/";
+        var params = {
+        }
+        $http({
+            method: "GET",
+            params: params,
+            url: url,
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }).then(function successCallback(response) {
+            enderecocep = response.data;
+//            alert(enderecocep.bairro);
+            window.location="/busca?bairro=" + enderecocep.bairro;
+
+        }, function errorCallback(response) {
+            console.log("Erro");
+        });
+    }
+});
+
+
+game7App.controller('buscaCtrl', function($scope, Empresa) {
+    $scope.em = Empresa;
+    $scope.em.get_empresas_buscas_home();
 });

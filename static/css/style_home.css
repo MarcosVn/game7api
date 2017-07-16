@@ -99,7 +99,7 @@ a:hover, a:active, a:focus{
     font-style:initial;
 }
 
-.home .mediabox-home .busca button{
+.home .mediabox-home .busca .busca-home{
     background-color:#FB4000;
     text-transform:none;
     font-style:initial;
@@ -221,6 +221,11 @@ a:hover, a:active, a:focus{
 .popup .modal-dialog .modal-content input{
     color:#fff;
     font-size:12px;
+}
+
+.popup .modal-dialog .modal-content select{
+    font-size:12px;
+    color:#000;
 }
 
 .bemvindo{

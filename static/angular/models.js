@@ -537,6 +537,7 @@ game7App.factory("Empresa", function (Ajax,$http) {
         empresaselecionado: [],
         empresalogado: [],
         retorno : false,
+        envio_precadastro:false,
         data_fim : new Date(),
         foto_principal:123,
         caminho_foto: 'http://menuweb.com.br/game7api/static/media/empresa/',
@@ -589,6 +590,26 @@ game7App.factory("Empresa", function (Ajax,$http) {
             id:window.localStorage.getItem("c_logado"),
             texto:nome_empresa,
             tipocozinha_id:obj.var_tipocozinha_id,
+        }
+        $http({
+            method: "GET",
+            params: params,
+            url: url,
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }).then(function successCallback(response) {
+            obj.lista_empresas= response.data;
+        }, function errorCallback(response) {
+            console.log("Erro");
+        });
+    };
+
+
+    obj.get_empresas_buscas_home = function (nome_bairro) {
+        var url = URL_BASE + "getrestaurantesbairro";
+        var params = {
+            bairro:TOKENS["bairro"]
         }
         $http({
             method: "GET",
@@ -763,8 +784,34 @@ game7App.factory("Empresa", function (Ajax,$http) {
             window.location = "/adm/filiados/";
           }
         );
-
     };
+
+
+    obj.enviar_empresa = function (empresa_nome, empresa_email, empresa_telefone, empresa_responsavel, empresa_estado, empresa_cidade, empresa_bairro, empresa_endereco, empresa_numero, empresa_complemento, empresa_cep, tipo_cozinha) {
+        var url = URL_BASE + "enviarempresa";
+
+        var f = new FormData();
+        f.append('nome', empresa_nome);
+        f.append('email', empresa_email);
+        f.append('telefone', empresa_telefone);
+        f.append('responsavel', empresa_responsavel);
+        f.append('estado', empresa_estado);
+        f.append('cidade', empresa_cidade);
+        f.append('bairro', empresa_bairro);
+        f.append('endereco', empresa_endereco);
+        f.append('numero', empresa_numero);
+        f.append('complemento', empresa_complemento);
+        f.append('cep', empresa_cep);
+        f.append('tipo_cozinha_id', tipo_cozinha);
+
+        $http.post(url, f, {headers: {'Content-Type': undefined}}).success(
+          function(response){
+            obj.envio_precadastro = response;
+            window.locate="/"
+          }
+        );
+    };
+
     obj.excluir_empresa= function () {
         var url = URL_BASE + "excluirempresa";
         var params = {

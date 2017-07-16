@@ -22,6 +22,8 @@ urlpatterns = [
     url(r'^$', HomeView.as_view(), name="Home"),
     url(r'^admin/', adminHomeView.as_view(), name="Home Admin"),
     url(r'^politica-privacidade/', politicaprivacidadeView.as_view(), name = "Politica-privacidade"),
+    url(r'^sobre/', sobreView.as_view(), name="sobre"),
+    url(r'^busca/', buscarView.as_view(), name="buscar"),
 
 
 
@@ -191,6 +193,7 @@ urlpatterns = [
     url(r'^js/criarrepasse', ServiceJson.criarrepasse, name='criarrepasse'),
     url(r'^js/receberrepasse', ServiceJson.receberrepasse, name='receberrepasse'),
     url(r'^js/settempoentrega', ServiceJson.settempoentrega, name='receberrepasse'),
+    url(r'^js/enviarempresa', ServiceJson.enviarempresa, name='enviarempresa'),
 
     url(r'^js/excluiropcional', ServiceJson.excluiropcional, name='excluiropcional'),
     url(r'^js/excluiropcao', ServiceJson.excluiropcao, name='excluiropcao'),
@@ -212,7 +215,8 @@ urlpatterns = [
     url(r'^js/abrirempresa', ServiceJson.abrirempresa, name='abrirempresa'),
     url(r'^js/fecharempresa', ServiceJson.fecharempresa, name='fecharempresa'),
     url(r'^js/getabertura$', ServiceJson.getabertura, name='getabertura'),
-    url(r'^js/getrestaurantes', ServiceJson.getRestaurantes, name='getRestaurantes'),
+    url(r'^js/getrestaurantes$', ServiceJson.getRestaurantes, name='getRestaurantes'),
+    url(r'^js/getrestaurantesbairro', ServiceJson.getRestaurantesBairro, name='getRestaurantesBairro'),
     url(r'^js/getrestaurantebypedido', ServiceJson.getrestaurantebypedido, name='getrestaurantebypedido'),
     url(r'^js/getaberturas$', ServiceJson.getaberturas, name='getaberturas'),
     url(r'^js/esqueceusenha_cliente', ServiceJson.esqueceusenhacliente, name='esqueceusenha_cliente'),

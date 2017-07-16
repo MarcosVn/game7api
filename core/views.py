@@ -5,6 +5,7 @@ from django.template.context import RequestContext
 from django.core.serializers import serialize
 from django.http.response import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
+from django.utils.encoding import smart_str, smart_unicode
 from django.conf import settings
 from datetime import *
 import json
@@ -20,10 +21,15 @@ from mailer import Message
 class politicaprivacidadeView(View):
     def get(self, request, *args, **kwargs):
         return render_to_response('politica-privacidade.html', {}, RequestContext(request))
-
 class HomeView(View):
     def get(self, request, *args, **kwargs):
         return render_to_response('home.html', {}, RequestContext(request))
+class sobreView(View):
+    def get(self, request, *args, **kwargs):
+        return render_to_response('sobre.html', {}, RequestContext(request))
+class buscarView(View):
+    def get(self, request, *args, **kwargs):
+        return render_to_response('busca.html', {}, RequestContext(request))
 
 
 class restauranteLoginView(View):
@@ -934,6 +940,9 @@ class ServiceJson(View):
         # Objeto de Clientes
         oCliente = Cliente()
 
+        if (id == 'undefined'):
+            id = 0
+
         if (id):
             if not (id == 'null'):
                 if (int(id) > 0):
@@ -1601,6 +1610,61 @@ class ServiceJson(View):
 
         lista = "true"
         return HttpResponse(lista, content_type='application/json')
+
+
+    @staticmethod
+    @csrf_exempt
+    def enviarempresa(request):
+        # Filtros
+        nome = request.POST.get("nome")
+        email = request.POST.get("email")
+        telefone = request.POST.get("telefone")
+        responsavel = request.POST.get("responsavel")
+        estado_id = request.POST.get("estado")
+        cidade_id = request.POST.get("cidade")
+        bairro_id = request.POST.get("bairro")
+        endereco = request.POST.get("endereco")
+        numero = request.POST.get("numero")
+        complemento = request.POST.get("complemento")
+        cep = request.POST.get("cep")
+        tipocozinha_id = request.POST.get("tipo_cozinha_id")
+
+
+        oEstado = Estado.objects.filter(id=estado_id).first()
+        oCidade = Cidade.objects.filter(id=cidade_id).first()
+        oBairro = Bairro.objects.filter(id=bairro_id).first()
+        oTipoCozinha = TipoCozinha.objects.filter(id=tipocozinha_id).first()
+
+        CorpoEmail = smart_str("""
+                        <html>
+                            <head>
+                                <title>Menuweb - Notificacao de Recebimento de Pre Cadastro</title>
+                            </head>
+                            <body>
+                                Ola <b>MenuWeb</b>, <br/>
+                                recebemos um novo cadastro do restaurante <b>{}</b> que e do tipo <b>{}</b>.
+                                O mesmo fica na {}, {}, {}, {} - {} - {} - {} <br/><br/>
+
+                                Fale com o {} pelo telefone {} ou pelo email {}. <br/><br/>
+
+                                Equipe MenuWeb.
+                            </body>
+                        </html>
+                    """)
+
+        CorpoEmail = CorpoEmail.format(smart_str(nome), smart_str(oTipoCozinha.nome), smart_str(endereco), smart_str(numero), smart_str(oBairro.nome), smart_str(complemento), smart_str(oCidade.nome), smart_str(oEstado.nome), smart_str(cep), smart_str(responsavel), smart_str(telefone), smart_str(email))
+
+
+        message = Message(From="noreplay@menuweb.com.br", To="luk14236@gmail.com")
+        message.Subject = "Menuweb - Notificacao de pre cadastro de restaurante"
+        message.Html = CorpoEmail
+
+        smtp = Mailer(host='smtp.gmail.com', port=587, usr='menuwebapi@gmail.com', pwd='api2017@app', use_tls=True)
+        smtp.send(message)
+
+        lista = "true"
+        return HttpResponse(lista, content_type='application/json')
+
 
     @staticmethod
     @csrf_exempt
@@ -3201,6 +3265,55 @@ class ServiceJson(View):
         lista = json.dumps(list(rows))
 
         # lista = "true"
+        return HttpResponse(lista, content_type='application/json')
+
+
+    @staticmethod
+    def getRestaurantesBairro(request):
+        bairro = request.GET.get("bairro")
+        obairro = Bairro.objects.filter(nome=bairro).first()
+
+        # Query Base
+        oRestaurantes = Empresa.objects.filter(BairrosAtendimento__bairro__id=obairro.id).order_by("BairrosAtendimento__frete")
+        oRestaurantes = oRestaurantes.order_by("-nota")
+
+        rows = []
+
+        restaurantes_filtrados = []
+
+        for rest in oRestaurantes:
+            if rest.aberturas.filter(fechamento__isnull=True).exists():
+                restaurantes_filtrados.append(rest)
+
+        for r in restaurantes_filtrados:
+
+            row = {
+                "id":r.id,
+                "nome":r.nome,
+                "descricao":r.descricao,
+                "email":r.email,
+                "cidade_id":r.cidade.id,
+                "cidade":r.cidade.nome,
+                "endereco":r.endereco,
+                "bairro_id":r.bairro.id,
+                "bairro":r.bairro.nome,
+                "telefone":r.telefone,
+                "tipocozinha_id":r.tipocozinha.id,
+                "tipocozinha":r.tipocozinha.nome,
+                "nota":str(r.nota),
+                "custo":r.custo,
+                "nota_atual":r.nota_atual,
+                "aceita_cartao":r.aceita_cartao,
+                "aceita_valerefeicao":r.aceita_valerefeicao,
+                "aceita_pagamentoonline":r.aceita_pagamentoonline,
+                "logotipo":r.logotipo
+            }
+
+            rows.append(row)
+
+        # lista = serialize('json',rows)
+        lista = json.dumps(list(rows))
+
         return HttpResponse(lista, content_type='application/json')
 
 
