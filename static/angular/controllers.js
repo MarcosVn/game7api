@@ -489,6 +489,9 @@ game7App.controller('topoCtrl', function($scope, $http, Cliente, Estado, Cidade,
             document.getElementById("loginemail").value,
             document.getElementById("loginsenha").value);
     }
+    $scope.logarfacebook = function(nome, f_id){
+        $scope.cl.logarfacebook(nome, f_id);
+    }
     $scope.sair= function(){
         $scope.cl.sair_cliente();
     }

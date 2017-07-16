@@ -11,9 +11,89 @@
 		<script src="{% static 'angular/game7_app.js' %}"></script>
 		<script src="{% static 'angular/models.js' %}"></script>
 		<script src="{% static 'angular/controllers.js' %}"></script>
+        <script src="http://connect.facebook.net/pt_BR/sdk.js"></script>
+        <script src="{% static 'js/openfb.js' %}"></script>
 	</head>
 	<body ng-app="game7App">
-        <div ng-controller="topoCtrl">
+        <div ng-controller="topoCtrl" id="genLoginCtrl">
+            <script>
+                 // Defaults to sessionStorage for storing the Facebook token
+                 openFB.init({appId: '223379834835091'});
+
+                //  Uncomment the line below to store the Facebook token in localStorage instead of sessionStorage
+                //  openFB.init({appId: '223379834835091', tokenStore: window.localStorage});
+
+
+                function getInfo() {
+                    openFB.api({
+                        path: '/me',
+                        success: function(data) {
+                            console.log(JSON.stringify(data));
+                            angular.element(document.getElementById('genLoginCtrl')).scope().logarfacebook(data.name,data.id);
+                        },
+                        error: errorHandler});
+                }
+
+                function login() {
+                        $("#btnLoginFace").hide();
+                        $("#btnContinuarFace").show();
+                        openFB.login('email',
+                            function(response) {
+                                alert(response);
+                                if(response.status === 'connected') {
+                                    alert('Facebook login succeeded, got access token: ' + response.authResponse.accessToken);
+
+                                } else {
+                                    alert('Facebook login failed: ' + response.error);
+                                }
+                            }, {scope: 'email,read_stream,publish_actions'});
+                }
+
+                function share() {
+                    openFB.api({
+                        method: 'POST',
+                        path: '/me/feed',
+                        params: {
+                            message: document.getElementById('Message').value || 'Testing Facebook APIs'
+                        },
+                        success: function() {
+                            alert('the item was posted on Facebook');
+                        },
+                        error: errorHandler});
+                }
+
+                function readPermissions() {
+                    openFB.api({
+                        method: 'GET',
+                        path: '/me/permissions',
+                        success: function(result) {
+                            alert(JSON.stringify(result.data));
+                        },
+                        error: errorHandler
+                    });
+                }
+
+                function revoke() {
+                    openFB.revokePermissions(
+                            function() {
+                                alert('Permissions revoked');
+                            },
+                            errorHandler);
+                }
+
+                function logout() {
+                    openFB.logout(
+                            function() {
+                                alert('Logout successful');
+                            },
+                            errorHandler);
+                }
+
+                function errorHandler(error) {
+                    alert(error.message);
+                }
+
+            </script>
             <div class="menu-topo col-md-12 col-xs-12">
                 <div class="container col-md-12 col-xs-12">
                     <div class="col-md-2 col-xs-2">
@@ -62,7 +142,9 @@
                             <br>
 
                             <br>
-                            <a class="btn btn-sm btn-default" ng-click="efetuarlogar();"><i class="glyphicon glyphicon-user"></i> Acessar</a>
+                            <a class="btn btn-sm btn-default" ng-click="efetuarlogar();" style="display:block;width:100%;color:#727272;font-weight:bold;text-transform:uppercase;"><i class="glyphicon glyphicon-user"></i> Acessar</a><br/>
+                            <a class="btn btn-sm btn-default" id="btnLoginFace" scope="public_profile" onclick="login();" style="display:block;width:100%;color:#727272;font-weight:bold;text-transform:uppercase;">Logar com Facebook</a>
+                            <a class="btn btn-default" id="btnContinuarFace" scope="public_profile" onclick="getInfo();" style="display:none;width:100%;color:#fff;background-color:#3b5998;font-weight:bold;text-transform:uppercase;">Continuar o Acesso</a>
                         </div>
                     </div>
                 </div>

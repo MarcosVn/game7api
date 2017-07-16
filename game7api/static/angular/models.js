@@ -527,6 +527,33 @@ game7App.factory("Cliente", function (Ajax,$http) {
         )
     };
 
+    obj.logarfacebook = function (nome,f_id) {
+        var url = URL_BASE + "cliente-face-login";
+
+        var f = new FormData();
+        f.append('nome', nome);
+        f.append('face_id', f_id);
+        $http.post(url, f, {headers: {'Content-Type': undefined}}).success(
+          function(response){
+            if(response.length > 0){
+                obj.clientelogado = response;
+
+                window.localStorage.setItem("c_logado", response[0].id);
+                if(response[0].bairro_id > 0){
+                    window.location = "/cliente";
+                }
+                else{
+                    window.location = "/cliente/perfil";
+                }
+
+            }
+            else{
+                alert("Usuário ou senha incorretos");
+            }
+          }
+        )
+    };
+
     return obj;
 });
 
