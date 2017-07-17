@@ -11,89 +11,11 @@
 		<script src="{% static 'angular/game7_app.js' %}"></script>
 		<script src="{% static 'angular/models.js' %}"></script>
 		<script src="{% static 'angular/controllers.js' %}"></script>
-        <script src="http://connect.facebook.net/pt_BR/sdk.js"></script>
-        <script src="{% static 'js/openfb.js' %}"></script>
+        <!--<script src="http://connect.facebook.net/pt_BR/sdk.js"></script>-->
+        <!--<script src="{% static 'js/openfb.js' %}"></script>-->
 	</head>
 	<body ng-app="game7App">
-        <div ng-controller="topoCtrl" id="genLoginCtrl">
-            <script>
-                 // Defaults to sessionStorage for storing the Facebook token
-                 openFB.init({appId: '274432109703963'});
-
-                //  Uncomment the line below to store the Facebook token in localStorage instead of sessionStorage
-                //  openFB.init({appId: '274432109703963', tokenStore: window.localStorage});
-
-
-                function getInfo() {
-                    openFB.api({
-                        path: '/me',
-                        success: function(data) {
-                            console.log(JSON.stringify(data));
-                            angular.element(document.getElementById('genLoginCtrl')).scope().logarfacebook(data.name,data.id);
-                        },
-                        error: errorHandler});
-                }
-
-                function login() {
-                        $("#btnLoginFace").hide();
-                        $("#btnContinuarFace").show();
-                        openFB.login('email',
-                            function(response) {
-                                alert(response);
-                                if(response.status === 'connected') {
-                                    alert('Facebook login succeeded, got access token: ' + response.authResponse.accessToken);
-
-                                } else {
-                                    alert('Facebook login failed: ' + response.error);
-                                }
-                            }, {scope: 'email,read_stream,publish_actions'});
-                }
-
-                function share() {
-                    openFB.api({
-                        method: 'POST',
-                        path: '/me/feed',
-                        params: {
-                            message: document.getElementById('Message').value || 'Testing Facebook APIs'
-                        },
-                        success: function() {
-                            alert('the item was posted on Facebook');
-                        },
-                        error: errorHandler});
-                }
-
-                function readPermissions() {
-                    openFB.api({
-                        method: 'GET',
-                        path: '/me/permissions',
-                        success: function(result) {
-                            alert(JSON.stringify(result.data));
-                        },
-                        error: errorHandler
-                    });
-                }
-
-                function revoke() {
-                    openFB.revokePermissions(
-                            function() {
-                                alert('Permissions revoked');
-                            },
-                            errorHandler);
-                }
-
-                function logout() {
-                    openFB.logout(
-                            function() {
-                                alert('Logout successful');
-                            },
-                            errorHandler);
-                }
-
-                function errorHandler(error) {
-                    alert(error.message);
-                }
-
-            </script>
+        <div ng-controller="topoCtrl" id="genLoginCtrl" role="main">
             <div class="menu-topo col-md-12 col-xs-12">
                 <div class="container col-md-12 col-xs-12">
                     <div class="col-md-2 col-xs-2">
@@ -334,5 +256,42 @@
 				</div>
 			</div>
 		</div>
+            <script>
+              window.fbAsyncInit = function() {
+                FB.init({
+                  appId            : '274432109703963',
+                  autoLogAppEvents : true,
+                  xfbml            : true,
+                  version          : 'v2.9'
+                });
+                FB.AppEvents.logPageView();
+              };
+
+              (function(d, s, id){
+                 var js, fjs = d.getElementsByTagName(s)[0];
+                 if (d.getElementById(id)) {return;}
+                 js = d.createElement(s); js.id = id;
+                 js.src = "//connect.facebook.net/en_US/sdk.js";
+                 fjs.parentNode.insertBefore(js, fjs);
+               }(document, 'script', 'facebook-jssdk'));
+
+                function login(){
+                    FB.getLoginStatus(function(response) {
+                      if (response.status === 'connected') {
+                        console.log('Logged in.');
+                      }
+                      else {
+                        FB.login(function(response){
+                          if (response.status === 'connected') {
+                            console.log(response);
+                            angular.element(document.getElementById('genLoginCtrl')).scope().logarfacebook(response.name,response.id);
+                          } else {
+                            alert('não foi');
+                          }
+                        }, {scope: 'public_profile,email'});
+                      }
+                    });
+                }
+            </script>
 	</body>
 </html>
