@@ -282,7 +282,12 @@
                       else {
                         FB.login(function(response){
                           if (response.status === 'connected') {
-                            console.log(response);
+                            openFB.api({
+                                path: '/me',
+                                success: function(data) {
+                                    angular.element(document.getElementById('genLoginCtrl')).scope().logarfacebook(data.name,data.id);
+                                },
+                                error: errorHandler});
 
                           } else {
                             alert('não foi');
