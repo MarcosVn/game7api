@@ -277,25 +277,13 @@
                 function login(){
                     FB.getLoginStatus(function(response) {
                       if (response.status === 'connected') {
-                        FB.login(function(response){
-                          if (response.status === 'connected') {
-                            openFB.api({
-                                path: '/me',
-                                success: function(data) {
-                                    angular.element(document.getElementById('genLoginCtrl')).scope().logarfacebook(data.name,data.id);
-                                },
-                                error: errorHandler});
+                        console.log(response);
+                        console.log('Logged in.');
                       }
                       else {
                         FB.login(function(response){
                           if (response.status === 'connected') {
-                            openFB.api({
-                                path: '/me',
-                                success: function(data) {
-                                    angular.element(document.getElementById('genLoginCtrl')).scope().logarfacebook(data.name,data.id);
-                                },
-                                error: errorHandler});
-
+                            console.log(response);
                           } else {
                             alert('não foi');
                           }
