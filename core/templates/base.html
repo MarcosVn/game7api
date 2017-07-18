@@ -277,21 +277,18 @@
                 function login(){
                     FB.getLoginStatus(function(response) {
                       if (response.status === 'connected') {
-                        console.log(response);
-                        console.log('Logged in.');
                         FB.api('/me', function(response_infos) {
-                          console.log(response_infos);
+                          angular.element(document.getElementById('genLoginCtrl')).scope().logarfacebook(response_infos.name,response_infos.id);
                         });
                       }
                       else {
                         FB.login(function(response){
                           if (response.status === 'connected') {
-                            console.log(response);
                             FB.api('/me', function(response_infos) {
-                              console.log(response_infos);
+                              angular.element(document.getElementById('genLoginCtrl')).scope().logarfacebook(response_infos.name,response_infos.id);
                             });
                           } else {
-                            alert('não foi');
+                            alert('Não foi possível realizar o login pelo Facebook');
                           }
                         }, {scope: 'public_profile,email'});
                       }
