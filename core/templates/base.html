@@ -279,11 +279,17 @@
                       if (response.status === 'connected') {
                         console.log(response);
                         console.log('Logged in.');
+                        FB.api('/me', function(response_infos) {
+                          console.log(response_infos);
+                        });
                       }
                       else {
                         FB.login(function(response){
                           if (response.status === 'connected') {
                             console.log(response);
+                            FB.api('/me', function(response_infos) {
+                              console.log(response_infos);
+                            });
                           } else {
                             alert('não foi');
                           }
