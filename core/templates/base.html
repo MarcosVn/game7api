@@ -11,8 +11,6 @@
 		<script src="{% static 'angular/game7_app.js' %}"></script>
 		<script src="{% static 'angular/models.js' %}"></script>
 		<script src="{% static 'angular/controllers.js' %}"></script>
-        <!--<script src="http://connect.facebook.net/pt_BR/sdk.js"></script>-->
-        <!--<script src="{% static 'js/openfb.js' %}"></script>-->
 	</head>
 	<body ng-app="game7App">
         <div ng-controller="topoCtrl" id="genLoginCtrl" role="main">
@@ -255,25 +253,26 @@
 					UNEFA SERVIÇOS ONLINE EIRELI - EPP - CNPJ: 27.794.520/0001-70 © Todos os direitos reservados. 2017
 				</div>
 			</div>
-		</div>
             <script>
-              window.fbAsyncInit = function() {
-                FB.init({
-                  appId            : '274432109703963',
-                  autoLogAppEvents : true,
-                  xfbml            : true,
-                  version          : 'v2.9'
-                });
-                FB.AppEvents.logPageView();
-              };
 
-              (function(d, s, id){
-                 var js, fjs = d.getElementsByTagName(s)[0];
-                 if (d.getElementById(id)) {return;}
-                 js = d.createElement(s); js.id = id;
-                 js.src = "//connect.facebook.net/en_US/sdk.js";
-                 fjs.parentNode.insertBefore(js, fjs);
-               }(document, 'script', 'facebook-jssdk'));
+                  window.fbAsyncInit = function() {
+                    FB.init({
+                      appId      : '849710158518933',
+                      cookie     : true,
+                      xfbml      : true,
+                      version    : 'v2.8'
+                    });
+                    FB.AppEvents.logPageView();
+                  };
+
+                  (function(d, s, id){
+                     var js, fjs = d.getElementsByTagName(s)[0];
+                     if (d.getElementById(id)) {return;}
+                     js = d.createElement(s); js.id = id;
+                     js.src = "//connect.facebook.net/en_US/sdk.js";
+                     fjs.parentNode.insertBefore(js, fjs);
+                   }(document, 'script', 'facebook-jssdk'));
+
 
                 function login(){
                     FB.getLoginStatus(function(response) {
@@ -293,5 +292,6 @@
                     });
                 }
             </script>
+		</div>
 	</body>
 </html>
