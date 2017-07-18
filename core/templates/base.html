@@ -277,7 +277,14 @@
                 function login(){
                     FB.getLoginStatus(function(response) {
                       if (response.status === 'connected') {
-                        console.log('Logged in.');
+                        FB.login(function(response){
+                          if (response.status === 'connected') {
+                            openFB.api({
+                                path: '/me',
+                                success: function(data) {
+                                    angular.element(document.getElementById('genLoginCtrl')).scope().logarfacebook(data.name,data.id);
+                                },
+                                error: errorHandler});
                       }
                       else {
                         FB.login(function(response){
