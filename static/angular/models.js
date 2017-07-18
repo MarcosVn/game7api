@@ -396,7 +396,7 @@ game7App.factory("Cliente", function (Ajax,$http) {
 
     obj.sair_cliente = function () {
         window.localStorage.removeItem("c_logado");
-        window.location = "";
+        window.location = "/";
 
     };
 
@@ -462,7 +462,30 @@ game7App.factory("Cliente", function (Ajax,$http) {
             obj.retorno = response;
           }
         )
+    };
 
+    obj.save_cliente_home = function (cliente_nome, cliente_email, cliente_senha, cliente_telefone, cliente_estado, cliente_cidade, cliente_bairro, cliente_endereco, cliente_numero, cliente_complemento, cliente_cep) {
+        var url = URL_BASE + "saveclientehome";
+
+        var f = new FormData();
+        f.append('id', TOKENS['c_id']);
+        f.append('nome', cliente_nome);
+        f.append('email', cliente_email);
+        f.append('senha', cliente_senha);
+        f.append('telefone', cliente_telefone);
+        f.append('estado', cliente_estado);
+        f.append('cidade', cliente_cidade);
+        f.append('bairro', cliente_bairro);
+        f.append('endereco', cliente_endereco);
+        f.append('numero', cliente_numero);
+        f.append('complemento', cliente_complemento);
+        f.append('cep', cliente_cep);
+        $http.post(url, f, {headers: {'Content-Type': undefined}}).success(
+          function(response){
+            window.localStorage.setItem("c_logado", response);
+            window.location = "/cliente";
+          }
+        )
     };
 
     obj.save_logado_cliente = function (cliente_nome, cliente_email, cliente_senha, cliente_telefone, cliente_estado, cliente_cidade, cliente_bairro, cliente_endereco, cliente_numero, cliente_complemento, cliente_cep) {
@@ -2205,7 +2228,14 @@ game7App.factory("Carrinho", function (Ajax,$http) {
         f.append('cliente_id', window.localStorage.getItem("c_logado"));
         $http.post(url, f, {headers: {'Content-Type': undefined}}).success(
           function(response){
-            obj.retorno = response;
+
+            if(response == true){
+                obj.retorno = response;
+            }
+            else
+            {
+                alert('Por favor, antes de realizar um novo pedido em outro restaurante é necessário a conclusão do primeiro.');
+            }
 
             window.location = "/cliente/";
           }

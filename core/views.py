@@ -977,6 +977,61 @@ class ServiceJson(View):
         return HttpResponse(lista, content_type='application/json')
 
     @staticmethod
+    @csrf_exempt
+    def saveclientehome(request):
+        # Filtros
+        id = request.POST.get("id")
+        nome = request.POST.get("nome")
+        email = request.POST.get("email")
+        senha = request.POST.get("senha")
+        telefone = request.POST.get("telefone")
+        endereco = request.POST.get("endereco")
+        bairro_id = request.POST.get("bairro")
+        cidade_id = request.POST.get("cidade")
+        numero = request.POST.get("numero")
+        complemento = request.POST.get("complemento")
+        cep = request.POST.get("cep")
+
+        # Objeto de Clientes
+        oCliente = Cliente()
+
+        if (id == 'undefined'):
+            id = 0
+
+        if (id):
+            if not (id == 'null'):
+                if (int(id) > 0):
+                    oCliente = Cliente.objects.get(id=id)
+
+        if(nome):
+            oCliente.nome = nome
+        if(email):
+            oCliente.email = email
+        if(senha):
+            oCliente.senha = senha
+        if(telefone):
+            oCliente.telefone = telefone
+        if(endereco):
+            oCliente.endereco = endereco
+        if(numero):
+            oCliente.numero = numero
+        if(complemento):
+            oCliente.complemento = complemento
+        if(cep):
+            oCliente.cep = cep
+        if(bairro_id):
+            if not (bairro_id == '?'):
+                oCliente.bairro = Bairro.objects.filter(id=bairro_id).first()
+        if(cidade_id):
+            if not (cidade_id == '?'):
+                oCliente.cidade = Cidade.objects.filter(id=cidade_id).first()
+
+        oCliente.save()
+
+        lista = oCliente.id
+        return HttpResponse(lista, content_type='application/json')
+
+    @staticmethod
     def excluircliente(request):
         id = request.GET.get("id")
 
@@ -2854,7 +2909,7 @@ class ServiceJson(View):
             oitem.quantidade = item_carrinho.quantidade
             oitem.produto = item_carrinho.produto
             oitem.observacao = item_carrinho.observacao
-            total = total + (oitem.quantidade * oitem.produto.preco)
+            total = total + (oitem.quantidade * item_carrinho.preco)
 
             oitem.save()
 
@@ -3044,9 +3099,20 @@ class ServiceJson(View):
         oCarrinho.cliente = Cliente.objects.filter(id=cliente_id).first()
         oCarrinho.produto = Produto.objects.filter(id=produto_id).first()
 
-        oCarrinho.save()
 
-        lista = "true"
+        lista_produtos = Carrinho.objects.filter(cliente__id=cliente_id)
+        mesmo_restaurante = True
+
+        for item in lista_produtos:
+            if not item.produto.empresa.id == oCarrinho.produto.empresa.id:
+                mesmo_restaurante = False
+
+        if mesmo_restaurante:
+            oCarrinho.save()
+            lista = "true"
+        else:
+            lista = "false"
+
 
         return HttpResponse(lista, content_type='application/json')
 

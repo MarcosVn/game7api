@@ -496,7 +496,7 @@ game7App.controller('topoCtrl', function($scope, $http, Cliente, Estado, Cidade,
         $scope.cl.sair_cliente();
     }
     $scope.atualizar = function(){
-        $scope.cl.save_cliente(
+        $scope.cl.save_cliente_home(
             document.getElementById("nome").value,
             document.getElementById("email").value,
             document.getElementById("senha").value,
@@ -886,6 +886,9 @@ game7App.controller('atendimentoRestauranteCtrl', function($scope, Empresa, Esta
 game7App.controller('topoClienteCtrl', function($scope, Cliente) {
     $scope.cl = Cliente;
     $scope.cl.get_clientelogado();
+    $scope.sair= function(){
+        $scope.cl.sair_cliente();
+    }
 //    $scope.em.get_empresalogadorepasse();
 });
 
