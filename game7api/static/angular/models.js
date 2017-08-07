@@ -1610,6 +1610,25 @@ game7App.factory("Pedido", function (Ajax,$http) {
         });
     };
 
+    obj.get_pedidos_concluido_cliente= function () {
+        var url = URL_BASE + "pedidos";
+        var params = {
+            cliente_id:window.localStorage.getItem("c_logado"),
+            status:"Concluido"
+        }
+        $http({
+            method: "GET",
+            params: params,
+            url: url,
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }).then(function successCallback(response) {
+            obj.lista_pedidos_concluidos= response.data;
+        }, function errorCallback(response) {
+            console.log("Erro");
+        });
+    };
 
     obj.get_pedidos_status= function (status) {
         var url = URL_BASE + "pedidos";
@@ -1752,7 +1771,7 @@ game7App.factory("Pedido", function (Ajax,$http) {
         )
     };
 
-    obj.save_pagamento_obs = function (troco,outro,cpfnanota,bandeira) {
+    obj.save_pagamento_obs = function (troco,outro,cpfnanota,bandeira,cpf) {
         var url = URL_BASE + "saveobspagamentopedido";
         var f = new FormData();
 
@@ -1766,6 +1785,7 @@ game7App.factory("Pedido", function (Ajax,$http) {
         f.append('troco', troco);
         f.append('outro', outro);
         f.append('cpfnanota', cpfnanota);
+        f.append('cpf', cpf);
         f.append('bandeira', bandeira);
         f.append('tipo', TOKENS['t']);
         $http.post(url, f, {headers: {'Content-Type': undefined}}).success(

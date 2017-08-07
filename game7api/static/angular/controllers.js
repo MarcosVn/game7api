@@ -850,6 +850,30 @@ game7App.controller('pedidosRestauranteCtrl', function($scope, Empresa, Pedido) 
     $scope.efetuarpagamento = function(){
         $scope.em.efetuarrepasse(document.getElementById("ipReferencia").value, $('#ipFiltroData').val());
     }
+
+    $scope.imprimir_pedido = function(pedido_id){
+        gen_pedido = $("#ped_"+pedido_id);
+
+        console.log(gen_pedido.html());
+
+        var mywindow = window.open('', 'PRINT', 'height=400,width=600');
+
+        mywindow.document.write("<html><head><title>" + document.title  + "</title>");
+        mywindow.document.write("</head><body style='font-family:Arial;font-size:12px;list-style:none;'>");
+        mywindow.document.write("<h1>" + document.title  + "</h1>");
+        mywindow.document.write("<div style='border:1px solid #fff;width:400px;'>" + gen_pedido.html() + "</div>");
+        mywindow.document.write("</body></html>");
+
+        mywindow.document.close(); // necessary for IE >= 10
+        mywindow.focus(); // necessary for IE >= 10*/
+
+        mywindow.print();
+        mywindow.close();
+
+        return true;
+    }
+
+
 });
 
 game7App.controller('avaliacoesRestauranteCtrl', function($scope, Empresa, Pedido) {
@@ -883,13 +907,20 @@ game7App.controller('atendimentoRestauranteCtrl', function($scope, Empresa, Esta
     }
 });
 
-game7App.controller('topoClienteCtrl', function($scope, Cliente) {
+game7App.controller('topoClienteCtrl', function($scope, Cliente, Pedido ) {
     $scope.cl = Cliente;
     $scope.cl.get_clientelogado();
     $scope.sair= function(){
         $scope.cl.sair_cliente();
     }
+
+    $scope.pe = Pedido;
+    $scope.pe.get_pedidos_concluido_cliente();
 //    $scope.em.get_empresalogadorepasse();
+
+    $scope.set_avaliacao_pedido = function(nota, pedido_id){
+        $scope.pe.save_avaliacao(nota,pedido_id,$('#ipMensagem'+pedido_id).val());
+    }
 });
 
 game7App.controller('homeClienteCtrl', function($scope, Cliente, Empresa) {
@@ -1187,7 +1218,8 @@ game7App.controller('realizarpedidosCtrl', function($scope, Pedido, Cliente, Est
                 $('#troco_para').val(),
                 $('#outro_cartao').val(),
                 $('input[name="cpf_nota"]:checked').val(),
-                $('#selbandeira').val()
+                $('#selbandeira').val(),
+                $('#docNumber').val()
             );
     }
     $scope.excluir = function(){

@@ -2815,6 +2815,10 @@ class ServiceJson(View):
                 pagamento_obs = oPagamento.obs
                 pagamento_tipo = oPagamento.tipopagamento
 
+                if oPagamento.cpfnanota:
+                    pagamento_obs = pagamento_obs + " -  CPF NA NOTA: SIM - CPF: " + oPagamento.cpf
+
+
             r = {
                 "id":pedido.id,
                 "data":pedido.data.strftime("%Y-%m-%d %H:%m"),
@@ -2832,7 +2836,6 @@ class ServiceJson(View):
                 "componente":pedido.complemento_entrega,
                 "pagamento_obs":pagamento_obs,
                 "pagamento_tipo":pagamento_tipo,
-
 
                 "itens":itens_rows
             }
@@ -3171,6 +3174,7 @@ class ServiceJson(View):
         troco = request.POST.get("troco")
         outro = request.POST.get("outro")
         cpfnanota = request.POST.get("cpfnanota")
+        cpf = request.POST.get("cpf")
         bandeira = request.POST.get("bandeira")
         tipo = request.POST.get("tipo")
 
@@ -3182,6 +3186,7 @@ class ServiceJson(View):
 
         if cpfnanota == "1":
             oPagamento.cpfnanota = True
+            oPagamento.cpf = cpf
 
         if tipo=="cartao":
             oPagamento.obs = "Cartao - " + bandeira + " - " + outro
@@ -3208,6 +3213,7 @@ class ServiceJson(View):
         payment_method_id = request.POST.get("paymentMethodId")
         pedido_id = request.POST.get("pedido_id")
         cpfnanota = request.POST.get("cpfnanota")
+        cpf = request.POST.get("cpf")
 
         oPedido = Pedido.objects.filter(id=pedido_id).first()
         oCliente = oPedido.cliente
@@ -3255,6 +3261,7 @@ class ServiceJson(View):
 
         if cpfnanota == "1":
             oPagamento.cpfnanota = True
+            oPagamento.cpf = cpf
 
 
         oPagamento.save()

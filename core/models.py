@@ -244,6 +244,7 @@ class Pagamento(models.Model):
     obs = models.CharField(max_length=512)
     trocopara = models.FloatField(default=0.0)
     cpfnanota = models.BooleanField(default=False)
+    cpf = models.CharField(max_length=128, default="000.000.000-00")
 
     class Meta:
         verbose_name = "Pagamento"

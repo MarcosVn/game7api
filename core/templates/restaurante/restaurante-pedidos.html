@@ -17,7 +17,7 @@
 
                 <div class="tab-content">
                     <div class="tab-pane fade in active" id="agpreparo">
-                        <div class="col-md-4" style="font-size:10px;" ng-repeat="ped in pe.lista_pedidos_agpreparo">
+                        <div class="col-md-4" id="ped_{[ped.id]}" style="font-size:10px;" ng-repeat="ped in pe.lista_pedidos_agpreparo">
                             <a ng-if="ped.status=='Aguardando Preparo'" ng-click="atualizar_status('Em Preparo',ped.id);" class="btn btn-default btn-sm" style="display:block;margin-top:20px;">Atualizar para em Preparo</a>
 
                             <ul class="list-group">
@@ -68,12 +68,15 @@
                                     R$ {[ped.total.toFixed(2)]}
                                     </b>
                                 </li>
+                                <li class="list-group-item">
+                                    <a class="btn btn-default" ng-click="imprimir_pedido(ped.id);">Imprimir <i class="glyphicon glyphicon-print"></i> </a>
+                                </li>
                             </ul>
                         </div>
                     </div>
 
                     <div class="tab-pane fade" id="empreparo">
-                        <div class="col-md-4" style="font-size:10px;" ng-repeat="ped in pe.lista_pedidos_empreparo">
+                        <div class="col-md-4" id="ped_{[ped.id]}" style="font-size:10px;" ng-repeat="ped in pe.lista_pedidos_empreparo">
                             <a ng-if="ped.status=='Em Preparo'" ng-click="atualizar_status('Aguardando Entrega',ped.id);" class="btn btn-default btn-sm" style="display:block;margin-top:20px;">Atualizar para Aguardando Entrega</a>
 
                             <ul class="list-group">
@@ -124,11 +127,14 @@
                                     R$ {[ped.total.toFixed(2)]}
                                     </b>
                                 </li>
+                                <li class="list-group-item">
+                                    <a class="btn btn-default" ng-click="imprimir_pedido(ped.id);">Imprimir <i class="glyphicon glyphicon-print"></i> </a>
+                                </li>
                             </ul>
                         </div>
                     </div>
                     <div class="tab-pane fade" id="agentrega">
-                        <div class="col-md-4" style="font-size:10px;" ng-repeat="ped in pe.lista_pedidos_aguardandoentrega">
+                        <div class="col-md-4" style="font-size:10px;" id="ped_{[ped.id]}" ng-repeat="ped in pe.lista_pedidos_aguardandoentrega">
                             <a ng-if="ped.status=='Aguardando Entrega'" ng-click="atualizar_status('Concluido',ped.id);" class="btn btn-default btn-sm" style="display:block;margin-top:20px;">Atualiza para Concluído</a>
 
                             <ul class="list-group">
@@ -179,11 +185,14 @@
                                     R$ {[ped.total.toFixed(2)]}
                                     </b>
                                 </li>
+                                <li class="list-group-item">
+                                    <a class="btn btn-default" ng-click="imprimir_pedido(ped.id);">Imprimir <i class="glyphicon glyphicon-print"></i> </a>
+                                </li>
                             </ul>
                         </div>
                     </div>
                     <div class="tab-pane fade" id="pedidoconcluido">
-                        <div class="col-md-4" style="font-size:10px;" ng-repeat="ped in pe.lista_pedidos_concluidos">
+                        <div class="col-md-4" style="font-size:10px;" id="ped_{[ped.id]}" ng-repeat="ped in pe.lista_pedidos_concluidos">
                             <br>
                             <!--<a ng-if="ped.status=='Aguardando Entrega'" ng-click="atualizar_status('Concluido',ped.id);" class="btn btn-default btn-sm" style="display:block;margin-top:20px;">Concluir Pedido</a>-->
 
@@ -235,6 +244,9 @@
                                     R$ {[ped.total.toFixed(2)]}
                                     </b>
                                 </li>
+                                <li class="list-group-item">
+                                    <a class="btn btn-default" ng-click="imprimir_pedido(ped.id);">Imprimir <i class="glyphicon glyphicon-print"></i> </a>
+                                </li>
                             </ul>
                         </div>
                     </div>
@@ -243,5 +255,4 @@
         </div>
     </div>
   </div>
-
 {% endblock %}
