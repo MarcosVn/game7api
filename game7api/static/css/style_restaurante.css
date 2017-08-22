@@ -1,0 +1,41 @@
+.topo-adm{
+    position:relative;
+    float:left;
+}
+
+.topo-adm img{
+    opacity:.3;
+    width:100%
+}
+
+.topo-adm h2{
+    color:#FF3E00;
+    position:absolute;
+    font-size:22px;
+    top:0px;
+    left:10%;
+    font-weight:bold;
+}
+
+/*Restaurantes - Pedidos*/
+.restaurante-pedidos .nav-tabs{
+
+}
+
+.restaurante-pedidos .nav-tabs li{
+    padding:0px 2px;
+}
+
+.restaurante-pedidos .nav-tabs li a{
+    background-color:#B5B5B5;
+    color:#fff;
+    font-weight:bold;
+    font-size:14px;
+    text-align:center;
+}
+
+.restaurante-pedidos .nav-tabs .active a, .restaurante-pedidos .nav-tabs .active a:hover, .restaurante-pedidos .nav-tabs .active a:focus{
+    background-color:#fff;
+    color:#B5B5B5;
+    box-shadow:none;
+}

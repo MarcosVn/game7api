@@ -2,71 +2,21 @@
 {% block title %}MenuWeb - Integra Restaurante{% endblock %}
 {% load staticfiles %}
 {% block content %}
-<div class="cliente-home" ng-controller="restauranteintegraClienteCtrl">
+<div class="cliente-home cliente-restaurante-logado" ng-controller="restauranteintegraClienteCtrl">
     <div class="container">
         <div class="row">
             <div class="col-md-12" style="margin:10px 0px 30px 0px;">
-                <div class="col-md-12" style="padding:0px;margin-top:20px;">
-                    <div class="col-md-12">
+                <div class="col-md-12 informacoes-topo" style="padding:0px;margin-top:20px;">
+                    <div class="col-md-12" style="margin-bottom:30px;">
                         <div class="col-md-2">
-                            <img class="img-circle img-responsive" ng-src="{[em.caminho_foto]}{[em.empresaselecionado[0].logotipo]}"/>
+                            <img class="img-circle img-responsive logo-restaurante" ng-src="{[em.caminho_foto]}{[em.empresaselecionado[0].logotipo]}"/>
                         </div>
                         <div class="col-md-10">
-                            <b style="text-transform:uppercase;">{[em.empresaselecionado[0].nome]}</b>
-                            <p style="color:#333;">
-                                {[em.empresaselecionado[0].tipo_cozinha]}
-                            </p>
-                        </div>
-                        <div class="col-xs-1">
-                            {[em.empresaselecionado[0].nota]}
-                        </div>
-                    </div>
-                    <ul class="nav nav-tabs menu-empresa" style="padding-top:70px;border-bottom:0px;margin-bottom:20px;">
-                      <li role="presentation" class="active" ><a data-toggle="tab" href="#cardapio">CARDÁPIO</a></li>
-                      <li role="presentation"><a href="#avaliacoes" data-toggle="tab">AVALIAÇÕES</a></li>
-                      <li role="presentation"><a href="#informacoes" data-toggle="tab">INFORMAÇÕES</a></li>
-                    </ul>
-                    <div class="tab-content clearfix">
-                        <div class="tab-pane active" id="cardapio">
-                            <div class="col-md-12"  style="padding:0px;">
-
-                                <div ng-repeat="prodscat in pt.lista_produtos">
-                                    <b style="font-size:10px;margin:10px;text-transform:uppercase;">{[prodscat.subcategoria]}</b>
-                                    <ul class="col-md-12" style="padding:0px;">
-                                        <li class="list-group-item col-md-12" ng-repeat="prod in prodscat.produtos">
-                                            <a href="/cliente/produto?p_id={[prod.id]}">
-                                                <div class="col-md-12" style="padding:2px;color:#bc2026;text-transform:uppercase;padding:0px; margin-bottom:2px;font-weight:bold;">
-                                                    <div class="col-md-1" style="padding:0px;">
-                                                        <img class="img-rounded img-responsive" ng-src="{[pt.caminho_foto]}{[prod.foto]}"/>
-                                                    </div>
-                                                    <div class="col-md-9" style="padding-left:20px;">
-                                                        <b>{[prod.nome]}</b>
-                                                        <p style="color:#333;font-size:7px;">{[prod.descricao]}</p>
-                                                    </div>
-                                                    <div class="col-md-2">
-                                                        R$ {[prod.preco.toFixed(2)]}
-                                                    </div>
-                                                </div>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="tab-pane" id="avaliacoes">
-                            <div class="col-md-12" style="padding:0px;">
-                                <ul class="list-group">
-                                    <li class="list-group-item col-md-12" style="border-left:0px;border-right:0px;" ng-repeat="avaliacao in em.empresaselecionado[0].avaliacoes">
-                                        <div class="col-md-12 col-xs-4"><b>{[avaliacao.avaliador]} </b></div>
-                                        <div class="col-md-12 col-xs-4 col-md-offset-4 col-xs-offset-4" style="text-align:right;"><b>{[avaliacao.avaliacao_data]}</b></div>
-                                        <div class="col-md-2 col-xs-2"><b style="font-size:16px;">{[avaliacao.avaliacao_nota]}.00</b></div>
-                                        <div class="col-md-6 col-xs-10">{[avaliacao.avaliacao_mensagem]}</div>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="tab-pane" id="informacoes">
-                            <div class="col-md-12">
+                            <div class="well">
+                                <b class="info-titulo" style="text-transform:uppercase;">{[em.empresaselecionado[0].nome]}</b>
+                                <p>
+                                    {[em.empresaselecionado[0].tipo_cozinha]}
+                                </p>
                                 <b>Descrição</b><br/>
                                 {[em.empresaselecionado[0].descricao]}
                                 <br/><br/>
@@ -74,7 +24,80 @@
                                 <b>Endereço</b><br/>
                                 {[em.empresaselecionado[0].endereco]},{[em.empresaselecionado[0].bairro]} - {[em.empresaselecionado[0].cidade]}
 
-                                <br/><br/>
+                            </div>
+                        </div>
+                        <div class="col-xs-1">
+                            {[em.empresaselecionado[0].nota]}
+                        </div>
+                    </div>
+                    <ul class="nav nav-tabs menu-restaurante-integra" style="padding-top:70px;border-bottom:0px;margin-bottom:20px;">
+                      <li role="presentation" class="active col-md-6" ><a data-toggle="tab" href="#cardapio">CARDÁPIO</a></li>
+                      <li role="presentation" class="col-md-6"><a href="#avaliacoes" data-toggle="tab">AVALIAÇÕES</a></li>
+                    </ul>
+                    <div class="tab-content clearfix">
+                        <div class="tab-pane active" id="cardapio">
+                            <div class="col-md-8 cardapio-produtos"  style="padding:0px;">
+                                <div ng-repeat="prodscat in pt.lista_produtos">
+                                    <b style="font-size:10px;margin:10px;text-transform:uppercase;">{[prodscat.subcategoria]}</b>
+                                    <ul class="col-md-12">
+                                        <li class="list-group-item col-md-12" ng-repeat="prod in prodscat.produtos">
+                                            <a href="/cliente/produto?p_id={[prod.id]}">
+                                                <div class="col-md-12">
+                                                    <div class="col-md-2" style="padding:0px;">
+                                                        <img class="img-circle img-responsive" ng-src="{[pt.caminho_foto]}{[prod.foto]}"/>
+                                                    </div>
+                                                    <div class="col-md-8" style="padding-left:20px;">
+                                                        <b class="ttl-produto">{[prod.nome]}</b>
+                                                        <p>{[prod.descricao]}</p>
+                                                    </div>
+                                                    <div class="col-md-2 preco-produto">
+                                                        <b>R$ {[prod.preco.toFixed(2)]}</b>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="col-md-4 well carrinho">
+                                <b class="ttl-padrao"><i class="glyphicon glyphicon-shopping-cart"></i> CARRINHO</b>
+
+                                <div ng-controller="carrinhoCtrl">
+                                    <div class="col-md-12" style="padding:0px;">
+                                        <div ng-repeat="item in cr.lista_compra" class="lista-compra">
+                                            <div class="col-md-1">{[item.quantidade]}</div>
+                                            <div class="col-md-5 ttl-carrinho-item">{[item.produto]}</div>
+                                            <div class="col-md-4">R$ {[(item.produto_preco * item.quantidade).toFixed(2)]}</div>
+                                            <div class="col-md-2"><a ng-click="rm_lista(item.id);" class="btn-xs btn btn-danger">x</a></div>
+                                        </div>
+
+                                            <table class="table info-saldo">
+                                                <tr>
+                                                    <td>Taxa de Entrega</td>
+                                                    <td>R$ {[(cr.frete).toFixed(2)]}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Total</td>
+                                                    <td>R$ {[(cr.var_total_geral).toFixed(2)]}</td>
+                                                </tr>
+                                            </table>
+                                    </div>
+                                </div>
+
+                                <a href="/cliente/realizarpedido/endereco" class="btn btn-primary" style="background-color:#FF3E00;width:100%;">Fechar Pedido</a>
+
+                            </div>
+                        </div>
+                        <div class="tab-pane" id="avaliacoes">
+                            <div class="col-md-12" style="padding:0px;">
+                                <ul class="list-group">
+                                    <li class="list-group-item col-md-12" style="border-left:0px;border-right:0px;" ng-repeat="avaliacao in em.empresaselecionado[0].avaliacoes">
+                                        <div class="col-md-4 col-xs-4"><b>{[avaliacao.avaliador]} </b></div>
+                                        <div class="col-md-2 col-xs-4 col-md-offset-4 col-xs-offset-4" style="text-align:right;"><b>{[avaliacao.avaliacao_data]}</b></div>
+                                        <div class="col-md-2 col-xs-2"><b style="font-size:16px;">{[avaliacao.avaliacao_nota]}.00</b></div>
+                                        <div class="col-md-6 col-xs-10">{[avaliacao.avaliacao_mensagem]}</div>
+                                    </li>
+                                </ul>
                             </div>
                         </div>
                     </div>

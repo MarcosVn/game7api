@@ -1,3 +1,12 @@
+@font-face {
+    font-family: Ubuntu-R;
+    src: url('fonts/Ubuntu-R.ttf');
+}
+
+*{
+    font-family:'Ubuntu-R';
+}
+
 /*Geral*/
 *{
     padding:0px;
@@ -16,7 +25,7 @@ a:hover, a:active, a:focus{
 
 /*Menu Superior*/
 .menu-topo{
-    background-color:#FB4000;
+    background-color:#FF3E00;
     padding:15px 200px;
 }
 
@@ -100,7 +109,7 @@ a:hover, a:active, a:focus{
 }
 
 .home .mediabox-home .busca .busca-home{
-    background-color:#FB4000;
+    background-color:#FF3E00;
     text-transform:none;
     font-style:initial;
     color:#fff;
@@ -294,7 +303,7 @@ a:hover, a:active, a:focus{
 /*Cliente toṕo*/
 
 .menu-topo-links{
-    background-color:#CD3700;
+    background-color:#E63000;
     padding:0px 175px;
 }
 
@@ -306,6 +315,7 @@ a:hover, a:active, a:focus{
 
 .cliente-home .well{
     border:1px solid #dddddd;
+    background-color:#fff;
 }
 
 .cortina{
@@ -340,4 +350,100 @@ a:hover, a:active, a:focus{
 .rating > span:hover ~ span:before {
    content: "\2605";
    position: absolute;
+}
+
+
+.cliente-restaurante-logado .informacoes-topo{
+    color:#B7B7B7
+}
+
+.cliente-restaurante-logado .informacoes-topo .info-titulo{
+    color:#3E3C3D;
+}
+
+.cliente-restaurante-logado .menu-restaurante-integra li{
+    background-color:#B5B5B5;
+}
+
+.cliente-restaurante-logado .menu-restaurante-integra .active{
+    background-color:#FF3E00;
+    color:#fff;
+    box-shadow: none;
+}
+
+.cliente-restaurante-logado .menu-restaurante-integra a:focus, .cliente-restaurante-logado .menu-restaurante-integra a:hover{
+    color:#fff!important;
+    box-shadow: none!important;
+}
+
+.cliente-restaurante-logado .menu-restaurante-integra li a{
+    color:#fff;
+    box-shadow: none;
+    text-align:center;
+    font-weight:bold;
+}
+
+.cliente-restaurante-logado .logo-restaurante{
+    width:155px;
+    height:155px;
+}
+
+.cliente-restaurante-logado .cardapio-produtos ul{
+    padding:0px 20px 0px 0px;
+}
+
+.cliente-restaurante-logado .cardapio-produtos li{
+    border-right:0px;
+    border-left:0px;
+}
+
+.cliente-restaurante-logado .cardapio-produtos li img{
+    width:110px;
+    height:110px;
+}
+
+.cliente-restaurante-logado .cardapio-produtos a{
+    color:#B3B3B3;
+}
+
+.cliente-restaurante-logado .cardapio-produtos .ttl-produto, .cliente-restaurante-logado .cardapio-produtos .preco-produto{
+    color:#3E3C3D;
+}
+
+.cliente-restaurante-logado .carrinho{
+    padding:0px;
+}
+
+.cliente-restaurante-logado .carrinho .info-saldo{
+    background-color:#B5B5B5;
+    color:#fff;
+    margin-top:15px;
+    font-size:12px;
+}
+
+.cliente-restaurante-logado .carrinho .lista-compra{
+    padding: 15px 5px;
+    display: inline-flex;
+    width:100%;
+}
+
+.cliente-restaurante-logado .carrinho .lista-compra .ttl-carrinho-item{
+    color:#3E3C3D;
+}
+
+.cliente-restaurante-logado .carrinho .info-saldo tr{
+    border:none;
+}
+
+.ttl-padrao{
+    background-color: #FF3E00;
+    color: #fff;
+    box-shadow: none;
+    display: block;
+    padding: 10px 20px;
+}
+
+.ttl-padrao i{
+    font-size:15px;
+    margin-right:10px;
 }
