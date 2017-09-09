@@ -85,12 +85,12 @@ WSGI_APPLICATION = 'game7api.wsgi.application'
 DATABASES = {
     'default': {
         # MINHA CASA
-        'ENGINE': 'django.contrib.gis.db.backends.postgis',
-        'NAME': 'game7api',
-        'USER':'lovieira',
-        'PASSWORD':'123456',
-        'HOST':'localhost',
-        'PORT':'5432'
+        # 'ENGINE': 'django.contrib.gis.db.backends.postgis',
+        # 'NAME': 'game7api',
+        # 'USER':'lovieira',
+        # 'PASSWORD':'123456',
+        # 'HOST':'localhost',
+        # 'PORT':'5432'
 
         # INPE
         # 'ENGINE': 'django.db.backends.postgresql_psycopg2',
@@ -117,13 +117,15 @@ DATABASES = {
         # 'PORT':'5432'
 
         # HOSTGATOR
-        # 'ENGINE': 'django.db.backends.mysql',
-        # 'NAME': 'menuw652_mwapi',
-        # 'USER':'menuw652_u',
-        # 'PASSWORD':'28310189',
-        # 'HOST':'108.167.132.23'
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'menuw652_mwapi',
+        'USER':'menuw652_u',
+        'PASSWORD':'28310189',
+        'HOST':'108.167.132.23'
     }
 }
+
+
 DATABASES2 = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
