@@ -3,13 +3,13 @@
 {% load staticfiles %}
 {% block content %}
 <div ng-controller="expedienteRestauranteCtrl" class="app expediente" role="main">
+    <div class="topo-adm">
+        <img src="{% static 'img/topo.png' %}"/>
+        <h2>Expediente do Restaurante</h2>
+    </div>
     <div class="container">
         <div class="row">
-            <div class="col-md-12" style="margin-top:30px;margin-bottom:20px;">
-                <h4>EXPEDIENTE</h4>
-                <small style="margin-bottom:15px;display:block;">Controle os dados de expediente, é importante ressaltar que para que o restaurante apareça nas buscas o mesmo deverá estar "aberto"</small>
-
-
+            <div class="col-md-8 col-md-offset-2" style="margin-top:10px;margin-bottom:20px;">
                 <div class="well col-md-12" ng-if="!em.abertura.length">
                     <b>ABRIR RESTAURANTE</b>
                     <p>A realização da Abertura do estabelecimento permite que o memso se torne disponível para pedidos.</p>
@@ -19,20 +19,20 @@
                 <div class="well col-md-12" ng-if="em.abertura.length">
                     <b>FECHAR RESTAURANTE</b>
                     <p>A realização do fechamento do restaunte remove o mesmo das listas de busca, fazendo com que não seja possível a selelção do mesmo. </p>
-                    <b>Abertura</b><br>
-                    {[em.abertura[0].abertura]}
-
-                    <br/>
-                    <br/>
-
-                    <a ng-click="fechar_empresa(em.abertura[0].id)" class="btn btn-sm btn-sm-danger btn-default">Fechar</a>
+                    <div class="col-md-6" style="padding-left:0px;">
+                        <b>Abertura</b><br>
+                        {[em.abertura[0].abertura]}
+                    </div>
+                    <div class="col-md-6">
+                        <a ng-click="fechar_empresa(em.abertura[0].id)" class="btn btn-default btn-sm btn-laranja">Fechar</a>
+                    </div>
                 </div>
 
-                <table class="table" style="margin-bottom:0px;">
+                <table class="table" style="margin-bottom:0px;text-align:center;">
                     <thead>
                         <tr>
-                            <th>Data de abertura</th>
-                            <th>Data de fechamento</th>
+                            <th style="text-align:center;">Data de abertura</th>
+                            <th style="text-align:center;">Data de fechamento</th>
                         </tr>
                     </thead>
                     <tbody>

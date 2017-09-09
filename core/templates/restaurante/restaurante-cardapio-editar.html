@@ -3,13 +3,18 @@
 {% load staticfiles %}
 {% block content %}
   <div ng-controller="cardapioRestauranteNovoCtrl" class="app" role="main">
+    <div class="topo-adm">
+        <img src="{% static 'img/topo.png' %}"/>
+        <a href="/restaurante/cardapio/novo?p_id=0" style="position: absolute;top: 25px;right: 20%" class="btn btn-primary btn-sm btn-laranja"><b>Adicionar</b></a>
+        <h2>Cardápio</h2>
+    </div>
 
     <div class="container">
         <div class="row">
             <div ng-if="pt.retorno">
                 <p class="alert alert-success" style="text-align:center;">Atualizado com sucesso!</p>
             </div>
-            <div class="col-md-12" style="margin-bottom: 20px;margin-top:30px;">
+            <div class="col-md-8 col-md-offset-2 " style="margin-bottom: 20px;margin-top:30px;">
                 <h4>EDITAR PRODUTO</h4>
                 <small style="margin-bottom:15px;display:block;">Controle os dados de expediente, é importante ressaltar que para que o restaurante apareça nas buscas o mesmo deverá estar "aberto"</small>
 

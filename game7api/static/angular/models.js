@@ -1,4 +1,4 @@
-//URL_BASE = "http://0.0.0.0:8010/js/";
+//URL_BASE = "http://0.0.0.0:8035/js/";
 //URL_BASE = "http://127.0.0.1:8000/js/";
 //URL_BASE = "https://serene-atoll-63219.herokuapp.com/js/";
 URL_BASE = "http://menuweb.com.br/js/";

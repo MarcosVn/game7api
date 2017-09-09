@@ -3,21 +3,31 @@
 {% load staticfiles %}
 {% block content %}
 <div ng-controller="cardapioRestauranteNovoCtrl" class="app" role="main">
+    <div class="topo-adm">
+        <img src="{% static 'img/topo.png' %}"/>
+        <a ng-click="excluir()" style="position: absolute;top: 25px;right: 20%" class="btn btn-default btn-sm btn-laranja"><b>Excluir</b></a>
+        <h2>Excluir Produto</h2>
+    </div>
     <div class="container">
         <div class="row" style="margin-bottom: 20px;margin-top:30px;">
-           <div ng-if="pt.retorno">
-                <p class="alert alert-success" style="text-align:center;">Excluido com sucesso!</p>
-            </div>
-            <div class="col-md-12">
-                <h4>Produto - <small>Exclusão</small></h4>
-            </div>
-            <div class="col-md-10">
-                <p>A exclusão terá efeito imediato</p>
-                <p>Tem certeza que deseja excluir o Produto <b>{[pt.produtoselecionado[0].nome]}</b> ? </p>
-            </div>
-            <div class="col-md-2">
-                <a ng-click="excluir()" style="display: block;width: 100%;" class="btn btn-success btn-lg">Sim</a>
-                <a href="/restaurante/cardapio" style="display: block;width: 100%;" class="btn btn-default">Cancelar</a>
+            <div class="col-md-8 col-md-offset-2 ">
+               <div ng-if="pt.retorno">
+                    <br>
+                    <p class="alert alert-success" style="text-align:center;">Excluido com sucesso!</p>
+                </div>
+
+                <div class="col-md-12" style="text-align:center;">
+                    <br>
+                    <br>
+                    <b>ATENÇÃO</b>
+                    <p>
+                        A exclusão do produto terá efeito imediato<br>
+                        Tem certeza que deseja excluir o Produto <b>{[pt.produtoselecionado[0].nome]}</b> ?
+                    </p>
+
+                    <a ng-click="excluir()" style="padding:3px 20px;" class="btn btn-default btn-cinza-claro">Sim</a>
+                    <a href="/restaurante/cardapio" style="padding:3px 20px;" class="btn btn-default btn-cinza-claro">Não</a>
+                </div>
             </div>
         </div>
     </div>

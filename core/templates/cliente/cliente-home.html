@@ -10,7 +10,7 @@
             </div>
             <div class="col-md-12" style="min-height:500px;">
                 <input class="form-control" id="iFiltro" ng-keyup="filtrar();"  placeholder="Buscar Prato ou restaurante" style="margin-bottom:30px;">
-                <div class="col-md-6 well" ng-repeat="emp in em.lista_empresas" style="background-color:#fff;">
+                <div class="col-md-12" ng-repeat="emp in em.lista_empresas" style="background-color:#fff;">
                     <a href="/cliente/restaurante?e_id={[emp.id]}">
                         <div class="col-md-12 col-xs-12" style="padding:2px;color:#bc2026;text-transform:uppercase;padding:0px; margin-bottom:2px;font-weight:bold;">
                             <div class="col-md-2 col-xs-2" style="padding:0px;">

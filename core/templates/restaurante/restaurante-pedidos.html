@@ -38,208 +38,180 @@
                             <br><br>
 
                             <b>Itens</b>
-                            <table class="table" style="font-size:12px;">
+                            <table class="table-striped" style="font-size:12px;">
                                 <thead>
                                     <tr>
-                                        <th>Produto</th>
-                                        <th>Quantidade</th>
-                                        <th>Observação</th>
-                                        <th>Preço</th>
+                                        <th class="col-md-3">Produto</th>
+                                        <th class="col-md-2">Quantidade</th>
+                                        <th class="col-md-5">Observação</th>
+                                        <th class="col-md-2">Preço</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr ng-repeat="it in ped.itens">
-                                        <td>{[it.produto]}</td>
-                                        <td>{[it.quantidade]}</td>
-                                        <td>{[it.observacao]}</td>
-                                        <td>R$ {[it.preco_parcial.toFixed(2)]}</td>
+                                        <td class="col-md-3">{[it.produto]}</td>
+                                        <td class="col-md-2">{[it.quantidade]}</td>
+                                        <td class="col-md-5">{[it.observacao]}</td>
+                                        <td class="col-md-2">R$ {[it.preco_parcial.toFixed(2)]}</td>
                                     </tr>
                                 </tbody>
                             </table>
 
+                            <br>
                             <b>PAGAMENTO</b><br>
                             {[ped.pagamento_obs]} - {[ped.pagamento_tipo]}
                             <br><br>
 
-                            <b class="label label-primary" style="font-size: 16PX;padding: 14PX 0PX;text-align: center;display: block;">
+                            <b class="label label-primary" style="font-size: 16PX;padding: 14PX 0PX;text-align: center;display: block;margin-bottom: 15px;">
                             R$ {[ped.total.toFixed(2)]}
                             </b>
                         </div>
                     </div>
 
                     <div class="tab-pane fade" id="empreparo">
-                        <div class="col-md-4" id="ped_{[ped.id]}" style="font-size:10px;" ng-repeat="ped in pe.lista_pedidos_empreparo">
-                            <a ng-if="ped.status=='Em Preparo'" ng-click="atualizar_status('Aguardando Entrega',ped.id);" class="btn btn-default btn-sm" style="display:block;margin-top:20px;">Atualizar para Aguardando Entrega</a>
+                        <div class="col-md-12" id="ped_{[ped.id]}" ng-repeat="ped in pe.lista_pedidos_empreparo" style="padding-top:30px;">
+                            <b>Atualizar para:</b> <a ng-if="ped.status=='Em Preparo'" ng-click="atualizar_status('Aguardando Entrega',ped.id);" class="btn btn-default">Atualizar para Aguardando Entrega</a>
+                            <a class="btn btn-default" style="float:right;" ng-click="imprimir_pedido(ped.id);">Imprimir <i class="glyphicon glyphicon-print"></i> </a>
 
-                            <ul class="list-group">
-                                <li class="list-group-item">
-                                    <b>DATA</b><br>
-                                    {[ped.data]}
-                                </li>
-                                <li class="list-group-item">
-                                    <b>RESTAURANTE</b><br>
-                                    {[ped.empresa]}
-                                </li>
-                                <li class="list-group-item">
-                                    <b>ENTREGA</b><br>
-                                    {[ped.endereco]}, {[ped.bairro]} -
-                                    {[ped.cidade]}
-                                </li>
-                                <li class="list-group-item">
-                                    <b>ITENS</b>
-                                    <table class="table" style="margin-bottom:0px;font-size:11px;">
-                                        <thead>
-                                            <tr>
-                                                <th>Produto</th>
-                                                <th>Quantidade</th>
-                                                <th>Observação</th>
-                                                <th>Preço</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr ng-repeat="it in ped.itens">
-                                                <td>{[it.produto]}</td>
-                                                <td>{[it.quantidade]}</td>
-                                                <td>{[it.observacao]}</td>
-                                                <td>R$ {[it.preco_parcial.toFixed(2)]}</td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </li>
-                                <li class="list-group-item">
-                                    <b>PAGAMENTO</b><br>
-                                    {[ped.pagamento_obs]} - {[ped.pagamento_tipo]}
-                                </li>
-                                <li class="list-group-item">
-                                    <b>STATUS</b><br>
-                                    {[ped.status]}
-                                </li>
-                                <li class="list-group-item">
-                                    <b class="label label-primary" style="font-size: 16PX;padding: 14PX 0PX;text-align: center;display: block;">
-                                    R$ {[ped.total.toFixed(2)]}
-                                    </b>
-                                </li>
-                                <li class="list-group-item">
-                                    <a class="btn btn-default" ng-click="imprimir_pedido(ped.id);">Imprimir <i class="glyphicon glyphicon-print"></i> </a>
-                                </li>
-                            </ul>
+                            <br><br>
+                            <b>Data</b><br>
+                            {[ped.data]}
+                            <br><br>
+
+                            <b>Restaurante</b><br>
+                            {[ped.empresa]}
+                            <br><br>
+
+                            <b>Entrega</b><br>
+                            {[ped.endereco]}, {[ped.bairro]} - {[ped.cidade]}
+                            <br><br>
+
+                            <b>Itens</b>
+                            <table class="table-striped" style="font-size:12px;">
+                                <thead>
+                                    <tr>
+                                        <th class="col-md-3">Produto</th>
+                                        <th class="col-md-2">Quantidade</th>
+                                        <th class="col-md-5">Observação</th>
+                                        <th class="col-md-2">Preço</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="it in ped.itens">
+                                        <td class="col-md-3">{[it.produto]}</td>
+                                        <td class="col-md-2">{[it.quantidade]}</td>
+                                        <td class="col-md-5">{[it.observacao]}</td>
+                                        <td class="col-md-2">R$ {[it.preco_parcial.toFixed(2)]}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                            <br>
+                            <b>PAGAMENTO</b><br>
+                            {[ped.pagamento_obs]} - {[ped.pagamento_tipo]}
+                            <br><br>
+
+                            <b class="label label-primary" style="font-size: 16PX;padding: 14PX 0PX;text-align: center;display: block;margin-bottom: 15px;">
+                            R$ {[ped.total.toFixed(2)]}
+                            </b>
                         </div>
                     </div>
                     <div class="tab-pane fade" id="agentrega">
-                        <div class="col-md-4" style="font-size:10px;" id="ped_{[ped.id]}" ng-repeat="ped in pe.lista_pedidos_aguardandoentrega">
-                            <a ng-if="ped.status=='Aguardando Entrega'" ng-click="atualizar_status('Concluido',ped.id);" class="btn btn-default btn-sm" style="display:block;margin-top:20px;">Atualiza para Concluído</a>
+                        <div class="col-md-12" id="ped_{[ped.id]}" ng-repeat="ped in pe.lista_pedidos_aguardandoentrega" style="padding-top:30px;">
+                            <b>Atualizar para:</b><a ng-if="ped.status=='Aguardando Entrega'" ng-click="atualizar_status('Concluido',ped.id);" class="btn btn-default btn-sm">Atualiza para Concluído</a>
 
-                            <ul class="list-group">
-                                <li class="list-group-item">
-                                    <b>DATA</b><br>
-                                    {[ped.data]}
-                                </li>
-                                <li class="list-group-item">
-                                    <b>RESTAURANTE</b><br>
-                                    {[ped.empresa]}
-                                </li>
-                                <li class="list-group-item">
-                                    <b>ENTREGA</b><br>
-                                    {[ped.endereco]}, {[ped.bairro]} -
-                                    {[ped.cidade]}
-                                </li>
-                                <li class="list-group-item">
-                                    <b>ITENS</b>
-                                    <table class="table" style="margin-bottom:0px;font-size:11px;">
-                                        <thead>
-                                            <tr>
-                                                <th>Produto</th>
-                                                <th>Quantidade</th>
-                                                <th>Observação</th>
-                                                <th>Preço</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr ng-repeat="it in ped.itens">
-                                                <td>{[it.produto]}</td>
-                                                <td>{[it.quantidade]}</td>
-                                                <td>{[it.observacao]}</td>
-                                                <td>R$ {[it.preco_parcial.toFixed(2)]}</td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </li>
-                                <li class="list-group-item">
-                                    <b>PAGAMENTO</b><br>
-                                    {[ped.pagamento_obs]} - {[ped.pagamento_tipo]}
-                                </li>
-                                <li class="list-group-item">
-                                    <b>STATUS</b><br>
-                                    {[ped.status]}
-                                </li>
-                                <li class="list-group-item">
-                                    <b class="label label-primary" style="font-size: 16PX;padding: 14PX 0PX;text-align: center;display: block;">
-                                    R$ {[ped.total.toFixed(2)]}
-                                    </b>
-                                </li>
-                                <li class="list-group-item">
-                                    <a class="btn btn-default" ng-click="imprimir_pedido(ped.id);">Imprimir <i class="glyphicon glyphicon-print"></i> </a>
-                                </li>
-                            </ul>
+                            <a class="btn btn-default" style="float:right;" ng-click="imprimir_pedido(ped.id);">Imprimir <i class="glyphicon glyphicon-print"></i> </a>
+
+                            <br><br>
+                            <b>Data</b><br>
+                            {[ped.data]}
+                            <br><br>
+
+                            <b>Restaurante</b><br>
+                            {[ped.empresa]}
+                            <br><br>
+
+                            <b>Entrega</b><br>
+                            {[ped.endereco]}, {[ped.bairro]} - {[ped.cidade]}
+                            <br><br>
+
+                            <b>Itens</b>
+                            <table class="table-striped" style="font-size:12px;">
+                                <thead>
+                                    <tr>
+                                        <th class="col-md-3">Produto</th>
+                                        <th class="col-md-2">Quantidade</th>
+                                        <th class="col-md-5">Observação</th>
+                                        <th class="col-md-2">Preço</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="it in ped.itens">
+                                        <td class="col-md-3">{[it.produto]}</td>
+                                        <td class="col-md-2">{[it.quantidade]}</td>
+                                        <td class="col-md-5">{[it.observacao]}</td>
+                                        <td class="col-md-2">R$ {[it.preco_parcial.toFixed(2)]}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                            <br>
+                            <b>PAGAMENTO</b><br>
+                            {[ped.pagamento_obs]} - {[ped.pagamento_tipo]}
+                            <br><br>
+
+                            <b class="label label-primary" style="font-size: 16PX;padding: 14PX 0PX;text-align: center;display: block;margin-bottom: 15px;">
+                            R$ {[ped.total.toFixed(2)]}
+                            </b>
                         </div>
                     </div>
                     <div class="tab-pane fade" id="pedidoconcluido">
-                        <div class="col-md-4" style="font-size:10px;" id="ped_{[ped.id]}" ng-repeat="ped in pe.lista_pedidos_concluidos">
+                        <div class="col-md-12" id="ped_{[ped.id]}" ng-repeat="ped in pe.lista_pedidos_concluidos">
                             <br>
                             <!--<a ng-if="ped.status=='Aguardando Entrega'" ng-click="atualizar_status('Concluido',ped.id);" class="btn btn-default btn-sm" style="display:block;margin-top:20px;">Concluir Pedido</a>-->
+                            <a class="btn btn-default" style="float:right;" ng-click="imprimir_pedido(ped.id);">Imprimir <i class="glyphicon glyphicon-print"></i> </a>
 
-                            <ul class="list-group">
-                                <li class="list-group-item">
-                                    <b>DATA</b><br>
-                                    {[ped.data]}
-                                </li>
-                                <li class="list-group-item">
-                                    <b>RESTAURANTE</b><br>
-                                    {[ped.empresa]}
-                                </li>
-                                <li class="list-group-item">
-                                    <b>ENTREGA</b><br>
-                                    {[ped.endereco]}, {[ped.bairro]} -
-                                    {[ped.cidade]}
-                                </li>
-                                <li class="list-group-item">
-                                    <b>ITENS</b>
-                                    <table class="table" style="margin-bottom:0px;font-size:11px;">
-                                        <thead>
-                                            <tr>
-                                                <th>Produto</th>
-                                                <th>Quantidade</th>
-                                                <th>Observação</th>
-                                                <th>Preço</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr ng-repeat="it in ped.itens">
-                                                <td>{[it.produto]}</td>
-                                                <td>{[it.quantidade]}</td>
-                                                <td>{[it.observacao]}</td>
-                                                <td>R$ {[it.preco_parcial.toFixed(2)]}</td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </li>
-                                <li class="list-group-item">
-                                    <b>PAGAMENTO</b><br>
-                                    {[ped.pagamento_obs]} - {[ped.pagamento_tipo]}
-                                </li>
-                                <li class="list-group-item">
-                                    <b>STATUS</b><br>
-                                    {[ped.status]}
-                                </li>
-                                <li class="list-group-item">
-                                    <b class="label label-primary" style="font-size: 16PX;padding: 14PX 0PX;text-align: center;display: block;">
-                                    R$ {[ped.total.toFixed(2)]}
-                                    </b>
-                                </li>
-                                <li class="list-group-item">
-                                    <a class="btn btn-default" ng-click="imprimir_pedido(ped.id);">Imprimir <i class="glyphicon glyphicon-print"></i> </a>
-                                </li>
-                            </ul>
+                                                        <br><br>
+                            <b>Data</b><br>
+                            {[ped.data]}
+                            <br><br>
+
+                            <b>Restaurante</b><br>
+                            {[ped.empresa]}
+                            <br><br>
+
+                            <b>Entrega</b><br>
+                            {[ped.endereco]}, {[ped.bairro]} - {[ped.cidade]}
+                            <br><br>
+
+                            <b>Itens</b>
+                            <table class="table-striped" style="font-size:12px;">
+                                <thead>
+                                    <tr>
+                                        <th class="col-md-3">Produto</th>
+                                        <th class="col-md-2">Quantidade</th>
+                                        <th class="col-md-5">Observação</th>
+                                        <th class="col-md-2">Preço</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="it in ped.itens">
+                                        <td class="col-md-3">{[it.produto]}</td>
+                                        <td class="col-md-2">{[it.quantidade]}</td>
+                                        <td class="col-md-5">{[it.observacao]}</td>
+                                        <td class="col-md-2">R$ {[it.preco_parcial.toFixed(2)]}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                            <br>
+                            <b>PAGAMENTO</b><br>
+                            {[ped.pagamento_obs]} - {[ped.pagamento_tipo]}
+                            <br><br>
+
+                            <b class="label label-primary" style="font-size: 16PX;padding: 14PX 0PX;text-align: center;display: block;margin-bottom: 15px;">
+                            R$ {[ped.total.toFixed(2)]}
+                            </b>
                         </div>
                     </div>
                 </div>

@@ -3,32 +3,32 @@
 {% load staticfiles %}
 {% block content %}
   <div ng-controller="cardapioRestauranteNovoCtrl" class="app" role="main">
-
+    <div class="topo-adm">
+        <img src="{% static 'img/topo.png' %}"/>
+        <a ng-click="atualizar_produtocategoria()" style="position: absolute;top: 25px;right: 20%" class="btn btn-primary btn-sm btn-laranja"><b>Salvar</b></a>
+        <h2>Nova Categoria do Produto</h2>
+    </div>
     <div class="container">
         <div class="row" style="margin-bottom: 20px;margin-top:30px;">
-            <form method="post">
-                <div ng-if="pt.retorno">
-                    <p class="alert alert-success" style="text-align:center;">Salvo com sucesso!</p>
-                </div>
-                <div class="col-md-12">
-                    <h4>Nova SubCategoria para o produto <b>{[pt.produtoselecionado[0].nome]}</b></h4>
-                    <p>A subcategoria do produto entrará em vigor assim que o mesmo for salvo.</p>
-                </div>
-                <div class="col-md-8">
-                    <label class="control-label">Categoria</label><br/>
-                    <select class="form-control" name="categoria" id="categoria" ng-change="getsubs()" ng-options="categoria as categoria.fields.nome for categoria in ct.lista_categorias track by categoria.pk" ng-model="sc.sel_categoria"></select>
-                    <br/>
+            <div class="col-md-8 col-md-offset-2">
+                <br>
+                <form method="post">
+                    <div ng-if="pt.retorno">
+                        <p class="alert alert-success" style="text-align:center;">Salvo com sucesso!</p>
+                    </div>
+                    <div class="col-md-12">
+                        <p>A subcategoria do produto entrará em vigor assim que o mesmo for salvo.</p>
 
-                    <label class="control-label">SubCategoria</label><br/>
-                    <select class="form-control" name="subcategoria" id="subcategoria" ng-options="subcategoria as subcategoria.fields.nome for subcategoria in sc.lista_subcategorias track by subcategoria.pk" ng-model="sc.sel_subcategorias"></select>
-                    <br/>
-                </div>
+                        <label class="control-label">Categoria</label><br/>
+                        <select class="form-control" name="categoria" id="categoria" ng-change="getsubs()" ng-options="categoria as categoria.fields.nome for categoria in ct.lista_categorias track by categoria.pk" ng-model="sc.sel_categoria"></select>
+                        <br/>
 
-                <div class="col-md-4">
-                    <a ng-click="atualizar_produtocategoria()" style="display: block;width: 100%;" class="btn btn-success btn-lg">Salvar</a>
-                    <a style="display: block;width: 100%;" class="btn btn-default btn-lg" href="/restaurante/cardapio/categorias?p_id={[pt.produtoselecionado[0].id]}">Cancelar</a>
-                </div>
-            </form>
+                        <label class="control-label">SubCategoria</label><br/>
+                        <select class="form-control" name="subcategoria" id="subcategoria" ng-options="subcategoria as subcategoria.fields.nome for subcategoria in sc.lista_subcategorias track by subcategoria.pk" ng-model="sc.sel_subcategorias"></select>
+                        <br/>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
   </div>

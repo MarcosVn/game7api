@@ -3,12 +3,15 @@
 {% load staticfiles %}
 {% block content %}
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-<div ng-controller="repasseRestauranteCtrl" class="app expediente" id="wrap" role="main">
+<div ng-controller="repasseRestauranteCtrl" class="app expediente repasse" id="wrap" role="main">
+    <div class="topo-adm">
+        <img src="{% static 'img/topo.png' %}"/>
+        <h2>Controle de Repasses</h2>
+    </div>
     <div class="container">
         <div class="row">
-            <div class="col-md-12" style="margin-top:30px;margin-bottom:20px;">
-                <h4>REPASSES</h4>
-                <small style="margin-bottom:15px;display:block;">Este controle de repasse apresenta um pequeno balancete da empresa, sempre respeitando a data do ultimo repasse.</small>
+            <div class="col-md-8 col-md-offset-2" style="margin-top:10px;margin-bottom:20px;">
+                <p>Este controle de repasse apresenta um pequeno balancete da empresa, sempre respeitando a data do ultimo repasse.</small>
 
                 <table class="table">
                     <tr>
@@ -19,12 +22,12 @@
                         <th>Pago</th>
                     </tr>
                     <tr ng-repeat="rep in em.lista_empresasremessas[0].repasses">
-                        <td class="col-md-4">{[rep.referencia]}</td>
-                        <td class="col-md-2">{[rep.data_inicio]}</td>
-                        <td class="col-md-2">{[rep.data_fim]}</td>
-                        <td class="col-md-2">R$ {[rep.total]}</td>
-                        <td class="col-md-2" ng-if="rep.pago == true">Sim</td>
-                        <td class="col-md-2" ng-if="rep.pago == false">Não</td>
+                        <td>{[rep.referencia]}</td>
+                        <td>{[rep.data_inicio]}</td>
+                        <td>{[rep.data_fim]}</td>
+                        <td>R$ {[rep.total]}</td>
+                        <td ng-if="rep.pago == true">Sim</td>
+                        <td ng-if="rep.pago == false">Não</td>
                     </tr>
                 </table>
 

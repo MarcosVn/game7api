@@ -3,16 +3,20 @@
 {% load staticfiles %}
 {% block content %}
   <div ng-controller="perfilRestauranteCtrl" class="app" role="main">
-
+    <div class="topo-adm">
+        <img src="{% static 'img/topo.png' %}"/>
+        <a ng-click="atualizar()()" style="position: absolute;top: 25px;right: 20%" class="btn btn-default btn-sm btn-laranja"><b>Salvar</b></a>
+        <h2>Meu Perfil</h2>
+    </div>
     <div class="container">
         <div class="row">
-            <div class="col-md-12" style="margin-bottom: 100px;">
+            <div class="col-md-8 col-md-offset-2" style="margin-bottom: 100px;">
                 <div ng-if="em.retorno">
                     <p class="alert alert-success" style="text-align:center;">Atualizado com sucesso!</p>
                 </div>
                 <form method="post">
                     <div class="col-md-12" style="margin-top:30px;">
-                        <img class="col-md-6 col-md-offset-3 img-thumbnail img-responsive" ng-src="http://menuweb.com.br/game7api/static/media/empresa/{[em.empresalogado[0].logotipo]}" />
+                        <img class="col-md-4 col-md-offset-4 img-thumbnail img-responsive" ng-src="http://menuweb.com.br/game7api/static/media/empresa/{[em.empresalogado[0].logotipo]}" />
                     </div>
                     <br/>
 
@@ -77,8 +81,8 @@
                     <br/>
 
                     <b>Atendimentos</b>
-                    <a href="/restaurante/atendimento/novo?e_id={[em.empresalogado[0].id]}" class="btn btn-xs btn-primary" style="float:right;">Adicionar Bairro</a>
-                    <p>Controle os seus bairros de atendimentos, a mudança dos bairros implica diretamente nos resultaados da busca.</p>
+                    <a href="/restaurante/atendimento/novo?e_id={[em.empresalogado[0].id]}" class="btn btn-xs btn-default btn-cinza-claro" style="float:right;">Adicionar Bairro</a>
+                    <p>Controle os seus bairros de atendimentos, a mudança dos bairros implica diretamente nos resultados da busca.</p>
                     <table class="table" style="font-size:10px;">
                         <tr>
                             <th>Bairro</th>
@@ -88,12 +92,12 @@
                         <tr ng-repeat="bai in em.empresalogado[0].bairros">
                           <td class="col-md-7 col-xs-7">{[bai.bairro]}</td>
                           <td class="col-md-4 col-xs-4">R$ {[bai.frete.toFixed(2)]}</td>
-                          <td class="col-md-1 col-xs-1"><a href="/restaurante/atendimento/excluir?e_id={[em.empresalogado[0].id]}&b_id={[bai.bairro_id]}" class="btn btn-danger btn-xs">excluir</a> </td>
+                          <td class="col-md-1 col-xs-1"><a href="/restaurante/atendimento/excluir?e_id={[em.empresalogado[0].id]}&b_id={[bai.bairro_id]}" class="btn btn-default btn-cinza-claro btn-xs">excluir</a> </td>
                         </tr>
                     </table>
 
                 </form>
-                <a class="btn btn-success" style="float:right;" ng-click="atualizar()">Salvar</a>
+                <!--<a class="btn btn-success" style="float:right;" ng-click="atualizar()">Salvar</a>-->
             </div>
         </div>
     </div>

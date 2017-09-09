@@ -3,42 +3,42 @@
 {% load staticfiles %}
 {% block content %}
   <div ng-controller="cardapioRestauranteCtrl" class="app" role="main">
+    <div class="topo-adm">
+        <img src="{% static 'img/topo.png' %}"/>
+        <a href="/restaurante/cardapio/novo?p_id=0" style="position: absolute;top: 25px;right: 20%" class="btn btn-default btn-sm btn-laranja"><b>Adicionar</b></a>
+        <h2>Cardápio</h2>
+    </div>
 
     <div class="container">
         <div class="row">
             <div class="col-md-12" style="margin-bottom: 20px;margin-top:30px;">
-                <h4>CARDÁPIO</h4>
-                <small style="margin-bottom:15px;display:block;">Controle os dados de expediente, é importante ressaltar que para que o restaurante apareça nas buscas o mesmo deverá estar "aberto"</small>
-                <a href="/restaurante/cardapio/novo?p_id=0" style="float:right;margin-bottom:20px;" class="btn btn-primary btn-lg">Novo Produto</a>
+                <!--<small style="margin-bottom:15px;display:block;">Controle os dados de expediente, é importante ressaltar que para que o restaurante apareça nas buscas o mesmo deverá estar "aberto"</small>-->
 
-                <ul class="list-group">
-                    <li class="list-group-item col-md-12" ng-repeat="prod in pt.lista_produtos" style="border-radius:0px;">
-                        <div class="col-md-12" style="padding:2px;text-transform:uppercase;padding:0px; margin-bottom:2px;border-bottom:1px solid;font-weight:bold;">
-                            <div class="col-md-8" style="padding:0px;">
-                                {[prod.nome]}
+                <div class="col-md-8 col-md-offset-2 produto-item" ng-repeat="prod in pt.lista_produtos" style="border-radius: 0px;border-bottom:#B7B7B7 1px solid;margin-bottom: 20px;padding: 0px 0px 20px 0px;">
+                    <div class="col-md-2" style="padding: 0px;">
+                        <img class="img-thumbnail img-responsive" ng-src="{[pt.burl]}/game7api/static/media/produto/{[prod.foto]}"/>
+                    </div>
+                    <div class="col-md-8">
+                        <div class="col-md-12">
+                            <div class="col-md-12">
+                                <b>{[prod.nome]}</b>
                             </div>
-                            <div class="col-md-4" style="padding:0px;text-align:right;color:#000;">
+                            <div class="col-md-6">
+                                <div ng-repeat="subs in prod.subcategorias">{[subs.categoria]}</div>
+                            </div>
+                            <div class="col-md-6">
                                 R$ {[prod.preco.toFixed(2)]}
                             </div>
                         </div>
-                         <div class="col-md-12" style="padding:0px;">
-                             <div class="col-md-1" style="padding-left:0px;padding-right:2px;">
-                                <img class="img-thumbnail img-responsive" ng-src="{[pt.burl]}/game7api/static/media/produto/{[prod.foto]}" />
-                             </div>
-                             <div class="col-md-9" style="padding:0px 2px;font-size:9px;height: 60px;overflow: hidden;">
-                                {[prod.descricao]}
-                             </div>
-                             <div class="col-md-2 btn-group-vertical btns">
-                                <a href="/restaurante/cardapio/editar?p_id={[prod.id]}" class="btn-xs btn btn-default" style="border-radius:0px;">Editar</a>
-                                <a href="/restaurante/cardapio/categorias?p_id={[prod.id]}" class="btn-xs btn btn-primary" style="border-radius:0px;">Categorias</a>
-                                <a href="/restaurante/cardapio/excluir?p_id={[prod.id]}" class="btn-xs btn btn-danger" style="border-radius:0px;">Excluir</a>
-                             </div>
-                        </div>
-                         <div class="col-md-12" style="padding:0px 2px;font-size:9px;">
-                            <div class="label label-default" style="font-size:10px;margin:2px;display:inline-block;border-radius:0px;padding:5px 10px;" ng-repeat="subs in prod.subcategorias">{[subs.categoria]} - {[subs.subcategoria]}</div>
+                    </div>
+                     <div class="col-md-2">
+                         <div class="btn-group-vertical btns" style="width:100%;">
+                            <a href="/restaurante/cardapio/editar?p_id={[prod.id]}" class="btn-xs btn btn-default btn-cinza-claro" style="border-radius:0px;">Editar</a>
+                            <a href="/restaurante/cardapio/categorias?p_id={[prod.id]}" class="btn-xs btn btn-default btn-cinza-escuro" style="border-radius:0px;">Categorias</a>
+                            <a href="/restaurante/cardapio/excluir?p_id={[prod.id]}" class="btn-xs btn btn-default btn-cinza-claro" style="border-radius:0px;">Excluir</a>
                          </div>
-                    </li>
-                </ul>
+                     </div>
+                </div>
             </div>
         </div>
     </div>

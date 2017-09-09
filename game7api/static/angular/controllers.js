@@ -80,7 +80,7 @@ game7App.controller('clienteCtrl', function($scope,$http, Cliente, Estado, Cidad
     }
     $scope.getcep = function(){
         cep = $("#cep").val();
-        //Get relação de clientes
+        //Get relaÃ§Ã£o de clientes
         var url = "http://viacep.com.br/ws/"+ cep + "/json/";
         var params = {
         }
@@ -178,7 +178,7 @@ game7App.controller('empresaCtrl', function($scope,$http, Empresa, Estado, Cidad
     }
     $scope.getcep = function(){
         cep = $("#cep").val();
-        //Get relação de clientes
+        //Get relaÃ§Ã£o de clientes
         var url = "http://viacep.com.br/ws/"+ cep + "/json/";
         var params = {
         }
@@ -528,7 +528,7 @@ game7App.controller('topoCtrl', function($scope, $http, Cliente, Estado, Cidade,
     }
     $scope.getcep = function(){
         cep = $("#cep").val();
-        //Get relação de clientes
+        //Get relaÃ§Ã£o de clientes
         var url = "http://viacep.com.br/ws/"+ cep + "/json/";
         var params = {
         }
@@ -568,7 +568,7 @@ game7App.controller('topoCtrl', function($scope, $http, Cliente, Estado, Cidade,
 
     $scope.getceprestaurante = function(){
         cep = $("#restaurantecep").val();
-        //Get relação de clientes
+        //Get relaÃ§Ã£o de clientes
         var url = "http://viacep.com.br/ws/"+ cep + "/json/";
         var params = {
         }
@@ -929,8 +929,8 @@ game7App.controller('homeClienteCtrl', function($scope, Cliente, Empresa) {
 
     $scope.em = Empresa;
     $scope.em.get_empresas_buscas();
-
-    if(document.getElementById('iFiltro')){
+//
+    if(document.getElementById('iFiltro').value != ""){
         $scope.em.get_empresas(document.getElementById('iFiltro').value);
     }
 
@@ -967,7 +967,7 @@ game7App.controller('perfilClienteCtrl', function($scope, $http, Cliente, Estado
     }
     $scope.getcep = function(){
         cep = $("#cep").val();
-        //Get relação de clientes
+        //Get relaÃ§Ã£o de clientes
         var url = "http://viacep.com.br/ws/"+ cep + "/json/";
         var params = {
         }
@@ -1059,7 +1059,7 @@ game7App.controller('carrinhoCtrl', function($scope, Produto, Carrinho) {
                             $scope.pt.produtoselecionado[0].opcionais[x].opcional_quantidade_selecionado ++;
                         }
                         else{
-                            alert("Você já atingiu o limite de opcionais");
+                            alert("VocÃª jÃ¡ atingiu o limite de opcionais");
                         }
                     }
                 }
@@ -1098,7 +1098,7 @@ game7App.controller('carrinhoCtrl', function($scope, Produto, Carrinho) {
                                 $scope.pt.produtoselecionado[0].opcionais[x].opcional_quantidade_selecionado ++;
                             }
                             else{
-                                alert("Você já atingiu o limite de opcionais");
+                                alert("VocÃª jÃ¡ atingiu o limite de opcionais");
                                 $(opc_selecionado)[0].checked = false;
                             }
                         }
@@ -1260,7 +1260,7 @@ game7App.controller('homeCtrl', function($scope, Home, $http, Empresa) {
 
     $scope.buscahome = function(request){
         cep = $("#cephome").val();
-        //Get relação de clientes
+        //Get relaÃ§Ã£o de clientes
         var url = "http://viacep.com.br/ws/"+ cep + "/json/";
         var params = {
         }

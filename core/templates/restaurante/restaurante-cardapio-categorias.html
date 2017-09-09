@@ -2,33 +2,35 @@
 {% block title %}MenuWeb Restaurante - Novo Produto{% endblock %}
 {% load staticfiles %}
 {% block content %}
-  <div ng-controller="cardapioRestauranteNovoCtrl" class="app" role="main">
-
+  <div ng-controller="cardapioRestauranteNovoCtrl" class="app categorias-produto" role="main">
+    <div class="topo-adm">
+        <img src="{% static 'img/topo.png' %}"/>
+        <a href="/restaurante/cardapio/categorias/nova?p_id={[pt.produtoselecionado[0].id]}" style="position: absolute;top: 25px;right: 20%" class="btn btn-default btn-sm btn-laranja"><b>Nova</b></a>
+        <h2>Categorias do Produto</h2>
+    </div>
     <div class="container">
         <div class="row" style="margin-bottom: 20px;margin-top:30px;">
-            <div ng-if="pt.retorno">
-                <p class="alert alert-success" style="text-align:center;">Atualizado com sucesso!</p>
-            </div>
-            <div class="col-md-12">
-                <h4>Categorias e Subcategorias do Produto <b>{[pt.produtoselecionado[0].nome]}</b></h4>
-                <p>Este módulo apresenta por padrão as subcategorias.</p>
-            </div>
-            <div class="col-md-9">
+            <div class="col-md-8 col-md-offset-2" style="text-align:center;">
+                <br>
+                <div ng-if="pt.retorno">
+                    <p class="alert alert-success" style="text-align:center;">Atualizado com sucesso!</p>
+                </div>
+
+                <b>ATENÇÃO</b>
+                <p>A relação de categorias do produto <b>{[pt.produtoselecionado[0].nome]}</b>, uma vez que o mesmo for criado ou alterado, terá o efeito imediato.</p>
+
                 <table class="table" style="font-size:12px;">
                     <tr>
-                        <th>Categoria</th>
-                        <th>SubCategoria</th>
+                        <th><p class="ttl-cinza-claro" style="margin-left: 0px;margin-right: 10px;padding: 10px;">Categoria</p></th>
+                        <th><p class="ttl-cinza-claro" style="margin-left: 0px;margin-right: 10px;padding: 10px;">Sub-Categoria</p></th>
                         <th></th>
                     </tr>
                     <tr ng-repeat="sub in pt.produtoselecionado[0].subcategorias">
                       <td class="col-md-5">{[sub.categoria]}</td>
                       <td class="col-md-5">{[sub.subcategoria]}</td>
-                      <td class="col-md-2"><a href="/restaurante/cardapio/categorias/excluir?subc_id={[sub.subcategoria_id]}&p_id={[pt.produtoselecionado[0].id]}" class="btn btn-danger btn-xs">excluir</a> </td>
+                      <td class="col-md-2"><a href="/restaurante/cardapio/categorias/excluir?subc_id={[sub.subcategoria_id]}&p_id={[pt.produtoselecionado[0].id]}" class="btn btn-default btn-cinza-claro btn-xs" style="padding:5px 20px;">excluir</a> </td>
                     </tr>
                 </table>
-            </div>
-            <div class="col-md-1">
-                <a href="/restaurante/cardapio/categorias/excluir?p_id={[pt.produtoselecionado[0].id]}" class="btn btn-primary btn-lg">Adicionar SubCategoria</a>
             </div>
         </div>
     </div>

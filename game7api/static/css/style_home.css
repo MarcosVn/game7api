@@ -7,6 +7,7 @@
     font-family:'Ubuntu-R';
 }
 
+
 /*Geral*/
 *{
     padding:0px;
@@ -447,3 +448,29 @@ a:hover, a:active, a:focus{
     font-size:15px;
     margin-right:10px;
 }
+
+
+
+/*meu-perfil*/
+.meu-perfil input, .meu-perfil select{
+    box-shadow:none!important;
+    border:1px solid #ddd!important;
+    padding:5px!important;
+    margin-bottom:5px;
+
+}
+
+.meu-perfil .ttl-laranja{
+    color:#FF3E00;
+    font-size:18px;
+}
+
+.meu-perfil .ttl-cinza{
+    background-color: #3E393D;
+    margin-top: 0px;
+    color: #fff;
+    font-style: italic;
+    font-size: 18px;
+    padding: 10px;
+}
+

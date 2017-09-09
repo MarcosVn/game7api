@@ -5,13 +5,45 @@
 <div class="restaurante-home" ng-controller="homeRestauranteCtrl">
     <div class="container">
         <div class="row">
-            <div class="col-md-12 well topo">
+            <div class="col-md-12">
                 <div class="col-md-2">
-                    <img class="img-thumbnail img-responsive" ng-src="http://menuweb.com.br/game7api/static/media/empresa/{[em.empresalogado[0].logotipo]}">
+                    <img class="img-circle" style="height:140px;" ng-src="http://menuweb.com.br/game7api/static/media/empresa/{[em.empresalogado[0].logotipo]}">
+                    <b class="ttl-laranja">{[em.empresalogado[0].nome]}</b>
                 </div>
-                <div class="col-md-4">
-                    <b>{[em.empresalogado[0].nome]}</b> <br>
-                    <small>{[em.empresalogado[0].descricao]}</small>
+                <div class="col-md-10">
+                    <div class="col-md-6 topo box-borda well">
+                        <b>{[em.empresalogado[0].nome]}</b> <br>
+                        <p>{[em.empresalogado[0].descricao]}</p>
+                    </div>
+                    <div class="col-md-6 topo box-borda well">
+                        <div class="col-md-8">
+                            <b>Avaliações</b>
+                        </div>
+                        <div class="col-md-4">
+                            <a href="/restaurante/avaliacoes" class="btn btn-xs btn-default btn-laranja">ver avaliações</a>
+                        </div>
+                        <br>
+                        <div class="col-md-12 avaliacoes" style="margin:0px;padding:0px;">
+                            <div class="semavaliacoes" style="text-align:center;display:none;">
+                                Avaliações não disponíveis no momento<br/>
+                                <i class="glyphicon glyphicon-save-file" style="font-size:40px;"></i>
+                            </div>
+                            <div class="lista"  ng-if="em.empresalogado[0].avaliacoes">
+                                <table class="table table-striped">
+                                    <tr>
+                                        <th class="col-md-2">Nota</th>
+                                        <th class="col-md-6">Mensagem</th>
+                                        <th class="col-md-4">Data</th>
+                                    </tr>
+                                    <tr ng-repeat="aval in em.empresalogado[0].avaliacoes">
+                                        <td style="text-align:center;">{[aval.avaliacao_nota]}</td>
+                                        <td>{[aval.avaliacao_mensagem]}</td>
+                                        <td>{[aval.avaliacao_data]}</td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <div class="col-md-6">
                     <div class="col-md-4">
