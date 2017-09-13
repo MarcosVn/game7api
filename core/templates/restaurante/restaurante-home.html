@@ -11,205 +11,119 @@
                     <b class="ttl-laranja">{[em.empresalogado[0].nome]}</b>
                 </div>
                 <div class="col-md-10">
-                    <div class="col-md-6 topo box-borda well">
-                        <b>{[em.empresalogado[0].nome]}</b> <br>
+                    <div class="col-md-12 box-borda">
+                        <b class="ttl-cinza-claro">{[em.empresalogado[0].nome]}</b> <br>
                         <p>{[em.empresalogado[0].descricao]}</p>
                     </div>
-                    <div class="col-md-6 topo box-borda well">
-                        <div class="col-md-8">
-                            <b>Avaliações</b>
-                        </div>
-                        <div class="col-md-4">
-                            <a href="/restaurante/avaliacoes" class="btn btn-xs btn-default btn-laranja">ver avaliações</a>
-                        </div>
-                        <br>
-                        <div class="col-md-12 avaliacoes" style="margin:0px;padding:0px;">
-                            <div class="semavaliacoes" style="text-align:center;display:none;">
-                                Avaliações não disponíveis no momento<br/>
-                                <i class="glyphicon glyphicon-save-file" style="font-size:40px;"></i>
-                            </div>
-                            <div class="lista"  ng-if="em.empresalogado[0].avaliacoes">
-                                <table class="table table-striped">
-                                    <tr>
-                                        <th class="col-md-2">Nota</th>
-                                        <th class="col-md-6">Mensagem</th>
-                                        <th class="col-md-4">Data</th>
-                                    </tr>
-                                    <tr ng-repeat="aval in em.empresalogado[0].avaliacoes">
-                                        <td style="text-align:center;">{[aval.avaliacao_nota]}</td>
-                                        <td>{[aval.avaliacao_mensagem]}</td>
-                                        <td>{[aval.avaliacao_data]}</td>
-                                    </tr>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="col-md-4">
-                        <label>Tempo de entrega</label>
-                        <div id="temposelecionado">
-                            {[em.empresalogado[0].tipo_tempo]}
-                            <a class="btn btn-default btn-xs" style="float:right;" ng-click="abriredicaotempo()">Editar</a>
-                        </div>
+                    <div class="col-md-5 box-borda">
+                        <a class="btn btn-default btn-laranja" style="float:right;" ng-click="abriredicaotempo()">Editar</a>
+                        <b class="ttl-cinza-claro">Tempo de entrega</b><br>
+
+                        {[em.empresalogado[0].tipo_tempo]}
+
                         <div id="temposelecionar" style="display:none;">
                             <select class="form-control" id="selTempoEntrega" ng-change="set_tempoentrega();" ng-model="seltempo">
                                 <option value="{[tipot.pk]}" ng-repeat="tipot in tt.lista_tipostempo">{[tipot.fields.nome]}</option>
                             </select>
                         </div>
-                        <br>
-
-                        <label>Disponibilidade</label>
-                        <a href="/restaurante/expediente" class="btn btn-primary">VER EXPEDIENTE</a>
                     </div>
-
-                    <div class="col-md-8 well avaliacoes">
-                        <div class="col-md-6">
-                            <b>Avaliações</b>
-                        </div>
-                        <div class="col-md-6">
-                            <a href="/restaurante/avaliacoes" class="btn btn-xs btn-primary">ver avaliações</a>
-                        </div>
-                        <br>
-                        <hr style="margin: 5px 0px 10px;">
-                        <div class="col-md-12" style="margin:0px;padding:0px;">
-                            <div class="semavaliacoes" style="text-align:center;display:none;">
-                                Avaliações não disponíveis no momento<br/>
-                                <i class="glyphicon glyphicon-save-file" style="font-size:40px;"></i>
-                            </div>
-                            <div class="lista"  ng-if="em.empresalogado[0].avaliacoes">
-                                <table class="table table-striped">
-                                    <tr>
-                                        <th class="col-md-2">Nota</th>
-                                        <th class="col-md-6">Mensagem</th>
-                                        <th class="col-md-4">Data</th>
-                                    </tr>
-                                    <tr ng-repeat="aval in em.empresalogado[0].avaliacoes">
-                                        <td style="text-align:center;">{[aval.avaliacao_nota]}</td>
-                                        <td>{[aval.avaliacao_mensagem]}</td>
-                                        <td>{[aval.avaliacao_data]}</td>
-                                    </tr>
-                                </table>
-                            </div>
-                        </div>
+                    <div class="col-md-5 col-md-offset-2 box-borda">
+                        <b class="ttl-cinza-claro">Disponibilidade</b>
+                        <a href="/restaurante/expediente" style="float:right;" class="btn btn-default btn-laranja">VER EXPEDIENTE</a>
                     </div>
                 </div>
-            </div>
-            <div class="col-md-12 well novospedidos">
-                <b>Novos Pedidos</b>
-
-                <a href="/restaurante/pedidos" class="btn btn-primary" style="float:right;">VER PEDIDOS</a>
-                <div class="col-md-12">
-                    <div class="col-md-4" style="font-size:10px;padding:0px;" ng-repeat="ped in pe.lista_pedidos">
-                        <ul class="list-group">
-                            <li class="list-group-item" style="padding:5px;">
-                                <div class="btn-group" role="group" aria-label="..." style="width:100%;">
-                                    <a  class="btn-sm btn-danger btn btn-default" ng-click="atualizar_status(ped.id, 'Pedido Recusado');" style="width:50%;">Recusar</a>
-                                    <a class="btn-sm btn btn-default btn-success" ng-click="atualizar_status(ped.id, 'Aguardando Preparo');" style="width:50%;">Aceitar</a>
-                                </div>
-                            </li>
-                            <li class="list-group-item">
-                                <b>DATA</b><br>
-                                {[ped.data]}
-                            </li>
-                            <li class="list-group-item">
-                                <b>RESTAURANTE</b><br>
-                                {[ped.empresa]}
-                            </li>
-                            <li class="list-group-item">
-                                <b>ENTREGA</b><br>
-                                {[ped.endereco]}, {[ped.bairro]} -
-                                {[ped.cidade]}
-                            </li>
-                            <li class="list-group-item">
-                                <b>ITENS</b>
-                                <table class="table" style="font-size:11px;margin-bottom:0px;">
-                                    <thead>
-                                        <tr>
-                                            <th>Produto</th>
-                                            <th>Quantidade</th>
-                                            <th>obs</th>
-                                            <th>Preço</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr ng-repeat="it in ped.itens">
-                                            <td>{[it.produto]}</td>
-                                            <td>{[it.quantidade]}</td>
-                                            <td>{[it.observacao]}</td>
-                                            <td>R$ {[it.preco_parcial.toFixed(2)]}</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </li>
-                            <li class="list-group-item">
-                                <b>PAGAMENTO</b><br>
-                                {[ped.pagamento_obs]} - {[ped.pagamento_tipo]}
-                            </li>
-                            <li class="list-group-item">
-                                <b>STATUS</b><br>
-                                {[ped.status]}
-                            </li>
-                            <li class="list-group-item">
-                                <b class="label label-primary" style="font-size: 16PX;padding: 14PX 0PX;text-align: center;display: block;">
-                                R$ {[ped.total.toFixed(2)]}
-                                </b>
-                            </li>
-                        </ul>
+                <div class="col-md-12 box-borda">
+                    <div class="col-md-1">
+                        <b>Avaliações</b>
                     </div>
-                </div>
-            </div>
-            <div class="col-md-8" style="padding:0px;">
-                <div class="col-md-12 well acumulado">
-                    <div class="col-md-10">
-                        <b>Acumulado do mês</b>
+                    <div class="col-md-9">
+                        <div class="semavaliacoes" style="text-align:center;display:none;">
+                            Avaliações não disponíveis no momento<br/>
+                            <i class="glyphicon glyphicon-save-file" style="font-size:40px;"></i>
+                        </div>
+                        <div class="lista"  ng-if="em.empresalogado[0].avaliacoes">
+                            <table class="table" style="font-size:12px;">
+                                <tr>
+                                    <th class="col-md-2">Nota</th>
+                                    <th class="col-md-6">Mensagem</th>
+                                    <th class="col-md-4">Data</th>
+                                </tr>
+                                <tr ng-repeat="aval in em.empresalogado[0].avaliacoes">
+                                    <td style="text-align:center;">{[aval.avaliacao_nota]}</td>
+                                    <td>{[aval.avaliacao_mensagem]}</td>
+                                    <td>{[aval.avaliacao_data]}</td>
+                                </tr>
+                            </table>
+                        </div>
                     </div>
                     <div class="col-md-2">
-                    </div>
-                    <hr>
-
-                    <div class="col-md-6">
-                        <div class="col-md-6">
-                            <b>Pedidos<br>
-                                {[em.lista_empresasremessas[0].qtd_naentrega + em.lista_empresasremessas[0].qtd_mercadopago]}
-                            </b>
-                        </div>
-                    </div>
-
-                    <div class="col-md-6">
-                        <div class="col-md-6">
-                            <b>Faturamento<br>
-                               R$ {[em.lista_empresasremessas[0].total_naentrega + em.lista_empresasremessas[0].total_mercadopago]}
-                            </b>
-                        </div>
+                        <a href="/restaurante/avaliacoes" class="btn btn-default btn-laranja">ver avaliações</a>
                     </div>
                 </div>
             </div>
-            <div class="col-md-4">
-                <div class="faturamento col-md-12 well">
-                    <div class="col-md-8">
-                        <b>Faturamento do Mês</b>
-                    </div>
-                    <div class="col-md-4">
-                        <a href="/restaurante/repasse" class="btn btn-xs btn-primary">ver faturas</a>
-                    </div>
-                    <hr>
-                    <table class="table">
-                        <tr>
-                            <th class="col-md-3">Dt Atual</th>
-                            <th class="col-md-3">Dt Fim</th>
-                            <th class="col-md-3">Valor</th>
-                            <th class="col-md-3">Pago</th>
-                        </tr>
-                        <tr>
-                            <td>{[em.lista_empresasremessas[0].repasses[0].data_inicio]}</td>
-                            <td>{[em.lista_empresasremessas[0].repasses[0].data_fim]}</td>
-                            <td>R$ {[em.lista_empresasremessas[0].repasses[0].total]}</td>
-                            <td class="col-md-2" ng-if="em.lista_empresasremessas[0].repasses[0].pago == true">Sim</td>
-                            <td class="col-md-2" ng-if="em.lista_empresasremessas[0].repasses[0].pago == false">Não</td>
-                        </tr>
-                    </table>
 
+            <div class="col-md-12">
+                <div class="col-md-5 box-borda">
+                    <b class="ttl-cinza-claro">Acumulado Total do mês</b>
+                    <br>
+
+                    <div class="col-md-6" style="padding:0px;">
+                        <b>Pedidos faturados</b><br>
+                        {[em.lista_empresasremessas[0].qtd_naentrega + em.lista_empresasremessas[0].qtd_mercadopago]}
+                    </div>
+
+                    <div class="col-md-6">
+                        <b>Faturamento</b> <br>
+                        R$ {[em.lista_empresasremessas[0].total_naentrega + em.lista_empresasremessas[0].total_mercadopago]}
+                    </div>
+                </div>
+                <div class="col-md-6 col-md-offset-1 box-borda">
+                    <div class="col-md-9">
+                        <b class="ttl-cinza-claro">Faturamento Total do Mês</b>
+                    </div>
+                    <div class="col-md-3">
+                        <a href="/restaurante/repasse" class="btn btn-default btn-laranja">ver faturas</a>
+                    </div>
+                    <div class="col-md-12">
+                        <table class="table" style="font-size:12px;width:100%;margin-top:20px;">
+                            <tr>
+                                <th class="col-md-3">Dt Atual</th>
+                                <th class="col-md-3">Dt Fim</th>
+                                <th class="col-md-2">Valor</th>
+                                <th class="col-md-2">Pago</th>
+                                <th class="col-md-2"></th>
+                            </tr>
+                            <tr>
+                                <td>{[em.lista_empresasremessas[0].repasses[0].data_inicio]}</td>
+                                <td>{[em.lista_empresasremessas[0].repasses[0].data_fim]}</td>
+                                <td>R$ {[em.lista_empresasremessas[0].repasses[0].total]}</td>
+                                <td class="col-md-2" ng-if="em.lista_empresasremessas[0].repasses[0].pago == true">Sim</td>
+                                <td class="col-md-2" ng-if="em.lista_empresasremessas[0].repasses[0].pago == false">Não</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-12">
+                <div class="col-md-12 box-borda ">
+                    <b class="ttl-laranja" style="text-align:left;">Novos Pedidos</b>
+
+                    <a href="/restaurante/pedidos" class="btn btn-default btn-laranja" style="float:right;">VER PEDIDOS</a>
+                    <div class="col-md-12" style="margin-top:20px;">
+                        <table class="table" style="font-size:12px;">
+                            <tr ng-repeat="ped in pe.lista_pedidos">
+                                <td style="text-align:center;">{[ped.id]}</td>
+                                <td>{[ped.cliente]}</td>
+                                <td>{[ped.bairro]}</td>
+                                <td>{[ped.total]}</td>
+                                <td>{[ped.total]}</td>
+                                <td>{[ped.pagamento_tipo]}</td>
+                                <td><a  class="btn-sm btn-danger btn btn-default" ng-click="atualizar_status(ped.id, 'Pedido Recusado');" style="width:50%;">Recusar</a></td>
+                                <td><a class="btn-sm btn btn-default btn-success" ng-click="atualizar_status(ped.id, 'Aguardando Preparo');" style="width:50%;">Aceitar</a></td>
+                            </tr>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>

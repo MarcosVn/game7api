@@ -32,8 +32,11 @@
 }
 
 .box-borda{
-    background:none;
-    border:1px solid;
+    background: none;
+    border: #ddd 1px solid;
+    padding: 15px 20px;
+    margin-top: 10px;
+    margin-bottom: 5px;
 }
 
 .ttl-cinza-claro{
