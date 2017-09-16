@@ -28,8 +28,11 @@
                     <div class="col-md-3 col-xs-3 orange">
                         <div ng-if="cl.clientelogado[0] == null">
                             <div class="btn-group" role="group" aria-label="..." style="padding-top:8px;">
-                              <a class="btn btn-sm btn-default" data-toggle="modal" data-target="#poplogin">Entrar</a>
-                              <a class="btn btn-sm btn-default" data-toggle="modal" data-target="#popcadastro">Cadastrar</a>
+                              <!--<a class="btn btn-sm btn-default" data-toggle="modal" data-target="#poplogin">Entrar</a>-->
+                              <!--<a class="btn btn-sm btn-default" data-toggle="modal" data-target="#popcadastro">Cadastrar</a>-->
+
+                              <a class="btn btn-sm btn-default" href="/cadastro-login">Entrar</a>
+                              <a class="btn btn-sm btn-default" href="/cadastro-login">Cadastrar</a>
                             </div>
                         </div>
                         <div ng-if="cl.clientelogado[0]">
@@ -43,96 +46,6 @@
             </div>
             <div class="well alert-success" style="margin:0px;color: #fff;text-align: center;" ng-show="em.envio_precadastro">
                 O seu pré cadastro foi enviado com sucesso, um representante da <b>MenuWeb</b> estará entrando em contato.
-            </div>
-            <div class="modal fade popup" id="poplogin" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-                <div class="modal-dialog modal-sm" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                            <br/>
-                            <img src="{% static 'img/logo-menu.png' %}" style="width:150px;margin:0 auto;display:block;"/>
-                        </div>
-                        <div class="modal-body">
-                            <label>E-mail</label>
-                            <input type="email" id="loginemail" class="form-control" />
-                            <br>
-
-                            <label>Senha</label>
-                            <input type="password" id="loginsenha" class="form-control" />
-                            <br>
-
-                            <br>
-                            <a class="btn btn-sm btn-default" ng-click="efetuarlogar();" style="display:block;width:100%;color:#727272;font-weight:bold;text-transform:uppercase;"><i class="glyphicon glyphicon-user"></i> Acessar</a><br/>
-                            <a class="btn btn-sm btn-default" id="btnLoginFace" scope="public_profile" onclick="login();" style="display:block;width:100%;color:#727272;font-weight:bold;text-transform:uppercase;">Logar com Facebook</a>
-                            <a class="btn btn-default" id="btnContinuarFace" scope="public_profile" onclick="getInfo();" style="display:none;width:100%;color:#fff;background-color:#3b5998;font-weight:bold;text-transform:uppercase;">Continuar o Acesso</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="modal fade popup" id="popcadastro" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                            <br/>
-                            <img src="{% static 'img/logo-menu.png' %}" style="width:150px;margin:0 auto;display:block;"/>
-                        </div>
-                        <div class="modal-body">
-                            <label class="control-label">Nome</label><br/>
-                            <input type="text" id="nome" name="nome" required="True" class="form-control"/>
-                            <br/>
-
-                            <label class="control-label">Email</label><br/>
-                            <input type="text" id="email" type="email" name="email" required="True" class="form-control"/>
-                            <br/>
-
-                            <label class="control-label">Senha</label><br/>
-                            <input type="password" id="senha" name="senha" required="True" class="form-control"/>
-                            <br/>
-
-                            <label class="control-label">Telefone</label><br/>
-                            <input type="number" id="telefone" name="telefone" required="True" class="form-control"/>
-                            <br/>
-
-                            <div class="col-md-12" style="padding-left:0px;padding-right:0px;margin-bottom:20px;">
-                                <div class="col-md-9" style="padding-left:0px;padding-right:0px;">
-                                    <label class="control-label">Cep</label><br/>
-                                    <input type="text" id="cep" type="text" name="cep" required="True" class="form-control"/>
-                                </div>
-                                <div class="col-md-3" style="padding-right:0px;">
-                                    <a class="btn btn-primary" ng-click="getcep();">Localizar</a>
-                                </div>
-                            </div>
-
-                            <label class="control-label">Estado</label><br/>
-                            <select class="form-control" name="estado" id="estado" ng-change="getcidades()" ng-options="estado as estado.fields.nome for estado in et.lista_estados track by estado.pk" ng-model="et.estado_selecionado"></select>
-                            <br/>
-
-                            <label class="control-label">Cidade</label><br/>
-                            <select class="form-control" name="cidade" id="cidade" ng-change="getbairros()" onload="set_cidade();" ng-init="set_cidade();" ng-options="cidade as cidade.fields.nome for cidade in cd.lista_cidades track by cidade.pk" ng-model="cd.cidade_selecionado"></select>
-                            <br/>
-
-                            <label class="control-label">Bairro</label><br/>
-                            <select class="form-control" name="bairro" id="bairro" ng-options="bairro as bairro.fields.nome for bairro in br.lista_bairros track by bairro.pk" ng-model="br.bairro_selecionado"></select>
-                            <br/>
-
-                            <div class="col-md-8" style="padding-left:0px;">
-                                <label class="control-label">Endereço</label><br/>
-                                <input type="text" id="endereco" type="text" name="endereco" required="True" class="form-control"/>
-                            </div>
-                            <div class="col-md-4" style="padding-right:0px;">
-                                <label class="control-label">Número</label><br/>
-                                <input type="text" id="numero" type="number" name="numero" required="True" class="form-control"/>
-                            </div>
-
-                            <label style="margin-top:20px;" class="control-label">Complemento</label><br/>
-                            <input type="text" id="complemento" type="text" name="complemento" required="True" class="form-control"/>
-
-                            <br>
-                            <a class="btn btn-sm btn-success" ng-click="atualizar();"><i class="glyphicon glyphicon-ok"></i> Cadastrar</a>
-                        </div>
-                    </div>
-                </div>
             </div>
 
             <div class="modal fade popup" id="poprestaurante" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">

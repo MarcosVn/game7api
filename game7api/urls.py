@@ -24,6 +24,7 @@ urlpatterns = [
     url(r'^politica-privacidade/', politicaprivacidadeView.as_view(), name = "Politica-privacidade"),
     url(r'^sobre/', sobreView.as_view(), name="sobre"),
     url(r'^busca/', buscarView.as_view(), name="buscar"),
+    url(r'^cadastro-login/', cadastrarLogarView.as_view(), name="buscar"),
 
 
 

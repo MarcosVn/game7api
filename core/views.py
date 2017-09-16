@@ -30,6 +30,9 @@ class sobreView(View):
 class buscarView(View):
     def get(self, request, *args, **kwargs):
         return render_to_response('busca.html', {}, RequestContext(request))
+class cadastrarLogarView(View):
+    def get(self, request, *args, **kwargs):
+        return render_to_response('cadastro-login.html', {}, RequestContext(request))
 
 
 class restauranteLoginView(View):

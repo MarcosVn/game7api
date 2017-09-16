@@ -7,6 +7,16 @@
     font-family:'Ubuntu-R';
 }
 
+.btn-laranja{
+    background-color:#FF3E00;
+    color:#fff;
+}
+
+.btn-face{
+    background-color:#314B88;
+    color:#fff;
+}
+
 
 /*Geral*/
 *{
@@ -473,4 +483,24 @@ a:hover, a:active, a:focus{
     font-size: 18px;
     padding: 10px;
 }
+
+
+/*Cadastro e login*/
+.cadastro-login {
+    background: none;
+    border: #ddd 1px solid;
+}
+
+.cadastro-login .ttl-orange-cadastro{
+    background-color:#FF3E00;
+    color:#fff;
+    text-align:center;
+    padding:10px 0px;
+    margin-bottom:20px;
+}
+
+.cadastro-login .ttl-orange-cadastro b{
+    font-size:17px;
+}
+
 
