@@ -1,4 +1,4 @@
-//URL_BASE = "http://0.0.0.0:8035/js/";
+//URL_BASE = "http://0.0.0.0:8055/js/";
 //URL_BASE = "http://127.0.0.1:8000/js/";
 //URL_BASE = "https://serene-atoll-63219.herokuapp.com/js/";
 URL_BASE = "http://menuweb.com.br/js/";
@@ -588,10 +588,15 @@ game7App.factory("Empresa", function (Ajax,$http) {
         empresalogado: [],
         retorno : false,
         envio_precadastro:false,
+        var_tipocozinha_id:0,
         data_fim : new Date(),
         foto_principal:123,
         caminho_foto: 'http://menuweb.com.br/game7api/static/media/empresa/',
     };
+
+    obj.set_tipocozinha = function (tipocozinha_id){
+        obj.var_tipocozinha_id=tipocozinha_id;
+    }
     obj.get_empresas = function (nome_empresa, email_empresa) {
         var url = URL_BASE + "empresas";
         var params = {
@@ -1486,7 +1491,8 @@ game7App.factory("Pedido", function (Ajax,$http) {
         pedidoselecionado: [],
         lista_pedidos_concluidos: [],
         retorno : false,
-        na_entrega_tipo:TOKENS['t']
+        na_entrega_tipo:TOKENS['t'],
+        caminho_foto: 'http://menuweb.com.br/game7api/static/media/empresa/'
     };
     obj.get_pedidos= function (data_pedido, status) {
         var url = URL_BASE + "pedidos";

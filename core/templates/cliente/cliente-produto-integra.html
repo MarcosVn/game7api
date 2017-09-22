@@ -5,7 +5,12 @@
 <div class="cliente-home" ng-controller="carrinhoCtrl">
     <div class="container">
         <div class="row">
-            <div class="col-md-12" style="margin:0px;padding:0px;">
+            <div class="col-md-8 col-md-offset-2">
+                <div class="col-md-12 ttl-orange-cadastro" style="margin-top:20px;">
+                    <b>Quantidades!</b>
+                    <p>Aproveite esta etapa para confirmar as quantidades do produto que deseja incluir no carrinho</p>
+                </div>
+
                 <div class="col-md-12">
                     <b style="margin-top:20px;margin-bottom:5px;display:block;">{[pt.produtoselecionado[0].nome]}</b>
                 </div>
@@ -83,7 +88,7 @@
                         </div>
                     </div>
                     <div class="col-md-12 rodape-pedido" style="margin-top:5px;margin-bottom:20px;">
-                        <a ng-click="add_lista();" href="javascript:void(0);" class="btn btn-sm btn-default col-md-12" style="display:block;"> ADICIONAR AO CARRINHO <i class="glyphicon glyphicon-shopping-cart"></i></a>
+                        <a ng-click="add_lista();" href="javascript:void(0);" class="btn btn-default btn-laranja"> ADICIONAR AO CARRINHO <i class="glyphicon glyphicon-shopping-cart"></i></a>
                     </div>
                 </div>
             </div>

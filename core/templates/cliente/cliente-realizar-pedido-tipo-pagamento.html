@@ -5,11 +5,12 @@
 <div class="cliente-home" ng-controller="realizarpedidosCtrl">
     <div class="container">
         <div class="row">
-            <div style="margin:0px;padding:0px;">
-                <div class="col-md-12" style="margin-top:20px;margin-bottom:5px;">
+            <div class="col-md-8 col-md-offset-2">
+                <div class="col-md-12 ttl-orange-cadastro" style="margin-top:20px;">
                     <b>TIPO DE PAGAMENTO</b>
+                    <p></p>
                 </div>
-                <div class="col-md-12" style="font-size:10px;">
+                <div class="col-md-12" style="min-height:300px;">
                     <div ng-show="em.empresapedido.aceita_pagamentoonline">
                         <div style="padding: 10px 12px;background-color:#F2F2F2;">
                             <img src="{% static 'img/ico-wifi.png' %}" class="img-rounded" style="width:20px;margin-right:5px" alt="webMenu">
@@ -45,7 +46,7 @@
                         </div>
                     </div>
 
-                    <a ng-click="atualizar_tipo_pagamento();" class="btn btn-default" style="display:block;">CONFIRMAR TIPO DE PAGAMENTO <i class="glyphicon glyphicon-credit-card"></i></a>
+                    <a ng-click="atualizar_tipo_pagamento();" class="btn btn-default btn-laranja" style="display:block;">CONFIRMAR TIPO DE PAGAMENTO <i class="glyphicon glyphicon-credit-card"></i></a>
                 </div>
             </div>
         </div>

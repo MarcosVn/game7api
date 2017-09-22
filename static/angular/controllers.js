@@ -1196,6 +1196,8 @@ game7App.controller('realizarpedidosCtrl', function($scope, Pedido, Cliente, Est
     $scope.em.get_empresabypedido();
 
 
+
+
     $scope.filtrar = function(){
         $scope.pe.get_pedidos(document.getElementById("ipFiltrodata").value);
     }

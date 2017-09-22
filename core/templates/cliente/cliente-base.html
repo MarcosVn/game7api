@@ -16,52 +16,55 @@
         <div ng-controller="topoClienteCtrl">
 			<div class="cortina" ng-show="pe.lista_pedidos_concluidos.length"></div>
 			<div class="avaliacoes_home col-md-12 col-xs-12" ng-show="pe.lista_pedidos_concluidos.length">
-				<ul class="col-md-12" style="padding:0px;">
-					<li class="list-group-item col-md-4 col-xs-4" ng-repeat="ped in pe.lista_pedidos_concluidos" style="min-height:400px;font-size:12px;">
-						#{[ped.id]} - {[ped.data]}
-						<table class="table" style="font-size:12px;">
-							<tr>
-								<th>Lista</th>
-							</tr>
-							<tr>
-								<td style="border:0px;">
-									<table class="table" style="margin-bottom:0px;font-size:12px;min-height:120px;">
-										<tbody>
-											<tr ng-repeat="it in ped.itens">
-												<td>{[it.produto]}</td>
-												<td>{[it.quantidade]}</td>
-												<td>R$ {[it.preco_parcial.toFixed(2)]}</td>
-											</tr>
-										</tbody>
-									</table>
-								</td>
-							</tr>
-						</table>
-						<table class="table" style="font-size:12px;">
-							<tr>
-								<th style="width:60%">Mensagem</th>
-								<th>Avaliação</th>
-							</tr>
-							<tr>
-								<td>
-									<textarea rows="3" id="ipMensagem{[ped.id]}" name="ipMensagem{[ped.id]}" class="form-control"></textarea>
-								</td>
-								<td>
-									<div class="rating">
-										<span ng-click="set_avaliacao_pedido(5,ped.id);">☆</span>
-										<span ng-click="set_avaliacao_pedido(4,ped.id);">☆</span>
-										<span ng-click="set_avaliacao_pedido(3,ped.id);">☆</span>
-										<span ng-click="set_avaliacao_pedido(2,ped.id);">☆</span>
-										<span ng-click="set_avaliacao_pedido(1,ped.id);">☆</span>
-									</div>
-								</td>
-							</tr>
-						</table>
-					</li>
-				</ul>
+				<b class="ttl-laranja col-md-12" style="margin-left: 45px;margin-top: 20px;margin-bottom: 20px;">AVALIAÇÕES PENDENTES</b>
+				<div class="col-md-12 aval" ng-repeat="ped in pe.lista_pedidos_concluidos">
+					<div class="col-md-5">
+						<div class="box-cinza col-md-12">
+							<div class="col-md-12 borda-baixo">
+								<div class="col-md-6" style="padding:0px;">Pedido Número</div>
+								<div class="col-md-6"><p class="txt-cinza-claro">#{[ped.id]}</p></div>
+							</div>
+
+							<div class="col-md-12 borda-baixo">
+								<table class="table" style="margin-bottom:0px;font-size:12px;">
+									<tr ng-repeat="it in ped.itens">
+										<td>{[it.produto]}</td>
+										<td>{[it.quantidade]}</td>
+										<td>R$ {[it.preco_parcial.toFixed(2)]}</td>
+									</tr>
+								</table>
+							</div>
+
+							<div class="col-md-12" style="margin-top:40px;">
+								<div class="col-md-6" style="padding:0px;">Taxa de Entrega</div>
+								<div class="col-md-6"><p class="txt-cinza-claro">R$ {[ped.frete.toFixed(2)]}</p></div>
+								<div class="col-md-6" style="padding:0px;">Total</div>
+								<div class="col-md-6"><p class="txt-cinza-claro">R$ {[ped.total.toFixed(2)]}</p></div>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-7">
+						<p class="ttl-laranja">Pedido realizado:<b>{[ped.data]}</b></p>
+
+						<div class="col-md-12 box-cinza">
+							<label>Mensagem</label>
+							<textarea rows="3" id="ipMensagem{[ped.id]}" name="ipMensagem{[ped.id]}" class="form-control"></textarea>
+
+							<label>Avaliação</label>
+							<div class="rating">
+								<span ng-click="set_avaliacao_pedido(5,ped.id);">☆</span>
+								<span ng-click="set_avaliacao_pedido(4,ped.id);">☆</span>
+								<span ng-click="set_avaliacao_pedido(3,ped.id);">☆</span>
+								<span ng-click="set_avaliacao_pedido(2,ped.id);">☆</span>
+								<span ng-click="set_avaliacao_pedido(1,ped.id);">☆</span>
+							</div>
+						</div>
+					</div>
+				</div>
+
 			</div>
             <div class="menu-topo col-md-12 col-xs-12" style="padding:15px 175px;">
-                <div class="container" style="padding:0px;">
+                <div class="" style="padding:0px;">
                     <div class="col-md-2 col-xs-2">
                         <a href="/cliente/"><img src="{% static 'img/logo-menu.png' %}" style="width:150px;"/></a>
                     </div>
@@ -80,13 +83,13 @@
                 </div>
             </div>
             <div class="menu-topo-links col-md-12">
-                <div class="container" style="padding:0px;">
+                <div style="padding:0px;">
                     <div class="col-md-12">
                         <ul class="nav nav-pills">
                             <li><a href="/cliente/"><i style="font-size: 25px;top: 6px;margin-right:10px;" class="glyphicon glyphicon-search"></i> Buscar</a></li>
                             <li><a href="/cliente/pedidos"><i style="font-size: 25px;top: 6px;margin-right:10px;" class="glyphicon glyphicon-th-list"></i> Pedidos</a></li>
                             <li><a href="/cliente/perfil"><i style="font-size: 25px;top: 6px;margin-right:10px;" class="glyphicon glyphicon-user"></i> Meu Perfil</a></li>
-                            <li style="float:right;display:none;"><a data-toggle="modal" data-target="#meucarrinho" style="margin-top:5px;" class="btn btn-warning btn-sm"><i class="glyphicon glyphicon-shopping-cart"></i></a></li>
+                            <!--<li style="float:right;"><a data-toggle="modal" data-target="#meucarrinho" style="margin-top:5px;" class="btn btn-warning btn-sm"><i class="glyphicon glyphicon-shopping-cart"></i></a></li>-->
                         </ul>
                     </div>
                 </div>

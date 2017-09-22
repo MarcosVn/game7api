@@ -7,6 +7,10 @@
     font-family:'Ubuntu-R';
 }
 
+.ttl-laranja{
+    color:#FF3E00;
+}
+
 .btn-laranja{
     background-color:#FF3E00;
     color:#fff;
@@ -17,6 +21,10 @@
     color:#fff;
 }
 
+.txt-cinza-claro{
+    color:#B4B4B4;
+    text-align:right;
+}
 
 /*Geral*/
 *{
@@ -324,6 +332,10 @@ a:hover, a:active, a:focus{
 
 /*Cliente home*/
 
+.cliente-home{
+    margin-top:70px;
+}
+
 .cliente-home .well{
     border:1px solid #dddddd;
     background-color:#fff;
@@ -350,7 +362,8 @@ a:hover, a:active, a:focus{
 
 .rating {
   unicode-bidi: bidi-override;
-  direction: rtl;
+  direction:rtl;
+  width: 84px;
 }
 .rating > span {
   display: inline-block;
@@ -491,7 +504,7 @@ a:hover, a:active, a:focus{
     border: #ddd 1px solid;
 }
 
-.cadastro-login .ttl-orange-cadastro{
+.ttl-orange-cadastro{
     background-color:#FF3E00;
     color:#fff;
     text-align:center;
@@ -503,4 +516,82 @@ a:hover, a:active, a:focus{
     font-size:17px;
 }
 
+.pedido-rodape{
+    color:#fff;
+    background-color:#303030;
+    text-align:center;
+    padding:10px 0px 5px;
+    margin-bottom:20px;
+}
 
+.box-verde{
+    color:#fff;
+    background-color:#00A900;
+    font-size:14px;
+    padding:10px 15px;
+}
+
+.box-verde i{
+    font-size:20px;
+    margin-right:10px;
+}
+
+
+.lista-home-item{
+    background-color:#fff;border-bottom:#ddd 1px solid;
+    padding:15px 10px;
+}
+
+.lista-home-item b{
+    color:#3C3A3B;
+}
+
+.lista-home-item p{
+    color:#AEAEAE;
+}
+
+.lista-home .lista-home-item:last-child{
+    border-bottom:none;
+}
+
+.lista-home .lista-home-item .nota{
+    color:#FFB401;
+}
+
+.home-menu-categorias{
+    background-color:#FF3E00;
+    margin:0px;
+    padding:0px;
+    position:absolute;
+    left:0px;
+}
+
+.home-menu-categorias ul{
+    list-style:none;
+    margin-bottom:0px;
+}
+.home-menu-categorias li{
+    padding: 0px 55px;
+}
+
+.home-menu-categorias img{
+    margin:5px;
+    float:left;
+}
+
+.home-menu-categorias b{
+    float:right;
+    color:#fff;
+    margin-top:10px;
+}
+
+.avaliacoes_home .aval{
+    border-bottom:#bbb 1px solid;
+    margin-bottom:20px;
+    padding-bottom:30px;
+
+}
+
+.avaliacoes_home .aval:last-child{
+    border:none;
+}

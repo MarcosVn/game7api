@@ -5,9 +5,10 @@
 <div class="cliente-home" ng-controller="realizarpedidosCtrl">
     <div class="container">
         <div class="row">
-            <div style="margin:0px;padding:0px;">
-                <div class="col-xs-12" style="margin-top:20px;margin-bottom:5px;">
+            <div class="col-md-8 col-md-offset-2">
+                <div class="col-md-12 ttl-orange-cadastro" style="margin-top:20px;">
                     <b>CONFIRME O ENDEREÇO</b>
+                    <p>Confirme as informações do seu endereço para a realização da entrega</p>
                 </div>
                 <div class="col-xs-12" style="font-size:10px;">
                     <p></p>
@@ -32,7 +33,7 @@
                     <input id="complemento" name="complemento" required="true" style="margin-bottom:65px; font-size:11px;" class="form-control" value="{[cl.clientelogado[0].complemento]}" />
                 </div>
                 <div class="col-xs-12 rodape-pedido" style="margin-bottom:30px;">
-                    <a ng-click="atualizar();" class="btn btn-default" style="display:block;" >CONFIRMAR ENDEREÇO <i class="glyphicon glyphicon-map-marker"></i></a>
+                    <a ng-click="atualizar();" class="btn btn-default btn-laranja" style="display:block;" >CONFIRMAR ENDEREÇO <i class="glyphicon glyphicon-map-marker"></i></a>
                 </div>
             </div>
         </div>

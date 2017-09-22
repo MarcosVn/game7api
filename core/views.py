@@ -2799,6 +2799,8 @@ class ServiceJson(View):
         for pedido in query:
             itens_rows = []
 
+            valor_total = 0
+
             for item in pedido.Itens.all():
                 r_item = {
                     "item_id":item.id,
@@ -2807,12 +2809,17 @@ class ServiceJson(View):
                     "produto":item.produto.nome,
                     "observacao":item.observacao,
                     "preco_parcial":(item.quantidade*item.produto.preco),
+
                 }
                 itens_rows.append(r_item)
+
+                valor_total = valor_total + (item.quantidade * item.produto.preco)
 
             oPagamento = pedido.Pagamento.first()
             pagamento_obs = ''
             pagamento_tipo = ''
+
+
 
             if oPagamento:
                 pagamento_obs = oPagamento.obs
@@ -2839,8 +2846,10 @@ class ServiceJson(View):
                 "componente":pedido.complemento_entrega,
                 "pagamento_obs":pagamento_obs,
                 "pagamento_tipo":pagamento_tipo,
-
-                "itens":itens_rows
+                "telefone":pedido.empresa.telefone,
+                "frete":pedido.total -  valor_total,
+                "itens":itens_rows,
+                "empresa_logotipo":pedido.empresa.logotipo
             }
 
             pedidos_rows.append(r)
