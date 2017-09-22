@@ -1,30 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="905ca3c0-ddf3-4b15-b409-18493b91c1ad" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/game7api/static/img/img-categoria-lanches.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/game7api/static/img/img-categoria-massas.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/game7api/static/img/img-categoria-oriental.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/game7api/static/img/img-categoria-pizzas.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/templates/cadastro-login.html" afterPath="$PROJECT_DIR$/core/templates/cadastro-login.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/templates/cliente/cliente-base.html" afterPath="$PROJECT_DIR$/core/templates/cliente/cliente-base.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/templates/cliente/cliente-home.html" afterPath="$PROJECT_DIR$/core/templates/cliente/cliente-home.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/templates/cliente/cliente-pedido-integra.html" afterPath="$PROJECT_DIR$/core/templates/cliente/cliente-pedido-integra.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/templates/cliente/cliente-produto-integra.html" afterPath="$PROJECT_DIR$/core/templates/cliente/cliente-produto-integra.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/templates/cliente/cliente-realizar-pedido-endereco.html" afterPath="$PROJECT_DIR$/core/templates/cliente/cliente-realizar-pedido-endereco.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/templates/cliente/cliente-realizar-pedido-pagamento-naentrega.html" afterPath="$PROJECT_DIR$/core/templates/cliente/cliente-realizar-pedido-pagamento-naentrega.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/templates/cliente/cliente-realizar-pedido-pagamento.html" afterPath="$PROJECT_DIR$/core/templates/cliente/cliente-realizar-pedido-pagamento.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/templates/cliente/cliente-realizar-pedido-tipo-pagamento.html" afterPath="$PROJECT_DIR$/core/templates/cliente/cliente-realizar-pedido-tipo-pagamento.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/templates/cliente/cliente-restaurante-integra.html" afterPath="$PROJECT_DIR$/core/templates/cliente/cliente-restaurante-integra.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/views.py" afterPath="$PROJECT_DIR$/core/views.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/game7api/static/angular/controllers.js" afterPath="$PROJECT_DIR$/game7api/static/angular/controllers.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/game7api/static/angular/models.js" afterPath="$PROJECT_DIR$/game7api/static/angular/models.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/game7api/static/css/style_home.css" afterPath="$PROJECT_DIR$/game7api/static/css/style_home.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/angular/controllers.js" afterPath="$PROJECT_DIR$/static/angular/controllers.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/angular/models.js" afterPath="$PROJECT_DIR$/static/angular/models.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/css/style_home.css" afterPath="$PROJECT_DIR$/static/css/style_home.css" />
-    </list>
+    <list default="true" id="905ca3c0-ddf3-4b15-b409-18493b91c1ad" name="Default" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -574,7 +551,7 @@
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32238194" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.35545385" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.14579055" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.6047228" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
