@@ -1678,6 +1678,7 @@ game7App.factory("Pedido", function (Ajax,$http) {
             obj.get_pedidos_empreparo();
             obj.get_pedidos_agentrega();
             obj.get_pedidos_concluido();
+            obj.get_pedidos_status('Aguardando Aprovacao');
         }, function errorCallback(response) {
             console.log("Erro");
         });
@@ -2263,7 +2264,7 @@ game7App.factory("Carrinho", function (Ajax,$http) {
                 alert('Por favor, antes de realizar um novo pedido em outro restaurante é necessário a conclusão do primeiro.');
             }
 
-            window.location = "/cliente/";
+            window.location = "/cliente/restaurante?e_id="+TOKENS['e_id'];
           }
         )
 

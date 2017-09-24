@@ -659,7 +659,7 @@ game7App.controller('homeRestauranteCtrl', function($scope, Empresa, TipoTempo, 
             status_valor
         );
 
-        $scope.pe.get_pedidos_status('Aguardando Aprovacao');
+
     }
 });
 

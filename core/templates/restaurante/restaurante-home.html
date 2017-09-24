@@ -74,7 +74,7 @@
 
                     <div class="col-md-6">
                         <b>Faturamento</b> <br>
-                        R$ {[em.lista_empresasremessas[0].total_naentrega + em.lista_empresasremessas[0].total_mercadopago]}
+                        R$ {[(em.lista_empresasremessas[0].total_naentrega + em.lista_empresasremessas[0].total_mercadopago).toFixed(2)]}
                     </div>
                 </div>
                 <div class="col-md-6 col-md-offset-1 box-borda">
@@ -96,7 +96,7 @@
                             <tr>
                                 <td>{[em.lista_empresasremessas[0].repasses[0].data_inicio]}</td>
                                 <td>{[em.lista_empresasremessas[0].repasses[0].data_fim]}</td>
-                                <td>R$ {[em.lista_empresasremessas[0].repasses[0].total]}</td>
+                                <td>R$ {[em.lista_empresasremessas[0].repasses[0].total.toFixed(2)]}</td>
                                 <td class="col-md-2" ng-if="em.lista_empresasremessas[0].repasses[0].pago == true">Sim</td>
                                 <td class="col-md-2" ng-if="em.lista_empresasremessas[0].repasses[0].pago == false">Não</td>
                             </tr>
@@ -116,10 +116,9 @@
                                 <td style="text-align:center;">{[ped.id]}</td>
                                 <td>{[ped.cliente]}</td>
                                 <td>{[ped.bairro]}</td>
-                                <td>{[ped.total]}</td>
-                                <td>{[ped.total]}</td>
+                                <td>R$ {[ped.total.toFixed(2)]}</td>
                                 <td>{[ped.pagamento_tipo]}</td>
-                                <td><a  class="btn-sm btn-danger btn btn-default" ng-click="atualizar_status(ped.id, 'Pedido Recusado');" style="width:50%;">Recusar</a></td>
+                                <td><a class="btn-sm btn-danger btn btn-default" ng-click="atualizar_status(ped.id, 'Pedido Recusado');" style="width:50%;">Recusar</a></td>
                                 <td><a class="btn-sm btn btn-default btn-success" ng-click="atualizar_status(ped.id, 'Aguardando Preparo');" style="width:50%;">Aceitar</a></td>
                             </tr>
                         </table>

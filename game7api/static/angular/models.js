@@ -1,7 +1,7 @@
-URL_BASE = "http://0.0.0.0:8055/js/";
+//URL_BASE = "http://0.0.0.0:8055/js/";
 //URL_BASE = "http://127.0.0.1:8000/js/";
 //URL_BASE = "https://serene-atoll-63219.herokuapp.com/js/";
-//URL_BASE = "http://menuweb.com.br/js/";
+URL_BASE = "http://menuweb.com.br/js/";
 
 function getTokens(){
     var tokens = [];            // new array to hold result
@@ -1678,6 +1678,7 @@ game7App.factory("Pedido", function (Ajax,$http) {
             obj.get_pedidos_empreparo();
             obj.get_pedidos_agentrega();
             obj.get_pedidos_concluido();
+            obj.get_pedidos_status('Aguardando Aprovacao');
         }, function errorCallback(response) {
             console.log("Erro");
         });
@@ -2263,7 +2264,7 @@ game7App.factory("Carrinho", function (Ajax,$http) {
                 alert('Por favor, antes de realizar um novo pedido em outro restaurante é necessário a conclusão do primeiro.');
             }
 
-            window.location = "/cliente/";
+            window.location = "/cliente/restaurante?e_id="+TOKENS['e_id'];
           }
         )
 

@@ -2838,7 +2838,7 @@ class ServiceJson(View):
                 "empresa":pedido.empresa.nome,
                 "empresa_id":pedido.empresa.id,
                 "status":pedido.status,
-                "endereco":pedido.endereco_entrega,
+                "endereco":pedido.endereco_entrega + ", " + str(pedido.cliente.numero),
                 "bairro":pedido.bairro_entrega.nome,
                 "bairro_id":pedido.bairro_entrega.id,
                 "cidade":pedido.cidade_entrega.nome,
