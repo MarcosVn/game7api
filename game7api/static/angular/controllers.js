@@ -484,6 +484,11 @@ game7App.controller('topoCtrl', function($scope, $http, Cliente, Estado, Cidade,
     $scope.et.get_estados();
     $scope.tc.get_tiposcozinha();
 
+    $scope.cadastraremail = function(){
+        console.log("enviando a conclusao dos itens de home");
+        $("#gencadastroemail").show();
+    }
+
     $scope.efetuarlogar = function(){
         $scope.cl.logar_cliente(
             document.getElementById("loginemail").value,
@@ -500,14 +505,14 @@ game7App.controller('topoCtrl', function($scope, $http, Cliente, Estado, Cidade,
             document.getElementById("nome").value,
             document.getElementById("email").value,
             document.getElementById("senha").value,
-            document.getElementById("telefone").value,
-            document.getElementById("estado").value,
-            document.getElementById("cidade").value,
-            document.getElementById("bairro").value,
-            document.getElementById("endereco").value,
-            document.getElementById("numero").value,
-            document.getElementById("complemento").value,
-            document.getElementById("cep").value
+            document.getElementById("telefone").value
+//            document.getElementById("estado").value,
+//            document.getElementById("cidade").value,
+//            document.getElementById("bairro").value,
+//            document.getElementById("endereco").value,
+//            document.getElementById("numero").value,
+//            document.getElementById("complemento").value,
+//            document.getElementById("cep").value
             );
     }
     $scope.atualizarrestaurante = function(){

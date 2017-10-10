@@ -840,19 +840,36 @@ class ServiceJson(View):
         rows = []
 
         if query:
+
             cliente = query
+
+            cidade_nome = ''
+            cidade_id = None
+            bairro_nome = ''
+            bairro_id = None
+            estado_nome = ''
+            estado_id = None
+
+            if cliente.cidade:
+                cidade_nome = cliente.cidade.nome
+                cidade_id = cliente.cidade.id
+                bairro_nome = cliente.bairro.nome
+                bairro_id = cliente.bairro.id
+                estado_nome = cliente.cidade.estado.nome
+                estado_id = cliente.cidade.estado.id
+
             r = {
                 "id":cliente.id,
                 "nome":cliente.nome,
                 "email":cliente.email,
                 "telefone":cliente.telefone,
                 "endereco":cliente.endereco,
-                "cidade":cliente.cidade.nome,
-                "cidade_id":cliente.cidade.id,
-                "bairro":cliente.bairro.nome,
-                "bairro_id":cliente.bairro.id,
-                "estado":cliente.cidade.estado.nome,
-                "estado_id":cliente.cidade.estado.id,
+                "cidade":cidade_nome,
+                "cidade_id":cidade_id,
+                "bairro":bairro_nome,
+                "bairro_id":bairro_id,
+                "estado":estado_nome,
+                "estado_id":estado_id,
                 "complemento":cliente.complemento,
                 "numero":cliente.numero,
                 "cep":cliente.cep

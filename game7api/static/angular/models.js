@@ -1,7 +1,7 @@
-//URL_BASE = "http://0.0.0.0:8055/js/";
+URL_BASE = "http://0.0.0.0:8030/js/";
 //URL_BASE = "http://127.0.0.1:8000/js/";
 //URL_BASE = "https://serene-atoll-63219.herokuapp.com/js/";
-URL_BASE = "http://menuweb.com.br/js/";
+//URL_BASE = "http://menuweb.com.br/js/";
 
 function getTokens(){
     var tokens = [];            // new array to hold result
@@ -473,17 +473,22 @@ game7App.factory("Cliente", function (Ajax,$http) {
         f.append('email', cliente_email);
         f.append('senha', cliente_senha);
         f.append('telefone', cliente_telefone);
-        f.append('estado', cliente_estado);
-        f.append('cidade', cliente_cidade);
-        f.append('bairro', cliente_bairro);
-        f.append('endereco', cliente_endereco);
-        f.append('numero', cliente_numero);
-        f.append('complemento', cliente_complemento);
-        f.append('cep', cliente_cep);
+//        f.append('estado', cliente_estado);
+//        f.append('cidade', cliente_cidade);
+//        f.append('bairro', cliente_bairro);
+//        f.append('endereco', cliente_endereco);
+//        f.append('numero', cliente_numero);
+//        f.append('complemento', cliente_complemento);
+//        f.append('cep', cliente_cep);
         $http.post(url, f, {headers: {'Content-Type': undefined}}).success(
           function(response){
             window.localStorage.setItem("c_logado", response);
-            window.location = "/cliente";
+//                if(response[0].bairro_id > 0){
+//                    window.location = "/cliente";
+//                }
+//                else{
+            window.location = "/cliente/perfil";
+//                }
           }
         )
     };
@@ -540,8 +545,15 @@ game7App.factory("Cliente", function (Ajax,$http) {
           function(response){
             if(response.length > 0){
                 obj.clientelogado = response;
+
                 window.localStorage.setItem("c_logado", response[0].id);
-                window.location="/cliente/";
+                if(response[0].bairro_id > 0){
+                    window.location = "/cliente";
+                }
+                else{
+                    window.location = "/cliente/perfil";
+                }
+
             }
             else{
                 alert("Usuário ou senha incorretos");

@@ -14,58 +14,67 @@
                     </div>
 
                     <div class="col-md-12" style="padding:0px 25px;">
-                        <label class="control-label">Nome</label><br/>
-                        <input type="text" id="nome" name="nome" required="True" class="form-control"/>
-                        <br/>
 
-                        <label class="control-label">Email</label><br/>
-                        <input type="text" id="email" type="email" name="email" required="True" class="form-control"/>
-                        <br/>
+                        <a class="btn btn-default" id="btnLoginFace2" scope="public_profile" onclick="login();" style="display:block;width:100%;font-weight:bold;text-transform:uppercase;">Cadastrar com Facebook</a>
+                        <a class="btn btn-default" id="btnCadastrarEmail" ng-click="cadastraremail();" style="display:block;width:100%;font-weight:bold;text-transform:uppercase;">Cadastrar com Email</a>
 
-                        <label class="control-label">Senha</label><br/>
-                        <input type="password" id="senha" name="senha" required="True" class="form-control"/>
-                        <br/>
 
-                        <label class="control-label">Telefone</label><br/>
-                        <input type="number" id="telefone" name="telefone" required="True" class="form-control"/>
-                        <br/>
+                        <div id="gencadastroemail" style="display:none;padding-top:20px;margin-bottom:20px;">
+                            <label class="control-label">Nome</label><br/>
+                            <input type="text" id="nome" name="nome" required="True" class="form-control"/>
+                            <br/>
 
-                        <div class="col-md-12" style="padding-left:0px;padding-right:0px;margin-bottom:20px;">
-                            <div class="col-md-8" style="padding-left:0px;padding-right:0px;">
-                                <label class="control-label">Cep</label><br/>
-                                <input type="text" id="cep" type="text" name="cep" required="True" class="form-control"/>
-                            </div>
-                            <div class="col-md-4" style="padding-right:0px;">
-                                <a class="btn btn-default btn-laranja" ng-click="getcep();">Localizar</a>
-                            </div>
+                            <label class="control-label">Email</label><br/>
+                            <input type="text" id="email" type="email" name="email" required="True" class="form-control"/>
+                            <br/>
+
+                            <label class="control-label">Senha</label><br/>
+                            <input type="password" id="senha" name="senha" required="True" class="form-control"/>
+                            <br/>
+
+                            Em caso de problemas, avisaremos
+                            (Prioriza o cadastro do seu celular)<br/><br/>
+                            <label class="control-label">Telefone</label><br/>
+                            <input type="number" id="telefone" name="telefone" required="True" class="form-control"/>
+                            <br/>
+
+                            <a class="btn btn-default btn-laranja" ng-click="atualizar();" style="display:block;width:100%;font-weight:bold;text-transform:uppercase;"><i class="glyphicon glyphicon-ok"></i> Cadastrar</a>
                         </div>
 
-                        <label class="control-label">Estado</label><br/>
-                        <select class="form-control" name="estado" id="estado" ng-change="getcidades()" ng-options="estado as estado.fields.nome for estado in et.lista_estados track by estado.pk" ng-model="et.estado_selecionado"></select>
-                        <br/>
 
-                        <label class="control-label">Cidade</label><br/>
-                        <select class="form-control" name="cidade" id="cidade" ng-change="getbairros()" onload="set_cidade();" ng-init="set_cidade();" ng-options="cidade as cidade.fields.nome for cidade in cd.lista_cidades track by cidade.pk" ng-model="cd.cidade_selecionado"></select>
-                        <br/>
+                        <!--<div class="col-md-12" style="padding-left:0px;padding-right:0px;margin-bottom:20px;">-->
+                            <!--<div class="col-md-8" style="padding-left:0px;padding-right:0px;">-->
+                                <!--<label class="control-label">Cep</label><br/>-->
+                                <!--<input type="text" id="cep" type="text" name="cep" required="True" class="form-control"/>-->
+                            <!--</div>-->
+                            <!--<div class="col-md-4" style="padding-right:0px;">-->
+                                <!--<a class="btn btn-default btn-laranja" ng-click="getcep();">Localizar</a>-->
+                            <!--</div>-->
+                        <!--</div>-->
 
-                        <label class="control-label">Bairro</label><br/>
-                        <select class="form-control" name="bairro" id="bairro" ng-options="bairro as bairro.fields.nome for bairro in br.lista_bairros track by bairro.pk" ng-model="br.bairro_selecionado"></select>
-                        <br/>
+                        <!--<label class="control-label">Estado</label><br/>-->
+                        <!--<select class="form-control" name="estado" id="estado" ng-change="getcidades()" ng-options="estado as estado.fields.nome for estado in et.lista_estados track by estado.pk" ng-model="et.estado_selecionado"></select>-->
+                        <!--<br/>-->
 
-                        <div class="col-md-8" style="padding-left:0px;">
-                            <label class="control-label">Endereço</label><br/>
-                            <input type="text" id="endereco" type="text" name="endereco" required="True" class="form-control"/>
-                        </div>
-                        <div class="col-md-4" style="padding-right:0px;">
-                            <label class="control-label">Número</label><br/>
-                            <input type="text" id="numero" type="number" name="numero" required="True" class="form-control"/>
-                        </div>
+                        <!--<label class="control-label">Cidade</label><br/>-->
+                        <!--<select class="form-control" name="cidade" id="cidade" ng-change="getbairros()" onload="set_cidade();" ng-init="set_cidade();" ng-options="cidade as cidade.fields.nome for cidade in cd.lista_cidades track by cidade.pk" ng-model="cd.cidade_selecionado"></select>-->
+                        <!--<br/>-->
 
-                        <label style="margin-top:20px;" class="control-label">Complemento</label><br/>
-                        <input type="text" id="complemento" type="text" name="complemento" required="True" class="form-control"/>
+                        <!--<label class="control-label">Bairro</label><br/>-->
+                        <!--<select class="form-control" name="bairro" id="bairro" ng-options="bairro as bairro.fields.nome for bairro in br.lista_bairros track by bairro.pk" ng-model="br.bairro_selecionado"></select>-->
+                        <!--<br/>-->
 
-                        <br>
-                        <a class="btn btn-default btn-laranja" ng-click="atualizar();" style="margin-bottom:20px;"><i class="glyphicon glyphicon-ok"></i> Cadastrar</a>
+                        <!--<div class="col-md-8" style="padding-left:0px;">-->
+                            <!--<label class="control-label">Endereço</label><br/>-->
+                            <!--<input type="text" id="endereco" type="text" name="endereco" required="True" class="form-control"/>-->
+                        <!--</div>-->
+                        <!--<div class="col-md-4" style="padding-right:0px;">-->
+                            <!--<label class="control-label">Número</label><br/>-->
+                            <!--<input type="text" id="numero" type="number" name="numero" required="True" class="form-control"/>-->
+                        <!--</div>-->
+
+                        <!--<label style="margin-top:20px;" class="control-label">Complemento</label><br/>-->
+                        <!--<input type="text" id="complemento" type="text" name="complemento" required="True" class="form-control"/>-->
                     </div>
                 </div>
 
