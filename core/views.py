@@ -2774,7 +2774,6 @@ class ServiceJson(View):
         valor_maximo = request.GET.get("valor_max")
         status = request.GET.get("status")
 
-
         cliente_id = request.GET.get("cliente_id")
         empresa_id = request.GET.get("empresa_id")
 
@@ -2790,7 +2789,7 @@ class ServiceJson(View):
             if (data_fim):
                 query = query.filter(data__gte=data_inicio, data_lte=data_fim)
             else:
-                query = query.filter(data__gte=data_inicio)
+                query = query.filter(data=data_inicio)
 
 
         if (id > 0):
@@ -3212,6 +3211,9 @@ class ServiceJson(View):
 
         # Objeto de Itens
         oPagamento = oPedido.Pagamento.get()
+
+        if not troco:
+            troco=0
 
         if cpfnanota == "1":
             oPagamento.cpfnanota = True

@@ -1547,6 +1547,28 @@ game7App.factory("Pedido", function (Ajax,$http) {
         });
     };
 
+
+    obj.filtrar_pedidos_logado= function (data_pedido, status) {
+        var url = URL_BASE + "pedidos";
+        var params = {
+            cliente_id:window.localStorage.getItem("c_logado"),
+            data_inicio:data_pedido,
+            status:status
+        }
+        $http({
+            method: "GET",
+            params: params,
+            url: url,
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }).then(function successCallback(response) {
+            obj.lista_pedidos= response.data;
+        }, function errorCallback(response) {
+            console.log("Erro");
+        });
+    };
+
     obj.get_pedidos_agpreparo= function () {
         var url = URL_BASE + "pedidos";
         var params = {
@@ -1793,6 +1815,10 @@ game7App.factory("Pedido", function (Ajax,$http) {
     obj.save_pagamento_obs = function (troco,outro,cpfnanota,bandeira,cpf) {
         var url = URL_BASE + "saveobspagamentopedido";
         var f = new FormData();
+
+        if (troco == null){
+            troco = 0;
+        }
 
         if (troco > 0){
             if(troco <= obj.pedidoselecionado[0].total){

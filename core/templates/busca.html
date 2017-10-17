@@ -2,27 +2,24 @@
 {% block title %}Bem vindo{% endblock %}
 {% load staticfiles %}
 {% block content %}
-<div class="sobre" ng-controller="buscaCtrl" style="min-height:800px;">
+<div class="sobre cliente-home" ng-controller="buscaCtrl" style="min-height:800px;">
     <div class="container">
         <div class="row">
-            <div class="col-md-12" style="min-height:500px;">
-                <div class="col-md-12">
-                    <b>BUSCA</b><br/>
-                    <small>Restaurantes de realizam entregas no seu bairro</small>
-                </div>
-                <div class="col-md-6 well" ng-repeat="emp in em.lista_empresas" style="background-color:#fff;">
-                    <a data-toggle="modal" data-target="#poplogin" href="#">
-                        <div class="col-md-12 col-xs-12" style="padding:2px;color:#bc2026;text-transform:uppercase;padding:0px; margin-bottom:2px;font-weight:bold;">
+            <div class="col-md-12 lista-home" style="min-height:500px;">
+                <input class="form-control" id="iFiltro" ng-keyup="filtrar();"  placeholder="Buscar Prato ou restaurante" style="margin-bottom:30px;">
+                <div class="col-md-12 lista-home-item" ng-repeat="emp in em.lista_empresas">
+                    <a href="/cliente/restaurante?e_id={[emp.id]}">
+                        <div class="col-md-12 col-xs-12" style="padding:2px;padding:0px; margin-bottom:2px;font-weight:bold;">
                             <div class="col-md-2 col-xs-2" style="padding:0px;">
-                                <img class="img-rounded" style="width:60px;height:60px;" ng-src="{[em.caminho_foto]}{[emp.logotipo]}" width="40" />
+                                <img class="img-circle" style="width:80px;height:80px;" ng-src="{[em.caminho_foto]}{[emp.logotipo]}" />
                             </div>
                             <div class="col-md-9 col-xs-9" style="padding:0px;">
                                 <b>{[emp.nome]}</b>
-                                <p style="color:#333;">
-                                    {[emp.tipocozinha]}
+                                <p>
+                                    {[emp.tipocozinha]} | $$$
                                 </p>
                             </div>
-                            <div class="col-md-1 col-xs-1" style="padding:0px;">
+                            <div class="col-md-1 col-xs-1 nota" style="padding:0px;">
                                 <img src="{% static 'img/estrela_amarela.png'%}" style="width:18px;">
                                 {[emp.nota_atual.toFixed(2)]}
                             </div>

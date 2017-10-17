@@ -1033,6 +1033,11 @@ game7App.controller('pedidosClienteCtrl', function($scope, Pedido) {
     $scope.pe = Pedido;
     $scope.pe.get_pedidos_logado();
 //    $scope.em.get_empresalogadorepasse();
+
+    $scope.filtrar_pedido = function(){
+        $scope.pe.filtrar_pedidos_logado($('#data').val(), $('#selStatus').val());
+    }
+
 });
 
 
@@ -1042,6 +1047,7 @@ game7App.controller('restauranteintegraClienteCtrl', function($scope, Empresa, P
 
     $scope.pt = Produto;
     $scope.pt.get_cardapio();
+
 //    $scope.em.get_empresalogadorepasse();
 });
 
@@ -1052,6 +1058,17 @@ game7App.controller('carrinhoCtrl', function($scope, Produto, Carrinho) {
 
     $scope.cr = Carrinho;
     $scope.cr.get_carrinhos();
+
+    $scope.fechar_pedido = function(){
+
+        if ($scope.cr.lista_compra.length > 0){
+            window.location = "/cliente/realizarpedido/endereco";
+        }
+        else{
+            alert("Por favor, adicione pelo menos um produto.");
+        }
+
+    }
 
     $scope.add_opcao_quantidade = function(opcional_id, opcao_id){
         for (x = 0; x < $scope.pt.produtoselecionado[0].opcionais.length; x++){
@@ -1250,8 +1267,6 @@ game7App.controller('realizarpedidosCtrl', function($scope, Pedido, Cliente, Est
         if ($scope.text) {
             $scope.list.push(this.text);
             $scope.text = '';
-
-            alert($scope.list);
         }
         //http://127.0.0.1:8010/js/efetuar-pagamento
 
@@ -1293,4 +1308,8 @@ game7App.controller('homeCtrl', function($scope, Home, $http, Empresa) {
 game7App.controller('buscaCtrl', function($scope, Empresa) {
     $scope.em = Empresa;
     $scope.em.get_empresas_buscas_home();
+
+    $scope.filtrar = function(){
+        $scope.em.get_empresas_buscas(document.getElementById('iFiltro').value);
+    }
 });

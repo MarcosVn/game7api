@@ -59,10 +59,10 @@
                                     </ul>
                                 </div>
                             </div>
-                            <div class="col-md-4 well carrinho">
+                            <div class="col-md-4 well carrinho" ng-controller="carrinhoCtrl">
                                 <b class="ttl-padrao"><i class="glyphicon glyphicon-shopping-cart"></i> CARRINHO</b>
 
-                                <div ng-controller="carrinhoCtrl">
+                                <div>
                                     <div class="col-md-12" style="padding:0px;">
                                         <div ng-repeat="item in cr.lista_compra" class="lista-compra">
                                             <div class="col-md-1">{[item.quantidade]}</div>
@@ -84,7 +84,7 @@
                                     </div>
                                 </div>
 
-                                <a href="/cliente/realizarpedido/endereco" class="btn btn-default btn-laranja" style="background-color:#FF3E00;width:100%;">Fechar Pedido</a>
+                                <a ng-click="fechar_pedido()" class="btn btn-default btn-laranja" style="background-color:#FF3E00;width:100%;">Fechar Pedido</a>
 
                             </div>
                         </div>

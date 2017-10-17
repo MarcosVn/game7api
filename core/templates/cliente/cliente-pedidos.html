@@ -5,61 +5,42 @@
 <div class="cliente-home" ng-controller="pedidosClienteCtrl">
     <div class="container">
         <div class="row">
-            <div class="col-md-12" style="margin:10px 0px 30px 0px;">
-                <h4>PEDIDOS</h4>
-
-                <div class="col-md-12" style="padding:0px;margin-bottom:50px;">
-                    <div class="col-md-4" style="font-size:10px;" ng-repeat="ped in pe.lista_pedidos">
-                        <ul class="list-group">
-                            <li class="list-group-item">
-                                <b>DATA</b><br>
-                                {[ped.data]}
-                            </li>
-                            <li class="list-group-item">
-                                <b>RESTAURANTE</b><br>
-                                {[ped.empresa]}
-                            </li>
-                            <li class="list-group-item">
-                                <b>ENTREGA</b><br>
-                                {[ped.endereco]}, {[ped.bairro]} -
-                                {[ped.cidade]}
-                            </li>
-                            <li class="list-group-item">
-                                <b>ITENS</b>
-                                <table class="table" style="font-size:10px;margin-bottom:0px;">
-                                    <thead>
-                                        <tr>
-                                            <th>Produto</th>
-                                            <th>Quantidade</th>
-                                            <th>Observação</th>
-                                            <th>Preço</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr ng-repeat="it in ped.itens">
-                                            <td>{[it.produto]}</td>
-                                            <td>{[it.quantidade]}</td>
-                                            <td>{[it.observacao]}</td>
-                                            <td>R$ {[it.preco_parcial.toFixed(2)]}</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </li>
-                            <li class="list-group-item">
-                                <b>PAGAMENTO</b><br>
-                                {[ped.pagamento_obs]} - {[ped.pagamento_tipo]}
-                            </li>
-                            <li class="list-group-item">
-                                <b>STATUS</b><br>
-                                {[ped.status]}
-                            </li>
-                            <li class="list-group-item">
-                                <b class="label label-primary" style="font-size: 16PX;padding: 14PX 0PX;text-align: center;display: block;">
-                                R$ {[ped.total.toFixed(2)]}
-                                </b>
-                            </li>
-                        </ul>
-                    </div>
+            <h4>PEDIDOS</h4>
+            <div class="col-md-12" style="margin:0px 0px 30px 0px;">
+                <div class="col-md-5">
+                    <input type="date" class="form-control" id="data" />
+                </div>
+                <div class="col-md-5">
+                    <select class="form-control" id="selStatus">
+                        <option value="">Todos os status</option>
+                        <option value="Aguardando o Tipo de Pagamento">Aguardando o Tipo de Pagamento</option>
+                        <option value="Aguardando Pagamento">Aguardando Pagamento</option>
+                        <option value="Aguardando Aprovacao">Aguardando Aprovação</option>
+                        <option value="Aguardando Preparo">Aguardando Preparo</option>
+                        <option value="Em Preparo">Em Preparo</option>
+                        <option value="Aguardando Entrega">Aguardando Entrega</option>
+                        <option value="Avaliado">Avaliado</option>
+                    </select>
+                </div>
+                <div class="col-md-2">
+                    <a class="btn btn-default btn-laranja" ng-click="filtrar_pedido()">Filtrar</a>
+                </div>
+            </div>
+            <div class="col-md-12" ng-repeat="ped in pe.lista_pedidos" style="margin:0px 0px 30px 0px;">
+                <div class="col-md-2">
+                    {[ped.data]}
+                </div>
+                <div class="col-md-3">
+                    {[ped.empresa]}
+                </div>
+                <div class="col-md-2">
+                    R$ {[ped.total.toFixed(2)]}
+                </div>
+                <div class="col-md-3">
+                    {[ped.status]}
+                </div>
+                <div class="col-md-2">
+                    <a class="btn btn-sm btn-default btn-laranja" href="/cliente/pedido?p_id={[ped.id]}">Ver</a>
                 </div>
             </div>
         </div>
