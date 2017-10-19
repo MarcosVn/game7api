@@ -1302,12 +1302,13 @@ game7App.factory("Produto", function (Ajax,$http) {
         });
     };
 
-    obj.get_cardapio= function (nome_produto) {
+    obj.get_cardapio= function (subcategoria_id, nome_produto) {
 //        var url = URL_BASE + "produtos";
         var url = URL_BASE + "cardapio";
         var params = {
             empresa_id:TOKENS["e_id"],
-            nome:nome_produto
+            nome:nome_produto,
+            subcategoria_id:subcategoria_id
         }
         $http({
             method: "GET",

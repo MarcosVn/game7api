@@ -2535,6 +2535,7 @@ class ServiceJson(View):
         preco = request.GET.get("preco")
         empresa_id = request.GET.get("empresa_id")
         restaurante_nome = request.GET.get("restaurante")
+        subcategoria_id = request.GET.get("subcategoria_id")
 
         if (id == 'undefined'):
             id = int()
@@ -2554,6 +2555,9 @@ class ServiceJson(View):
             query = query.filter(empresa__id=empresa_id)
         if (restaurante_nome):
             query = query.filter(empresa__nome__icontains=restaurante_nome)
+        if (subcategoria_id):
+            if not (subcategoria_id == '?'):
+                query = query.filter(subcategorias__id=subcategoria_id)
 
 
         rows = []

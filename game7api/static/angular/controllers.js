@@ -1049,6 +1049,10 @@ game7App.controller('restauranteintegraClienteCtrl', function($scope, Empresa, P
     $scope.pt.get_cardapio();
 
 //    $scope.em.get_empresalogadorepasse();
+    $scope.filtrar_produtos = function(){
+        $scope.pt.get_cardapio($('#filtro_sub').val(),$('#filtroprato').val());
+
+    }
 });
 
 game7App.controller('carrinhoCtrl', function($scope, Produto, Carrinho) {

@@ -37,6 +37,16 @@
                     <div class="tab-content clearfix">
                         <div class="tab-pane active" id="cardapio">
                             <div class="col-md-8 cardapio-produtos"  style="padding:0px;">
+                                <div class="col-md-12" style="margin-bottom:20px;">
+                                    <div class="col-md-5">
+                                        <select class="form-control" name="filtro_sub" id="filtro_sub" ng-options="subcategoria as prodscat.subcategoria for prodscat in pt.lista_produtos track by prodscat.subcategoria_id" ng-model="pt.sel_categoria_filtro"></select>
+                                    </div>
+                                    <div class="col-md-5">
+                                        <input type="text" id="filtroprato" placeholder="Prato" class="form-control">
+                                    </div>
+                                    <a ng-click="filtrar_produtos()" class="btn btn-default btn-laranja" style="color:#fff;">Filtrar</a>
+
+                                </div>
                                 <div ng-repeat="prodscat in pt.lista_produtos">
                                     <b style="font-size:10px;margin:10px;text-transform:uppercase;">{[prodscat.subcategoria]}</b>
                                     <ul class="col-md-12">
