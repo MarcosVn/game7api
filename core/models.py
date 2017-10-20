@@ -259,6 +259,10 @@ class Avaliacao(models.Model):
     nota = models.IntegerField(default=0)
     data = models.DateField(auto_now=True)
     mensagem = models.CharField(max_length=1024, null=True, blank=True)
+    embalagem = models.IntegerField(default=0)
+    comida = models.IntegerField(default=0)
+    tempo_entrega = models.IntegerField(default=0)
+    custo_beneficio = models.IntegerField(default=0)
 
     class Meta:
         verbose_name = "Avaliação"
