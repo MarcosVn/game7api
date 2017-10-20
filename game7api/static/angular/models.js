@@ -1,5 +1,5 @@
-URL_BASE = "http://0.0.0.0:8030/js/";
-//URL_BASE = "http://127.0.0.1:8000/js/";
+//URL_BASE = "http://0.0.0.0:8030/js/";
+URL_BASE = "http://0.0.0.0:8000/js/";
 //URL_BASE = "https://serene-atoll-63219.herokuapp.com/js/";
 //URL_BASE = "http://menuweb.com.br/js/";
 
@@ -2274,6 +2274,7 @@ game7App.factory("Carrinho", function (Ajax,$http) {
 
             obj.lista_compra = response.data.lista_compra;
             obj.frete = response.data.frete;
+            obj.tempo_estimado = response.data.tempo_estimado;
 
             if(obj.lista_compra.length > 0){
                 obj.var_total_geral = response.data.total_compra + obj.frete;
