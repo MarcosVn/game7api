@@ -1,3 +1,4 @@
+# -*- coding:utf8
 from django.shortcuts import render, redirect, render_to_response
 from django.views.generic.base import View
 from core.models import *
@@ -3078,17 +3079,16 @@ class ServiceJson(View):
 
         sum_compra = 0.0
         frete = 0.0
-
+        tempo_estimado = "Não informado"
 
         if len(ocarrinho) > 0:
             empresa = ocarrinho[0].produto.empresa
             cliente = ocarrinho[0].cliente
+            tempo_estimado = ocarrinho[0].produto.empresa.tempo.nome
 
             for bairro in empresa.BairrosAtendimento.all():
                 if cliente.bairro.id == bairro.bairro.id:
                     frete = bairro.frete
-
-
 
         for item in ocarrinho:
             sum_compra = sum_compra + (item.preco * item.quantidade)
@@ -3108,6 +3108,7 @@ class ServiceJson(View):
         result = {
             "lista_compra":rows,
             "frete": frete,
+            "tempo_estimado": tempo_estimado,
             "total_compra": sum_compra
         }
 
