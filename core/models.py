@@ -263,6 +263,8 @@ class Avaliacao(models.Model):
     comida = models.IntegerField(default=0)
     tempo_entrega = models.IntegerField(default=0)
     custo_beneficio = models.IntegerField(default=0)
+    chegou_hora = models.BooleanField(default=False)
+    avaliacao_menuweb = models.IntegerField(default=0)
 
     class Meta:
         verbose_name = "Avaliação"

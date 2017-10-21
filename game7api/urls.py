@@ -55,6 +55,7 @@ urlpatterns = [
     url(r'^cliente/realizarpedido/pagamento-naentrega', clienteRealizarPedidoPagamentoNaEntregaView.as_view(), name = "ClienteRealizarPedidoPagamentoNaEntrega"),
     url(r'^cliente/realizarpedido/pagamento$', clienteRealizarPedidoPagamentoView.as_view(), name = "ClienteRealizarPedidoPagamentoNaEntrega"),
     url(r'^cliente/pedido', clientePedidoIntegraView.as_view(), name = "ClientePedidoIntegra"),
+    url(r'^cliente/avaliacao', clienteAvaliacaoView.as_view(), name = "ClienteAvaliacao"),
 
 
     url(r'^adm/login/', adminLoginView.as_view(), name = "Login"),
