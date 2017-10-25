@@ -115,6 +115,9 @@ class clienteRealizarPedidoPagamentoView(View):
 class clientePedidoIntegraView(View):
     def get(self, request, *args, **kwargs):
         return render_to_response('cliente/cliente-pedido-integra.html', {}, RequestContext(request))
+class clienteAvaliacaoView(View):
+    def get(self, request, *args, **kwargs):
+        return render_to_response('cliente/cliente-avaliacao.html', {}, RequestContext(request))
 
 
 

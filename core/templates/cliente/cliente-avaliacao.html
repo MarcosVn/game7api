@@ -1,0 +1,109 @@
+{% extends "cliente/cliente-base.html" %}
+{% block title %}MenuWeb - Clientes{% endblock %}
+{% load staticfiles %}
+{% block content %}
+<div class="cliente-home" ng-controller="realizarpedidosCtrl">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 pagina-avaliacoes">
+                <div class="col-md-12 topo">
+                    <div class="col-md-8">
+                        <b class="ttl-laranja">MINHAS ÚLTIMAS ATUALIZAÇÕES</b>
+                    </div>
+                    <div class="col-md-2">
+                        <a class="btn btn-default btn-laranja">Pedidos Avaliados</a>
+                    </div>
+                    <div class="col-md-2">
+                        <a class="btn btn-default btn-laranja">Avaliações Recentes</a>
+                    </div>
+                </div>
+
+                <div class="col-md-12" id="avaliacoes-pendentes">
+                    <ul>
+                        <li>
+                            <div class="col-md-6 ttl-laranja">
+                                Pizza Hut
+                            </div>
+                            <div class="col-md-6 ttl-laranja">
+                                Pedido realizado: <b>31/10/2017</b>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="col-md-12 box-cinza-claro">
+                                    <div class="col-md-4">
+                                        Nota Final <br>
+                                        5
+                                        <div class="rating">
+                                            <span>☆</span>
+                                            <span>☆</span>
+                                            <span>☆</span>
+                                            <span>☆</span>
+                                            <span>☆</span>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-8">
+                                        <div class="col-md-6">
+                                            Embalagem
+                                        </div>
+                                        <div class="col-md-6 ">
+                                            <div class="rating">
+                                                <span>☆</span>
+                                                <span>☆</span>
+                                                <span>☆</span>
+                                                <span>☆</span>
+                                                <span>☆</span>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-6">
+                                            Comida
+                                        </div>
+                                        <div class="col-md-6 ">
+                                            <div class="rating">
+                                                <span>☆</span>
+                                                <span>☆</span>
+                                                <span>☆</span>
+                                                <span>☆</span>
+                                                <span>☆</span>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-6">
+                                            Tempo de Entrega
+                                        </div>
+                                        <div class="col-md-6 ">
+                                            <div class="rating">
+                                                <span>☆</span>
+                                                <span>☆</span>
+                                                <span>☆</span>
+                                                <span>☆</span>
+                                                <span>☆</span>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-6">
+                                            Custo/ Benefício
+                                        </div>
+                                        <div class="col-md-6 ">
+                                            <div class="rating">
+                                                <span>☆</span>
+                                                <span>☆</span>
+                                                <span>☆</span>
+                                                <span>☆</span>
+                                                <span>☆</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
