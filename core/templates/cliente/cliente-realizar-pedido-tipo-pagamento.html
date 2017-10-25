@@ -2,50 +2,68 @@
 {% block title %}MenuWeb - Clientes{% endblock %}
 {% load staticfiles %}
 {% block content %}
-<div class="cliente-home" ng-controller="realizarpedidosCtrl">
+<div class="cliente-home">
     <div class="container">
         <div class="row">
             <div class="col-md-8 col-md-offset-2">
+                <div class="col-md-4 well carrinho" ng-controller="carrinhoCtrl">
+                    <b class="ttl-padrao"><i class="glyphicon glyphicon-shopping-cart"></i> CARRINHO</b>
+
+                    <div>
+                        <div class="col-md-12" style="padding:0px;">
+                            <div ng-repeat="item in cr.lista_compra" class="lista-compra">
+                                <div class="col-md-1">{[item.quantidade]}</div>
+                                <div class="col-md-5 ttl-carrinho-item">{[item.produto]}</div>
+                                <div class="col-md-4">R$ {[(item.produto_preco * item.quantidade).toFixed(2)]}</div>
+                                <div class="col-md-2"><a ng-click="rm_lista(item.id);" class="btn-xs btn btn-danger">x</a></div>
+                            </div>
+
+                                <table class="table info-saldo">
+                                    <tr>
+                                        <td>Taxa de Entrega</td>
+                                        <td>R$ {[(cr.frete).toFixed(2)]}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Total</td>
+                                        <td>R$ {[(cr.var_total_geral).toFixed(2)]}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Tempo Estimado</td>
+                                        <td>{[cr.tempo_estimado]}</td>
+                                    </tr>
+                                </table>
+                        </div>
+                    </div>
+                    <a ng-click="fechar_pedido()" class="btn btn-default btn-laranja" style="background-color:#FF3E00;width:100%;">ALTERAR PEDIDO</a>
+                </div>
+            </div>
+            <div ng-controller="realizarpedidosCtrl" class="col-md-8 col-md-offset-2">
+                <h4 style="color: red">FORMA DE PAGAMENTO {[tipo_pagamento]} </h4>
                 <div class="col-md-12 ttl-orange-cadastro" style="margin-top:20px;">
                     <b>TIPO DE PAGAMENTO</b>
                     <p></p>
                 </div>
-                <div class="col-md-12" style="min-height:300px;">
+                <div class="col-md-12">
                     <div ng-show="em.empresapedido.aceita_pagamentoonline">
-                        <div style="padding: 10px 12px;background-color:#F2F2F2;">
-                            <img src="{% static 'img/ico-wifi.png' %}" class="img-rounded" style="width:20px;margin-right:5px" alt="webMenu">
-                            Pague Online
-                        </div>
-
-                        <ul class="list-group" style="margin-bottom:0px;">
-                            <li class="list-group-item" style="border-radius:0px; border-left:0px; border-right:0px;"><input type="radio" name="rd_pagamento_tipo" value="mercado_pago"> Cartão de Crédito<br></li>
-                        </ul>
+                        <input type="radio" name="rd_pagamento_tipo" ng-model="tipo_pagamento" value="mercado_pago"> Cartão de Crédito<br>
                     </div>
-
                     <div ng-show="em.empresapedido.restaurante_status == 'ok'">
-                        <div style="padding: 10px 12px;background-color:#F2F2F2;">
-                            <img src="{% static 'img/ico-wallet.png' %}" class="img-rounded" style="width:20px;margin-right:5px" alt="webMenu">
-                            Pague na Entrega
-                        </div>
-
-                        <ul class="list-group" style="margin-bottom:0px;">
-                          <li ng-show="em.empresapedido.aceita_cartao" class="list-group-item" style="border-radius:0px; border-left:0px; border-right:0px;"><input type="radio" name="rd_pagamento_tipo" value="na_entrega_cartao" checked="true" > Cartão de débito/crédito<br></li>
-                          <li class="list-group-item" style="border-radius:0px; border-left:0px; border-right:0px;"><input type="radio" name="rd_pagamento_tipo" value="na_entrega_dinheiro" checked="true" > Dinheiro<br></li>
-                        </ul>
+                        <input ng-show="em.empresapedido.aceita_cartao" type="radio" name="rd_pagamento_tipo" ng-model="tipo_pagamento" value="na_entrega_cartao" checked="true" > Cartão de débito/crédito<br>
+                        <input type="radio" name="rd_pagamento_tipo" ng-model="tipo_pagamento" value="na_entrega_dinheiro" checked="true" > Dinheiro<br>
 
                         <div ng-show="em.empresapedido.aceita_valerefeicao" >
-                            <div style="padding: 10px 12px;background-color:#F2F2F2;">
-                                <img src="{% static 'img/ico-vr.png' %}" class="img-rounded" style="width:20px;margin-right:5px" alt="webMenu">
-                                Vale Refeição
-                            </div>
-
-                            <ul class="list-group" style="margin-bottom:80px;">
-                              <li class="list-group-item" style="border-radius:0px; border-left:0px; border-right:0px;"><input type="radio" name="rd_pagamento_tipo" value="na_entrega_valerefeicao_sodexo" checked="true" > Sodexo<br></li>
-                              <li class="list-group-item" style="border-radius:0px; border-left:0px; border-right:0px;"><input type="radio" name="rd_pagamento_tipo" value="na_entrega_valerefeicao_visavale" checked="true" > Visa Vale<br></li>
-                            </ul>
+                            <input type="radio" name="rd_pagamento_tipo" ng-model="tipo_pagamento" value="na_entrega_valerefeicao_sodexo" checked="true" > Sodexo<br>
+                            <input type="radio" name="rd_pagamento_tipo" ng-model="tipo_pagamento" value="na_entrega_valerefeicao_visavale" checked="true" > Visa Vale<br>
                         </div>
                     </div>
+                </div>
+                <div ng-if="tipo_pagamento=='mercado_pago'" class="col-md-12">tipo de pagamento: {[tipo_pagamento]}</div>
+                <div ng-if="tipo_pagamento=='na_entrega_cartao'" class="col-md-12">tipo de pagamento: {[tipo_pagamento]}</div>
+                <div ng-if="tipo_pagamento=='na_entrega_dinheiro'" class="col-md-12">tipo de pagamento: {[tipo_pagamento]}</div>
+                <div ng-if="tipo_pagamento=='na_entrega_valerefeicao_sodexo'" class="col-md-12">tipo de pagamento: {[tipo_pagamento]}</div>
+                <div ng-if="tipo_pagamento=='na_entrega_valerefeicao_visavale'" class="col-md-12">tipo de pagamento: {[tipo_pagamento]}</div>
 
+                <div class="final_pagamento col-md-12">
                     <a ng-click="atualizar_tipo_pagamento();" class="btn btn-default btn-laranja" style="display:block;">CONFIRMAR TIPO DE PAGAMENTO <i class="glyphicon glyphicon-credit-card"></i></a>
                 </div>
             </div>

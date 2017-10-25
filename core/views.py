@@ -2938,7 +2938,10 @@ class ServiceJson(View):
 
         oPedido.status = 'Aguardando o Tipo de Pagamento'
 
-        oPedido.save()
+        try:
+            oPedido.save()
+        except Exception as e:
+            print e
 
         # Arrumando a lista de itens
         for item_carrinho in listacompras:
