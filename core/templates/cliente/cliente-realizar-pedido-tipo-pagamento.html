@@ -57,9 +57,18 @@
                         </div>
                     </div>
                 </div>
-                <div ng-if="tipo_pagamento=='mercado_pago'" class="col-md-12">tipo de pagamento: {[tipo_pagamento]}</div>
-                <div ng-if="tipo_pagamento=='na_entrega_cartao'" class="col-md-12">tipo de pagamento: {[tipo_pagamento]}</div>
-                <div ng-if="tipo_pagamento=='na_entrega_dinheiro'" class="col-md-12">tipo de pagamento: {[tipo_pagamento]}</div>
+                <div ng-if="tipo_pagamento=='mercado_pago'" class="col-md-12">
+                    tipo de pagamento: {[tipo_pagamento]}
+                    <div pagamento></div>
+                </div>
+                <div ng-if="tipo_pagamento=='na_entrega_cartao'" class="col-md-12">
+                    tipo de pagamento: {[tipo_pagamento]}
+                    <div naentrega tipo="cartao"></div>
+                </div>
+                <div ng-if="tipo_pagamento=='na_entrega_dinheiro'" class="col-md-12">
+                    tipo de pagamento: {[tipo_pagamento]}
+                    <div naentrega tipo="dinheiro"></div>
+                </div>
                 <div ng-if="tipo_pagamento=='na_entrega_valerefeicao_sodexo'" class="col-md-12">tipo de pagamento: {[tipo_pagamento]}</div>
                 <div ng-if="tipo_pagamento=='na_entrega_valerefeicao_visavale'" class="col-md-12">tipo de pagamento: {[tipo_pagamento]}</div>
 
