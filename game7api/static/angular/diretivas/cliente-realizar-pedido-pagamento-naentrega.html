@@ -1,11 +1,7 @@
-{% extends "cliente/cliente-base.html" %}
-{% block title %}MenuWeb - Clientes{% endblock %}
-{% load staticfiles %}
-{% block content %}
 <div class="cliente-home" ng-controller="realizarpedidosCtrl">
-    <div class="container">
+    <div class="container" style="padding-left: 0">
         <div class="row">
-            <div  class="col-md-8 col-md-offset-2">
+            <div  class="col-md-8">
                 <div class="col-md-12 ttl-orange-cadastro" style="margin-top:20px;">
                     <b>PAGAMENTO</b>
                     <p>Caso deseja o CPF na nota, por favor selecione a opção e preencha o mesmo</p>
@@ -52,5 +48,3 @@
         </div>
     </div>
 </div>
-
-{% endblock %}

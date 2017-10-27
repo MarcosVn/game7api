@@ -1,82 +1,6 @@
-{% extends "cliente/cliente-base.html" %}
-{% block title %}MenuWeb - Clientes{% endblock %}
-{% load staticfiles %}
-{% block content %}
-<script src="https://secure.mlstatic.com/sdk/javascript/v1/mercadopago.js"></script>
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.3/jquery.min.js" type="text/javascript"></script>
-<script>
-    Mercadopago.setPublishableKey("APP_USR-d5bb8381-1a3b-4878-9813-bb1d2a46e56d");
-</script>
-<div class="cliente-home" ng-controller="realizarpedidosCtrl">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-8 col-md-offset-2">
-                <div class="col-md-12 ttl-orange-cadastro" style="margin-top:20px;">
-                    <b>PAGAMENTO</b>
-                    <p>Caso deseja o CPF na nota, por favor selecione a opção e preencha o mesmo</p>
-                </div>
-                <div class="col-md-12">
-                    <form method="post" class="col-md-12" id="pay" name="pay" style="padding:0px;" >
-                        <fieldset>
-                            <div>
-                                <div class="col-md-12" style="margin-bottom:10px;padding: 0px;">
-                                    <div class="col-md-12">
-                                        <label for="cardNumber">Número do Cartão</label>
-                                        <input type="text" id="cardNumber" data-checkout="cardNumber" placeholder="4509 9535 6623 3704" class="form-control"/>
-                                    </div>
-                                </div>
-
-                                <div class="col-md-12" style="margin-bottom:10px;padding: 0px;">
-                                    <div class="col-md-3" style="padding-right:2px;">
-                                        <label for="cardExpirationMonth">Mês</label>
-                                        <input type="text" id="cardExpirationMonth" name="cardExpirationMonth" data-checkout="cardExpirationMonth" placeholder="12" class="form-control"/>
-                                    </div>
-                                    <div class="col-md-3"  style="padding-left:2px;">
-                                        <label for="cardExpirationYear">Ano</label>
-                                        <input type="text" id="cardExpirationYear" name="cardExpirationYear" data-checkout="cardExpirationYear" placeholder="2015" class="form-control"/>
-                                    </div>
-                                    <div class="col-md-6" >
-                                        <label for="securityCode">CVC</label><br>
-                                        <input type="text" id="securityCode" data-checkout="securityCode" style="width:80px;display:inline-block;" placeholder="123" class="form-control"/>
-                                        <img src="{% static 'img/credit-card-cvv.png'%}" style="width:50px;margin-top:-6px;">
-                                    </div>
-                                </div>
-
-                                <div class="col-md-12" style="margin-bottom:10px;padding: 0px;">
-                                    <div class="col-md-12 col-xs-12">
-                                        <label for="cardholderName">Nome no Cartão</label>
-                                        <input type="text" id="cardholderName" data-checkout="cardholderName" placeholder="João da Silva" class="form-control"/>
-                                    </div>
-                                </div>
-
-                                <div class="col-md-12"  style="margin-bottom:80px;padding: 0px;">
-                                    <div class="col-md-12 col-xs-12">
-                                        <label for="docNumber">CPF</label>
-                                        <input type="text" id="docNumber" data-checkout="docNumber" placeholder="12345678" class="form-control" />
-                                        <br>
-
-                                        <label for="cpf_nota">CPF na nota?</label><br>
-                                        <input type="checkbox" name="cpf_nota" id="cpf_nota" value="1"> Sim
-                                    </div>
-                                </div>
-
-                                <input data-checkout="docType" id="docType" type="hidden" value="CPF" />
-                                <select id="issuer" name="issuer"></select>
-                                <input id="amount" type="hidden" value="{[pe.pedidoselecionado[0].total]}"/>
-                                <input id="pedido_id" type="hidden" value="{[pe.pedidoselecionado[0].id]}"/>
-                                <select id="installments" style="display:none;" name="installments"></select>
-                            </div>
-                            <div class="col-md-12 rodape-pedido">
-                                <input type="submit" class="btn-default btn-laranja" value="CONCLUIR PAGAMENTO" />
-                            </div>
-                        </fieldset>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<script>
+function carrega_mercadopago(){
+if(escolhe_mercado_pago===true){
+Mercadopago.setPublishableKey("APP_USR-d5bb8381-1a3b-4878-9813-bb1d2a46e56d");
 //obter bandeira do cartão
 function addEvent(el, eventName, handler){
     if (el.addEventListener) {
@@ -384,6 +308,5 @@ addEvent(document.querySelector('input[data-checkout="cardNumber"]'), 'keyup', g
 addEvent(document.querySelector('input[data-checkout="cardNumber"]'), 'keyup', clearOptions);
 addEvent(document.querySelector('input[data-checkout="cardNumber"]'), 'change', guessingPaymentMethod);
 cardsHandler();
-</script>
-
-{% endblock %}
+}//if
+}//function

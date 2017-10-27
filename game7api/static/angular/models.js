@@ -1,7 +1,7 @@
 //URL_BASE = "http://0.0.0.0:8030/js/";
-URL_BASE = "http://0.0.0.0:8000/js/";
+//URL_BASE = "http://0.0.0.0:8000/js/";
 //URL_BASE = "https://serene-atoll-63219.herokuapp.com/js/";
-//URL_BASE = "http://menuweb.com.br/js/";
+URL_BASE = "http://menuweb.com.br/js/";
 
 function getTokens(){
     var tokens = [];            // new array to hold result
@@ -1764,7 +1764,7 @@ game7App.factory("Pedido", function (Ajax,$http) {
         f.append('endereco', pedido_endereco);
         f.append('cidade_id', pedido_cidade);
         f.append('bairro_id', pedido_bairro);
-        f.append('complemento', complemento);
+        f.append('complemento', pedido_complemento);
         $http.post(url, f, {headers: {'Content-Type': undefined}}).success(
           function(response){
             window.localStorage.setItem("pedido_id", response);
