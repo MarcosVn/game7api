@@ -603,3 +603,11 @@ a:hover, a:active, a:focus{
 
 
 /*Avaliações*/
+.avaliacoes-pendentes ul, .avaliacoes_recentes ul{
+    list-style:none;
+}
+
+.avaliacoes-pendentes .tipo_avaliacao{
+    margin:2px 0px;
+    padding:0px;
+}
