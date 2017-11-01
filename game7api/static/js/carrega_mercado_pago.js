@@ -65,14 +65,14 @@ function setPaymentMethodInfo(status, response) {
 };
 
 function doPay(event){
-    event.preventDefault();
-    if(!doSubmit){
+    //event.preventDefault();
+    //if(!doSubmit){
         var $form = document.querySelector('#pay');
 
         Mercadopago.createToken($form, sdkResponseHandler); // The function "sdkResponseHandler" is defined below
 
         return false;
-    }
+    //}
 };
 
 //verificar dados preenchidos e inserir token no form

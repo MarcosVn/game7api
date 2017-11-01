@@ -1224,6 +1224,15 @@ game7App.controller('realizarpedidosCtrl', function($scope, $http, Pedido, Clien
     $scope.em.get_empresabypedido();
     $scope.tipo_pagamento = "na_entrega_dinheiro";
 
+    $scope.paga_mercado_pago = function(){
+        var url = URL_BASE + "savetipopagamentopedido";
+        $http({
+            method: "POST", data: {id: window.localStorage.getItem("pedido_id"), tipopagamento: $scope.tipo_pagamento},
+            url: url
+        }).then(function(){
+            $scope.atualizar_pagamento();
+        });
+    }
 
 
 
@@ -1245,7 +1254,9 @@ game7App.controller('realizarpedidosCtrl', function($scope, $http, Pedido, Clien
             method: "POST", data: {id: window.localStorage.getItem("pedido_id"), tipopagamento: $scope.tipo_pagamento},
             url: url
         }).then(function(){
-            $scope.atualizar_pagamento();
+            if($scope.tipo_pagamento == "mercado_pago"){
+                doPay();
+            }
         });
     };
     $scope.atualizar_pagamento = function(){
