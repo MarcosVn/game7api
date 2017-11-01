@@ -11,6 +11,18 @@
     color:#FF3E00;
 }
 
+.t_r{
+    text-align:right;
+}
+
+.b_texto{
+    color:#3F3D3E;
+}
+
+.texto-cinza-claro{
+    color:#B5B5B5;
+}
+
 .btn-laranja{
     background-color:#FF3E00;
     color:#fff;
@@ -23,7 +35,7 @@
 
 .box-cinza-claro{
     background-color:#F3F3F3;
-    padding:10px 20px;
+    padding:20px 10px;
 }
 
 .txt-cinza-claro{
@@ -603,3 +615,21 @@ a:hover, a:active, a:focus{
 
 
 /*Avaliações*/
+.avaliacoes-pendentes ul, .avaliacoes_recentes ul{
+    list-style:none;
+}
+
+.avaliacoes_recentes .tipo_avaliacao{
+    margin:2px 0px;
+    padding:0px;
+}
+
+.avaliacoes_recentes hr{
+    font-size:10px;
+    color:#C3C3C3;
+    border:1px solid;
+}
+
+.avaliacoes_recentes .lista-produtos{
+    margin:10px 0px;
+}
