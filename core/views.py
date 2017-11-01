@@ -3165,8 +3165,9 @@ class ServiceJson(View):
     @csrf_exempt
     def savetipopagamentopedido(request):
         # Filtros
-        pedido_id= request.POST.get("id")
-        tipopagamento = request.POST.get("tipopagamento")
+        dados = json.loads(request.body)
+        pedido_id = dados.get("id")
+        tipopagamento = dados.get("tipopagamento")
         oPedido = Pedido.objects.get(id=pedido_id)
 
 
@@ -3221,21 +3222,16 @@ class ServiceJson(View):
         oPedido.status = "Aguardando Aprovacao"
 
         # Objeto de Itens
-        oPagamento = oPedido.Pagamento.get()
-
-        if not troco:
-            troco=0
-
-        if cpfnanota == "1":
-            oPagamento.cpfnanota = True
-            oPagamento.cpf = cpf
-
-        if tipo=="cartao":
-            oPagamento.obs = "Cartao - " + bandeira + " - " + outro
-        elif tipo=="dinheiro":
-            oPagamento.trocopara = troco
-
-        oPagamento.save()
+        oPagamento = oPedido.Pagamento.last()
+        if oPagamento:
+            if cpfnanota == "1":
+                oPagamento.cpfnanota = True
+                oPagamento.cpf = cpf
+            if tipo=="cartao":
+                oPagamento.obs = "Cartao - " + bandeira + " - " + outro
+            elif tipo=="dinheiro":
+                oPagamento.trocopara = troco if troco else 0
+            oPagamento.save()
         oPedido.save()
 
         lista = "true"

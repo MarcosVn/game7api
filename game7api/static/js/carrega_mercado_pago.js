@@ -1,6 +1,15 @@
 function carrega_mercadopago(){
-if(escolhe_mercado_pago===true){
-Mercadopago.setPublishableKey("APP_USR-d5bb8381-1a3b-4878-9813-bb1d2a46e56d");
+    //gerar token do cartão
+    Mercadopago.setPublishableKey("APP_USR-d5bb8381-1a3b-4878-9813-bb1d2a46e56d");
+    doSubmit = false;
+    addEvent(document.querySelector('input[data-checkout="cardNumber"]'), 'keyup', guessingPaymentMethod);
+    addEvent(document.querySelector('input[data-checkout="cardNumber"]'), 'change', guessingPaymentMethod);
+    addEvent(document.querySelector('#pay'),'submit',doPay);
+    addEvent(document.querySelector('input[data-checkout="cardNumber"]'), 'keyup', guessingPaymentMethod);
+    addEvent(document.querySelector('input[data-checkout="cardNumber"]'), 'keyup', clearOptions);
+    addEvent(document.querySelector('input[data-checkout="cardNumber"]'), 'change', guessingPaymentMethod);
+    cardsHandler();
+}//function
 //obter bandeira do cartão
 function addEvent(el, eventName, handler){
     if (el.addEventListener) {
@@ -55,13 +64,6 @@ function setPaymentMethodInfo(status, response) {
     }
 };
 
-addEvent(document.querySelector('input[data-checkout="cardNumber"]'), 'keyup', guessingPaymentMethod);
-addEvent(document.querySelector('input[data-checkout="cardNumber"]'), 'change', guessingPaymentMethod);
-
-
-//gerar token do cartão
-doSubmit = false;
-addEvent(document.querySelector('#pay'),'submit',doPay);
 function doPay(event){
     event.preventDefault();
     if(!doSubmit){
@@ -72,7 +74,6 @@ function doPay(event){
         return false;
     }
 };
-
 
 //verificar dados preenchidos e inserir token no form
 function sdkResponseHandler(status, response) {
@@ -93,7 +94,6 @@ function sdkResponseHandler(status, response) {
         enviandoPagamento(response, card.value)
     }
 };
-
 
 function enviandoPagamento(response, token){
     $.ajax({
@@ -116,7 +116,6 @@ function enviandoPagamento(response, token){
        }
     });
 };
-
 
 //mostra as parcelas e os bancos
 function getBin() {
@@ -303,10 +302,3 @@ function submitFormData(serializedData,value){
         }});
     return false;
 };
-
-addEvent(document.querySelector('input[data-checkout="cardNumber"]'), 'keyup', guessingPaymentMethod);
-addEvent(document.querySelector('input[data-checkout="cardNumber"]'), 'keyup', clearOptions);
-addEvent(document.querySelector('input[data-checkout="cardNumber"]'), 'change', guessingPaymentMethod);
-cardsHandler();
-}//if
-}//function
