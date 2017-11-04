@@ -1214,7 +1214,7 @@ game7App.controller('pagamentoCtrl', function($scope, Pedido, Pagamento) {
 
 });
 
-game7App.controller('realizarpedidosCtrl', function($scope, Pedido, Cliente, Estado, Cidade, Bairro, Empresa) {
+game7App.controller('realizarpedidosCtrl', function($scope, $http, Pedido, Cliente, Estado, Cidade, Bairro, Empresa) {
     $scope.pe = Pedido;
     $scope.pe.get_pedidos_logado();
     $scope.pe.get_pedido();
@@ -1231,6 +1231,15 @@ game7App.controller('realizarpedidosCtrl', function($scope, Pedido, Cliente, Est
     $scope.em.get_empresabypedido();
     $scope.tipo_pagamento = "na_entrega_dinheiro";
 
+    $scope.paga_mercado_pago = function(){
+        var url = URL_BASE + "savetipopagamentopedido";
+        $http({
+            method: "POST", data: {id: window.localStorage.getItem("pedido_id"), tipopagamento: $scope.tipo_pagamento},
+            url: url
+        }).then(function(){
+            $scope.atualizar_pagamento();
+        });
+    }
 
 
 
@@ -1247,10 +1256,16 @@ game7App.controller('realizarpedidosCtrl', function($scope, Pedido, Cliente, Est
 
     }
     $scope.atualizar_tipo_pagamento = function(){
-        $scope.pe.save_tipo_pagamento(
-                $('input[name="rd_pagamento_tipo"]:checked').val()
-            );
-    }
+        var url = URL_BASE + "savetipopagamentopedido";
+        $http({
+            method: "POST", data: {id: window.localStorage.getItem("pedido_id"), tipopagamento: $scope.tipo_pagamento},
+            url: url
+        }).then(function(){
+            if($scope.tipo_pagamento == "mercado_pago"){
+                doPay();
+            }
+        });
+    };
     $scope.atualizar_pagamento = function(){
             $scope.pe.save_pagamento_obs(
                 $('#troco_para').val(),

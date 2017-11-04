@@ -57,9 +57,11 @@
                                 <input id="pedido_id" type="hidden" value="{[pe.pedidoselecionado[0].id]}"/>
                                 <select id="installments" style="display:none;" name="installments"></select>
                             </div>
+                            <!--
                             <div class="col-md-12 rodape-pedido">
-                                <input type="submit" class="btn btn-default btn-laranja" value="CONCLUIR PAGAMENTO" />
+                                <input type="button" ng-click="paga_mercado_pago()" class="btn btn-default btn-laranja" value="CONCLUIR PAGAMENTO" />
                             </div>
+                            -->
                         </fieldset>
                     </form>
                 </div>
@@ -68,6 +70,5 @@
     </div>
 </div>
 <script>
-    escolhe_mercado_pago=true;
     carrega_mercadopago();
 </script>

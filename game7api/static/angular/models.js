@@ -1818,7 +1818,9 @@ game7App.factory("Pedido", function (Ajax,$http) {
         )
     };
 
-    obj.save_pagamento_obs = function (troco,outro,cpfnanota,bandeira,cpf) {
+    obj.save_pagamento_obs = function (troco,outro,cpfnanota,bandeira,cpf,redirect) {
+        if(redirect===undefined)
+            redirect=true;
         var url = URL_BASE + "saveobspagamentopedido";
         var f = new FormData();
 
@@ -1842,7 +1844,8 @@ game7App.factory("Pedido", function (Ajax,$http) {
         $http.post(url, f, {headers: {'Content-Type': undefined}}).success(
           function(response){
             obj.retorno = response.data;
-            window.location = "/cliente/pedido?p_id="+window.localStorage.getItem("pedido_id");
+              if(redirect)
+                  window.location = "/cliente/pedido?p_id="+window.localStorage.getItem("pedido_id");
           }
         )
     };
