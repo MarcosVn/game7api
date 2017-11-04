@@ -3329,6 +3329,12 @@ class ServiceJson(View):
         id = request.GET.get("id")
         texto = request.GET.get("texto")
         tipocozinha_id = request.GET.get("tipocozinha_id")
+        tipocozinha = request.GET.get("tipocozinha")
+        faixa_preco = request.GET.get("faixa_preco")
+        tipo_pagamento = request.GET.get("tipo_pagamento")
+        entrega = request.GET.get("entrega")
+        entrega_gratis = request.GET.get("entrega_gratis")
+
 
         # Query Base
         oCliente = Cliente.objects.filter(id=id).first()
@@ -3344,13 +3350,51 @@ class ServiceJson(View):
             if(tipocozinha_id>0):
                 oRestaurantes = oRestaurantes.filter(tipocozinha__id=tipocozinha_id)
 
+        # Tipo Cozinha
+        if(tipocozinha):
+            if not (tipocozinha == '?'):
+                tipocozinha = int(tipocozinha)
+                if(tipocozinha>0):
+                    oRestaurantes = oRestaurantes.filter(tipocozinha__id=tipocozinha)
+
+        # Faixa Preco
+        if(faixa_preco):
+            faixas = faixa_preco.split("_")
+            if len(faixas) == 2:
+                oRestaurantes = oRestaurantes.filter(produtos__preco__gte=faixas[0], produtos__preco__lte=faixas[1])
+            else:
+                oRestaurantes = oRestaurantes.filter(produtos__preco__gte=faixas[0])
+
+        # Tipo de Pagamento
+        if (tipo_pagamento):
+            if tipo_pagamento == "cartao":
+                oRestaurantes = oRestaurantes.filter(aceita_cartao=True)
+            elif tipo_pagamento == "valerefeicao":
+                oRestaurantes = oRestaurantes.filter(aceita_valerefeicao=True)
+            elif tipo_pagamento == "pagamento_online":
+                oRestaurantes = oRestaurantes.filter(aceita_pagamentoonline=True)
+
+
+        # Entrega
+        if (entrega):
+            if not (entrega == '?'):
+                entrega= int(entrega)
+                oRestaurantes = oRestaurantes.filter(BairrosAtendimento__bairro__id=oCliente.bairro.id, tempo=entrega).order_by("BairrosAtendimento__frete")
+
+        # Entrega gratis
+        if (entrega_gratis == 'on'):
+            oRestaurantes = oRestaurantes.filter(BairrosAtendimento__bairro__id=oCliente.bairro.id,BairrosAtendimento__frete=0)
+
+
+
         rows = []
 
         restaurantes_filtrados = []
 
         for rest in oRestaurantes:
-            if rest.aberturas.filter(fechamento__isnull=True).exists():
-                restaurantes_filtrados.append(rest)
+            if not rest in restaurantes_filtrados:
+                if rest.aberturas.filter(fechamento__isnull=True).exists():
+                    restaurantes_filtrados.append(rest)
 
         for r in restaurantes_filtrados:
 
