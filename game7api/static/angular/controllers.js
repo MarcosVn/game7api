@@ -1256,6 +1256,8 @@ game7App.controller('realizarpedidosCtrl', function($scope, $http, Pedido, Clien
         }).then(function(){
             if($scope.tipo_pagamento == "mercado_pago"){
                 doPay();
+            } else {
+                $scope.atualizar_pagamento();
             }
         });
     };
