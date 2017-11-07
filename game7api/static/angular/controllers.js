@@ -928,13 +928,19 @@ game7App.controller('topoClienteCtrl', function($scope, Cliente, Pedido ) {
     }
 });
 
-game7App.controller('homeClienteCtrl', function($scope, Cliente, Empresa) {
+game7App.controller('homeClienteCtrl', function($scope, Cliente, Empresa, TipoCozinha, TipoTempo) {
     $scope.cl = Cliente;
     $scope.cl.get_clientelogado();
 
     $scope.em = Empresa;
     $scope.em.get_empresas_buscas();
-//
+
+    $scope.tc = TipoCozinha;
+    $scope.tc.get_tiposcozinha();
+
+    $scope.tt = TipoTempo;
+    $scope.tt.get_tipostempo();
+
     if(document.getElementById('iFiltro').value != ""){
         $scope.em.get_empresas(document.getElementById('iFiltro').value);
     }
@@ -946,7 +952,8 @@ game7App.controller('homeClienteCtrl', function($scope, Cliente, Empresa) {
     }
 
     $scope.filtrar = function(){
-        $scope.em.get_empresas_buscas(document.getElementById('iFiltro').value);
+//        $scope.em.get_empresas_buscas(document.getElementById('iFiltro').value);
+        $scope.em.get_empresas_buscas(document.getElementById('iFiltro').value, document.getElementById('filtro_tipocozinha').value, document.getElementById('filtro_preco').value, document.getElementById('filtro_cobranca').value, document.getElementById('filtro_entrega').value, $('input[name="filtro_entrega_gratis"]:checked').val());
     }
 
 //    $scope.em.get_empresalogadorepasse();

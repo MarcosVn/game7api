@@ -575,6 +575,12 @@ a:hover, a:active, a:focus{
     color:#FFB401;
 }
 
+.lista-home .filtros select{
+    border:#bbb 1px solid;
+    padding-left:5px;
+    font-size:12px;
+}
+
 .home-menu-categorias{
     background-color:#FF3E00;
     margin:0px;

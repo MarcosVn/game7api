@@ -651,12 +651,17 @@ game7App.factory("Empresa", function (Ajax,$http) {
         });
     };
 
-    obj.get_empresas_buscas = function (nome_empresa) {
+    obj.get_empresas_buscas = function (nome_empresa, tipo_cozinha, faixa_preco, tipo_pagamento, entrega, entrega_gratis) {
         var url = URL_BASE + "getrestaurantes";
         var params = {
             id:window.localStorage.getItem("c_logado"),
             texto:nome_empresa,
             tipocozinha_id:obj.var_tipocozinha_id,
+            tipocozinha:tipo_cozinha,
+            faixa_preco:faixa_preco,
+            tipo_pagamento:tipo_pagamento,
+            entrega:entrega,
+            entrega_gratis:entrega_gratis
         }
         $http({
             method: "GET",
