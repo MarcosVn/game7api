@@ -2296,13 +2296,18 @@ game7App.factory("Carrinho", function (Ajax,$http) {
         });
     };
 
-    obj.save_carrinho = function (produto_id, quantidade, observacao, valor) {
+    obj.save_carrinho = function (produto_id, quantidade, observacao, valor, redirect, carrinho_id) {
+        if(redirect===undefined)
+            redirect=true;
+        if(carrinho_id===undefined)
+            carrinho_id=false;
         var url = URL_BASE + "savecarrinho";
 
         var f = new FormData();
         f.append('produto_id', produto_id);
         f.append('quantidade', quantidade);
         f.append('observacao', observacao);
+        f.append('carrinho_id', carrinho_id);
         f.append('valor', valor);
         f.append('cliente_id', window.localStorage.getItem("c_logado"));
         $http.post(url, f, {headers: {'Content-Type': undefined}}).success(
@@ -2316,7 +2321,8 @@ game7App.factory("Carrinho", function (Ajax,$http) {
                 alert('Por favor, antes de realizar um novo pedido em outro restaurante é necessário a conclusão do primeiro.');
             }
 
-            window.location = "/cliente/restaurante?e_id="+TOKENS['e_id'];
+            if(redirect)
+              window.location = "/cliente/restaurante?e_id="+TOKENS['e_id'];
           }
         )
 

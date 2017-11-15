@@ -2830,6 +2830,7 @@ class ServiceJson(View):
                     "item_id":item.id,
                     "quantidade":item.quantidade,
                     "produto_id":item.produto.id,
+                    "produto_preco":item.produto.preco,
                     "produto":item.produto.nome,
                     "observacao":item.observacao,
                     "preco_parcial":(item.quantidade*item.produto.preco),
@@ -2871,9 +2872,10 @@ class ServiceJson(View):
                 "pagamento_obs":pagamento_obs,
                 "pagamento_tipo":pagamento_tipo,
                 "telefone":pedido.empresa.telefone,
-                "frete":pedido.total -  valor_total,
+                "frete": round(float(pedido.total - valor_total),2),
                 "itens":itens_rows,
-                "empresa_logotipo":pedido.empresa.logotipo
+                "empresa_logotipo": pedido.empresa.logotipo,
+                "tempo_estimado": item.produto.empresa.tempo.nome,
             }
 
             pedidos_rows.append(r)
@@ -3128,6 +3130,7 @@ class ServiceJson(View):
     @csrf_exempt
     def savecarrinho(request):
         # Filtros
+        carrinho_id = request.POST.get("carrinho_id")
         produto_id= request.POST.get("produto_id")
         quantidade = request.POST.get("quantidade")
         observacao = request.POST.get("observacao")
@@ -3135,7 +3138,10 @@ class ServiceJson(View):
         valor = request.POST.get("valor")
 
         # Objeto de Itens
-        oCarrinho = Carrinho()
+        if carrinho_id:
+            oCarrinho = Carrinho.objects.get(id=carrinho_id)
+        else:
+            oCarrinho = Carrinho()
 
         oCarrinho.quantidade = quantidade
         oCarrinho.observacao = observacao

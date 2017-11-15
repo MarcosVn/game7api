@@ -1062,13 +1062,39 @@ game7App.controller('restauranteintegraClienteCtrl', function($scope, Empresa, P
     }
 });
 
-game7App.controller('carrinhoCtrl', function($scope, Produto, Carrinho, Pedido) {
+game7App.controller('carrinhoCtrl', function($scope, Produto, Carrinho, Pedido, $http, $q) {
     $scope.pe = Pedido;
     $scope.pt = Produto;
+    $scope.cr = Carrinho;
 //    $scope.pt.get_produtos();
     $scope.pt.get_produto();
+    $scope.handle = function(){
+        $http({url: URL_BASE + "pedidos", method: "GET", params: {id: 60}}).then(function(response){
+            var dados = response.data[0];
+            dados.itens.map(function(d){
+                d.qtd_atual = d.quantidade;
+                d.id = d.item_id;
+            });
+            $scope.add_quantidade = function(item){
+                item.qtd_atual = item.qtd_atual + 1;
+                $scope.cr.save_carrinho(item.produto_id, item.qtd_atual, "", item.produto_preco, false, item.item_id);
+            };
 
-    $scope.cr = Carrinho;
+            $scope.rm_quantidade = function(item){
+                if(item.qtd_atual > 1){
+                    item.qtd_atual = item.qtd_atual - 1;
+                }
+                $scope.cr.save_carrinho(item.produto_id, item.qtd_atual, "", item.produto_preco, false, item.item_id);
+            };
+            $scope.cr.itens = dados.itens;
+            $scope.cr.frete = dados.frete;
+            $scope.cr.total = dados.total;
+            $scope.cr.tempo_estimado = dados.tempo_estimado;
+            return $q.defer().resolve();
+        });
+    };
+
+
     $scope.cr.get_carrinhos();
 
     $scope.fechar_pedido = function(){
