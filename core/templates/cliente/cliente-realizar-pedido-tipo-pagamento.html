@@ -8,7 +8,6 @@
             <div class="col-md-8 col-md-offset-2">
                 <div class="col-md-4 well carrinho" ng-controller="carrinhoCtrl">
                     <b class="ttl-padrao"><i class="glyphicon glyphicon-shopping-cart"></i> CARRINHO</b>
-
                     <div>
                         <div class="col-md-12" style="padding:0px;">
                             <div ng-repeat="item in cr.lista_compra" class="lista-compra">
@@ -17,21 +16,20 @@
                                 <div class="col-md-4">R$ {[(item.produto_preco * item.quantidade).toFixed(2)]}</div>
                                 <div class="col-md-2"><a ng-click="rm_lista(item.id);" class="btn-xs btn btn-danger">x</a></div>
                             </div>
-
-                                <table class="table info-saldo">
-                                    <tr>
-                                        <td>Taxa de Entrega</td>
-                                        <td>R$ {[(cr.frete).toFixed(2)]}</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Total</td>
-                                        <td>R$ {[(cr.var_total_geral).toFixed(2)]}</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Tempo Estimado</td>
-                                        <td>{[cr.tempo_estimado]}</td>
-                                    </tr>
-                                </table>
+                            <table class="table info-saldo">
+                                <tr>
+                                    <td>Taxa de Entrega</td>
+                                    <td>R$ {[(cr.frete).toFixed(2)]}</td>
+                                </tr>
+                                <tr>
+                                    <td>Total</td>
+                                    <td>R$ {[(cr.var_total_geral).toFixed(2)]}</td>
+                                </tr>
+                                <tr>
+                                    <td>Tempo Estimado</td>
+                                    <td>{[cr.tempo_estimado]}</td>
+                                </tr>
+                            </table>
                         </div>
                     </div>
                     <a ng-click="fechar_pedido()" class="btn btn-default btn-laranja" style="background-color:#FF3E00;width:100%;">ALTERAR PEDIDO</a>

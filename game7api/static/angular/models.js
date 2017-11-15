@@ -1350,11 +1350,15 @@ game7App.factory("Produto", function (Ajax,$http) {
     };
 
     obj.get_produto = function () {
+        var p_id = TOKENS['p_id'];
+        if(p_id===undefined){
+            p_id = window.localStorage.getItem("pedido_id");
+        }
         //Get relação de produtos
         var url = URL_BASE + "produtos";
         var params = {
-          id:TOKENS['p_id']
-        }
+          id: p_id
+        };
         $http({
             method: "GET",
             params: params,

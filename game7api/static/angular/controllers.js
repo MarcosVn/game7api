@@ -1214,8 +1214,9 @@ game7App.controller('pagamentoCtrl', function($scope, Pedido, Pagamento) {
 
 });
 
-game7App.controller('realizarpedidosCtrl', function($scope, $http, Pedido, Cliente, Estado, Cidade, Bairro, Empresa) {
+game7App.controller('realizarpedidosCtrl', function($scope, $http, Pedido, Cliente, Estado, Cidade, Bairro, Empresa, Carrinho) {
     $scope.pe = Pedido;
+    $scope.cr = Carrinho;
     $scope.pe.get_pedidos_logado();
     $scope.pe.get_pedido();
 

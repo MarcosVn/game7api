@@ -21,12 +21,7 @@ game7App.directive("naentrega", function(Pedido){
         },
         transclude: true,
         link: function(scope){
-            console.log('scope.tipo');
-            console.log(scope.tipo);
             scope.Pedido = Pedido;
-            scope.ola = function(){
-                console.log(scope.Cena);
-            };
         }
     };
 });
