@@ -1086,6 +1086,13 @@ game7App.controller('carrinhoCtrl', function($scope, Produto, Carrinho, Pedido, 
                 }
                 $scope.cr.save_carrinho(item.produto_id, item.qtd_atual, "", item.produto_preco, false, item.item_id);
             };
+            $scope.rm_lista = function(item_id){
+                $scope.cr.excluir_carrinho(0, item_id, false);
+                $scope.cr.itens = $scope.cr.itens.filter(function( obj ) {
+                    return obj.id !== item_id;
+                });
+
+            }
             $scope.cr.itens = dados.itens;
             $scope.cr.frete = dados.frete;
             $scope.cr.total = dados.total;

@@ -2296,18 +2296,17 @@ game7App.factory("Carrinho", function (Ajax,$http) {
         });
     };
 
-    obj.save_carrinho = function (produto_id, quantidade, observacao, valor, redirect, carrinho_id) {
+    obj.save_carrinho = function (produto_id, quantidade, observacao, valor, redirect, item_id) {
         if(redirect===undefined)
             redirect=true;
-        if(carrinho_id===undefined)
-            carrinho_id=false;
         var url = URL_BASE + "savecarrinho";
 
         var f = new FormData();
         f.append('produto_id', produto_id);
         f.append('quantidade', quantidade);
         f.append('observacao', observacao);
-        f.append('carrinho_id', carrinho_id);
+        if(item_id!==undefined)
+            f.append('item_id', item_id);
         f.append('valor', valor);
         f.append('cliente_id', window.localStorage.getItem("c_logado"));
         $http.post(url, f, {headers: {'Content-Type': undefined}}).success(
@@ -2327,11 +2326,16 @@ game7App.factory("Carrinho", function (Ajax,$http) {
         )
 
     };
-    obj.excluir_carrinho = function (car_id) {
+    obj.excluir_carrinho = function (car_id, item_id, redirect) {
         var url = URL_BASE + "excluircarrinho";
+        if (redirect===undefined){
+            redirect=true;
+        }
         var params = {
           id:car_id
         }
+        if(item_id!==undefined)
+            params.item_id = item_id;
         $http({
             method: "GET",
             params: params,
@@ -2341,7 +2345,8 @@ game7App.factory("Carrinho", function (Ajax,$http) {
             }
         }).then(function successCallback(response) {
             obj.retorno = response.data;
-            window.location = "/cliente/";
+            if (redirect)
+                window.location = "/cliente/";
         }, function errorCallback(response) {
             console.log("Erro");
         });

@@ -2844,15 +2844,12 @@ class ServiceJson(View):
             pagamento_obs = ''
             pagamento_tipo = ''
 
-
-
             if oPagamento:
                 pagamento_obs = oPagamento.obs
                 pagamento_tipo = oPagamento.tipopagamento
 
                 if oPagamento.cpfnanota:
                     pagamento_obs = pagamento_obs + " -  CPF NA NOTA: SIM - CPF: " + oPagamento.cpf
-
 
             r = {
                 "id":pedido.id,
@@ -2875,7 +2872,7 @@ class ServiceJson(View):
                 "frete": round(float(pedido.total - valor_total),2),
                 "itens":itens_rows,
                 "empresa_logotipo": pedido.empresa.logotipo,
-                "tempo_estimado": item.produto.empresa.tempo.nome,
+                "tempo_estimado": pedido.empresa.tempo.nome,
             }
 
             pedidos_rows.append(r)
@@ -3130,7 +3127,7 @@ class ServiceJson(View):
     @csrf_exempt
     def savecarrinho(request):
         # Filtros
-        carrinho_id = request.POST.get("carrinho_id")
+        item_id = request.POST.get("item_id")
         produto_id= request.POST.get("produto_id")
         quantidade = request.POST.get("quantidade")
         observacao = request.POST.get("observacao")
@@ -3138,8 +3135,11 @@ class ServiceJson(View):
         valor = request.POST.get("valor")
 
         # Objeto de Itens
-        if carrinho_id:
-            oCarrinho = Carrinho.objects.get(id=carrinho_id)
+        if item_id:
+            item = Item.objects.get(id=item_id)
+            item.quantidade = quantidade
+            item.save()
+            return HttpResponse("true", content_type='application/json')
         else:
             oCarrinho = Carrinho()
 
@@ -3162,8 +3162,6 @@ class ServiceJson(View):
             lista = "true"
         else:
             lista = "false"
-
-
         return HttpResponse(lista, content_type='application/json')
 
 
@@ -3317,10 +3315,11 @@ class ServiceJson(View):
     @staticmethod
     def excluircarrinho(request):
         id = request.GET.get("id")
-
-        # Query Base
-        oCarrinho = Carrinho.objects.filter(id=id).first()
-        oCarrinho.delete()
+        item_id = request.GET.get("item_id")
+        if item_id:
+            Item.objects.filter(id=item_id).delete()
+        else:
+            Carrinho.objects.filter(id=id).delete()
 
         lista = "true"
         return HttpResponse(lista, content_type='application/json')
