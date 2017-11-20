@@ -1069,20 +1069,29 @@ game7App.controller('carrinhoCtrl', function($scope, Produto, Carrinho, Pedido, 
 //    $scope.pt.get_produtos();
     $scope.pt.get_produto();
     $scope.handle = function(){
-        $http({url: URL_BASE + "pedidos", method: "GET", params: {id: 60}}).then(function(response){
+        var pedido_id = window.localStorage.getItem("pedido_id");
+        $http({url: URL_BASE + "pedidos", method: "GET", params: {id: pedido_id}}).then(function(response){
             var dados = response.data[0];
             dados.itens.map(function(d){
                 d.qtd_atual = d.quantidade;
                 d.id = d.item_id;
             });
+            $scope.atualiza_total = function(item, antes, depois){
+                var valor_item_antes = item.produto_preco * antes;
+                var valor_item_depois = item.produto_preco * depois;
+                item.qtd_atual = depois;
+                $scope.cr.total = $scope.cr.total - valor_item_antes + valor_item_depois;
+            }
             $scope.add_quantidade = function(item){
-                item.qtd_atual = item.qtd_atual + 1;
+                var novo_qta = item.qtd_atual + 1;
+                $scope.atualiza_total(item, item.qtd_atual, novo_qta);
                 $scope.cr.save_carrinho(item.produto_id, item.qtd_atual, "", item.produto_preco, false, item.item_id);
             };
 
             $scope.rm_quantidade = function(item){
                 if(item.qtd_atual > 1){
-                    item.qtd_atual = item.qtd_atual - 1;
+                    var novo_qta = item.qtd_atual - 1;
+                    $scope.atualiza_total(item, item.qtd_atual, novo_qta);
                 }
                 $scope.cr.save_carrinho(item.produto_id, item.qtd_atual, "", item.produto_preco, false, item.item_id);
             };
