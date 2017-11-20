@@ -287,6 +287,12 @@ class Item(models.Model):
     def __unicode__(self):
         return self.produto.nome + "_" + str(self.id)
 
+    def atualiza_total(self, antes, depois):
+        valor_item_antes = self.produto.preco * int(antes)
+        valor_item_depois = self.produto.preco * int(depois)
+        self.pedido.total = self.pedido.total - valor_item_antes + valor_item_depois
+        self.pedido.save()
+
 class Funcionario(models.Model):
     id = models.AutoField(primary_key=True)
     nome = models.CharField(max_length=512)

@@ -3137,8 +3137,11 @@ class ServiceJson(View):
         # Objeto de Itens
         if item_id:
             item = Item.objects.get(id=item_id)
+            antes = item.quantidade
+            depois = quantidade
             item.quantidade = quantidade
             item.save()
+            item.atualiza_total(antes, depois)
             return HttpResponse("true", content_type='application/json')
         else:
             oCarrinho = Carrinho()
