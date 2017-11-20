@@ -7,7 +7,7 @@
         <div class="row">
             <div class="col-md-8 col-md-offset-2">
                 <div class="col-md-12 ttl-orange-cadastro" style="margin-top:20px;">
-                    <b>Quantidades!</b>
+                    <b>Quantidades</b>
                     <p>Aproveite esta etapa para confirmar as quantidades do produto que deseja incluir no carrinho</p>
                 </div>
 
@@ -58,7 +58,7 @@
                     <a class="btn btn-sm btn-default col-md-12" style="display:block;margin-bottom:20px;" ng-click="getOpcionalSelecionado();"><i class="glyphicon glyphicon-ok"></i> Próximo</a>
                 </div>
                 <div id="gencarrinho" ng-show="!pt.produtoselecionado[0].opcionais[0]">
-                    <div class="col-md-12" style="padding:0px;font-size:10px;">
+                    <div class="col-md-12" style="padding:0px;">
                         <div class="col-md-12">
 
                             <div class="col-md-12" style="padding:0px;">
@@ -84,7 +84,7 @@
                                 <b style="font-size:12px;color:#000;">Total:</b> R$ {[(cr.qtd_atual * pt.produtoselecionado[0].preco).toFixed(2)]}
                             </p>
 
-                            <textarea class="form-control" id="ipObservacao" rows="10" style="font-size:10px;" placeholder="Observações"></textarea>
+                            <textarea class="form-control" id="ipObservacao" rows="10" placeholder="Observações"></textarea>
                         </div>
                     </div>
                     <div class="col-md-12 rodape-pedido" style="margin-top:5px;margin-bottom:20px;">
