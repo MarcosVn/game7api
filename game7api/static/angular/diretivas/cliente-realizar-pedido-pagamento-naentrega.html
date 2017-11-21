@@ -1,48 +1,42 @@
 <div class="cliente-home" ng-controller="realizarpedidosCtrl" ng-init="pe.na_entrega_tipo=tipo">
-    <div class="container" style="padding-left: 0">
-        <div class="row">
-            <div  class="col-md-8">
-                <div class="col-md-12 ttl-orange-cadastro" style="margin-top:20px;">
-                    <b>PAGAMENTO</b>
-                    <p>Caso deseja o CPF na nota, por favor selecione a opção e preencha o mesmo</p>
-                </div>
-                <div class="col-md-12">
-                    <div class="col-xs-12">
-                        <div ng-if="pe.na_entrega_tipo == 'dinheiro'" style="margin-bottom:10px;">
-                            <label for="troco_para">Troco para</label><br>
-                            <div class="input-group">
-                              <span class="input-group-addon">R$</span>
-                              <input type="text" class="form-control" id="troco_para" >
-                            </div>
-                        </div>
-                        <div ng-if="pe.na_entrega_tipo == 'cartao'">
-                            <label>Bandeira</label><br>
-                            <select name="selbandeira" id="selbandeira" class="form-control">
-                              <option value="">Selecione</option>
-                              <option value="Master Card">Master Card</option>
-                              <option value="Visa">Visa</option>
-                              <option value="Hipercard">Hipercard</option>
-                              <option value="American Express">American Express</option>
-                              <option value="elo">elo</option>
-                              <option value="Dinner Club">Dinner Club</option>
-                            </select>
-
-                            <br>
-                            <label for="outro_cartao">Outro</label><br>
-                            <input type="text" class="form-control" id="outro_cartao" />
-                        </div>
-
-                        <br>
-                        <label for="cpf_nota">CPF na nota?</label><br>
-                        <input type="checkbox" name="cpf_nota" id="cpf_nota" value="1"/> Sim
-
-                        <br>
-                        <br>
-                        <label for="docNumber">CPF</label>
-                        <input type="text" id="docNumber" data-checkout="docNumber" placeholder="12345678" class="form-control" />
-                    </div>
+    <div class="col-md-12 ttl-orange-cadastro" style="margin-top:20px;">
+        <b>PAGAMENTO</b>
+        <p>Para o CPF na nota, por favor selecione a opção "CPF na nota" e preencha o número do mesmo</p>
+    </div>
+    <div class="col-md-12">
+        <div class="col-xs-12">
+            <div ng-if="pe.na_entrega_tipo == 'dinheiro'" style="margin-bottom:10px;">
+                <label for="troco_para">Troco para</label><br>
+                <div class="input-group">
+                  <span class="input-group-addon">R$</span>
+                  <input type="text" class="form-control" id="troco_para" >
                 </div>
             </div>
+            <div ng-if="pe.na_entrega_tipo == 'cartao'">
+                <label>Bandeira</label><br>
+                <select name="selbandeira" id="selbandeira" class="form-control">
+                  <option value="">Selecione</option>
+                  <option value="Master Card">Master Card</option>
+                  <option value="Visa">Visa</option>
+                  <option value="Hipercard">Hipercard</option>
+                  <option value="American Express">American Express</option>
+                  <option value="elo">elo</option>
+                  <option value="Dinner Club">Dinner Club</option>
+                </select>
+
+                <br>
+                <label for="outro_cartao">Outro</label><br>
+                <input type="text" class="form-control" id="outro_cartao" />
+            </div>
+
+            <br>
+            <label for="cpf_nota">CPF na nota?</label><br>
+            <input type="checkbox" name="cpf_nota" id="cpf_nota" value="1"/> Sim
+
+            <br>
+            <br>
+            <label for="docNumber">CPF</label>
+            <input type="text" id="docNumber" data-checkout="docNumber" placeholder="12345678" class="form-control" />
         </div>
     </div>
 </div>

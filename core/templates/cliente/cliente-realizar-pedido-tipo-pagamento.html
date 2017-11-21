@@ -3,47 +3,40 @@
 {% load staticfiles %}
 {% block content %}
 <div class="cliente-home">
-    <div class="container">
+    <div class="container" style="font-size:12px;">
         <div class="row">
-            <div class="col-md-8 col-md-offset-2">
-                <div class="col-md-12 well carrinho" ng-controller="carrinhoCtrl" ng-init="handle()">
-                    <b class="ttl-padrao"><i class="glyphicon glyphicon-shopping-cart"></i> Seu Pedido</b>
-                    <div>
-                        <div class="col-md-12" style="padding:0px;">
-                            <div ng-repeat="item in cr.itens" class="lista-compra" style="display: inline-block;">
-                                <div class="col-md-3">
-                                    <div class="col-md-12" style="padding:0px;float:right;">
-                                        <a ng-click="rm_quantidade(item);" class="btn btn-sm btn-danger pull-left" style="padding-bottom:7px;"><i class="glyphicon glyphicon-minus-sign"></i></a>
-                                        <p style="display:inline-block;margin:0 15px;">{[item.qtd_atual]}</p>
-                                        <a ng-click="add_quantidade(item);" class="btn btn-sm btn-success pull-right" style="padding-bottom:7px;"><i class="glyphicon glyphicon-plus-sign"></i></a>
-                                    </div>
-                                </div>
-                                <div class="col-md-5 ttl-carrinho-item">{[item.produto]}</div>
-                                <div class="col-md-3">R$ {[(item.produto_preco * item.qtd_atual).toFixed(2)]}</div>
-                                <div class="col-md-1"><a ng-click="rm_lista(item.id);" class="btn-xs btn btn-danger">x</a></div>
-                            </div>
-                            <table class="table info-saldo">
-                                <tr>
-                                    <td>Taxa de Entrega</td>
-                                    <td>R$ {[(cr.frete).toFixed(2)]}</td>
-                                </tr>
-                                <tr>
-                                    <td>Total</td>
-                                    <td>R$ {[(cr.total).toFixed(2)]}</td>
-                                </tr>
-                                <tr>
-                                    <td>Tempo Estimado</td>
-                                    <td>{[cr.tempo_estimado]}</td>
-                                </tr>
-                            </table>
+            <div class="col-md-4 well carrinho" ng-controller="carrinhoCtrl" ng-init="handle()" style="padding 10px">
+                <b class="ttl-padrao"><i class="glyphicon glyphicon-shopping-cart"></i> Seu Pedido</b>
+                <div ng-repeat="item in cr.itens" class="lista-compra col-md-12" style="padding:0px;margin:20px 0px;">
+                    <div class="col-md-4" style="padding-left:0px;">
+                        <div class="col-md-12" style="padding:0px;float:right;">
+                            <a ng-click="rm_quantidade(item);" class="btn btn-sm btn-danger pull-left" style="padding-bottom:8px;"><i class="glyphicon glyphicon-minus-sign"></i></a>
+                            <p style="display:inline-block;margin:0 4px 0px 9px;padding-left:0px;">{[item.qtd_atual]}</p>
+                            <a ng-click="add_quantidade(item);" class="btn btn-sm btn-success" style="padding-bottom:8px;"><i class="glyphicon glyphicon-plus-sign"></i></a>
                         </div>
                     </div>
+                    <div class="col-md-5 ttl-carrinho-item">{[item.produto]}</div>
+                    <div class="col-md-3" style="padding: 0px;">R$ {[(item.produto_preco * item.qtd_atual).toFixed(2)]}<a ng-click="rm_lista(item.id);" class="btn-xs btn btn-danger" style="float:right;">x</a></div>
                 </div>
+                <table class="table info-saldo" style="font-size:12px;">
+                    <tr>
+                        <td>Taxa de Entrega</td>
+                        <td>R$ {[(cr.frete).toFixed(2)]}</td>
+                    </tr>
+                    <tr>
+                        <td>Total</td>
+                        <td>R$ {[(cr.total).toFixed(2)]}</td>
+                    </tr>
+                    <tr>
+                        <td>Tempo Estimado</td>
+                        <td>{[cr.tempo_estimado]}</td>
+                    </tr>
+                </table>
             </div>
-            <div ng-controller="realizarpedidosCtrl" class="col-md-8 col-md-offset-2">
-                <h4 style="color: red">FORMA DE PAGAMENTO {[tipo_pagamento]} </h4>
+            <div ng-controller="realizarpedidosCtrl" class="col-md-8">
+                <!--<h4 style="color: red">FORMA DE PAGAMENTO {[tipo_pagamento]} </h4>-->
                 <div class="col-md-12 ttl-orange-cadastro" style="margin-top:20px;">
-                    <b>TIPO DE PAGAMENTO</b>
+                    <b>FORMA DE PAGAMENTO</b>
                     <p></p>
                 </div>
                 <div class="col-md-12">
@@ -60,23 +53,27 @@
                         </div>
                     </div>
                 </div>
-                <div ng-if="tipo_pagamento=='mercado_pago'" class="col-md-12">
-                    tipo de pagamento: {[tipo_pagamento]}
+                <div ng-if="tipo_pagamento=='mercado_pago'" class="col-md-12" style="padding: 0px;">
+                    <!--tipo de pagamento: {[tipo_pagamento]}-->
                     <div pagamento></div>
                 </div>
-                <div ng-if="tipo_pagamento=='na_entrega_cartao'" class="col-md-12">
-                    tipo de pagamento: {[tipo_pagamento]}
+                <div ng-if="tipo_pagamento=='na_entrega_cartao'" class="col-md-12" style="padding: 0px;">
+                    <!--tipo de pagamento: {[tipo_pagamento]}-->
                     <div naentrega tipo="cartao"></div>
                 </div>
-                <div ng-if="tipo_pagamento=='na_entrega_dinheiro'" class="col-md-12">
-                    tipo de pagamento: {[tipo_pagamento]}
+                <div ng-if="tipo_pagamento=='na_entrega_dinheiro'" class="col-md-12" style="padding: 0px;">
+                    <!--tipo de pagamento: {[tipo_pagamento]}-->
                     <div naentrega tipo="dinheiro"></div>
                 </div>
-                <div ng-if="tipo_pagamento=='na_entrega_valerefeicao_sodexo'" class="col-md-12">tipo de pagamento: {[tipo_pagamento]}</div>
-                <div ng-if="tipo_pagamento=='na_entrega_valerefeicao_visavale'" class="col-md-12">tipo de pagamento: {[tipo_pagamento]}</div>
+                <div ng-if="tipo_pagamento=='na_entrega_valerefeicao_sodexo'" class="col-md-12">
+                    <!--tipo de pagamento: {[tipo_pagamento]}-->
+                </div>
+                <div ng-if="tipo_pagamento=='na_entrega_valerefeicao_visavale'" class="col-md-12">
+                    <!--tipo de pagamento: {[tipo_pagamento]}-->
+                </div>
 
-                <div class="final_pagamento col-md-12">
-                    <a ng-click="atualizar_tipo_pagamento();" class="btn btn-default btn-laranja" style="display:block;">CONTINUAR<i class="glyphicon glyphicon-credit-card"></i></a>
+                <div class="final_pagamento col-md-12" style="margin:20px 0px;">
+                    <a ng-click="atualizar_tipo_pagamento();" class="btn btn-default btn-laranja" style="display:block;">CONTINUAR <i class="glyphicon glyphicon-credit-card"></i></a>
                 </div>
             </div>
         </div>
