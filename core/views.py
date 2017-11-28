@@ -764,7 +764,8 @@ class ServiceJson(View):
                     "estado_id":oestado.id,
                     "complemento": cliente.complemento,
                     "numero": cliente.numero,
-                    "cep": cliente.cep
+                    "cep": cliente.cep,
+                    "foto": cliente.foto
                 }
                 rows.append(r)
 
