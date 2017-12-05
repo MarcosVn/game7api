@@ -1005,7 +1005,7 @@ class ServiceJson(View):
 
         try:
             filename = str(oCliente.id) + '_' + str(random_n) + '.jpg'
-            image_data = open(settings.BASE_DIR + '/game7api/static/media/cliente/' + filename, "wb")
+            image_data = open(settings.BASE_DIR + '/static/media/cliente/' + filename, "wb")
             image_data.write(re.sub('^data:image/.+;base64,', '', foto).decode('base64'))
             image_data.close()
 
