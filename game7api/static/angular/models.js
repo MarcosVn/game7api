@@ -357,7 +357,7 @@ game7App.factory("Cliente", function (Ajax,$http) {
         retorno : false,
         sel_cidade:"1",
         foto_principal:123,
-        caminho_foto: 'http://0.0.0.0:8060/static/media/cliente/'
+        caminho_foto: 'http://menuweb.com.br/static/media/cliente/'
     };
 
     //        caminho_foto: 'http://menuweb.com.br/game7api/static/media/cliente/'
@@ -460,6 +460,7 @@ game7App.factory("Cliente", function (Ajax,$http) {
         f.append('endereco', cliente_endereco);
         f.append('numero', cliente_numero);
         f.append('complemento', cliente_complemento);
+        f.append('foto', obj.foto_principal);
         f.append('cep', cliente_cep);
         $http.post(url, f, {headers: {'Content-Type': undefined}}).success(
           function(response){

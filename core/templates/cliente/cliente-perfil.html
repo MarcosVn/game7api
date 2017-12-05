@@ -27,12 +27,10 @@
                             <div class="col-md-6" style="margin-top:40px;">
                                 <b>Deseja trocar a foto do perfil?</b><br>
                                 <small>Utilizar apenas imagens em JPG (min. 400x400px)</small><br><br>
-                                <div class="col-md-4">
-                                    <a class="btn btn-default" style="background-color: #3E393D;color:#fff;">Tirar foto</a>
-                                </div>
-                                <div class="col-md-8">
-                                    <a class="btn btn-default" style="background-color: #3E393D;color:#fff;">Excluir foto</a>
-                                </div>
+
+                                    <input type="hidden" name="id" value="30" />
+                                    <input type="file" ng-model="cl.foto_principal" fileread="cl.foto_principal" />
+
                             </div>
                         </div>
 
