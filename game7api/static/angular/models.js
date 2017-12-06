@@ -465,6 +465,7 @@ game7App.factory("Cliente", function (Ajax,$http) {
         $http.post(url, f, {headers: {'Content-Type': undefined}}).success(
           function(response){
             obj.retorno = response;
+            location.reload();
           }
         )
     };
@@ -518,6 +519,7 @@ game7App.factory("Cliente", function (Ajax,$http) {
         $http.post(url, f, {headers: {'Content-Type': undefined}}).success(
           function(response){
             obj.retorno = response;
+            location.reload();
           }
         )
 
