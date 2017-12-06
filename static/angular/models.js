@@ -514,6 +514,7 @@ game7App.factory("Cliente", function (Ajax,$http) {
         f.append('numero', cliente_numero);
         f.append('complemento', cliente_complemento);
         f.append('cep', cliente_cep);
+        f.append('foto', obj.foto_principal);
         $http.post(url, f, {headers: {'Content-Type': undefined}}).success(
           function(response){
             obj.retorno = response;

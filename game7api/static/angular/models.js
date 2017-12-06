@@ -1,7 +1,7 @@
-//URL_BASE = "http://0.0.0.0:8030/js/";
+URL_BASE = "http://0.0.0.0:8030/js/";
 //URL_BASE = "http://0.0.0.0:8060/js/";
 //URL_BASE = "https://serene-atoll-63219.herokuapp.com/js/";
-URL_BASE = "http://menuweb.com.br/js/";
+//URL_BASE = "http://menuweb.com.br/js/";
 
 function getTokens(){
     var tokens = [];            // new array to hold result
@@ -514,6 +514,7 @@ game7App.factory("Cliente", function (Ajax,$http) {
         f.append('numero', cliente_numero);
         f.append('complemento', cliente_complemento);
         f.append('cep', cliente_cep);
+        f.append('foto', obj.foto_principal);
         $http.post(url, f, {headers: {'Content-Type': undefined}}).success(
           function(response){
             obj.retorno = response;

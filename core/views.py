@@ -966,6 +966,8 @@ class ServiceJson(View):
         foto = request.POST.get("foto")
         random_n = random.randint(1, 500000000)
 
+        print foto
+
         # Objeto de Clientes
         oCliente = Cliente()
 

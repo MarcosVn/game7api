@@ -28,8 +28,11 @@
                                 <b>Deseja trocar a foto do perfil?</b><br>
                                 <small>Utilizar apenas imagens em JPG (min. 400x400px)</small><br><br>
 
-                                    <input type="hidden" name="id" value="30" />
-                                    <input type="file" ng-model="cl.foto_principal" fileread="cl.foto_principal" />
+                                <input type="hidden" name="id" value="30" />
+                                <input type="file" ng-model="cl.foto_principal" fileread="cl.foto_principal" />
+
+                                {[cl.foto_principal]}
+
 
                             </div>
                         </div>
