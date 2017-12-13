@@ -158,7 +158,7 @@ class Cliente(models.Model):
     numero = models.IntegerField(default=0, null=True)
     complemento = models.CharField(max_length=512, default="", null=True)
     face_id = models.CharField(max_length=1024, default=None, null=True)
-
+    foto = models.CharField(max_length=1024, default='sem-foto.png', null=True)
     # geometria = models.PointField(blank=True, null=True, srid=4326)
 
     class Meta:

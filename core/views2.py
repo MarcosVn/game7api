@@ -386,7 +386,8 @@ class ServiceJson(View):
                 "bairro":cliente.bairro.nome,
                 "bairro_id":cliente.bairro.id,
                 "estado":cliente.cidade.estado.nome,
-                "estado_id":cliente.cidade.estado.id
+                "estado_id":cliente.cidade.estado.id,
+                "foto":cliente.foto
             }
 
             rows.append(r)

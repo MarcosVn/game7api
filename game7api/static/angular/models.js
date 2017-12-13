@@ -355,8 +355,12 @@ game7App.factory("Cliente", function (Ajax,$http) {
         lista_clientes: [],
         clienteselecionado: [],
         retorno : false,
-        sel_cidade:"1"
+        sel_cidade:"1",
+        foto_principal:123,
+        caminho_foto: 'http://menuweb.com.br/static/media/cliente/'
     };
+
+    //        caminho_foto: 'http://menuweb.com.br/game7api/static/media/cliente/'
     obj.get_clientes = function (nome_cliente, email_cliente) {
         var url = URL_BASE + "clientes";
         var params = {
@@ -456,10 +460,12 @@ game7App.factory("Cliente", function (Ajax,$http) {
         f.append('endereco', cliente_endereco);
         f.append('numero', cliente_numero);
         f.append('complemento', cliente_complemento);
+        f.append('foto', obj.foto_principal);
         f.append('cep', cliente_cep);
         $http.post(url, f, {headers: {'Content-Type': undefined}}).success(
           function(response){
             obj.retorno = response;
+            location.reload();
           }
         )
     };
@@ -509,9 +515,11 @@ game7App.factory("Cliente", function (Ajax,$http) {
         f.append('numero', cliente_numero);
         f.append('complemento', cliente_complemento);
         f.append('cep', cliente_cep);
+        f.append('foto', obj.foto_principal);
         $http.post(url, f, {headers: {'Content-Type': undefined}}).success(
           function(response){
             obj.retorno = response;
+            location.reload();
           }
         )
 
