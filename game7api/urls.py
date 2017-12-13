@@ -170,6 +170,7 @@ urlpatterns = [
     url(r'^js/saveopcional', ServiceJson.saveopcional, name='saveopcional'),
     url(r'^js/saveopcao', ServiceJson.saveopcao, name='saveopcao'),
     url(r'^js/saveavaliacao', ServiceJson.saveavaliacao, name='saveavaliacao'),
+    url(r'^js/editavaliacao', ServiceJson.editavaliacao, name='editavaliacao'),
     url(r'^js/savecategoria', ServiceJson.savecategoria, name='savecategoria'),
     url(r'^js/savecliente$', ServiceJson.savecliente, name='savecliente'),
     url(r'^js/saveclientehome', ServiceJson.saveclientehome, name='saveclientehome'),
@@ -197,6 +198,8 @@ urlpatterns = [
     url(r'^js/receberrepasse', ServiceJson.receberrepasse, name='receberrepasse'),
     url(r'^js/settempoentrega', ServiceJson.settempoentrega, name='receberrepasse'),
     url(r'^js/enviarempresa', ServiceJson.enviarempresa, name='enviarempresa'),
+    url(r'^js/avaliacao_pendente', ServiceJson.avaliacao_pendente, name='avaliacao_pendente'),
+    url(r'^js/avaliacao_realizadas', ServiceJson.avaliacao_realizadas, name='avaliacao_realizadas'),
 
     url(r'^js/excluiropcional', ServiceJson.excluiropcional, name='excluiropcional'),
     url(r'^js/excluiropcao', ServiceJson.excluiropcao, name='excluiropcao'),

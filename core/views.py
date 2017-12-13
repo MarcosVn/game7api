@@ -117,6 +117,8 @@ class clientePedidoIntegraView(View):
         return render_to_response('cliente/cliente-pedido-integra.html', {}, RequestContext(request))
 class clienteAvaliacaoView(View):
     def get(self, request, *args, **kwargs):
+        avaliacao = Avaliacao.objects
+        avaliacao_id = 2
         return render_to_response('cliente/cliente-avaliacao.html', {}, RequestContext(request))
 
 
@@ -577,6 +579,28 @@ class ServiceJson(View):
 
         lista = "true"
         return HttpResponse(lista, content_type='application/json')
+
+
+    @staticmethod
+    @csrf_exempt
+    def editavaliacao(request):
+        dados = json.loads(request.body)
+        nota = sum([
+            dados.get('embalagem'), dados.get('comida'),
+            dados.get('tempo_entrega'), dados.get('custo_beneficio')
+        ]) / 2.0
+        print nota
+        Avaliacao.objects.filter(id=dados.get("id")).update(
+            mensagem=dados.get('mensagem'),
+            embalagem=dados.get('embalagem'),
+            comida=dados.get('comida'),
+            tempo_entrega=dados.get('tempo_entrega'),
+            custo_beneficio=dados.get('custo_beneficio'),
+            chegou_hora=True if dados.get('chegou_hora') == "true" else False,
+            avaliacao_menuweb=dados.get('avaliacao_menuweb'),
+            nota=nota
+        )
+        return HttpResponse("", content_type='application/json')
 
     @staticmethod
     @csrf_exempt
@@ -2959,6 +2983,9 @@ class ServiceJson(View):
         oPedido.total = total
         oPedido.save()
 
+        # cria avaliacao
+        Avaliacao.objects.create(pedido=oPedido)
+
         listacompras.delete()
 
         return HttpResponse(oPedido.id, content_type='application/json')
@@ -3676,3 +3703,36 @@ class ServiceJson(View):
 
         lista = json.dumps(list(rows))
         return HttpResponse(lista, content_type='application/json')
+
+    @staticmethod
+    def avaliacao_pendente(request):
+        dados = False
+        cliente_id = request.GET.get("id")
+
+        avaliacao = Avaliacao.objects.filter(nota=0, pedido__cliente__id=cliente_id).order_by("-data")
+        if avaliacao.count():
+            dados = list(avaliacao.values(
+                    'pedido', 'nota', 'mensagem', 'embalagem', 'comida', 'tempo_entrega', 'custo_beneficio',
+                    'chegou_hora', 'avaliacao_menuweb', "id"
+                ))[0]
+        response = json.dumps(dados)
+
+        return HttpResponse(response, content_type='application/json')
+
+
+    @staticmethod
+    def avaliacao_realizadas(request):
+        dados = False
+        cliente_id = request.GET.get("id")
+
+        avaliacao = Avaliacao.objects.exclude(nota=0).filter(pedido__cliente__id=cliente_id).order_by("-data")
+        if avaliacao.count():
+            dados = list(avaliacao.values(
+                    'pedido', 'nota', 'mensagem', 'embalagem', 'comida', 'tempo_entrega', 'custo_beneficio',
+                    'chegou_hora', 'avaliacao_menuweb', "id", "pedido__empresa__nome", "pedido__data"
+                ))
+        for d in dados:
+            d["pedido__data"] = str(d.get("pedido__data"))
+        response = json.dumps(dados)
+
+        return HttpResponse(response, content_type='application/json')

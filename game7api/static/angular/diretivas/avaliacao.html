@@ -1,0 +1,273 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-12 pagina-avaliacoes">
+            <div class="col-md-12 topo">
+
+                <div class="col-md-2 col-md-offset-8">
+                    <a href="#avaliacoes_recentes" id="avaliacoes_recentes-tab" data-toggle="tab" aria-controls="avaliacoesrecentes" role="tab" class="btn btn-default btn-laranja">Avaliações Recentes</a>
+                </div>
+                <div class="col-md-2">
+                    <a href="#pedidos_avaliacao" id="pedidos_avaliacao-tab" data-toggle="tab" aria-controls="pedidosavaliados" role="tab" class="btn btn-default btn-laranja">Pedidos Avaliados</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="tab-content" id="myTabContent">
+            <div class="pagina-avaliacoes tab-pane fade active in" id="avaliacoes_recentes" role="tabpanel" aria-labelledby="avaliacoes_recentes-tab">
+
+                <div class="col-md-12" ng-if="avaliacao">
+                    <div class="col-md-12 topo">
+                        <div class="col-md-8">
+                            <b class="ttl-laranja">MINHAS ÚLTIMAS ATUALIZAÇÕES</b>
+                        </div>
+                    </div>
+
+                    <div class="col-md-12 avaliacoes_recentes">
+                        <div class="col-md-5 box-cinza-claro" style="margin-left:10px;">
+
+                            <div class="col-md-8">
+                                <b>Pedido Número</b>
+                            </div>
+                            <div class="col-md-4 t_r">
+                                {[ pedido.id ]}
+                            </div>
+
+                            <div class="col-md-12">
+                                <hr>
+                            </div>
+
+                            <div class="col-md-12 lista-produtos">
+                                <b ng-repeat="item in pedido.itens">
+                                    {[item.quantidade]} X {[item.produto]}
+                                </b><br>
+                            </div>
+
+                            <div class="col-md-12">
+                                <hr>
+                            </div>
+
+                            <div class="col-md-8">
+                                <b>Taxa de Entrega</b>
+                            </div>
+                            <div class="col-md-4 t_r">
+                                {[pedido.frete]}
+                            </div>
+
+                            <div class="col-md-8">
+                                <b>Total</b>
+                            </div>
+                            <div class="col-md-4 t_r">
+                                R$ {[pedido.total]}
+                            </div>
+                        </div>
+                            <div class="col-md-6" style="margin-left:75px;">
+                                <div class="col-md-12 box-cinza-claro">
+                                    <div class="col-md-12">
+                                        <b>Avaliação do Restaurante</b>
+
+                                        <div class="col-md-12" style="padding:0px;">
+                                            <hr>
+                                        </div>
+                                        <br>
+                                        O pedido chegou no tempo correto?<br>
+                                        <p class="texto-cinza-claro">Estimativa do tempo de entrega: {[pedido.tempo_estimado]}</p>
+                                        <div class="col-md-8" style="padding-left:0px;margin:10px 0px;">
+                                            <div class="col-md-6" style="padding-left:0px;">
+                                                <input id="chegou_true" ng-model="avaliacao.chegou_hora" type="radio" value="true">
+                                                <label for="chegou_true">SIM</label>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <input id="chegou_false" ng-model="avaliacao.chegou_hora" type="radio" value="false">
+                                                <label for="chegou_false">NÃO</label>
+                                            </div>
+
+                                        </div>
+
+                                        <div class="col-md-12" style="padding:0px;">
+                                            <ul>
+                                                <li>
+                                                    <div class="col-md-7" style="padding-left:0px;">Embalagem({[avaliacao.embalagem]})</div>
+                                                    <div class="col-md-5">
+                                                        <div class="rating" style="margin:0 auto;">
+                                                            <span ng-click="avaliacao.embalagem=5">☆</span>
+                                                            <span ng-click="avaliacao.embalagem=4">☆</span>
+                                                            <span ng-click="avaliacao.embalagem=3">☆</span>
+                                                            <span ng-click="avaliacao.embalagem=2">☆</span>
+                                                            <span ng-click="avaliacao.embalagem=1">☆</span>
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                                <li>
+                                                    <div class="col-md-7" style="padding-left:0px;">Comida({[avaliacao.comida]})</div>
+                                                    <div class="col-md-5">
+                                                        <div class="rating" style="margin:0 auto;">
+                                                            <span ng-click="avaliacao.comida=5">☆</span>
+                                                            <span ng-click="avaliacao.comida=4">☆</span>
+                                                            <span ng-click="avaliacao.comida=3">☆</span>
+                                                            <span ng-click="avaliacao.comida=2">☆</span>
+                                                            <span ng-click="avaliacao.comida=1">☆</span>
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                                <li>
+                                                    <div class="col-md-7" style="padding-left:0px;">Tempo de Entrega({[avaliacao.tempo_entrega]})</div>
+                                                    <div class="col-md-5">
+                                                        <div class="rating" style="margin:0 auto;">
+                                                            <span ng-click="avaliacao.tempo_entrega=5">☆</span>
+                                                            <span ng-click="avaliacao.tempo_entrega=4">☆</span>
+                                                            <span ng-click="avaliacao.tempo_entrega=3">☆</span>
+                                                            <span ng-click="avaliacao.tempo_entrega=2">☆</span>
+                                                            <span ng-click="avaliacao.tempo_entrega=1">☆</span>
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                                <li>
+                                                    <div class="col-md-7" style="padding-left:0px;">Custo/Benefício({[avaliacao.custo_beneficio]})</div>
+                                                    <div class="col-md-5">
+                                                        <div class="rating" style="margin:0 auto;">
+                                                            <span ng-click="avaliacao.custo_beneficio=5">☆</span>
+                                                            <span ng-click="avaliacao.custo_beneficio=4">☆</span>
+                                                            <span ng-click="avaliacao.custo_beneficio=3">☆</span>
+                                                            <span ng-click="avaliacao.custo_beneficio=2">☆</span>
+                                                            <span ng-click="avaliacao.custo_beneficio=1">☆</span>
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                            </ul>
+
+                                            <div class="col-md-12" style="padding:0px;">
+                                                <hr>
+                                            </div>
+
+                                            <b>Avaliação no MenuWeb({[avaliacao.avaliacao_menuweb]})</b><br>
+                                            <p class="texto-cinza-claro">Numa escala de 1 a 10, qual a probalidade de você indicar o MenuWeb a um amigo?</p>
+
+                                            <br>
+                                            <a ng-click="avaliacao.avaliacao_menuweb=1" class="btn btn-xs btn-default">01</a>
+                                            <a ng-click="avaliacao.avaliacao_menuweb=2" class="btn btn-xs btn-default">02</a>
+                                            <a ng-click="avaliacao.avaliacao_menuweb=3" class="btn btn-xs btn-default">03</a>
+                                            <a ng-click="avaliacao.avaliacao_menuweb=4" class="btn btn-xs btn-default">04</a>
+                                            <a ng-click="avaliacao.avaliacao_menuweb=5" class="btn btn-xs btn-default">05</a>
+                                            <a ng-click="avaliacao.avaliacao_menuweb=6" class="btn btn-xs btn-default">06</a>
+                                            <a ng-click="avaliacao.avaliacao_menuweb=7" class="btn btn-xs btn-default">07</a>
+                                            <a ng-click="avaliacao.avaliacao_menuweb=8" class="btn btn-xs btn-default">08</a>
+                                            <a ng-click="avaliacao.avaliacao_menuweb=9" class="btn btn-xs btn-default">09</a>
+                                            <a ng-click="avaliacao.avaliacao_menuweb=10" class="btn btn-xs btn-default">10</a>
+                                        </div>
+                                    </div>
+                            </div>
+                            <textarea ng-model="avaliacao.mensagem" class="form-control"></textarea>
+                            <a ng-show="avaliacao.avaliacao_menuweb && avaliacao.embalagem && avaliacao.comida && avaliacao.tempo_entrega && avaliacao.custo_beneficio"
+                               ng-click="salvar()"
+                               class="btn btn-default btn-laranja" style="margin: 15px 0px;float: right;">Enviar Avaliação</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pagina-avaliacoes tab-pane fade" role="tabpanel" id="pedidos_avaliacao" aria-labelledby="pedidos_avaliacao-tab">
+                <div class="col-md-12">
+                    <div class="col-md-12 topo">
+                        <div class="col-md-8">
+                            <b class="ttl-laranja">PEDIDOS AVALIADOS</b>
+                        </div>
+                    </div>
+
+                    <div class="col-md-12 avaliacoes_recentes" ng-repeat="avaliacao_r in avaliacao_realizadas">
+                        <ul>
+                            <li class="col-md-12" style="margin:20px;">
+                                <div class="col-md-6 ttl-laranja">
+                                    {[avaliacao_r.pedido__empresa__nome]}
+                                </div>
+                                <div class="col-md-6 ttl-laranja">
+                                    Pedido realizado: <b>{[avaliacao_r.pedido__data]}</b>
+                                </div>
+
+                                <div class="col-md-12">
+                                    <div class="col-md-12 box-cinza-claro">
+                                        <div class="col-md-4" style="text-align:center;">
+                                            Nota Final <br>
+                                            <b style="font-size:30px;color:#FF3E00;">
+                                                {[avaliacao_r.nota]}
+                                            </b>
+                                            <div class="rating" style="margin:0 auto;">
+                                                <span>☆</span>
+                                                <span>☆</span>
+                                                <span>☆</span>
+                                                <span>☆</span>
+                                                <span>☆</span>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-6 col-md-offset-2">
+                                            <div class="col-md-12 tipo_avaliacao">
+                                                <div class="col-md-6">
+                                                    Embalagem({[avaliacao_r.embalagem]})
+                                                </div>
+                                                <div class="col-md-6 ">
+                                                    <div class="rating">
+                                                        <span>☆</span>
+                                                        <span>☆</span>
+                                                        <span>☆</span>
+                                                        <span>☆</span>
+                                                        <span>☆</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+
+                                            <div class="col-md-12 tipo_avaliacao">
+                                                <div class="col-md-6">
+                                                    Comida({[avaliacao_r.comida]})
+                                                </div>
+                                                <div class="col-md-6 ">
+                                                    <div class="rating">
+                                                        <span>☆</span>
+                                                        <span>☆</span>
+                                                        <span>☆</span>
+                                                        <span>☆</span>
+                                                        <span>☆</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-12 tipo_avaliacao">
+                                                <div class="col-md-6">
+                                                    Tempo de Entrega({[avaliacao_r.tempo_entrega]})
+                                                </div>
+                                                <div class="col-md-6 ">
+                                                    <div class="rating">
+                                                        <span>☆</span>
+                                                        <span>☆</span>
+                                                        <span>☆</span>
+                                                        <span>☆</span>
+                                                        <span>☆</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-12 tipo_avaliacao">
+                                                <div class="col-md-6">
+                                                    Custo/ Benefício({[avaliacao_r.custo_beneficio]})
+                                                </div>
+                                                <div class="col-md-6 ">
+                                                    <div class="rating">
+                                                        <span>☆</span>
+                                                        <span>☆</span>
+                                                        <span>☆</span>
+                                                        <span>☆</span>
+                                                        <span>☆</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

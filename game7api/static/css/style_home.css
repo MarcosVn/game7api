@@ -639,3 +639,8 @@ a:hover, a:active, a:focus{
 .avaliacoes_recentes .lista-produtos{
     margin:10px 0px;
 }
+
+.ok{
+    content: "\2605";
+    position: absolute;
+}
