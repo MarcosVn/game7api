@@ -1,20 +1,18 @@
 <div class="container">
     <div class="row">
-        <div class="col-md-12 pagina-avaliacoes">
+        <div class="col-md-12 pagina-avaliacoes" ng-if="tela_avaliacao">
             <div class="col-md-12 topo">
-
                 <div class="col-md-2 col-md-offset-8">
-                    <a href="#avaliacoes_recentes" id="avaliacoes_recentes-tab" data-toggle="tab" aria-controls="avaliacoesrecentes" role="tab" class="btn btn-default btn-laranja">Avaliações Recentes</a>
+                    <a ng-click="menu='cadastro' " ng-class="{'active': menu=='cadastro'}" class="btn btn-default btn-laranja">Avaliações Recentes</a>
                 </div>
                 <div class="col-md-2">
-                    <a href="#pedidos_avaliacao" id="pedidos_avaliacao-tab" data-toggle="tab" aria-controls="pedidosavaliados" role="tab" class="btn btn-default btn-laranja">Pedidos Avaliados</a>
+                    <a ng-click="menu='lista' " ng-class="{'active': menu=='lista'}" class="btn btn-default btn-laranja">Pedidos Avaliados</a>
                 </div>
             </div>
         </div>
 
         <div class="tab-content" id="myTabContent">
-            <div class="pagina-avaliacoes tab-pane fade active in" id="avaliacoes_recentes" role="tabpanel" aria-labelledby="avaliacoes_recentes-tab">
-
+            <div class="pagina-avaliacoes" id="avaliacoes_recentes" ng-if="menu=='cadastro'">
                 <div class="col-md-12" ng-if="avaliacao">
                     <div class="col-md-12 topo">
                         <div class="col-md-8">
@@ -165,7 +163,7 @@
                 </div>
             </div>
 
-            <div class="pagina-avaliacoes tab-pane fade" role="tabpanel" id="pedidos_avaliacao" aria-labelledby="pedidos_avaliacao-tab">
+            <div class="pagina-avaliacoes" id="pedidos_avaliacao" ng-if="menu=='lista'">
                 <div class="col-md-12">
                     <div class="col-md-12 topo">
                         <div class="col-md-8">

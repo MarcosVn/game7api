@@ -36,15 +36,23 @@ game7App.directive("avaliacao", function($http){
         transclude: true,
         link: function(scope){
             scope.avaliacao = {};
+            scope.tela_avaliacao = location.pathname.indexOf('avaliacao') >= 0;
+            scope.menu = 'lista';
             scope.pedido = false;
             var user_id = window.localStorage.c_logado;
             //pendentes
             $http({url: "http://localhost:8000/js/avaliacao_pendente", method: "GET", params: {id: user_id}}).then(function(response){
                 scope.avaliacao = response.data;
-                if(scope.avaliacao.chegou_hora){
-                    scope.avaliacao.chegou_hora = "true"
-                } else {
-                    scope.avaliacao.chegou_hora = "false"
+                if(scope.avaliacao){
+                    scope.menu = 'cadastro';
+                    if(!scope.tela_avaliacao)
+                        $('.modal').modal('show');
+
+                    if(scope.avaliacao.chegou_hora){
+                        scope.avaliacao.chegou_hora = "true"
+                    } else {
+                        scope.avaliacao.chegou_hora = "false"
+                    }
                 }
                 $http({url: URL_BASE + "pedidos", method: "GET", params: {id: scope.avaliacao.pedido}}).then(function(response){
                     scope.pedido = response.data[0];

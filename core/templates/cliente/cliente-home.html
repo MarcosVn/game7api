@@ -33,7 +33,23 @@
                 <p class="alert alert-danger" style="text-align:center;">Complete seus dados, o seu endereço é uma informação muito imporante para a realização dos pedidos. Acesse o <a href="profile.html">seu perfil</a> e complete agora mesmo</p>
             </div>
             <div class="col-md-12 lista-home" style="min-height:500px;">
-                <avaliacao></avaliacao>
+
+                <!-- Modal content-->
+                 <!-- Modal -->
+                  <div class="modal fade" id="modal_pendencia" role="dialog">
+                      <div class="modal-dialog modal-lg" style="width: 1200px;">
+                          <div class="modal-content">
+                              <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                <h4 class="modal-title">Avaliação Pendente</h4>
+                            </div>
+                            <div class="modal-body">
+                                <avaliacao></avaliacao>
+                                aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+                            </div>
+                        </div>
+                      </div>
+                  </div>
                 <input class="form-control" id="iFiltro" ng-keyup="filtrar();" placeholder="Buscar Prato ou restaurante" style="margin-bottom:30px;">
                 <div class="col-md-12 filtros">
                     <div class="col-md-2">
@@ -99,4 +115,10 @@
     </div>
 </div>
 
+{% endblock %}
+
+{% block js_extra %}
+{#    <script src="{% static 'js/bootstrap.min.js'%}"></script>#}
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 {% endblock %}
