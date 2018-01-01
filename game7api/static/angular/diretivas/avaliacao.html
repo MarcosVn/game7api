@@ -87,11 +87,11 @@
                                                     <div class="col-md-7" style="padding-left:0px;">Embalagem({[avaliacao.embalagem]})</div>
                                                     <div class="col-md-5">
                                                         <div class="rating" style="margin:0 auto;">
-                                                            <span ng-click="avaliacao.embalagem=5">☆</span>
-                                                            <span ng-click="avaliacao.embalagem=4">☆</span>
-                                                            <span ng-click="avaliacao.embalagem=3">☆</span>
-                                                            <span ng-click="avaliacao.embalagem=2">☆</span>
-                                                            <span ng-click="avaliacao.embalagem=1">☆</span>
+                                                            <span ng-class="{'ok': avaliacao.embalagem>=5}" ng-click="avaliacao.embalagem=5">☆</span>
+                                                            <span ng-class="{'ok': avaliacao.embalagem>=4}" ng-click="avaliacao.embalagem=4">☆</span>
+                                                            <span ng-class="{'ok': avaliacao.embalagem>=3}" ng-click="avaliacao.embalagem=3">☆</span>
+                                                            <span ng-class="{'ok': avaliacao.embalagem>=2}" ng-click="avaliacao.embalagem=2">☆</span>
+                                                            <span ng-class="{'ok': avaliacao.embalagem>=1}" ng-click="avaliacao.embalagem=1">☆</span>
                                                         </div>
                                                     </div>
                                                 </li>
@@ -99,11 +99,11 @@
                                                     <div class="col-md-7" style="padding-left:0px;">Comida({[avaliacao.comida]})</div>
                                                     <div class="col-md-5">
                                                         <div class="rating" style="margin:0 auto;">
-                                                            <span ng-click="avaliacao.comida=5">☆</span>
-                                                            <span ng-click="avaliacao.comida=4">☆</span>
-                                                            <span ng-click="avaliacao.comida=3">☆</span>
-                                                            <span ng-click="avaliacao.comida=2">☆</span>
-                                                            <span ng-click="avaliacao.comida=1">☆</span>
+                                                            <span ng-class="{'ok': avaliacao.comida>=5}" ng-click="avaliacao.comida=5">☆</span>
+                                                            <span ng-class="{'ok': avaliacao.comida>=4}" ng-click="avaliacao.comida=4">☆</span>
+                                                            <span ng-class="{'ok': avaliacao.comida>=3}" ng-click="avaliacao.comida=3">☆</span>
+                                                            <span ng-class="{'ok': avaliacao.comida>=2}" ng-click="avaliacao.comida=2">☆</span>
+                                                            <span ng-class="{'ok': avaliacao.comida>=1}" ng-click="avaliacao.comida=1">☆</span>
                                                         </div>
                                                     </div>
                                                 </li>
@@ -111,11 +111,11 @@
                                                     <div class="col-md-7" style="padding-left:0px;">Tempo de Entrega({[avaliacao.tempo_entrega]})</div>
                                                     <div class="col-md-5">
                                                         <div class="rating" style="margin:0 auto;">
-                                                            <span ng-click="avaliacao.tempo_entrega=5">☆</span>
-                                                            <span ng-click="avaliacao.tempo_entrega=4">☆</span>
-                                                            <span ng-click="avaliacao.tempo_entrega=3">☆</span>
-                                                            <span ng-click="avaliacao.tempo_entrega=2">☆</span>
-                                                            <span ng-click="avaliacao.tempo_entrega=1">☆</span>
+                                                            <span ng-class="{'ok': avaliacao.tempo_entrega>=5}" ng-click="avaliacao.tempo_entrega=5">☆</span>
+                                                            <span ng-class="{'ok': avaliacao.tempo_entrega>=4}" ng-click="avaliacao.tempo_entrega=4">☆</span>
+                                                            <span ng-class="{'ok': avaliacao.tempo_entrega>=3}" ng-click="avaliacao.tempo_entrega=3">☆</span>
+                                                            <span ng-class="{'ok': avaliacao.tempo_entrega>=2}" ng-click="avaliacao.tempo_entrega=2">☆</span>
+                                                            <span ng-class="{'ok': avaliacao.tempo_entrega>=1}" ng-click="avaliacao.tempo_entrega=1">☆</span>
                                                         </div>
                                                     </div>
                                                 </li>
@@ -123,11 +123,11 @@
                                                     <div class="col-md-7" style="padding-left:0px;">Custo/Benefício({[avaliacao.custo_beneficio]})</div>
                                                     <div class="col-md-5">
                                                         <div class="rating" style="margin:0 auto;">
-                                                            <span ng-click="avaliacao.custo_beneficio=5">☆</span>
-                                                            <span ng-click="avaliacao.custo_beneficio=4">☆</span>
-                                                            <span ng-click="avaliacao.custo_beneficio=3">☆</span>
-                                                            <span ng-click="avaliacao.custo_beneficio=2">☆</span>
-                                                            <span ng-click="avaliacao.custo_beneficio=1">☆</span>
+                                                            <span ng-class="{'ok': avaliacao.custo_beneficio>=5}" ng-click="avaliacao.custo_beneficio=5">☆</span>
+                                                            <span ng-class="{'ok': avaliacao.custo_beneficio>=4}" ng-click="avaliacao.custo_beneficio=4">☆</span>
+                                                            <span ng-class="{'ok': avaliacao.custo_beneficio>=3}" ng-click="avaliacao.custo_beneficio=3">☆</span>
+                                                            <span ng-class="{'ok': avaliacao.custo_beneficio>=2}" ng-click="avaliacao.custo_beneficio=2">☆</span>
+                                                            <span ng-class="{'ok': avaliacao.custo_beneficio>=1}" ng-click="avaliacao.custo_beneficio=1">☆</span>
                                                         </div>
                                                     </div>
                                                 </li>
@@ -141,16 +141,16 @@
                                             <p class="texto-cinza-claro">Numa escala de 1 a 10, qual a probalidade de você indicar o MenuWeb a um amigo?</p>
 
                                             <br>
-                                            <a ng-click="avaliacao.avaliacao_menuweb=1" class="btn btn-xs btn-default">01</a>
-                                            <a ng-click="avaliacao.avaliacao_menuweb=2" class="btn btn-xs btn-default">02</a>
-                                            <a ng-click="avaliacao.avaliacao_menuweb=3" class="btn btn-xs btn-default">03</a>
-                                            <a ng-click="avaliacao.avaliacao_menuweb=4" class="btn btn-xs btn-default">04</a>
-                                            <a ng-click="avaliacao.avaliacao_menuweb=5" class="btn btn-xs btn-default">05</a>
-                                            <a ng-click="avaliacao.avaliacao_menuweb=6" class="btn btn-xs btn-default">06</a>
-                                            <a ng-click="avaliacao.avaliacao_menuweb=7" class="btn btn-xs btn-default">07</a>
-                                            <a ng-click="avaliacao.avaliacao_menuweb=8" class="btn btn-xs btn-default">08</a>
-                                            <a ng-click="avaliacao.avaliacao_menuweb=9" class="btn btn-xs btn-default">09</a>
-                                            <a ng-click="avaliacao.avaliacao_menuweb=10" class="btn btn-xs btn-default">10</a>
+                                            <a ng-class="{'btn-danger': avaliacao.avaliacao_menuweb==1}" ng-click="avaliacao.avaliacao_menuweb=1" class="btn btn-xs btn-default">01</a>
+                                            <a ng-class="{'btn-danger': avaliacao.avaliacao_menuweb==2}" ng-click="avaliacao.avaliacao_menuweb=2" class="btn btn-xs btn-default">02</a>
+                                            <a ng-class="{'btn-danger': avaliacao.avaliacao_menuweb==3}" ng-click="avaliacao.avaliacao_menuweb=3" class="btn btn-xs btn-default">03</a>
+                                            <a ng-class="{'btn-danger': avaliacao.avaliacao_menuweb==4}" ng-click="avaliacao.avaliacao_menuweb=4" class="btn btn-xs btn-default">04</a>
+                                            <a ng-class="{'btn-danger': avaliacao.avaliacao_menuweb==5}" ng-click="avaliacao.avaliacao_menuweb=5" class="btn btn-xs btn-default">05</a>
+                                            <a ng-class="{'btn-danger': avaliacao.avaliacao_menuweb==6}" ng-click="avaliacao.avaliacao_menuweb=6" class="btn btn-xs btn-default">06</a>
+                                            <a ng-class="{'btn-danger': avaliacao.avaliacao_menuweb==7}" ng-click="avaliacao.avaliacao_menuweb=7" class="btn btn-xs btn-default">07</a>
+                                            <a ng-class="{'btn-danger': avaliacao.avaliacao_menuweb==8}" ng-click="avaliacao.avaliacao_menuweb=8" class="btn btn-xs btn-default">08</a>
+                                            <a ng-class="{'btn-danger': avaliacao.avaliacao_menuweb==9}" ng-click="avaliacao.avaliacao_menuweb=9" class="btn btn-xs btn-default">09</a>
+                                            <a ng-class="{'btn-danger': avaliacao.avaliacao_menuweb==10}" ng-click="avaliacao.avaliacao_menuweb=10" class="btn btn-xs btn-default">10</a>
                                         </div>
                                     </div>
                             </div>

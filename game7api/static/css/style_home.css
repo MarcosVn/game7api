@@ -640,7 +640,8 @@ a:hover, a:active, a:focus{
     margin:10px 0px;
 }
 
-.ok{
+.ok::before{
     content: "\2605";
     position: absolute;
+    color: #ff0000;
 }
