@@ -18,55 +18,6 @@
 	</head>
 	<body ng-app="game7App">
         <div ng-controller="topoClienteCtrl">
-			<div class="cortina" ng-show="pe.lista_pedidos_concluidos.length"></div>
-			<div class="avaliacoes_home col-md-12 col-xs-12" ng-show="pe.lista_pedidos_concluidos.length">
-				<b class="ttl-laranja col-md-12" style="margin-left: 45px;margin-top: 20px;margin-bottom: 20px;">AVALIAÇÕES PENDENTES</b>
-				<div class="col-md-12 aval" ng-repeat="ped in pe.lista_pedidos_concluidos">
-					<div class="col-md-5">
-						<div class="box-cinza col-md-12">
-							<div class="col-md-12 borda-baixo">
-								<div class="col-md-6" style="padding:0px;">Pedido Número</div>
-								<div class="col-md-6"><p class="txt-cinza-claro">#{[ped.id]}</p></div>
-							</div>
-
-							<div class="col-md-12 borda-baixo">
-								<table class="table" style="margin-bottom:0px;font-size:12px;">
-									<tr ng-repeat="it in ped.itens">
-										<td>{[it.produto]}</td>
-										<td>{[it.quantidade]}</td>
-										<td>R$ {[it.preco_parcial.toFixed(2)]}</td>
-									</tr>
-								</table>
-							</div>
-
-							<div class="col-md-12" style="margin-top:40px;">
-								<div class="col-md-6" style="padding:0px;">Taxa de Entrega</div>
-								<div class="col-md-6"><p class="txt-cinza-claro">R$ {[ped.frete.toFixed(2)]}</p></div>
-								<div class="col-md-6" style="padding:0px;">Total</div>
-								<div class="col-md-6"><p class="txt-cinza-claro">R$ {[ped.total.toFixed(2)]}</p></div>
-							</div>
-						</div>
-					</div>
-					<div class="col-md-7">
-						<p class="ttl-laranja">Pedido realizado:<b>{[ped.data]}</b></p>
-
-						<div class="col-md-12 box-cinza">
-							<label>Mensagem</label>
-							<textarea rows="3" id="ipMensagem{[ped.id]}" name="ipMensagem{[ped.id]}" class="form-control"></textarea>
-
-							<label>Avaliação</label>
-							<div class="rating">
-								<span ng-click="set_avaliacao_pedido(5,ped.id);">☆</span>
-								<span ng-click="set_avaliacao_pedido(4,ped.id);">☆</span>
-								<span ng-click="set_avaliacao_pedido(3,ped.id);">☆</span>
-								<span ng-click="set_avaliacao_pedido(2,ped.id);">☆</span>
-								<span ng-click="set_avaliacao_pedido(1,ped.id);">☆</span>
-							</div>
-						</div>
-					</div>
-				</div>
-
-			</div>
             <div class="menu-topo col-md-12 col-xs-12" style="padding:15px 175px;">
                 <div class="" style="padding:0px;">
                     <div class="col-md-2 col-xs-2">
