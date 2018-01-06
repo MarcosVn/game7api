@@ -1,4 +1,4 @@
-//URL_BASE = "http://0.0.0.0:8030/js/";
+//URL_BASE = "http://0.0.0.0:8000/js/";
 //URL_BASE = "http://0.0.0.0:8060/js/";
 //URL_BASE = "https://serene-atoll-63219.herokuapp.com/js/";
 URL_BASE = "http://menuweb.com.br/js/";
@@ -465,6 +465,7 @@ game7App.factory("Cliente", function (Ajax,$http) {
         $http.post(url, f, {headers: {'Content-Type': undefined}}).success(
           function(response){
             obj.retorno = response;
+            location.reload();
           }
         )
     };
@@ -518,6 +519,7 @@ game7App.factory("Cliente", function (Ajax,$http) {
         $http.post(url, f, {headers: {'Content-Type': undefined}}).success(
           function(response){
             obj.retorno = response;
+            location.reload();
           }
         )
 
