@@ -11,28 +11,29 @@
 		<script src="{% static 'angular/game7_app.js' %}"></script>
 		<script src="{% static 'angular/models.js' %}"></script>
 		<script src="{% static 'angular/controllers.js' %}"></script>
+        <script defer src="https://use.fontawesome.com/releases/v5.0.7/js/all.js"></script>
+        <link rel="shortcut icon" href="{% static 'img/logo.ico' %}"/>
 	</head>
 	<body ng-app="game7App">
         <div ng-controller="topoCtrl" id="genLoginCtrl" role="main">
             <div class="menu-topo col-md-12 col-xs-12">
                 <div class="container col-md-12 col-xs-12">
-                    <div class="col-md-2 col-xs-2">
+                    <div class="col-md-3 col-xs-3">
                         <a href="/"><img src="{% static 'img/logo-menu.png' %}" style="width:150px;padding-top:8px;"/></a>
                     </div>
                     <div class="col-md-7 col-xs-7">
-                        <ul class="nav nav-pills">
+                        <ul class="nav nav-pills pull-right">
                             <li style="padding-left:30px;"><a href="/sobre">Sobre o MenuWeb</a></li>
                             <li><a data-toggle="modal" data-target="#poprestaurante" href="#">Cadastre seu Restaurante</a></li>
+                            <li><a href="/contato">Contato</a></li>
                         </ul>
                     </div>
-                    <div class="col-md-3 col-xs-3 orange">
+                    <div class="col-md-2 col-xs-2 orange">
                         <div ng-if="cl.clientelogado[0] == null">
                             <div class="btn-group" role="group" aria-label="..." style="padding-top:8px;">
                               <!--<a class="btn btn-sm btn-default" data-toggle="modal" data-target="#poplogin">Entrar</a>-->
                               <!--<a class="btn btn-sm btn-default" data-toggle="modal" data-target="#popcadastro">Cadastrar</a>-->
-
-                              <a class="btn btn-sm btn-default" href="/cadastro-login">Entrar</a>
-                              <a class="btn btn-sm btn-default" href="/cadastro-login">Cadastrar</a>
+                              <a class="btn btn-sm btn-default" href="/cadastro-login">Entrar ou cadastrar</a>
                             </div>
                         </div>
                         <div ng-if="cl.clientelogado[0]">
@@ -51,14 +52,18 @@
             <div class="modal fade popup" id="poprestaurante" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
-                        <div class="modal-header">
+                        <div class="modal-header" style="background-color: #FF3E00; padding: 5px 5px 20px 5px!important;">
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                             <br/>
                             <img src="{% static 'img/logo-menu.png' %}" style="width:150px;margin:0 auto;display:block;"/>
                         </div>
                         <div class="modal-body">
-                            <label class="control-label">Nome</label><br/>
+                            <label class="control-label">Nome (Razão Social)</label><br/>
                             <input type="text" id="restaurantenome" name="restaurantenome" required="True" class="form-control"/>
+                            <br/>
+
+                            <label class="control-label">CNPJ</label><br/>
+                            <input type="number" id="cnpj" name="restaurantecnpj" maxlength="16" class="form-control"/>
                             <br/>
 
                             <label class="control-label">Email</label><br/>
@@ -75,11 +80,11 @@
 
                             <div class="col-md-12" style="padding-left:0px;padding-right:0px;margin-bottom:20px;">
                                 <div class="col-md-9" style="padding-left:0px;padding-right:0px;">
-                                    <label class="control-label">Cep</label><br/>
+                                    <label class="control-label">CEP</label><br/>
                                     <input type="text" id="restaurantecep" type="text" name="restaurantecep" required="True" class="form-control"/>
                                 </div>
                                 <div class="col-md-3" style="padding-right:0px;">
-                                    <a class="btn btn-primary" ng-click="getceprestaurante();">Localizar</a>
+                                    <a class="btn btn-primary btn-enter" ng-click="getceprestaurante();" style="margin-top: 5px"><i class="fas fa-search"></i>&nbsp;&nbsp;<b>Buscar</b></a>
                                 </div>
                             </div>
 
@@ -113,7 +118,7 @@
                             <br/>
 
                             <br>
-                            <a ng-click="atualizarrestaurante();" href="#" class="btn btn-sm btn-success"><i class="glyphicon glyphicon-ok"></i> Enviar Pré-Cadastro</a>
+                            <div class="text-center"><a ng-click="atualizarrestaurante();" href="#" class="btn btn-sm btn-green"><i class="glyphicon glyphicon-envelope"></i>&nbsp;&nbsp;<b>Enviar Pré-Cadastro</b></a></div>
                         </div>
                     </div>
                 </div>

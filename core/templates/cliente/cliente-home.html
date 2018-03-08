@@ -49,16 +49,27 @@
                         </div>
                       </div>
                   </div>
-                <input class="form-control" id="iFiltro" ng-keyup="filtrar();" placeholder="Buscar Prato ou restaurante" style="margin-bottom:30px;">
+                <br>
+
+                 <div class="inner-addon left-addon">
+                    <i class="glyphicon glyphicon-search" style="font-size: 20px;"></i>
+                    <input class="form-control search-place" id="iFiltro" ng-keyup="filtrar();" placeholder="Buscar prato ou restaurante" style="margin-bottom:30px;">
+                 </div>
+
                 <div class="col-md-12 filtros">
                     <div class="col-md-2">
                         Cozinha:
-                        <select class="form-control" name="filtro_tipocozinha" id="filtro_tipocozinha" ng-options="tipocozinha as tipocozinha.fields.nome for tipocozinha in tc.lista_tiposcozinha track by tipocozinha.pk" ng-model="tc.tipocozinha_selecionado"></select>
+                        <h5 ng-repeat="tipo in tipocozinha">
+                            {{ tipo }}
+                        </h5>
+                        <select class="form-control" name="filtro_tipocozinha" id="filtro_tipocozinha" ng-options="tipocozinha as tipocozinha.fields.nome for tipocozinha in tc.lista_tiposcozinha track by tipocozinha.pk" ng-model="tc.tipocozinha_selecionado">
+                            <option value="">Todos</option>
+                        </select>
                     </div>
                     <div class="col-md-2">
-                        Preço:
+                       Preço:
                         <select class="form-control" id="filtro_preco">
-                            <option value=""></option>
+                            <option value="">Todos</option>
                             <option value="0_30">até 30 reais</option>
                             <option value="31_40">de 31 a 40 reais</option>
                             <option value="41_60">de 41 a 60 reais</option>
@@ -69,7 +80,7 @@
                     <div class="col-md-2">
                         Pagamento:
                         <select class="form-control" id="filtro_cobranca">
-                            <option value=""></option>
+                            <option value="">Todos</option>
                             <option value="dinheiro">Dinheiro</option>
                             <option value="cartao">Cartão de Crédito/Débito - Na entrega</option>
                             <option value="valerefeicao">Vale Refeição - Na entrega</option>
@@ -78,28 +89,38 @@
                     </div>
                     <div class="col-md-2">
                         Entrega:
-                        <select class="form-control" name="filtro_entrega" id="filtro_entrega" ng-options="tipotempo as tipotempo.fields.nome for tipotempo in tt.lista_tipostempo track by tipotempo.pk" ng-model="tt.tipotempo_selecionado"></select>
+                        <select class="form-control" name="filtro_entrega" id="filtro_entrega" ng-options="tipotempo as tipotempo.fields.nome for tipotempo in tt.lista_tipostempo track by tipotempo.pk" ng-model="tt.tipotempo_selecionado">
+                            <option value="">Todos</option>
+                        </select>
                     </div>
-                    <div class="col-md-2" style="padding:28px 25px 50px;">
-                        <input type="checkbox" name="filtro_entrega_gratis" id="filtro_entrega_gratis"/> Entrega grátis
-                    </div>
+                    <div class="col-md-2"></div>
                     <div class="col-md-2">
                         <a class="btn btn-default" ng-click="filtrar();" style="margin-top:20px;">Filtrar</a>
                     </div>
                 </div>
-                <div class="col-md-12 lista-home-item" ng-repeat="emp in em.lista_empresas">
+                <div class="col-md-12 filtros" style="margin-bottom: 30px">
+                    <br>
+                    <div class="col-md-2" style="float: left;">
+                        <input type="checkbox" name="filtro_entrega_gratis" id="filtro_entrega_gratis"/> Entrega grátis
+                    </div>
+                    <div class="col-md-4" style="float: left;">
+                        <input type="checkbox" name="filtro_retirar_restaurante" id="filtro_retirar_restaurante"/> Retirar no restaurante
+                    </div>
+                    <p><p>
+                </div>
+                <div class="col-md-6 lista-home-item card" ng-repeat="emp in em.lista_empresas">
                     <a href="/cliente/restaurante?e_id={[emp.id]}">
-                        <div class="col-md-12 col-xs-12" style="padding:2px;padding:0px; margin-bottom:2px;font-weight:bold;">
-                            <div class="col-md-2 col-xs-2" style="padding:0px;">
+                        <div class="col-md-12 col-xs-12" style="padding:0; font-weight:bold;">
+                            <div class="col-md-2 col-xs-2 card-img-wrapper">
                                 <img class="img-circle" style="width:80px;height:80px;" ng-src="{[em.caminho_foto]}{[emp.logotipo]}" />
                             </div>
-                            <div class="col-md-9 col-xs-9" style="padding:0px;">
-                                <b>{[emp.nome]}</b>
+                            <div class="col-md-9 col-xs-9" style="padding:15px;">
+                                <b class="card-title">{[emp.nome]}</b>
                                 <p>
                                     {[emp.tipocozinha]} | $$$
                                 </p>
                             </div>
-                            <div class="col-md-1 col-xs-1 nota" style="padding:0px;">
+                            <div class="col-md-1 col-xs-1 nota" style="padding: 0px; float: right; margin-right: 20px;margin-top: -60px;">
                                 <img src="{% static 'img/estrela_amarela.png'%}" style="width:18px;">
                                 {[emp.nota_atual.toFixed(2)]}
                             </div>
@@ -113,7 +134,6 @@
         </div>
     </div>
 </div>
-
 {% endblock %}
 
 {% block js_extra %}

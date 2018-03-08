@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css?family=Open+Sans');
+
 @font-face {
     font-family: Ubuntu-R;
     src: url('fonts/Ubuntu-R.ttf');
@@ -26,11 +28,76 @@
 .btn-laranja{
     background-color:#FF3E00;
     color:#fff;
+    border-radius: 8px;
 }
 
-.btn-face{
+.btn-enter {
+    background-color:#FF3E00;
+    color:#fff;
+    border-radius: 8px;
+    line-height: 30px;
+}
+
+.btn-enter:hover{
+    background-color:#D91E18!important;
+    color:#fff;
+}
+
+.btn-face {
     background-color:#314B88;
     color:#fff;
+    border-radius: 8px;
+    line-height: 30px;
+}
+
+.btn-face:hover {
+    background-color: #4569bd!important;
+    color: black;
+}
+
+.btn-mail {
+    background: #d1a429;
+    color: white;
+    border-radius: 8px;
+    line-height: 30px;
+}
+
+.btn-mail:hover {
+    background: #e2af22!important;
+    color: black;
+}
+
+.btn-green {
+    background-color: #439a46;
+    border-radius: 8px;
+    line-height: 30px;
+    color: #fff;
+}
+
+.ico-btn {
+    float: left;
+    margin: 5px;
+    font-size: 20px;
+}
+
+.inner-addon { position: relative; }
+
+.inner-addon .glyphicon {
+  position: absolute;
+  padding: 10px;
+  pointer-events: none;
+}
+
+.left-addon .glyphicon  { left:  0px;}
+.right-addon .glyphicon { right: 0px;}
+
+.left-addon input  { padding-left:  50px; }
+.right-addon input { padding-right: 50px; }
+
+.search-place {
+    font-size: 20px!important;
+    font-family: 'Open Sans',Arial,sans-serif!important;
+    font-weight: 200!important;
 }
 
 .box-cinza-claro{
@@ -49,6 +116,11 @@
     margin:0px;
 }
 
+body {
+    max-width: 100%;
+    overflow-x: hidden;
+}
+
 .orange, .orange a{
     color:#FB4000;
     text-transform:none;
@@ -62,7 +134,7 @@ a:hover, a:active, a:focus{
 /*Menu Superior*/
 .menu-topo{
     background-color:#FF3E00;
-    padding:15px 200px;
+    padding:15px 120px;
 }
 
 .menu-topo .nav a{
@@ -111,13 +183,9 @@ a:hover, a:active, a:focus{
     margin-top:30px;
 }
 
-
 /*home*/
 .home{
-
 }
-
-
 .home .titulo{
     font-size:26px;
     margin-bottom:0px;
@@ -136,7 +204,6 @@ a:hover, a:active, a:focus{
     text-align:center;
     color:#fff;
     font-size:24px;
-    font-style:italic;
     margin-top:100px;
 }
 
@@ -146,21 +213,41 @@ a:hover, a:active, a:focus{
 
 .home .mediabox-home .busca .busca-home{
     background-color:#FF3E00;
+    color:#fff;
     text-transform:none;
     font-style:initial;
-    color:#fff;
+    font-weight: bold;
+    font-size: 15px;
+    height: 50px;
+    width: 150px;
+    border-radius: 0 8px 8px 0;
+    transition: .4s ease;
+    padding-top: 12px;
+}
+
+
+.home .mediabox-home .busca .busca-home:hover{
+    background-color:D91E18!important;
 }
 
 .home .mediabox-home .busca input{
     background-color:#fff;
     color:#000;
-    height:35px;
-    border-radius:4px;
-    font-size:12px;
+    height: 50px;
+    border-radius: 8px 0 0 8px;
     font-style:initial;
     padding-left:20px;
-    opacity:.8;
+    padding-right: 10px;
+    padding-top: 12px;
+    padding-bottom: 12px;
 }
+
+.txt-title {
+    font-family: 'Open Sans',sans-serif;
+    font-size: 33px;
+    font-weight: bold;
+}
+
 
 .home .mediabox-home .busca .cep{
     font-size:12px;
@@ -255,8 +342,7 @@ a:hover, a:active, a:focus{
 
 /*popup Login*/
 .popup .modal-dialog .modal-content{
-    background-color:#FB4000;
-    color:#fff;
+    color:black;
 }
 
 .popup .modal-dialog .modal-content label{
@@ -264,8 +350,7 @@ a:hover, a:active, a:focus{
 }
 
 .popup .modal-dialog .modal-content input{
-    color:#fff;
-    font-size:12px;
+    font-size:14px;
 }
 
 .popup .modal-dialog .modal-content select{
@@ -557,18 +642,18 @@ a:hover, a:active, a:focus{
 .lista-home-item{
     background-color:#fff;border-bottom:#ddd 1px solid;
     padding:15px 10px;
+    border: #e1e1e1 solid 1px;
+    margin: 0;
+    padding: 0;
 }
 
-.lista-home-item b{
-    color:#3C3A3B;
+.lista-home-item:hover{
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    transition: .3s;
 }
 
 .lista-home-item p{
     color:#AEAEAE;
-}
-
-.lista-home .lista-home-item:last-child{
-    border-bottom:none;
 }
 
 .lista-home .lista-home-item .nota{
@@ -644,4 +729,34 @@ a:hover, a:active, a:focus{
     content: "\2605";
     position: absolute;
     color: #ff0000;
+}
+
+.card {
+    display: inline-block;
+    position: relative;
+    width: 49%;
+    box-sizing: border-box;
+    margin-right: 10px;
+}
+
+.card-title {
+    display: inline-block;
+    color: #E63000;
+    font-size: 18px;
+    text-align: left;
+    font-weight: bold;
+    width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.card-img-wrapper {
+    float: left;
+    background-color: #f4f4f4;
+    padding: 24px;
+    position: relative;
+    box-sizing: border-box;
+    height: 125px;
+    width: 125px;
 }

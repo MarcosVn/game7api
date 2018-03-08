@@ -7,7 +7,6 @@
         <div class="row">
             <div class="col-md-8 col-md-offset-2 cadastro-login" style="padding:0px;margin-top:30px;margin-bottom:30px;">
                 <div class="col-md-6" style="padding:0px;border-right:#F4F4F4 1px solid;">
-
                     <div class="col-md-12 ttl-orange-cadastro">
                         <b>Quero me cadastrar!</b>
                         <p>Aproveite nossas ofertas</p>
@@ -15,8 +14,8 @@
 
                     <div class="col-md-12" style="padding:0px 25px;">
 
-                        <a class="btn btn-default" id="btnLoginFace2" scope="public_profile" onclick="login();" style="display:block;width:100%;font-weight:bold;text-transform:uppercase;">Cadastrar com Facebook</a>
-                        <a class="btn btn-default" id="btnCadastrarEmail" ng-click="cadastraremail();" style="display:block;width:100%;font-weight:bold;text-transform:uppercase;">Cadastrar com Email</a>
+                        <a class="btn btn-default btn-face" id="btnLoginFace2" scope="public_profile" onclick="login();" style="display:block;width:100%;font-weight:bold;text-transform:uppercase;"><i class="fab fa-facebook-f ico-btn"></i>Cadastrar com Facebook</a><br>
+                        <a class="btn btn-default btn-mail" id="btnCadastrarEmail" ng-click="cadastraremail();" style="display:block;width:100%;font-weight:bold;text-transform:uppercase;"><i class="fas fa-envelope ico-btn"></i>Cadastrar com Email</a>
 
 
                         <div id="gencadastroemail" style="display:none;padding-top:20px;margin-bottom:20px;">
@@ -85,19 +84,17 @@
                         <p>Faça agora o seu login</p>
                     </div>
                     <div class="col-md-12">
-                        <a class="btn btn-default" id="btnLoginFace" scope="public_profile" onclick="login();" style="display:block;width:100%;font-weight:bold;text-transform:uppercase;">Logar com Facebook</a>
+                        <a class="btn btn-default btn-face" id="btnLoginFace" scope="public_profile" onclick="login();" style="display:block;width:100%;font-weight:bold;text-transform:uppercase;"><i class="fab fa-facebook-f ico-btn"></i>Acessar com Facebook</a>
                         <a class="btn btn-default btn-face" id="btnContinuarFace" scope="public_profile" onclick="getInfo();" style="display:none;width:100%;color:#fff;background-color:#3b5998;font-weight:bold;text-transform:uppercase;">Continuar o Acesso</a>
 
-                        <label style="margin-top:20px;">E-mail</label>
-                        <input type="email" id="loginemail" class="form-control" />
+                        <label style="margin-top:20px;">E-mail:</label>
+                        <input type="email" id="loginemail" class="form-control" placeholder="Digite seu email" style="padding: 20px;border-radius: 8px;border: 1px solid #c5c5c5;"/>
                         <br>
 
-                        <label>Senha</label>
-                        <input type="password" id="loginsenha" class="form-control" />
+                        <label>Senha:</label>
+                        <input type="password" id="loginsenha" class="form-control" placeholder="Digite sua senha MenuWeb" style="padding: 20px;border-radius: 8px;border: 1px solid #c5c5c5;"/>
                         <br>
-
-                        <br>
-                        <a class="btn btn-laranja btn-default" ng-click="efetuarlogar();" style="display:block;width:100%;font-weight:bold;text-transform:uppercase;"><i class="glyphicon glyphicon-user"></i> Entrar</a><br/>
+                        <a class="btn btn-enter btn-default" ng-click="efetuarlogar();" style="display:block;width:100%;font-weight:bold;text-transform:uppercase;"><i class="glyphicon glyphicon-user"></i> Entrar</a><br/>
                     </div>
                 </div>
             </div>
@@ -105,5 +102,4 @@
 
     </div>
 </div>
-
 {% endblock %}
